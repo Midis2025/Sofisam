@@ -44,11 +44,11 @@ export function Newsletter() {
 
   return (
     <section
-      className="relative overflow-hidden bg-ink text-bone"
+      className="section relative overflow-hidden bg-ink text-bone"
       aria-labelledby="newsletter-heading"
     >
 
-      <div className="shell-wide relative z-10 py-[var(--space-section-lg)]">
+      <div className="shell-wide relative z-10">
         <div className="grid gap-[var(--space-section-md)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-6">
             <Reveal className="flex items-center gap-4">

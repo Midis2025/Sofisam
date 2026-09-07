@@ -57,10 +57,10 @@ export function ExpertiseSequence() {
           </div>
         </div>
 
-        <DrawRule className="mt-[var(--space-section-sm)]" />
+        <DrawRule className="mt-[var(--content-gap-lg)]" />
 
         {/* Sequence */}
-        <div className="mt-[var(--space-section-sm)] lg:grid lg:grid-cols-12 lg:gap-14">
+        <div className="mt-[var(--content-gap-lg)] lg:grid lg:grid-cols-12 lg:gap-14">
           {/* Sticky media — desktop only */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-[7.5rem]">

@@ -139,6 +139,21 @@
     padding-block: var(--space-section-sm);
   }
 
+  /* Two consecutive sections should read as one break, not two. Without this
+     each pays a full step and the pair leaves ~224px of dead ground between
+     the last line of one and the first label of the next. */
+  .section + .section,
+  .section + .section-md,
+  .section-md + .section {
+    padding-top: var(--space-section-sm);
+  }
+
+  .section:has(+ .section),
+  .section:has(+ .section-md),
+  .section-md:has(+ .section) {
+    padding-bottom: var(--space-section-sm);
+  }
+
   /* Header safe area — hero content must never start above this. */
   .below-header {
     padding-top: calc(var(--header-h) + clamp(1.5rem, 4vh, 3rem));
