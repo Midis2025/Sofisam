@@ -196,5 +196,16 @@
    2400
   ],
   "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsABABoJZQCdAD0rBV6gAD+7qv54XQ/mEXHMw+AAA=="
+ },
+ "hero-video-poster": {
+  "w": 1920,
+  "h": 1080,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1920
+  ],
+  "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAkABABoJQBOgCGu5JnfwADNsyrO96dKAaD61PqYJI/8uLQAAA=="
  }
 }

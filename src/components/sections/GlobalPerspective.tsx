@@ -1,105 +1,84 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { Picture } from '@/components/ui/Picture';
+import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Parallax } from '@/components/animations/Parallax';
 
-import { Reveal, MaskedLines, DrawRule } from '@/components/animations/Reveal';
-
-const Globe = dynamic(() => import('@/components/ui/Globe').then((m) => m.Globe), {
-  ssr: false,
-  loading: () => <div className="h-full w-full" aria-hidden />,
-});
-
-const facets = [
-  {
-    k: '01',
-    title: 'Relationships without borders',
-    body: 'From our world headquarters in the Dubai Multi Commodities Centre, our relationships and partnerships span the globe.',
-  },
-  {
-    k: '02',
-    title: 'Decisions read locally',
-    body: 'Conditions that govern an outcome rarely travel between jurisdictions. We read each on its own terms rather than by regional average.',
-  },
-  {
-    k: '03',
-    title: 'A single standard of judgement',
-    body: 'The market changes. What we are willing to recommend, and the independence behind it, does not.',
-  },
+/**
+ * Global perspective.
+ *
+ * Full-bleed architecture with a typographic overlay. The labels describe how
+ * the firm works, not where it has offices — the only location asserted
+ * anywhere on the site is the stated Dubai headquarters.
+ */
+const markers = [
+  { k: 'Base', v: 'Dubai' },
+  { k: 'Reach', v: 'International Markets' },
+  { k: 'Method', v: 'Strategic Relationships' },
 ];
 
 export function GlobalPerspective() {
   return (
     <section
-      className="relative overflow-hidden bg-ink text-bone"
+      className="relative w-full overflow-hidden bg-ink text-bone"
       aria-labelledby="global-heading"
     >
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-50"
-      />
+      <Parallax strength={9} className="absolute inset-0">
+        <div className="media veil-editorial h-full w-full">
+          <Picture
+            name="city-mono"
+            alt=""
+            decorative
+            sizes="100vw"
+            focal="50% 45%"
+            className="h-full w-full"
+          />
+        </div>
+      </Parallax>
 
-      <div className="shell-wide relative z-10 section">
-        <div className="grid gap-[clamp(2.5rem,6vw,5rem)] lg:grid-cols-12 lg:items-center">
-          {/* Copy */}
-          <div className="lg:col-span-5">
+      <div className="shell-wide relative z-10 flex min-h-[30rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[36rem]">
+        <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
             <Reveal className="flex items-center gap-4">
-              <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
+              <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
               <p className="t-label text-gold">Global Perspective</p>
             </Reveal>
 
-            <h2 id="global-heading" className="t-h2 mt-7 max-w-[15ch] text-bone">
-              <MaskedLines lines={['One vantage', 'point. A global', 'field of view.']} />
+            <h2 id="global-heading" className="t-h1 mt-[var(--content-gap-md)] max-w-[13ch] text-bone">
+              <MaskedLines lines={['One vantage point.', 'A global field', 'of view.']} />
             </h2>
-
-            <Reveal delay={0.12}>
-              <p className="t-body mt-7 max-w-[42ch] text-bone/60">
-                Dubai anchors the practice. The perspective it produces is
-                deliberately wider than the city that houses it.
-              </p>
-            </Reveal>
-
-            <DrawRule tone="light" className="mt-10" />
-
-            <ul className="mt-10 space-y-8">
-              {facets.map((f, i) => (
-                <Reveal as="li" key={f.k} delay={0.08 * i} className="flex gap-5">
-                  <span className="t-index shrink-0 pt-1 text-[0.72rem] text-gold">
-                    {f.k}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-[1.2rem] leading-snug tracking-tight text-bone">
-                      {f.title}
-                    </h3>
-                    <p className="mt-2 max-w-[44ch] text-[0.9rem] font-light leading-relaxed text-bone/50">
-                      {f.body}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </ul>
           </div>
 
-          {/* Globe */}
-          <div className="lg:col-span-7">
-            <Reveal>
-              <div className="relative mx-auto aspect-square w-full max-w-[30rem] sm:max-w-[34rem] lg:max-w-[38rem] xl:max-w-[42rem]">
-                <Globe className="absolute inset-0" />
-              </div>
+          <div className="lg:col-span-5">
+            <Reveal delay={0.1}>
+              <p className="t-lead measure-sm text-bone/70">
+                From our world headquarters in the Dubai Multi Commodities
+                Centre, our relationships and partnerships span the globe.
+              </p>
             </Reveal>
-
-            <Reveal delay={0.15}>
-              <div className="mx-auto mt-6 flex max-w-[30rem] sm:max-w-[34rem] flex-col gap-3 sm:flex-row sm:items-start sm:justify-between lg:max-w-[42rem]">
-                <p className="t-label tnum text-bone/35">
-                  Dubai&nbsp;&nbsp;25.0693°&nbsp;N&nbsp;/&nbsp;55.1400°&nbsp;E
-                </p>
-                <p className="max-w-[46ch] text-[0.74rem] font-light leading-relaxed text-bone/35 sm:text-right">
-                  Illustrative. The connecting lines represent international
-                  relationships and perspective, not office locations.
-                </p>
-              </div>
+            <Reveal delay={0.16}>
+              <p className="t-body measure-sm mt-4 text-bone/70">
+                Conditions that govern an outcome rarely travel between
+                jurisdictions. We read each on its own terms rather than by
+                regional average.
+              </p>
             </Reveal>
           </div>
         </div>
+
+        {/* Typographic markers, in place of any map or globe */}
+        <Reveal delay={0.2}>
+          <dl className="mt-[var(--content-gap-lg)] grid grid-cols-1 border-t border-bone/20 sm:grid-cols-3">
+            {markers.map((m) => (
+              <div key={m.k} className="border-b border-bone/12 py-5 sm:border-b-0 sm:pr-8">
+                <dt className="t-label text-bone/60">{m.k}</dt>
+                <dd className="mt-2.5 font-display text-[clamp(1.15rem,1.9vw,1.5rem)] leading-snug tracking-tight text-bone">
+                  {m.v}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
       </div>
     </section>
   );

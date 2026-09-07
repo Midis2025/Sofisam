@@ -47,13 +47,9 @@ export function Newsletter() {
       className="relative overflow-hidden bg-ink text-bone"
       aria-labelledby="newsletter-heading"
     >
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-40"
-      />
 
-      <div className="shell-wide relative z-10 py-[clamp(4.5rem,10vw,8.5rem)]">
-        <div className="grid gap-[clamp(2.5rem,6vw,5rem)] lg:grid-cols-12 lg:items-end">
+      <div className="shell-wide relative z-10 py-[var(--space-section-lg)]">
+        <div className="grid gap-[var(--space-section-md)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-6">
             <Reveal className="flex items-center gap-4">
               <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />

@@ -12,9 +12,9 @@ export function ExecutivePerspective() {
   return (
     <section className="section bg-bone" aria-labelledby="executive-heading">
       <div className="shell-wide">
-        <div className="grid gap-[clamp(2.5rem,6vw,4.5rem)] lg:grid-cols-12">
+        <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12">
           {/* Statement */}
-          <div className="lg:col-span-6 lg:pt-[clamp(2rem,6vw,6rem)]">
+          <div className="lg:col-span-6 lg:pt-[var(--space-section-lg)]">
             <Reveal className="flex items-center gap-4">
               <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
               <p className="t-label text-gold">Executive Perspective</p>
@@ -45,7 +45,7 @@ export function ExecutivePerspective() {
 
             {/* Stat-free credibility markers, drawn only from stated facts */}
             <Reveal delay={0.24}>
-              <dl className="mt-[clamp(2.5rem,5vw,3.5rem)] grid grid-cols-1 gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2">
+              <dl className="mt-[var(--content-gap-lg)] grid grid-cols-1 gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2">
                 {[
                   {
                     t: 'Decades of experience',

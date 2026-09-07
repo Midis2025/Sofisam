@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
-import { MeridianField } from '@/components/ui/MeridianField';
 import { Reveal, MaskedLines, DrawRule, ImageReveal } from '@/components/animations/Reveal';
 import { Parallax, ScaleOnScroll } from '@/components/animations/Parallax';
 import { ServicePager } from '@/components/sections/ServicePager';
@@ -87,9 +86,9 @@ export default function StrategicConsultingPage() {
             </p>
           </Reveal>
 
-          <DrawRule className="mt-[clamp(2.5rem,6vw,4.5rem)]" />
+          <DrawRule className="mt-[var(--space-section-sm)]" />
 
-          <div className="mt-[clamp(2rem,5vw,3.5rem)] grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="mt-[var(--content-gap-lg)] grid gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-4">
               <Reveal>
                 <p className="t-label text-ink/40">Strategic perspective</p>
@@ -113,11 +112,6 @@ export default function StrategicConsultingPage() {
         className="relative overflow-hidden bg-ink text-bone"
         aria-labelledby="sc-framework"
       >
-        <div
-          aria-hidden
-          className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-45"
-        />
-        <MeridianField className="pointer-events-none absolute -left-[26%] top-[10%] hidden h-[40rem] w-[40rem] opacity-[0.22] lg:block" />
 
         <div className="shell-wide relative z-10 section">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
@@ -132,7 +126,7 @@ export default function StrategicConsultingPage() {
             </div>
           </div>
 
-          <ol className="mt-[clamp(2.5rem,6vw,4.5rem)] lg:ml-[25%]">
+          <ol className="mt-[var(--space-section-sm)] lg:ml-[25%]">
             {framework.map((f, i) => (
               <Reveal
                 as="li"
@@ -161,7 +155,7 @@ export default function StrategicConsultingPage() {
         aria-labelledby="sc-outlook"
       >
         <Parallax strength={9} className="absolute inset-0">
-          <div className="media veil-soft h-full w-full">
+          <div className="media veil-editorial h-full w-full">
             <Picture
               name="city-mono"
               alt=""
@@ -173,7 +167,7 @@ export default function StrategicConsultingPage() {
           </div>
         </Parallax>
 
-        <div className="shell-wide relative z-10 flex min-h-[36rem] flex-col justify-end py-[clamp(4.5rem,11vw,8rem)]">
+        <div className="shell-wide relative z-10 flex min-h-[30rem] lg:min-h-[34rem] flex-col justify-end py-[var(--space-section-lg)]">
           <Reveal className="flex items-center gap-4">
             <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
             <p className="t-label text-gold">Global Outlook</p>
@@ -198,7 +192,7 @@ export default function StrategicConsultingPage() {
             How we work in strategic consulting
           </h2>
 
-          <ul className="space-y-[clamp(3rem,7vw,6rem)]">
+          <ul className="space-y-[var(--space-section-md)]">
             {service.themes.map((t, i) => (
               <li
                 key={t.label}

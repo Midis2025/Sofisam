@@ -45,13 +45,9 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
       className="relative overflow-hidden bg-ink text-bone"
       aria-labelledby="advisory-themes"
     >
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-40"
-      />
 
       <div className="shell-wide relative z-10 section">
-        <div className="grid gap-[clamp(2.5rem,6vw,4rem)] lg:grid-cols-12 lg:gap-12">
+        <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:gap-12">
           {/* Sticky media */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-[8rem]">
@@ -98,7 +94,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
               <MaskedLines lines={['What the counsel', 'actually covers.']} />
             </h2>
 
-            <div className="mt-[clamp(2rem,4vw,3rem)]">
+            <div className="mt-[var(--content-gap-lg)]">
               <Accordion
                 items={themes.map((t) => ({
                   label: t.label,

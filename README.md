@@ -37,7 +37,7 @@ preparation step described below.
 
 The three service pages deliberately share no page template — each has its own
 composition (a numbered decision ledger, a sticky-media accordion, and an
-animated framework schematic respectively).
+image-led typographic framework respectively).
 
 ---
 
@@ -64,9 +64,9 @@ be applied:**
   and no further.
 - Insight bodies are general professional commentary and carry a disclaimer
   noting they are not advice and describe no specific engagement.
-- The globe on the home and about pages carries a caption stating that the
-  connecting lines represent international relationships and perspective, not
-  office locations.
+- The Global Perspective section names Dubai as the base and otherwise speaks
+  of "international markets" and "strategic relationships" — it never implies
+  an office anywhere but the stated Dubai headquarters.
 - No social links are present, because the source site's social icons point at
   `#` and no verified profile URLs exist.
 
@@ -117,6 +117,64 @@ generated files in `public/images/` and the manifest are committed.
 
 ---
 
+## Hero video
+
+The homepage hero plays a licensed golden-hour Dubai skyline clip, stored
+locally in `public/videos/`:
+
+| File | Use |
+| --- | --- |
+| `hero-dubai-1080.mp4` | 3.3 MB — viewports ≥ 768px |
+| `hero-dubai-720.mp4` | 1.2 MB — viewports < 768px |
+| `hero-poster.jpg` | `<video poster>`, extracted from frame 1 |
+
+`HeroVideo` renders the poster still first — that carries first paint and is
+the permanent fallback — and attaches the `<video>` only after mount, so it
+never blocks render or competes with the LCP text. Playback is skipped entirely
+under `prefers-reduced-motion`, on `saveData`, and on 2g effective
+connections; in each case the still simply remains. The element pauses when
+scrolled out of view.
+
+The matching WebP poster variants (`hero-video-poster-*`) are in
+`public/images/` and registered in the image manifest like any other asset.
+
+---
+
+## Spacing system
+
+All vertical rhythm comes from three section steps and three content gaps
+defined in `globals.css`, rather than per-component clamps:
+
+```
+--space-section-lg   ~56px phone · ~75px 768 · ~99px 1024 · 112px desktop
+--space-section-md
+--space-section-sm
+--content-gap-lg / -md / -sm
+```
+
+Horizontal layout is one container: `--container-max` (1680px of content) with
+`--gutter` running ~22px on the narrowest phone, ~32px at tablet and 4.5vw on
+desktop. `.shell-wide` is the only container class; `.section`, `.section-md`
+and `.section-sm` are the only vertical steps.
+
+`--header-h` (72 / 80 / 88px) is the single source of truth for header height,
+and `.below-header` is what keeps hero content clear of it. Nothing should
+hard-code a top offset to clear the header.
+
+---
+
+## What this design deliberately does not use
+
+No globes, wireframe spheres, graticules, node-and-edge diagrams, chart-like
+grids or data-dashboard motifs appear anywhere. International reach is
+expressed through architectural photography and typography — see
+`GlobalPerspective` (full-bleed city with typographic markers) and the
+Structuring page's framework section (architecture beside a typographic
+ledger). If a future section needs to convey "global", reach for imagery and
+type, not a sphere.
+
+---
+
 ## Forms
 
 There is **no mail service or newsletter provider connected**, and nothing in
@@ -144,8 +202,7 @@ src/
     layout/             Header, MegaMenu (in Header), MobileMenu, Footer,
                         PageHero, PageTransition
     sections/           page-level compositions
-    ui/                 Picture, Button, Accordion, Globe, MeridianField,
-                        FrameworkDiagram, ScrollProgress
+    ui/                 Picture, HeroVideo, Button, Accordion, ScrollProgress
     animations/         Reveal, MaskedLines, DrawRule, ImageReveal,
                         Parallax, ScaleOnScroll
   data/                 verified content + generated image manifest
@@ -175,8 +232,8 @@ src/
   and restores position on close.
 - All decorative imagery is `alt=""` + `aria-hidden`; content imagery has
   descriptive alt text.
-- `prefers-reduced-motion: reduce` drops entrance animations, parallax, the
-  globe's rotation and the meridian motif; verified that no content remains
+- `prefers-reduced-motion: reduce` drops entrance animations, parallax and the
+  hero video entirely; verified that no content remains
   hidden or offset under it.
 - Interactive controls meet a ~44px touch target on mobile.
 
@@ -186,10 +243,17 @@ src/
 
 - Content parity: an automated check confirms every distinct string from the
   live source site appears somewhere in the new build (51/51).
-- Routes: all 17 render 200 (404 route returns 404) with no console errors, no
+- Routes: all 12 render 200 (404 route returns 404) with no console errors, no
   failed requests, no broken images, no `#` placeholder links.
 - Responsive: 320/360/375/390/414/430/480/768/834/1024/1280/1440/1600/1920/2560
   plus two landscape phone sizes, across all pages — no horizontal overflow and
   no element escaping the viewport.
-- Core Web Vitals on the production build (local): CLS ≈ 0.000, FCP ~150–240 ms,
-  LCP ~0.24–1.5 s.
+- Hero fits within the viewport without scrolling on every device ≥640px tall,
+  and never collides with the header at any width.
+- Section gaps measured at 1440/834/390: no unexplained band exceeds the two
+  adjacent section steps; the larger remaining gaps are centred min-height CTA
+  panels, which are intentional.
+- Hero video verified playing on desktop (1080p) and mobile (720p), and absent
+  under reduced-motion.
+- Core Web Vitals on the production build (local): CLS ≈ 0.000, FCP ~140–240 ms,
+  LCP ~0.22–1.54 s.

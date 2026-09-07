@@ -34,14 +34,10 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-bone">
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-40"
-      />
 
       <div className="shell-wide relative z-10">
         {/* Top: statement */}
-        <Reveal as="div" className="pt-[clamp(4rem,9vw,7.5rem)]">
+        <Reveal as="div" className="pt-[var(--space-section-md)]">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
               <p className="font-display text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.14] tracking-tighter text-bone">
@@ -79,7 +75,7 @@ export function Footer() {
           </div>
         </Reveal>
 
-        <DrawRule tone="light" className="my-[clamp(3rem,6vw,5rem)]" />
+        <DrawRule tone="light" className="my-[var(--space-section-sm)]" />
 
         {/* Navigation columns */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-12 lg:gap-x-10">
@@ -133,21 +129,21 @@ export function Footer() {
         </div>
 
         {/* Oversized wordmark */}
-        <div className="mt-[clamp(3.5rem,8vw,7rem)]" aria-hidden>
+        <div className="mt-[var(--space-section-sm)] overflow-hidden" aria-hidden>
           <img
             src="/logo.png"
             alt=""
             width={834}
             height={209}
             loading="lazy"
-            className="h-auto w-full max-w-none opacity-[0.09]"
+            className="h-auto w-full max-w-none opacity-[0.07]"
           />
         </div>
 
-        <DrawRule tone="light" className="mt-[clamp(2rem,4vw,3rem)]" />
+        <DrawRule tone="light" className="mt-[var(--content-gap-md)]" />
 
         {/* Legal bar */}
-        <div className="flex flex-col gap-3 py-8 text-[0.76rem] font-light tracking-wide text-bone/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 py-6 text-[0.76rem] font-light tracking-wide text-bone/35 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {YEAR} {copyright}
           </p>

@@ -82,7 +82,6 @@ export function AdvisoryPrinciples() {
           </motion.div>
         </AnimatePresence>
         <div className="absolute inset-0 bg-ink/85" />
-        <div className="precision-grid precision-grid-fade absolute inset-0 opacity-40" />
       </div>
 
       <div className="shell-wide relative z-10 section">
@@ -102,10 +101,10 @@ export function AdvisoryPrinciples() {
           </p>
         </div>
 
-        <DrawRule tone="light" className="mt-[clamp(2.5rem,5vw,4rem)]" />
+        <DrawRule tone="light" className="mt-[var(--space-section-sm)]" />
 
         {/* Word list */}
-        <ul className="mt-[clamp(1.5rem,3vw,2.5rem)]">
+        <ul className="mt-[var(--content-gap-md)]">
           {principles.map((p, i) => {
             const isActive = i === active;
             return (
@@ -116,7 +115,7 @@ export function AdvisoryPrinciples() {
                   onFocus={() => setActive(i)}
                   onClick={() => setActive(i)}
                   aria-pressed={isActive}
-                  className="group flex w-full flex-col gap-3 py-[clamp(1.1rem,2.4vw,1.9rem)] text-left md:flex-row md:items-baseline md:gap-8"
+                  className="group flex w-full flex-col gap-3 py-[var(--content-gap-md)] text-left md:flex-row md:items-baseline md:gap-8"
                 >
                   <span
                     aria-hidden

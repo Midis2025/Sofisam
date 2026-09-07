@@ -44,10 +44,10 @@ export function InsightsEditorial() {
           </div>
         </div>
 
-        <DrawRule className="mt-[clamp(2.5rem,5vw,4rem)]" />
+        <DrawRule className="mt-[var(--space-section-sm)]" />
 
         {/* Featured */}
-        <article className="mt-[clamp(2.5rem,5vw,4rem)]">
+        <article className="mt-[var(--space-section-sm)]">
           <Link href={`/insights/${featuredInsight.slug}`} className="group block">
             <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
               <ImageReveal className="lg:col-span-7">
@@ -94,7 +94,7 @@ export function InsightsEditorial() {
         </article>
 
         {/* Secondary grid */}
-        <ul className="mt-[clamp(3rem,6vw,5rem)] grid gap-x-8 gap-y-10 sm:grid-cols-2">
+        <ul className="mt-[var(--space-section-md)] grid gap-x-8 gap-y-10 sm:grid-cols-2">
           {secondaryInsights.map((item, i) => (
             <Reveal as="li" key={item.slug} delay={i * 0.08}>
               <Link href={`/insights/${item.slug}`} className="group block">

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
-import { FrameworkDiagram } from '@/components/ui/FrameworkDiagram';
 import { Reveal, MaskedLines, DrawRule, ImageReveal } from '@/components/animations/Reveal';
 import { Parallax, ScaleOnScroll } from '@/components/animations/Parallax';
 import { ServicePager } from '@/components/sections/ServicePager';
@@ -49,6 +48,14 @@ const tests = [
     t: 'Is complexity doing work?',
     d: 'Complexity is sometimes unavoidable. Opacity almost never is. Where the two are confused, the cost falls to whoever inherits it.',
   },
+];
+
+/** The decisions a framework settles, before any instrument is chosen. */
+const layers = [
+  { t: 'Authority', d: 'Who may commit, and up to what size.' },
+  { t: 'Oversight', d: 'What is seen, by whom, and how often.' },
+  { t: 'Economics', d: 'How returns and costs are actually shared.' },
+  { t: 'Exit', d: 'What happens when a party needs to leave.' },
 ];
 
 export default function StructuringPage() {
@@ -102,30 +109,26 @@ export default function StructuringPage() {
         </div>
       </section>
 
-      {/* Framework diagram — dark technical section */}
+      {/* Framework thinking — editorial, image-led. The layers are set as
+          typography against architecture rather than drawn as a diagram. */}
       <section
         className="relative overflow-hidden bg-ink text-bone"
         aria-labelledby="st-framework"
       >
-        <div
-          aria-hidden
-          className="precision-grid pointer-events-none absolute inset-0 opacity-60"
-        />
-
-        <div className="shell-wide relative z-10 section">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+        <div className="shell-wide section">
+          <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-6">
               <Reveal className="flex items-center gap-4">
-                <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
+                <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
                 <p className="t-label text-gold">Framework Thinking</p>
               </Reveal>
-              <h2 id="st-framework" className="t-h2 mt-7 max-w-[15ch] text-bone">
+              <h2 id="st-framework" className="t-h2 mt-[var(--content-gap-md)] max-w-[15ch] text-bone">
                 <MaskedLines lines={['Intent before', 'instrument.']} />
               </h2>
             </div>
             <div className="lg:col-span-5 lg:col-start-8 lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="t-body max-w-[40ch] text-bone/55">
+                <p className="t-body measure-sm text-bone/60">
                   We begin with what an arrangement is meant to achieve and for
                   whom, and only then consider the form it should take. The
                   reverse order produces structures that outlive their purpose.
@@ -134,9 +137,64 @@ export default function StructuringPage() {
             </div>
           </div>
 
-          <Reveal delay={0.14}>
-            <FrameworkDiagram className="mt-[clamp(3rem,7vw,5rem)]" />
-          </Reveal>
+          <div className="mt-[var(--content-gap-lg)] grid gap-[var(--content-gap-lg)] lg:grid-cols-12">
+            {/* Architecture carries the idea of load and order */}
+            <ImageReveal className="lg:col-span-5">
+              <ScaleOnScroll className="media aspect-[4/5] w-full" from={1.1} to={1}>
+                <Picture
+                  name="structure-grid"
+                  alt="Dark modular facade of precisely repeating panels, read as a structural grid"
+                  sizes="(min-width:1024px) 40vw, 100vw"
+                  focal="50% 50%"
+                  className="h-full w-full"
+                />
+              </ScaleOnScroll>
+            </ImageReveal>
+
+            {/* The layers, set as an editorial ledger */}
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-2">
+              <Reveal>
+                <p className="t-label text-bone/60">The order of decisions</p>
+                <p className="mt-5 font-display text-[clamp(2.25rem,5vw,4rem)] leading-[0.98] tracking-tighter text-gold">
+                  Intent
+                </p>
+                <p className="t-body measure-sm mt-4 text-bone/70">
+                  Everything below resolves from it. Settle the intent and the
+                  instruments follow; reverse the order and the structure ends
+                  up explaining itself rather than working.
+                </p>
+              </Reveal>
+
+              <ol className="mt-[var(--content-gap-lg)] border-t border-bone/15">
+                {layers.map((l, i) => (
+                  <Reveal
+                    as="li"
+                    key={l.t}
+                    delay={i * 0.06}
+                    className="flex items-baseline gap-6 border-b border-bone/15 py-5"
+                  >
+                    <span className="t-index w-8 shrink-0 text-[0.95rem] text-gold">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="flex-1 font-display text-[clamp(1.4rem,2.4vw,2rem)] leading-tight tracking-tight text-bone">
+                      {l.t}
+                    </span>
+                    <span className="hidden max-w-[24ch] text-[0.85rem] font-light leading-relaxed text-bone/65 sm:block">
+                      {l.d}
+                    </span>
+                  </Reveal>
+                ))}
+              </ol>
+
+              <Reveal delay={0.2}>
+                <p className="measure-sm mt-6 text-[0.8rem] font-light leading-relaxed text-bone/55">
+                  Illustrative. These are the decisions a well-formed framework
+                  settles in advance, not a description of any specific
+                  arrangement.
+                </p>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -163,7 +221,7 @@ export default function StructuringPage() {
             </div>
           </div>
 
-          <DrawRule className="mt-[clamp(2.5rem,5vw,4rem)]" />
+          <DrawRule className="mt-[var(--space-section-sm)]" />
 
           <ol className="mt-2">
             {tests.map((t, i) => (
@@ -191,7 +249,7 @@ export default function StructuringPage() {
       {/* Mandates and investments — image pair */}
       <section className="section bg-bone pt-0" aria-labelledby="st-mandates">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2rem,5vw,3.5rem)] lg:grid-cols-12 lg:gap-12">
+          <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-12">
             <ImageReveal className="lg:col-span-7">
               <ScaleOnScroll className="media aspect-[16/11] w-full" from={1.1} to={1}>
                 <Picture
@@ -236,7 +294,7 @@ export default function StructuringPage() {
         aria-labelledby="st-precision"
       >
         <Parallax strength={9} className="absolute inset-0">
-          <div className="media veil-soft h-full w-full">
+          <div className="media veil-editorial h-full w-full">
             <Picture
               name="gold-lattice"
               alt=""
@@ -248,7 +306,7 @@ export default function StructuringPage() {
           </div>
         </Parallax>
 
-        <div className="shell-wide relative z-10 flex min-h-[34rem] flex-col justify-end py-[clamp(4.5rem,11vw,8rem)]">
+        <div className="shell-wide relative z-10 flex min-h-[29rem] lg:min-h-[33rem] flex-col justify-end py-[var(--space-section-lg)]">
           <Reveal className="flex items-center gap-4">
             <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
             <p className="t-label text-gold">Proven Frameworks</p>

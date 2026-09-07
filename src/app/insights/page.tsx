@@ -64,7 +64,7 @@ export default function InsightsPage() {
 
           <DrawRule className="mt-8" />
 
-          <article className="mt-[clamp(2.5rem,5vw,4rem)]">
+          <article className="mt-[var(--space-section-sm)]">
             <Link href={`/insights/${featuredInsight.slug}`} className="group block">
               <ImageReveal>
                 <ScaleOnScroll
@@ -134,7 +134,7 @@ export default function InsightsPage() {
 
           <DrawRule className="mt-8" />
 
-          <ul className="mt-[clamp(2rem,4vw,3rem)]">
+          <ul className="mt-[var(--content-gap-lg)]">
             {secondaryInsights.map((item, i) => (
               <Reveal
                 as="li"
@@ -144,7 +144,7 @@ export default function InsightsPage() {
               >
                 <Link
                   href={`/insights/${item.slug}`}
-                  className="group grid gap-6 py-[clamp(2rem,4vw,3rem)] md:grid-cols-12 md:items-center md:gap-10"
+                  className="group grid gap-6 py-[var(--content-gap-lg)] md:grid-cols-12 md:items-center md:gap-10"
                 >
                   <div className="media media-zoom aspect-[16/10] w-full md:col-span-4 md:aspect-[4/3]">
                     <Picture

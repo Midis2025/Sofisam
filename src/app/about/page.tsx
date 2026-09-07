@@ -71,7 +71,7 @@ export default function AboutPage() {
       {/* Introduction */}
       <section className="section bg-bone" aria-labelledby="about-intro">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2.5rem,6vw,4.5rem)] lg:grid-cols-12">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12">
             <div className="lg:col-span-5">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
@@ -99,10 +99,10 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <DrawRule className="mt-[clamp(3rem,7vw,5.5rem)]" />
+          <DrawRule className="mt-[var(--space-section-md)]" />
 
           {/* Editorial media pair */}
-          <div className="mt-[clamp(2.5rem,6vw,4.5rem)] grid gap-6 sm:grid-cols-12 sm:gap-8">
+          <div className="mt-[var(--space-section-sm)] grid gap-6 sm:grid-cols-12 sm:gap-8">
             <ImageReveal className="sm:col-span-7">
               <ScaleOnScroll className="media aspect-[4/3] w-full" from={1.12} to={1}>
                 <Picture
@@ -115,7 +115,7 @@ export default function AboutPage() {
               </ScaleOnScroll>
             </ImageReveal>
 
-            <ImageReveal delay={0.12} className="sm:col-span-5 sm:pt-[clamp(2rem,6vw,5rem)]">
+            <ImageReveal delay={0.12} className="sm:col-span-5 sm:pt-[var(--space-section-md)]">
               <div className="media aspect-[3/4] w-full">
                 <Picture
                   name="facade-pale"
@@ -136,7 +136,7 @@ export default function AboutPage() {
         aria-labelledby="about-international"
       >
         <Parallax strength={9} className="absolute inset-0">
-          <div className="media veil-soft h-full w-full">
+          <div className="media veil-editorial h-full w-full">
             <Picture
               name="city-mono"
               alt=""
@@ -148,7 +148,7 @@ export default function AboutPage() {
           </div>
         </Parallax>
 
-        <div className="shell-wide relative z-10 flex min-h-[38rem] flex-col justify-end py-[clamp(4.5rem,11vw,8.5rem)]">
+        <div className="shell-wide relative z-10 flex min-h-[32rem] lg:min-h-[36rem] flex-col justify-end py-[var(--space-section-lg)]">
           <Reveal className="flex items-center gap-4">
             <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
             <p className="t-label text-gold">International Perspective</p>
@@ -171,7 +171,7 @@ export default function AboutPage() {
       {/* Corporate advisory positioning */}
       <section className="section bg-bone" aria-labelledby="about-positioning">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2.5rem,6vw,4.5rem)] lg:grid-cols-12 lg:items-center">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:items-center">
             <ImageReveal className="lg:col-span-5">
               <div className="media aspect-[4/5] w-full">
                 <Picture
@@ -223,7 +223,7 @@ export default function AboutPage() {
       {/* Dubai / DMCC */}
       <section className="section bg-bone" aria-labelledby="about-dmcc">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2.5rem,6vw,4rem)] lg:grid-cols-12 lg:items-end">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-6">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
@@ -256,7 +256,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <ImageReveal className="mt-[clamp(2.5rem,6vw,4.5rem)]">
+          <ImageReveal className="mt-[var(--space-section-sm)]">
             <ScaleOnScroll className="media aspect-[16/9] w-full lg:aspect-[21/9]" from={1.1} to={1}>
               <Picture
                 name="dubai-haze"
@@ -296,9 +296,9 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <DrawRule className="mt-[clamp(2.5rem,5vw,4rem)]" />
+          <DrawRule className="mt-[var(--space-section-sm)]" />
 
-          <ol className="mt-[clamp(1.5rem,3vw,2.5rem)] grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-[var(--content-gap-md)] grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
             {operatingPrinciples.map((p, i) => (
               <Reveal
                 as="li"

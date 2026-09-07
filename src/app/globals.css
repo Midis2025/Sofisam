@@ -21,10 +21,42 @@
     --rule: rgba(11, 11, 12, 0.12);
     --rule-inverse: rgba(246, 244, 239, 0.16);
 
-    --gutter: clamp(1.25rem, 5vw, 6.5rem);
-    --section-y: clamp(5.5rem, 12vw, 11.5rem);
+    /* --- Horizontal system ---------------------------------------
+       One container for the whole site. Gutters run ~22px on the
+       smallest phone, ~32px on tablet and 4.5vw on desktop, capped so
+       the measure never sprawls on very wide screens. */
+    --gutter: clamp(1.375rem, 4.5vw, 5rem);
+    --container-max: 105rem; /* 1680px of content */
+
+    /* --- Vertical rhythm ------------------------------------------
+       Three section steps rather than ad-hoc values. The lg step lands
+       ~56px on a phone, ~75px at 768, ~99px at 1024 and 112px on desktop. */
+    --space-section-lg: clamp(3.5rem, 9.7vw, 7rem);
+    --space-section-md: clamp(2.75rem, 7.6vw, 5.5rem);
+    --space-section-sm: clamp(2rem, 5.5vw, 4rem);
+
+    /* --- Gaps within a section ------------------------------------ */
+    --content-gap-lg: clamp(2rem, 3.6vw, 3.5rem);
+    --content-gap-md: clamp(1.5rem, 2.4vw, 2.25rem);
+    --content-gap-sm: clamp(0.75rem, 1.2vw, 1.25rem);
+
+    /* --- Header safe area ----------------------------------------- */
+    --header-h: 4.5rem;   /* 72px  — mobile  */
+    --hero-h1: clamp(2.5rem, 8.6vw, 7.25rem);
 
     --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-h: 5rem; /* 80px — tablet */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 5.5rem; /* 88px — desktop */
+    }
   }
 
   * {
@@ -87,22 +119,47 @@
 
   .shell-wide {
     width: 100%;
-    max-width: 120rem;
+    max-width: calc(var(--container-max) + 2 * var(--gutter));
     margin-inline: auto;
     padding-inline: var(--gutter);
   }
 
+  /* Section rhythm. `.section` is the default; the -md / -sm variants are
+     for denser stretches and for sections that sit directly against a
+     neighbour they belong with. */
   .section {
-    padding-block: var(--section-y);
+    padding-block: var(--space-section-lg);
+  }
+
+  .section-md {
+    padding-block: var(--space-section-md);
+  }
+
+  .section-sm {
+    padding-block: var(--space-section-sm);
+  }
+
+  /* Header safe area — hero content must never start above this. */
+  .below-header {
+    padding-top: calc(var(--header-h) + clamp(1.5rem, 4vh, 3rem));
+  }
+
+  /* Controlled measures. Body copy should not run the width of a grid cell. */
+  .measure {
+    max-width: 40rem; /* ~640px */
+  }
+
+  .measure-sm {
+    max-width: 34rem; /* ~544px */
   }
 
   /* ---------- Type scale ---------- */
   .t-display {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400;
-    line-height: 0.92;
+    line-height: 0.95;
     letter-spacing: -0.028em;
-    font-size: clamp(3rem, 9.2vw, 10.5rem);
+    font-size: var(--hero-h1);
   }
 
   .t-h1 {
@@ -110,7 +167,7 @@
     font-weight: 400;
     line-height: 0.98;
     letter-spacing: -0.025em;
-    font-size: clamp(2.6rem, 6.6vw, 6.5rem);
+    font-size: clamp(2.35rem, 5.4vw, 5rem);
   }
 
   .t-h2 {
@@ -118,7 +175,7 @@
     font-weight: 400;
     line-height: 1.02;
     letter-spacing: -0.022em;
-    font-size: clamp(2.1rem, 4.8vw, 4.4rem);
+    font-size: clamp(1.95rem, 4vw, 3.5rem);
   }
 
   .t-h3 {
@@ -126,7 +183,7 @@
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.018em;
-    font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+    font-size: clamp(1.5rem, 2.4vw, 2.15rem);
   }
 
   .t-lead {
@@ -150,6 +207,15 @@
     text-transform: uppercase;
   }
 
+  /* Long labels such as "International Strategic Consulting" need a tighter
+     setting to hold one line on the narrowest phones. */
+  @media (max-width: 399px) {
+    .t-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.15em;
+    }
+  }
+
   .t-index {
     font-family: var(--font-display), Georgia, serif;
     font-variant-numeric: tabular-nums;
@@ -168,17 +234,6 @@
     background: var(--rule-inverse);
   }
 
-  .precision-grid {
-    background-image:
-      linear-gradient(to right, rgba(197, 164, 126, 0.09) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(197, 164, 126, 0.09) 1px, transparent 1px);
-    background-size: clamp(60px, 8vw, 120px) clamp(60px, 8vw, 120px);
-  }
-
-  .precision-grid-fade {
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 78%);
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 78%);
-  }
 
   /* ---------- Media ---------- */
   .media {
@@ -204,25 +259,56 @@
   }
 
   /* Cinematic overlays */
-  .veil-bottom::after {
+  /* Hero veil: a weighted left-to-right scrim so the headline always has a
+     dark field behind it, plus a gentle vertical grade. Tuned to stay light
+     enough that the footage remains clearly visible. */
+  .veil-hero::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
       linear-gradient(
-        to top,
-        rgba(11, 11, 12, 0.94) 0%,
-        rgba(11, 11, 12, 0.66) 30%,
-        rgba(11, 11, 12, 0.28) 58%,
-        rgba(11, 11, 12, 0.2) 76%,
-        rgba(11, 11, 12, 0.62) 100%
+        90deg,
+        rgba(8, 8, 8, 0.82) 0%,
+        rgba(8, 8, 8, 0.62) 38%,
+        rgba(8, 8, 8, 0.3) 68%,
+        rgba(8, 8, 8, 0.16) 100%
       ),
       linear-gradient(
-        to right,
-        rgba(11, 11, 12, 0.55) 0%,
-        rgba(11, 11, 12, 0.22) 42%,
-        rgba(11, 11, 12, 0) 70%
+        to top,
+        rgba(8, 8, 8, 0.72) 0%,
+        rgba(8, 8, 8, 0.18) 42%,
+        rgba(8, 8, 8, 0.1) 72%,
+        rgba(8, 8, 8, 0.5) 100%
       );
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    /* Portrait crops put the text over more of the frame, so the vertical
+       grade does the work instead of the horizontal one. */
+    .veil-hero::after {
+      background: linear-gradient(
+        to top,
+        rgba(8, 8, 8, 0.9) 0%,
+        rgba(8, 8, 8, 0.66) 34%,
+        rgba(8, 8, 8, 0.38) 62%,
+        rgba(8, 8, 8, 0.46) 100%
+      );
+    }
+  }
+
+  .veil-bottom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(11, 11, 12, 0.92) 0%,
+      rgba(11, 11, 12, 0.6) 32%,
+      rgba(11, 11, 12, 0.24) 62%,
+      rgba(11, 11, 12, 0.44) 100%
+    );
     pointer-events: none;
   }
 
@@ -230,7 +316,28 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(11, 11, 12, 0.78), rgba(11, 11, 12, 0.15) 70%);
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 8, 0.9) 0%,
+      rgba(8, 8, 8, 0.68) 38%,
+      rgba(8, 8, 8, 0.56) 72%,
+      rgba(8, 8, 8, 0.62) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* For full-bleed sections carrying headline AND body copy across the frame. */
+  .veil-editorial::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 8, 0.92) 0%,
+      rgba(8, 8, 8, 0.72) 40%,
+      rgba(8, 8, 8, 0.6) 75%,
+      rgba(8, 8, 8, 0.66) 100%
+    );
     pointer-events: none;
   }
 
@@ -303,39 +410,3 @@
   }
 }
 
-/* ============================================================
-   MeridianField motif
-   ============================================================ */
-@keyframes sf-meridian-spin {
-  0%   { rx: 200px; }
-  25%  { rx: 0px;   }
-  50%  { rx: 200px; }
-  75%  { rx: 0px;   }
-  100% { rx: 200px; }
-}
-
-@keyframes sf-pulse {
-  0%   { transform: scale(0.55); opacity: 0.65; }
-  70%  { transform: scale(1.55); opacity: 0; }
-  100% { transform: scale(1.55); opacity: 0; }
-}
-
-.sf-meridian {
-  animation-name: sf-meridian-spin;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: rx;
-}
-
-.sf-pulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sf-pulse 3.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-meridian,
-  .sf-pulse {
-    animation: none !important;
-  }
-}

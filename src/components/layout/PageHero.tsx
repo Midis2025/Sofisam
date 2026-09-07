@@ -78,13 +78,9 @@ export function PageHero({
         </motion.div>
       </motion.div>
 
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-60"
-      />
 
       <motion.div
-        className={`shell-wide relative z-10 flex ${minH} flex-col justify-end pb-[clamp(3rem,7vh,5.5rem)] pt-[7.5rem]`}
+        className={`shell-wide relative z-10 flex ${minH} flex-col justify-end pb-[var(--space-section-md)] pt-[7.5rem]`}
         style={reduce ? undefined : { opacity: fade }}
       >
         {crumbs && crumbs.length > 0 && (

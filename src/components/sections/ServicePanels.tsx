@@ -65,8 +65,8 @@ export function ServicePanels() {
         </div>
 
         {/* Panels */}
-        <div className="mt-[clamp(3rem,7vw,0rem)] lg:col-span-8 lg:mt-0">
-          <ol className="space-y-[clamp(3.5rem,8vw,7rem)]">
+        <div className="mt-[var(--space-section-md)] lg:col-span-8 lg:mt-0">
+          <ol className="space-y-[var(--space-section-md)]">
             {services.map((s, i) => (
               <li key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="group block">

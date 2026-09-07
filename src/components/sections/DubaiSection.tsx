@@ -28,7 +28,7 @@ export function DubaiSection() {
     >
       {/* Full-bleed backdrop */}
       <Parallax strength={9} className="absolute inset-0">
-        <div className="media veil-soft h-full w-full">
+        <div className="media veil-editorial h-full w-full">
           <Picture
             name="dubai-haze"
             alt=""
@@ -40,8 +40,8 @@ export function DubaiSection() {
         </div>
       </Parallax>
 
-      <div className="shell-wide relative z-10 flex min-h-[42rem] flex-col justify-end py-[clamp(5rem,12vw,10rem)] lg:min-h-[46rem]">
-        <div className="grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-12 lg:items-end">
+      <div className="shell-wide relative z-10 flex min-h-[34rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[40rem]">
+        <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <Reveal className="flex items-center gap-4">
               <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
@@ -62,7 +62,7 @@ export function DubaiSection() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="t-body mt-5 max-w-[44ch] text-bone/50">
+              <p className="t-body mt-5 max-w-[44ch] text-bone/70">
                 The city sits where the working day meets Asia in the morning and
                 Europe and the Americas in the afternoon. What makes it useful is
                 not the coordinates but the density of counterparties who are
@@ -74,10 +74,10 @@ export function DubaiSection() {
 
         {/* Facts rail */}
         <Reveal delay={0.2}>
-          <dl className="mt-[clamp(2.5rem,6vw,4.5rem)] grid grid-cols-1 gap-px border-t border-bone/15 sm:grid-cols-3">
+          <dl className="mt-[var(--space-section-sm)] grid grid-cols-1 gap-px border-t border-bone/15 sm:grid-cols-3">
             {notes.map((n) => (
               <div key={n.k} className="py-6 sm:pr-8">
-                <dt className="t-label text-bone/35">{n.k}</dt>
+                <dt className="t-label text-bone/55">{n.k}</dt>
                 <dd className="mt-3 max-w-[26ch] font-display text-[1.15rem] leading-snug tracking-tight text-bone">
                   {n.v}
                 </dd>

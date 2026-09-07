@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
 import { Picture } from '@/components/ui/Picture';
-import { MeridianField } from '@/components/ui/MeridianField';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { Reveal, MaskedLines, DrawRule } from '@/components/animations/Reveal';
@@ -32,7 +31,7 @@ export default function ContactPage() {
       <section className="relative bg-ink text-bone" aria-labelledby="contact-heading">
         <div className="lg:grid lg:min-h-screen-safe lg:grid-cols-2">
           {/* Left — visual statement */}
-          <div className="relative flex min-h-[34rem] flex-col justify-end overflow-hidden pb-[clamp(2.5rem,6vw,4.5rem)] pt-[7.5rem] lg:min-h-0 lg:pb-[clamp(3rem,5vw,5rem)]">
+          <div className="relative flex min-h-[34rem] flex-col justify-end overflow-hidden pb-[var(--space-section-sm)] below-header lg:min-h-0 lg:pb-[var(--space-section-md)]">
             <div className="media veil-bottom absolute inset-0">
               <Picture
                 name="difc-gate"
@@ -44,13 +43,8 @@ export default function ContactPage() {
               />
             </div>
 
-            <div
-              aria-hidden
-              className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-60"
-            />
-            <MeridianField className="pointer-events-none absolute -left-[30%] top-[8%] hidden h-[34rem] w-[34rem] opacity-[0.24] xl:block" />
 
-            <div className="relative z-10 px-[var(--gutter)] lg:pr-[clamp(2rem,4vw,4rem)]">
+            <div className="relative z-10 px-[var(--gutter)] lg:pr-[var(--space-section-sm)]">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
                 <p className="t-label text-gold">{contactCopy.eyebrow}</p>
@@ -119,12 +113,8 @@ export default function ContactPage() {
           </div>
 
           {/* Right — form */}
-          <div className="relative flex items-center bg-ink-800 py-[clamp(3.5rem,8vw,6rem)] lg:py-[clamp(6rem,8vw,8rem)]">
-            <div
-              aria-hidden
-              className="precision-grid pointer-events-none absolute inset-0 opacity-30"
-            />
-            <div className="relative z-10 w-full px-[var(--gutter)] lg:pl-[clamp(2.5rem,5vw,5rem)]">
+          <div className="relative flex items-center bg-ink-800 py-[var(--space-section-lg)] lg:py-[var(--space-section-lg)]">
+            <div className="relative z-10 w-full px-[var(--gutter)] lg:pl-[var(--space-section-md)]">
               <div className="mx-auto w-full max-w-[34rem] lg:mx-0">
                 <h2 className="t-h3 text-bone">Send a message</h2>
                 <p className="t-body mt-3 max-w-[40ch] text-bone/50">
@@ -164,9 +154,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <DrawRule className="mt-[clamp(2.5rem,5vw,4rem)]" />
+          <DrawRule className="mt-[var(--space-section-sm)]" />
 
-          <div className="mt-[clamp(2rem,4vw,3rem)] grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="mt-[var(--content-gap-lg)] grid gap-8 lg:grid-cols-12 lg:gap-12">
             {/* Map */}
             <Reveal className="lg:col-span-8">
               <div className="media aspect-[16/10] w-full border border-ink/10 lg:aspect-[16/9]">

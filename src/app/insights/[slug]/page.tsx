@@ -101,7 +101,7 @@ export default async function InsightPage({
       </PageHero>
 
       {/* Article body */}
-      <article className="section bg-bone">
+      <article className="section bg-bone pb-[var(--space-section-md)]">
         <div className="shell-wide">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
             {/* Side rail */}
@@ -203,7 +203,7 @@ export default async function InsightPage({
 
           <DrawRule className="mt-8" />
 
-          <ul className="mt-[clamp(2rem,4vw,3rem)] grid gap-x-8 gap-y-10 sm:grid-cols-2">
+          <ul className="mt-[var(--content-gap-lg)] grid gap-x-8 gap-y-10 sm:grid-cols-2">
             {related.map((item, i) => (
               <Reveal as="li" key={item.slug} delay={i * 0.08}>
                 <Link href={`/insights/${item.slug}`} className="group block">

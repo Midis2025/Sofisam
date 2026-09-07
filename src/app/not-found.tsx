@@ -24,12 +24,8 @@ export default function NotFound() {
           className="h-full w-full"
         />
       </div>
-      <div
-        aria-hidden
-        className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-60"
-      />
 
-      <div className="shell-wide relative z-10 py-32">
+      <div className="below-header shell-wide relative z-10 pb-[var(--space-section-lg)]">
         <p className="t-label text-gold">Error 404</p>
 
         <h1 className="t-display mt-7 max-w-[14ch] text-bone">Page not found.</h1>

@@ -57,10 +57,10 @@ export function ExpertiseSequence() {
           </div>
         </div>
 
-        <DrawRule className="mt-[clamp(2.5rem,5vw,4rem)]" />
+        <DrawRule className="mt-[var(--space-section-sm)]" />
 
         {/* Sequence */}
-        <div className="mt-[clamp(2.5rem,5vw,4.5rem)] lg:grid lg:grid-cols-12 lg:gap-14">
+        <div className="mt-[var(--space-section-sm)] lg:grid lg:grid-cols-12 lg:gap-14">
           {/* Sticky media — desktop only */}
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-[7.5rem]">
@@ -121,7 +121,7 @@ export function ExpertiseSequence() {
               >
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group block py-[clamp(2.5rem,5vw,5rem)]"
+                  className="group block py-[var(--space-section-md)]"
                 >
                   {/* Mobile media */}
                   <div className="media media-zoom relative mb-7 aspect-[16/10] w-full lg:hidden">

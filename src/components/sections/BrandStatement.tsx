@@ -26,10 +26,10 @@ export function BrandStatement() {
           />
         </h2>
 
-        <DrawRule className="mt-[clamp(3rem,7vw,5.5rem)]" />
+        <DrawRule className="mt-[var(--space-section-md)]" />
 
         {/* Asymmetric body / image */}
-        <div className="mt-[clamp(2.5rem,6vw,4.5rem)] grid gap-[clamp(2.5rem,5vw,4rem)] lg:grid-cols-12 lg:gap-12">
+        <div className="mt-[var(--space-section-sm)] grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5 lg:col-start-1">
             <Parallax strength={7} className="media aspect-[4/5] w-full">
               <Picture
@@ -49,7 +49,7 @@ export function BrandStatement() {
             </Reveal>
           </div>
 
-          <div className="lg:col-span-6 lg:col-start-7 lg:pt-[clamp(1rem,6vw,5rem)]">
+          <div className="lg:col-span-6 lg:col-start-7 lg:pt-[var(--space-section-md)]">
             <Reveal>
               <p className="t-lead max-w-[44ch] text-ink">
                 {welcomeCopy.paragraphs[0]}
@@ -57,7 +57,7 @@ export function BrandStatement() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <blockquote className="relative mt-[clamp(2.5rem,5vw,4rem)] border-l border-gold pl-6 sm:pl-9">
+              <blockquote className="relative mt-[var(--space-section-sm)] border-l border-gold pl-6 sm:pl-9">
                 <p className="font-display text-[clamp(1.5rem,2.9vw,2.35rem)] leading-[1.16] tracking-tighter text-ink">
                   {welcomeCopy.paragraphs[1]}
                 </p>
@@ -65,7 +65,7 @@ export function BrandStatement() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="t-body mt-[clamp(2.5rem,5vw,4rem)] max-w-[46ch] text-ink/65">
+              <p className="t-body mt-[var(--space-section-sm)] max-w-[46ch] text-ink/65">
                 {welcomeCopy.paragraphs[2]}
               </p>
             </Reveal>

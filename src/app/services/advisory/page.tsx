@@ -62,7 +62,7 @@ export default function AdvisoryPage() {
       {/* Introduction — split with a pull quote */}
       <section className="section bg-bone" aria-labelledby="adv-intro">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2.5rem,6vw,4rem)] lg:grid-cols-12 lg:gap-12">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-4">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
@@ -88,11 +88,11 @@ export default function AdvisoryPage() {
             </div>
           </div>
 
-          <DrawRule className="mt-[clamp(3rem,7vw,5rem)]" />
+          <DrawRule className="mt-[var(--space-section-md)]" />
 
           {/* Oversized quote drawn from the firm's own language */}
           <Reveal delay={0.05}>
-            <blockquote className="mt-[clamp(3rem,7vw,5rem)]">
+            <blockquote className="mt-[var(--space-section-md)]">
               <p className="max-w-[20ch] font-display text-[clamp(2rem,5.4vw,4.25rem)] leading-[1.04] tracking-tighter text-ink">
                 Built over decades of international business experience.
               </p>
@@ -108,7 +108,7 @@ export default function AdvisoryPage() {
       {/* Governance — precise ledger over a light lattice image */}
       <section className="relative overflow-hidden bg-bone" aria-labelledby="adv-governance">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2.5rem,6vw,4rem)] lg:grid-cols-12 lg:gap-12">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:gap-12">
             <ImageReveal className="lg:col-span-5">
               <ScaleOnScroll className="media aspect-[3/4] w-full" from={1.12} to={1}>
                 <Picture
@@ -121,7 +121,7 @@ export default function AdvisoryPage() {
               </ScaleOnScroll>
             </ImageReveal>
 
-            <div className="pb-[var(--section-y)] pt-[var(--section-y)] lg:col-span-6 lg:col-start-7">
+            <div className="pb-[var(--space-section-md)] pt-[var(--space-section-md)] lg:col-span-6 lg:col-start-7">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
                 <p className="t-label text-gold">Corporate Governance</p>
@@ -164,7 +164,7 @@ export default function AdvisoryPage() {
       {/* Experience statement */}
       <section className="section bg-bone" aria-labelledby="adv-experience">
         <div className="shell-wide">
-          <div className="grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-12 lg:items-end">
+          <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
               <Reveal className="flex items-center gap-4">
                 <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
@@ -185,7 +185,7 @@ export default function AdvisoryPage() {
             </div>
           </div>
 
-          <ImageReveal className="mt-[clamp(2.5rem,6vw,4.5rem)]">
+          <ImageReveal className="mt-[var(--space-section-sm)]">
             <ScaleOnScroll className="media aspect-[16/9] w-full lg:aspect-[21/9]" from={1.1} to={1}>
               <Picture
                 name="tower-dusk"

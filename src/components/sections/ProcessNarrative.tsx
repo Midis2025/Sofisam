@@ -71,7 +71,7 @@ export function ProcessNarrative() {
         </div>
 
         {/* Steps */}
-        <div ref={ref} className="relative mt-[clamp(3rem,7vw,5.5rem)]">
+        <div ref={ref} className="relative mt-[var(--space-section-md)]">
           {/* Progress rail — vertical on mobile, horizontal on desktop */}
           <div
             aria-hidden

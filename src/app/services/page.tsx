@@ -55,10 +55,6 @@ export default function ServicesPage() {
         className="relative overflow-hidden bg-ink text-bone"
         aria-labelledby="who-we-advise"
       >
-        <div
-          aria-hidden
-          className="precision-grid precision-grid-fade pointer-events-none absolute inset-0 opacity-45"
-        />
         <div className="shell-wide relative z-10 section">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
@@ -80,9 +76,9 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <DrawRule tone="light" className="mt-[clamp(2.5rem,5vw,4rem)]" />
+          <DrawRule tone="light" className="mt-[var(--space-section-sm)]" />
 
-          <ul className="mt-[clamp(1.5rem,3vw,2.5rem)] grid gap-x-10 md:grid-cols-3">
+          <ul className="mt-[var(--content-gap-md)] grid gap-x-10 md:grid-cols-3">
             {whoWeAdvise.map((w, i) => (
               <Reveal
                 as="li"
