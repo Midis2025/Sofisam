@@ -1,0 +1,200 @@
+{
+ "hero-dubai": {
+  "w": 2400,
+  "h": 3600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1733
+  ],
+  "blur": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAwCdASoQABgAPxF0sVCsJqSisAgBgCIJZwDE2CHXHWIAL+QMgIAA/tNrkUezwOjCbKA3HQxEMM44YcYOok89QWAAAA=="
+ },
+ "dubai-haze": {
+  "w": 2400,
+  "h": 1800,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAwABABoJQBOgB6FfRIgAP6wrQgkaj/ysa6bIE6YpIdGUe6I6qwAAAA="
+ },
+ "difc-gate": {
+  "w": 2400,
+  "h": 3000,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2080
+  ],
+  "blur": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAwCdASoQABQAPxF4slEsJ6SisAgBgCIJZQAAW+lpp+i+SAdQgAD+7Nk2o9va/3QTTYmn4nOhyboDdmmfT4tkj4cEJpZgAAA="
+ },
+ "tower-dusk": {
+  "w": 2400,
+  "h": 1799,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAQCdASoQAAwABABoJYwCdAEPDs9dN0AA/qMEnm5JO0DQwxvWakUbGrWbHy2cD04AAA=="
+ },
+ "structure-grid": {
+  "w": 2400,
+  "h": 1835,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADwAQCdASoQAAwABABoJZwAAugv71zu1oAA/u6TbKB7I+Lo6BAAAA=="
+ },
+ "gold-lattice": {
+  "w": 2400,
+  "h": 3489,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1788
+  ],
+  "blur": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQBACdASoQABcAPxF2sVCsJySisAgBgCIJZACw7CG8FSOX5l2a1fqBwAD+wyK+ayY1oBk9runS9p4an/m+eRJsH16Vy+e+O9qqekfwdwuI+Yps7OTAAA=="
+ },
+ "lattice-white": {
+  "w": 2400,
+  "h": 3200,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1950
+  ],
+  "blur": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABwAwCdASoQABUAPxF6tFAsKCUisAgBgCIJZwDA3Batn4uDGgAAoWBS5vFDMGMEL5LpBIW4gAA="
+ },
+ "abstract-dark": {
+  "w": 2400,
+  "h": 1800,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAwABABoJaQAAu0dUZuCAAD+8uHxMiBJ+56ojQ/PywFHkgVAAA=="
+ },
+ "city-mono": {
+  "w": 2252,
+  "h": 1267,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2252
+  ],
+  "blur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoQAAkABABoJaQAAucPdNHAAP7qwAj+8NmNF5NBCQib6pAAAAA="
+ },
+ "city-blue-night": {
+  "w": 2400,
+  "h": 1350,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkABABoJQBOgB6NjTcAAP7vYezaQ/lfGekUyMkVQDfcWOjNXzYAAAA="
+ },
+ "towers-converge": {
+  "w": 2400,
+  "h": 1600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAsABABoJbACdAEfAmDZfo54gADOOXsll2/6byEDZ7eghUZazt8L5/J+G6zJPrJ59kpwUhI2W90sIJTH647szb5AAA=="
+ },
+ "towers-mono": {
+  "w": 2400,
+  "h": 3600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1733
+  ],
+  "blur": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABQAwCdASoQABgAPxF0sVAsJySisAgBgCIJaQAASBaT1mUUgAD92dHXvHyvjJtBvYi92w6r1L2iJtgiZfy5IfvvheNVcMeHxlqJuWwKugYw41aFrmWtmcToiAAAAA=="
+ },
+ "lounge-dark": {
+  "w": 2400,
+  "h": 3600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1733
+  ],
+  "blur": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAwBACdASoQABgAPxFysFAsJqSisAgBgCIJZQCnFCHgDE8IJWonj/VSoAAA/uk/9Q4+BmE7mFw8DqLQGynBYG5//2D45VxwAAA="
+ },
+ "district-dusk": {
+  "w": 2400,
+  "h": 1600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAsABABoJYwCdAD0QARhAAD+u/NzJNB+Ab3nw276e8jYE6AAAA=="
+ },
+ "business-bay": {
+  "w": 2400,
+  "h": 1600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAAAQAgCdASoQAAsABABoJYwCw7Ee//Pb5MQAAP2aPNK3FVrO3LE/6OP/rCx48WUqSliYAA=="
+ },
+ "facade-pale": {
+  "w": 2005,
+  "h": 3024,
+  "variants": [
+   640,
+   1080,
+   1600,
+   1724
+  ],
+  "blur": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAwCdASoQABgAPxF2slEsJySisAgBgCIJZQC/OBuICH9LOHDJ3uQA/iNTpCNgBYRJnGWmqDXxfxKwotJ3p5Ct+zLDL5J4s04TwOtmO/784AAA"
+ },
+ "spiral-dark": {
+  "w": 2400,
+  "h": 1600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAsABABoJZwAAueISMlOQAD+9ovA1zldgJzDaQJhapZ5k0oQAA=="
+ },
+ "tower-detail": {
+  "w": 2400,
+  "h": 1600,
+  "variants": [
+   640,
+   1080,
+   1600,
+   2400
+  ],
+  "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsABABoJZQCdAD0rBV6gAD+7qv54XQ/mEXHMw+AAA=="
+ }
+}

@@ -1,0 +1,341 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   SOFISAM FZCO — GLOBAL PRECISION
+   Design system foundations
+   ============================================================ */
+
+@layer base {
+  :root {
+    --ink: #0b0b0c;
+    --ink-800: #131315;
+    --ink-700: #1b1b1e;
+    --bone: #f6f4ef;
+    --bone-300: #edeae2;
+    --gold: #c5a47e;
+    --gold-deep: #a68a68;
+    --graphite: #6e6e76;
+
+    --rule: rgba(11, 11, 12, 0.12);
+    --rule-inverse: rgba(246, 244, 239, 0.16);
+
+    --gutter: clamp(1.25rem, 5vw, 6.5rem);
+    --section-y: clamp(5.5rem, 12vw, 11.5rem);
+
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bone);
+    color: var(--ink);
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* Prevent any child from creating a horizontal scrollbar */
+  html,
+  body {
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Numerals: tabular where alignment matters */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* ---------- Layout primitives ---------- */
+  .shell {
+    padding-inline: var(--gutter);
+  }
+
+  .shell-wide {
+    width: 100%;
+    max-width: 120rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section {
+    padding-block: var(--section-y);
+  }
+
+  /* ---------- Type scale ---------- */
+  .t-display {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    font-size: clamp(3rem, 9.2vw, 10.5rem);
+  }
+
+  .t-h1 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    font-size: clamp(2.6rem, 6.6vw, 6.5rem);
+  }
+
+  .t-h2 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    font-size: clamp(2.1rem, 4.8vw, 4.4rem);
+  }
+
+  .t-h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+  }
+
+  .t-lead {
+    font-size: clamp(1.0625rem, 1.55vw, 1.375rem);
+    line-height: 1.62;
+    font-weight: 300;
+    letter-spacing: -0.006em;
+  }
+
+  .t-body {
+    font-size: clamp(0.975rem, 1.05vw, 1.0625rem);
+    line-height: 1.78;
+    font-weight: 300;
+  }
+
+  .t-label {
+    font-size: 0.6875rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .t-index {
+    font-family: var(--font-display), Georgia, serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    line-height: 0.8;
+  }
+
+  /* ---------- Rules & grid motif ---------- */
+  .rule {
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .rule-inverse {
+    height: 1px;
+    background: var(--rule-inverse);
+  }
+
+  .precision-grid {
+    background-image:
+      linear-gradient(to right, rgba(197, 164, 126, 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(197, 164, 126, 0.09) 1px, transparent 1px);
+    background-size: clamp(60px, 8vw, 120px) clamp(60px, 8vw, 120px);
+  }
+
+  .precision-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 78%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 78%);
+  }
+
+  /* ---------- Media ---------- */
+  .media {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--ink-800);
+  }
+
+  .media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .media-zoom > img {
+    transition: transform 1.2s var(--ease-premium);
+    will-change: transform;
+  }
+
+  .group:hover .media-zoom > img {
+    transform: scale(1.055);
+  }
+
+  /* Cinematic overlays */
+  .veil-bottom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to top,
+        rgba(11, 11, 12, 0.94) 0%,
+        rgba(11, 11, 12, 0.66) 30%,
+        rgba(11, 11, 12, 0.28) 58%,
+        rgba(11, 11, 12, 0.2) 76%,
+        rgba(11, 11, 12, 0.62) 100%
+      ),
+      linear-gradient(
+        to right,
+        rgba(11, 11, 12, 0.55) 0%,
+        rgba(11, 11, 12, 0.22) 42%,
+        rgba(11, 11, 12, 0) 70%
+      );
+    pointer-events: none;
+  }
+
+  .veil-soft::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11, 11, 12, 0.78), rgba(11, 11, 12, 0.15) 70%);
+    pointer-events: none;
+  }
+
+  /* ---------- Links ---------- */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.55s var(--ease-premium);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@layer utilities {
+  .balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Full viewport height that behaves on mobile browsers */
+  .h-screen-safe {
+    height: 100svh;
+    min-height: 34rem;
+  }
+
+  .min-h-screen-safe {
+    min-height: 100svh;
+  }
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   MeridianField motif
+   ============================================================ */
+@keyframes sf-meridian-spin {
+  0%   { rx: 200px; }
+  25%  { rx: 0px;   }
+  50%  { rx: 200px; }
+  75%  { rx: 0px;   }
+  100% { rx: 200px; }
+}
+
+@keyframes sf-pulse {
+  0%   { transform: scale(0.55); opacity: 0.65; }
+  70%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+.sf-meridian {
+  animation-name: sf-meridian-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: rx;
+}
+
+.sf-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sf-pulse 3.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-meridian,
+  .sf-pulse {
+    animation: none !important;
+  }
+}
