@@ -87,7 +87,7 @@ export function MobileMenu({
                 alt="SOFISAM FZCO"
                 width={834}
                 height={209}
-                className="h-[1.6rem] w-auto"
+                className="h-[1.9rem] w-auto"
               />
             </Link>
             <button
@@ -107,7 +107,6 @@ export function MobileMenu({
           >
             <ul className="shell pb-8 pt-4">
               {navItems.map((item, i) => {
-                const n = String(i + 1).padStart(2, '0');
                 const hasChildren = Boolean(item.children);
                 const isOpen = expanded === item.label;
 
@@ -123,9 +122,8 @@ export function MobileMenu({
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="flex flex-1 items-baseline gap-4 py-[1.15rem] pr-3"
+                        className="flex flex-1 items-center py-[1.05rem] pr-3"
                       >
-                        <span className="t-index text-[0.7rem] text-gold">{n}</span>
                         <span
                           className={`font-display text-[2rem] leading-none tracking-tighter transition-colors duration-300 xs:text-[2.35rem] ${
                             isActive(item.href) ? 'text-gold' : 'text-bone'

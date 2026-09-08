@@ -85,7 +85,7 @@ export function Header() {
             aria-label="SOFISAM FZCO — home"
             className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2"
           >
-            <span className="relative block h-[1.6rem] w-[6.4rem] sm:h-[1.85rem] sm:w-[7.4rem] lg:h-[2.05rem] lg:w-[8.2rem]">
+            <span className="relative block h-[1.9rem] w-[7.6rem] sm:h-[2.26rem] sm:w-[9rem] lg:h-[2.57rem] lg:w-[10.25rem]">
               <img
                 src="/logo.png"
                 alt="SOFISAM FZCO"
