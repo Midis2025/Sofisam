@@ -129,14 +129,14 @@ export function Footer() {
         </div>
 
         {/* Oversized wordmark */}
-        <div className="mt-[var(--space-section-sm)] overflow-hidden" aria-hidden>
+        <div className="mt-[var(--content-gap-lg)] overflow-hidden" aria-hidden>
           <img
             src="/logo.png"
             alt=""
             width={834}
             height={209}
             loading="lazy"
-            className="h-auto w-full max-w-none opacity-[0.07]"
+            className="h-auto max-h-[9rem] w-full max-w-none object-contain opacity-[0.07] lg:max-h-[11rem]"
           />
         </div>
 

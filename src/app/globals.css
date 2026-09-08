@@ -154,6 +154,20 @@
     padding-bottom: var(--space-section-sm);
   }
 
+  /* A full-bleed panel sets its own padding on an inner wrapper so it can
+     combine with a min-height. Give it a lighter top step when it follows
+     another section — the previous section's bottom padding and the change of
+     ground already separate them. */
+  .section + .panel > .panel-inner,
+  .panel + .section {
+    padding-top: var(--space-section-md);
+  }
+
+  .panel:has(+ .section) > .panel-inner,
+  .panel:has(+ .panel) > .panel-inner {
+    padding-bottom: var(--space-section-md);
+  }
+
   /* Header safe area — hero content must never start above this. */
   .below-header {
     padding-top: calc(var(--header-h) + clamp(1.5rem, 4vh, 3rem));

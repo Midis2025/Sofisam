@@ -57,7 +57,7 @@ export function AdvisoryPrinciples() {
 
   return (
     <section
-      className="relative overflow-hidden bg-ink text-bone"
+      className="section relative overflow-hidden bg-ink text-bone"
       aria-labelledby="principles-heading"
     >
       {/* Backdrop imagery reacting to the active principle */}
@@ -84,7 +84,7 @@ export function AdvisoryPrinciples() {
         <div className="absolute inset-0 bg-ink/85" />
       </div>
 
-      <div className="shell-wide relative z-10 section">
+      <div className="shell-wide relative z-10">
         <Reveal className="flex items-center gap-4">
           <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
           <p className="t-label text-gold">Advisory Principles</p>

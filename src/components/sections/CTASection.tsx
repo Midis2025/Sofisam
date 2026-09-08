@@ -23,7 +23,7 @@ export function CTASection({
 }: CTASectionProps) {
   return (
     <section
-      className="relative w-full overflow-hidden bg-ink text-bone"
+      className="panel relative w-full overflow-hidden bg-ink text-bone"
       aria-labelledby="cta-heading"
     >
       <Parallax strength={8} className="absolute inset-0">
@@ -40,7 +40,7 @@ export function CTASection({
       </Parallax>
       <div aria-hidden className="absolute inset-0 bg-ink/82" />
 
-      <div className="shell-wide relative z-10 flex min-h-[28rem] lg:min-h-[32rem] flex-col justify-center py-[var(--space-section-lg)] text-center">
+      <div className="panel-inner shell-wide relative z-10 flex min-h-[28rem] lg:min-h-[32rem] flex-col justify-center py-[var(--space-section-lg)] text-center">
         <Reveal className="flex items-center justify-center gap-4">
           <span aria-hidden className="block h-px w-10 bg-gold" />
           <p className="t-label text-gold">{eyebrow}</p>

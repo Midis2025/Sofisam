@@ -20,18 +20,18 @@ export function BrandStatement() {
         </Reveal>
 
         {/* Oversized positioning line */}
-        <h2 id="welcome-heading" className="t-h1 mt-8 max-w-[19ch] text-ink sm:mt-12">
+        <h2 id="welcome-heading" className="t-h1 mt-6 max-w-[19ch] text-ink sm:mt-8">
           <MaskedLines
             lines={['International Strategic', 'Consulting, Advisory and', 'Structuring Firm.']}
           />
         </h2>
 
-        <DrawRule className="mt-[var(--content-gap-lg)]" />
+        <DrawRule className="mt-[var(--content-gap-md)]" />
 
         {/* Asymmetric body / image */}
-        <div className="mt-[var(--content-gap-lg)] grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5 lg:col-start-1">
-            <Parallax strength={7} className="media aspect-[4/5] w-full">
+        <div className="mt-[var(--content-gap-md)] grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5 lg:col-start-1 lg:flex lg:flex-col">
+            <Parallax strength={7} className="media aspect-[4/5] w-full lg:aspect-auto lg:min-h-[24rem] lg:flex-1">
               <Picture
                 name="business-bay"
                 alt="Dubai's Business Bay towers standing in soft morning haze above the water"
@@ -49,7 +49,7 @@ export function BrandStatement() {
             </Reveal>
           </div>
 
-          <div className="lg:col-span-6 lg:col-start-7 lg:pt-[var(--content-gap-lg)]">
+          <div className="lg:col-span-6 lg:col-start-7">
             <Reveal>
               <p className="t-lead max-w-[44ch] text-ink">
                 {welcomeCopy.paragraphs[0]}

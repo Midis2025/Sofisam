@@ -121,7 +121,7 @@ export function ExpertiseSequence() {
               >
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group block py-[var(--space-section-md)]"
+                  className="group block py-[var(--content-gap-lg)] sm:py-[var(--space-section-sm)]"
                 >
                   {/* Mobile media */}
                   <div className="media media-zoom relative mb-7 aspect-[16/10] w-full lg:hidden">

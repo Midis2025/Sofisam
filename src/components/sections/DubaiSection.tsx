@@ -23,7 +23,7 @@ const notes = [
 export function DubaiSection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-ink text-bone"
+      className="panel relative w-full overflow-hidden bg-ink text-bone"
       aria-labelledby="dubai-heading"
     >
       {/* Full-bleed backdrop */}
@@ -40,7 +40,7 @@ export function DubaiSection() {
         </div>
       </Parallax>
 
-      <div className="shell-wide relative z-10 flex min-h-[34rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[40rem]">
+      <div className="panel-inner shell-wide relative z-10 flex min-h-[34rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[40rem]">
         <div className="grid gap-[var(--space-section-sm)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <Reveal className="flex items-center gap-4">
