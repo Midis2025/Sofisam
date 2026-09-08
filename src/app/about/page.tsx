@@ -115,9 +115,9 @@ export default function AboutPage() {
       <section className="section-md bg-bone" aria-label="Architectural composition">
         <div className="shell-wide">
           <div className="relative">
-            <ImageReveal>
+            <ImageReveal className="hidden sm:block">
               <ScaleOnScroll
-                className="media aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[21/9]"
+                className="media aspect-[16/9] w-full lg:aspect-[21/9]"
                 from={1.12}
                 to={1}
               >
@@ -135,14 +135,14 @@ export default function AboutPage() {
                 beneath it on phones, so nothing is cropped or pushed off-canvas. */}
             <ImageReveal
               delay={0.14}
-              className="mt-5 w-2/3 sm:absolute sm:-bottom-[10%] sm:right-0 sm:mt-0 sm:w-[30%] lg:w-[25%]"
+              className="w-full sm:absolute sm:-bottom-[10%] sm:right-0 sm:w-[30%] lg:w-[25%]"
             >
-              <div className="media aspect-[3/4] w-full border-[6px] border-bone sm:border-[10px]">
+              <div className="media aspect-[4/5] w-full sm:aspect-[3/4] sm:border-[10px] sm:border-bone">
                 <Picture
                   name="facade-pale"
                   alt="Slender pale tower rising beside a sheer reflective glass facade"
-                  sizes="(min-width:640px) 30vw, 66vw"
-                  focal="50% 45%"
+                  sizes="(min-width:640px) 30vw, 100vw"
+                  focal="62% 40%"
                   className="h-full w-full"
                 />
               </div>
