@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Picture } from '@/components/ui/Picture';
 
+/**
+ * Local asset in /public/videos. The filename contains spaces, so it is
+ * percent-encoded here — the browser URL must never include /public.
+ */
+const HERO_VIDEO_SRC = '/videos/West%20Point%20Gold.mp4';
+
 interface HeroVideoProps {
   /** Poster asset name in the image manifest — also the still fallback. */
   poster: string;
@@ -17,9 +23,9 @@ interface HeroVideoProps {
  *
  * The poster still renders immediately and carries first paint; the video is
  * attached only after mount, so it never competes with the LCP text or blocks
- * render. A 720p cut is used on small viewports, and playback is skipped
- * entirely under reduced-motion, on a saveData connection, or on a very slow
- * effective connection — in each of those cases the still simply remains.
+ * render. One local file serves every viewport. Playback is skipped entirely
+ * under reduced-motion, on a saveData connection, or on a very slow effective
+ * connection — in each of those cases the still simply remains.
  */
 export function HeroVideo({
   poster,
@@ -44,8 +50,7 @@ export function HeroVideo({
     if (conn?.saveData) return;
     if (conn?.effectiveType && /(^|-)2g$/.test(conn.effectiveType)) return;
 
-    const small = window.matchMedia('(max-width: 767px)').matches;
-    setSrc(small ? '/videos/hero-dubai-720.mp4' : '/videos/hero-dubai-1080.mp4');
+    setSrc(HERO_VIDEO_SRC);
   }, []);
 
   useEffect(() => {
