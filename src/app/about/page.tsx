@@ -71,40 +71,38 @@ export default function AboutPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
       />
 
-      {/* 02 — The firm in its own words: typography-led. A narrow label rail, a
-             main statement column, one tall plate held off to the side. */}
+      {/* 02 — The firm in its own words: one composition. The label sits
+             directly over the statement on the container edge, the heading,
+             statement and left supporting column share that edge, and the
+             plate is taken out of the height calculation so it runs the exact
+             height of the text beside it. */}
       <section className="rd-section rd-paper" aria-labelledby="about-intro">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-x-[clamp(2rem,3.5vw,4rem)]">
-            {/* Label rail */}
-            <div className="lg:col-span-3">
-              <div className="lg:sticky lg:top-[8rem]">
-                <Reveal kind="label" className="rd-kicker">
-                  <p className="rd-label">{welcomeCopy.eyebrow}</p>
-                </Reveal>
-              </div>
-            </div>
+          <Reveal kind="label" className="rd-kicker">
+            <p className="rd-label">{welcomeCopy.eyebrow}</p>
+          </Reveal>
 
-            {/* Statement */}
-            <div className="lg:col-span-6">
-              <h2 id="about-intro" className="rd-display max-w-[16ch] text-[var(--rd-ink)]">
+          <div className="mt-[clamp(1.5rem,2.2vw,2rem)] grid items-stretch gap-[clamp(2rem,4vw,4.5rem)] lg:grid-cols-12">
+            {/* Statement and supporting columns */}
+            <div className="lg:col-span-7">
+              <h2 id="about-intro" className="rd-display max-w-[14ch] text-[var(--rd-ink)]">
                 <MaskedLines lines={['The firm in', 'its own words']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="mt-[clamp(2rem,3.5vw,3rem)] max-w-[26ch] font-display text-[clamp(1.65rem,3vw,2.75rem)] leading-[1.12] tracking-tighter text-[var(--rd-ink)]">
+                <p className="mt-[clamp(2.25rem,3vw,3rem)] max-w-[24ch] font-display text-[clamp(1.65rem,2.8vw,2.6rem)] leading-[1.12] tracking-tighter text-[var(--rd-ink)]">
                   {welcomeCopy.paragraphs[1]}
                 </p>
               </Reveal>
 
-              <div className="mt-[clamp(2rem,3.5vw,3rem)] grid gap-[clamp(1.5rem,3vw,3rem)] sm:grid-cols-2">
-                <RowReveal as="div" className="pt-[clamp(1rem,1.6vw,1.5rem)]">
-                  <p className="rd-lead max-w-[34ch] text-[var(--rd-ink)]">
+              <div className="mt-[clamp(2.75rem,3.6vw,3.75rem)] grid gap-x-[clamp(2.5rem,4vw,4.5rem)] gap-y-[clamp(1.5rem,2vw,2rem)] sm:grid-cols-2">
+                <RowReveal as="div" className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
+                  <p className="rd-lead max-w-[30ch] text-[var(--rd-ink)]">
                     {welcomeCopy.positioning}
                   </p>
                 </RowReveal>
 
-                <RowReveal as="div" delay={0.1} className="pt-[clamp(1rem,1.6vw,1.5rem)]">
+                <RowReveal as="div" delay={0.1} className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
                   <p className="rd-body max-w-[38ch] text-[var(--rd-stone)]">
                     {welcomeCopy.paragraphs[0]}
                   </p>
@@ -115,13 +113,16 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Tall plate, dropped below the statement's first line */}
-            <ImageReveal delay={0.1} className="lg:col-span-3 lg:pt-[clamp(3rem,7vw,7rem)]">
-              <div className="rd-media aspect-[4/5] w-full lg:aspect-[3/5]">
+            {/* Plate — the full height of the text block beside it */}
+            <ImageReveal
+              delay={0.1}
+              className="lg:col-span-5 lg:relative lg:h-full lg:min-h-[26rem]"
+            >
+              <div className="rd-media aspect-[4/5] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
                 <Picture
                   name="facade-pale"
                   alt="Slender pale tower rising beside a sheer reflective glass facade"
-                  sizes="(min-width:1024px) 24vw, 100vw"
+                  sizes="(min-width:1024px) 40vw, 100vw"
                   focal="62% 40%"
                   className="h-full w-full"
                 />
