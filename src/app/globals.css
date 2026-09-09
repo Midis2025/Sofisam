@@ -439,3 +439,420 @@
   }
 }
 
+
+/* ============================================================
+   ADVISORY REDESIGN LAYER
+   ------------------------------------------------------------
+   A self-contained visual system for the redesigned content
+   sections. Every declaration below is either a new custom
+   property or a class namespaced `.rd-*`. Nothing here targets a
+   bare element (h1, p, section, img, button, a...), so the locked
+   Header, homepage Hero and Footer cannot be affected by it.
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* --- Ground tones -------------------------------------------
+       Warm neutrals carry roughly two thirds of the interface; the
+       dark grounds are warmed slightly off pure black so they sit
+       with the brand gold rather than against it. */
+    --rd-paper: #f7f5f1;
+    --rd-paper-2: #efeae1;
+    --rd-paper-3: #e6e0d5;
+    --rd-umber: #16120f;
+    --rd-umber-2: #211b16;
+
+    /* --- Ink & accent ------------------------------------------- */
+    --rd-ink: #0b0b0c;
+    --rd-stone: #6b665e;   /* warm secondary on light */
+    --rd-sage: #a9a69c;    /* warm secondary on dark  */
+    --rd-accent: #c5a47e;  /* SOFISAM gold — the single accent */
+    --rd-accent-deep: #a68a68;
+
+    /* --- Rules --------------------------------------------------- */
+    --rd-line: rgba(11, 11, 12, 0.13);
+    --rd-line-soft: rgba(11, 11, 12, 0.07);
+    --rd-line-inv: rgba(246, 244, 239, 0.17);
+    --rd-line-inv-soft: rgba(246, 244, 239, 0.08);
+
+    /* --- Layout --------------------------------------------------
+       1400px of content, gutters ~20px on a phone, ~32px at 768,
+       ~58px at 1440 and capped at 80px. */
+    --rd-max: 87.5rem;
+    --rd-gutter: clamp(1.25rem, 4vw, 5rem);
+
+    /* Section rhythm: ~64px phone, ~80px at 768, ~106px at 1024,
+       ~150px at 1440, capped at 152px. */
+    --rd-pad: clamp(4rem, 10.4vw, 9.5rem);
+    --rd-pad-sm: clamp(2.75rem, 6.6vw, 6rem);
+
+    --rd-gap: clamp(1.75rem, 3.6vw, 3.75rem);
+    --rd-gap-sm: clamp(1rem, 1.8vw, 1.75rem);
+
+    --rd-radius: clamp(1.25rem, 2.2vw, 2rem);       /* 20 → 32px */
+    --rd-radius-sm: clamp(0.875rem, 1.4vw, 1.25rem);/* 14 → 20px */
+  }
+}
+
+@layer components {
+  /* ---------- Layout ---------- */
+  .rd-shell {
+    width: 100%;
+    max-width: calc(var(--rd-max) + 2 * var(--rd-gutter));
+    margin-inline: auto;
+    padding-inline: var(--rd-gutter);
+  }
+
+  .rd-section {
+    padding-block: var(--rd-pad);
+  }
+
+  .rd-section-sm {
+    padding-block: var(--rd-pad-sm);
+  }
+
+  /* Two redesigned sections sharing a ground should read as one break. */
+  .rd-section + .rd-section {
+    padding-top: var(--rd-pad-sm);
+  }
+
+  .rd-paper {
+    background-color: var(--rd-paper);
+  }
+
+  .rd-paper-2 {
+    background-color: var(--rd-paper-2);
+  }
+
+  .rd-dark {
+    background-color: var(--rd-umber);
+    color: #f6f4ef;
+  }
+
+  /* ---------- Type ---------- */
+  .rd-display {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 5.4rem);
+    line-height: 0.99;
+    letter-spacing: -0.03em;
+  }
+
+  .rd-h2 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 3.8vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.026em;
+  }
+
+  .rd-h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2vw, 2.2rem);
+    line-height: 1.14;
+    letter-spacing: -0.018em;
+  }
+
+  .rd-h4 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.15rem, 1.45vw, 1.5rem);
+    line-height: 1.24;
+    letter-spacing: -0.014em;
+  }
+
+  .rd-lead {
+    font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+
+  .rd-body {
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .rd-small {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .rd-meta {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  .rd-label {
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 399px) {
+    .rd-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.15em;
+    }
+  }
+
+  .rd-num {
+    font-family: var(--font-display), Georgia, serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  /* Small label preceded by a short gold rule. */
+  .rd-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    color: var(--rd-accent);
+  }
+
+  .rd-kicker::before {
+    content: '';
+    display: block;
+    flex: none;
+    width: clamp(1.75rem, 3.2vw, 2.75rem);
+    height: 1px;
+    background: var(--rd-accent);
+  }
+
+  /* ---------- Media ---------- */
+  .rd-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--rd-radius);
+    background-color: var(--rd-umber);
+  }
+
+  .rd-media-sm {
+    border-radius: var(--rd-radius-sm);
+  }
+
+  .rd-media > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .rd-media-zoom > img {
+    transition: transform 1.1s var(--ease-premium);
+    will-change: transform;
+  }
+
+  .group:hover .rd-media-zoom > img,
+  .group:focus-visible .rd-media-zoom > img {
+    transform: scale(1.03);
+  }
+
+  /* ---------- Rules, rows & panels ---------- */
+  .rd-rule {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--rd-line);
+  }
+
+  .rd-rule-inv {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--rd-line-inv);
+  }
+
+  .rd-row {
+    border-top: 1px solid var(--rd-line);
+    transition: background-color 0.55s var(--ease-premium);
+  }
+
+  .rd-row-inv {
+    border-top: 1px solid var(--rd-line-inv);
+    transition: background-color 0.55s var(--ease-premium);
+  }
+
+  .rd-row-hover:hover {
+    background-color: rgba(11, 11, 12, 0.028);
+  }
+
+  .rd-row-inv-hover:hover {
+    background-color: rgba(246, 244, 239, 0.045);
+  }
+
+  .rd-panel {
+    border-radius: var(--rd-radius);
+    overflow: hidden;
+  }
+
+  .rd-panel-outline {
+    border: 1px solid var(--rd-line);
+    border-radius: var(--rd-radius);
+  }
+
+  /* ---------- Links ---------- */
+  .rd-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.45s var(--ease-premium);
+  }
+
+  .rd-arrow {
+    transition: transform 0.5s var(--ease-premium);
+  }
+
+  .group:hover .rd-arrow {
+    transform: translate3d(4px, -4px, 0);
+  }
+
+  .group:hover .rd-arrow-right {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* ------------------------------------------------------------
+   Accent on light grounds
+   ------------------------------------------------------------
+   The brand gold is a display colour: at label size on a near-white
+   ground it falls below a usable contrast ratio. Small accent text on
+   paper therefore uses a deeper bronze from the same family, while the
+   gold itself continues to carry rules, marks and everything set on a
+   dark ground. */
+@layer base {
+  :root {
+    --rd-accent-ink: #82653d;
+  }
+}
+
+@layer components {
+  .rd-kicker {
+    color: var(--rd-accent-ink);
+  }
+
+  .rd-dark .rd-kicker,
+  .rd-on-dark .rd-kicker {
+    color: var(--rd-accent);
+  }
+}
+
+/* ============================================================
+   MODULAR SURFACES
+   ------------------------------------------------------------
+   Tiles, cards and data blocks — the editorial-modular layer of
+   the redesign. Still entirely namespaced: no bare-element rules,
+   so the locked homepage hero is unaffected.
+   ============================================================ */
+
+@layer base {
+  :root {
+    --rd-card: #fcfbf9;      /* raised surface on paper */
+    --rd-tint: #ece7dd;      /* secondary tinted tile      */
+    --rd-tint-2: #e3ddd1;    /* tertiary tinted tile       */
+
+    /* Rounding: ~20px on a phone, ~32px on a large desktop. Inner
+       blocks sit one step tighter so they read as nested. */
+    --rd-r-lg: clamp(1.25rem, 2.2vw, 2rem);
+    --rd-r-md: clamp(0.875rem, 1.4vw, 1.25rem);
+    --rd-r-sm: clamp(0.625rem, 0.9vw, 0.875rem);
+  }
+}
+
+@layer components {
+  /* A raised surface. Definition comes from tone and a hairline,
+     never from a heavy shadow. */
+  .rd-card {
+    position: relative;
+    background-color: var(--rd-card);
+    border: 1px solid var(--rd-line-soft);
+    border-radius: var(--rd-r-lg);
+    transition:
+      background-color 0.5s var(--ease-premium),
+      border-color 0.5s var(--ease-premium),
+      transform 0.5s var(--ease-premium);
+  }
+
+  .rd-tile {
+    position: relative;
+    background-color: var(--rd-tint);
+    border-radius: var(--rd-r-lg);
+    transition:
+      background-color 0.5s var(--ease-premium),
+      transform 0.5s var(--ease-premium);
+  }
+
+  .rd-tile-dark {
+    position: relative;
+    background-color: var(--rd-umber);
+    color: #f6f4ef;
+    border-radius: var(--rd-r-lg);
+    transition:
+      background-color 0.5s var(--ease-premium),
+      transform 0.5s var(--ease-premium);
+  }
+
+  /* Lift is deliberately slight — a shift of tone, not a jump. */
+  .rd-lift:hover {
+    transform: translateY(-3px);
+  }
+
+  .rd-card.rd-lift:hover {
+    border-color: var(--rd-line);
+  }
+
+  .rd-tile.rd-lift:hover {
+    background-color: var(--rd-tint-2);
+  }
+
+  /* Label-over-value data block. */
+  .rd-block {
+    background-color: var(--rd-paper);
+    border-radius: var(--rd-r-md);
+    padding: clamp(0.875rem, 1.5vw, 1.25rem) clamp(1rem, 1.7vw, 1.5rem);
+  }
+
+  .rd-block-inv {
+    background-color: rgba(246, 244, 239, 0.06);
+    border-radius: var(--rd-r-md);
+    padding: clamp(0.875rem, 1.5vw, 1.25rem) clamp(1rem, 1.7vw, 1.5rem);
+  }
+
+  /* Media inside a tile keeps the parent's inner curve. */
+  .rd-media-in {
+    border-radius: var(--rd-r-md);
+  }
+
+  /* Slash-separated meta line: Category / Date / Reading time */
+  .rd-slash {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.6rem;
+  }
+
+  .rd-slash > * + *::before {
+    content: '/';
+    margin-right: 0.6rem;
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rd-lift:hover {
+      transform: none;
+    }
+  }
+}

@@ -1,15 +1,15 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
-import { Parallax } from '@/components/animations/Parallax';
+import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
 
 /**
- * Global perspective.
+ * 03 — Global perspective.
  *
- * Full-bleed architecture with a typographic overlay. The labels describe how
- * the firm works, not where it has offices — the only location asserted
- * anywhere on the site is the stated Dubai headquarters.
+ * One dark editorial panel: a large image plate against a statement column,
+ * with the markers set as data rows. They describe how the firm works, not
+ * where it has offices — the only location asserted anywhere on the site is
+ * the stated Dubai headquarters.
  */
 const markers = [
   { k: 'Base', v: 'Dubai' },
@@ -19,66 +19,71 @@ const markers = [
 
 export function GlobalPerspective() {
   return (
-    <section
-      className="panel relative w-full overflow-hidden bg-ink text-bone"
-      aria-labelledby="global-heading"
-    >
-      <Parallax strength={9} className="absolute inset-0">
-        <div className="media veil-editorial h-full w-full">
-          <Picture
-            name="city-mono"
-            alt=""
-            decorative
-            sizes="100vw"
-            focal="50% 45%"
-            className="h-full w-full"
-          />
-        </div>
-      </Parallax>
-
-      <div className="panel-inner shell-wide relative z-10 flex min-h-[30rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[36rem]">
-        <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <Reveal className="flex items-center gap-4">
-              <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-              <p className="t-label text-gold">Global Perspective</p>
-            </Reveal>
-
-            <h2 id="global-heading" className="t-h1 mt-[var(--content-gap-md)] max-w-[13ch] text-bone">
-              <MaskedLines lines={['One vantage point.', 'A global field', 'of view.']} />
-            </h2>
-          </div>
-
-          <div className="lg:col-span-5">
-            <Reveal delay={0.1}>
-              <p className="t-lead measure-sm text-bone/70">
-                From our world headquarters in the Dubai Multi Commodities
-                Centre, our relationships and partnerships span the globe.
-              </p>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="t-body measure-sm mt-4 text-bone/70">
-                Conditions that govern an outcome rarely travel between
-                jurisdictions. We read each on its own terms rather than by
-                regional average.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Typographic markers, in place of any map or globe */}
-        <Reveal delay={0.2}>
-          <dl className="mt-[var(--content-gap-lg)] grid grid-cols-1 border-t border-bone/20 sm:grid-cols-3">
-            {markers.map((m) => (
-              <div key={m.k} className="border-b border-bone/12 py-5 sm:border-b-0 sm:pr-8">
-                <dt className="t-label text-bone/60">{m.k}</dt>
-                <dd className="mt-2.5 font-display text-[clamp(1.15rem,1.9vw,1.5rem)] leading-snug tracking-tight text-bone">
-                  {m.v}
-                </dd>
+    <section className="rd-section-sm rd-paper" aria-labelledby="global-heading">
+      <div className="rd-shell">
+        <div className="rd-tile-dark rd-on-dark p-[clamp(1rem,1.8vw,1.5rem)]">
+          <div className="grid gap-[clamp(1.25rem,2.4vw,2.5rem)] lg:grid-cols-12 lg:items-stretch">
+            {/* Image plate — the dominant element */}
+            <ImageReveal className="lg:col-span-7">
+              <div className="rd-media rd-media-in aspect-[4/3] h-full w-full lg:aspect-auto lg:min-h-[30rem]">
+                <Picture
+                  name="city-mono"
+                  alt=""
+                  decorative
+                  sizes="(min-width:1024px) 56vw, 100vw"
+                  focal="50% 45%"
+                  className="h-full w-full"
+                />
               </div>
-            ))}
-          </dl>
-        </Reveal>
+            </ImageReveal>
+
+            {/* Statement */}
+            <div className="flex flex-col justify-between p-[clamp(0.5rem,1.4vw,1.5rem)] lg:col-span-5">
+              <div>
+                <Reveal className="rd-kicker">
+                  <p className="rd-label">Global Perspective</p>
+                </Reveal>
+
+                <h2
+                  id="global-heading"
+                  className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[13ch] text-bone"
+                >
+                  <MaskedLines lines={['One vantage point.', 'A global field', 'of view.']} />
+                </h2>
+
+                <Reveal delay={0.1}>
+                  <p className="rd-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[40ch] text-bone/75">
+                    From our world headquarters in the Dubai Multi Commodities
+                    Centre, our relationships and partnerships span the globe.
+                  </p>
+                </Reveal>
+
+                <Reveal delay={0.16}>
+                  <p className="rd-small mt-4 max-w-[42ch] text-[var(--rd-sage)]">
+                    Conditions that govern an outcome rarely travel between
+                    jurisdictions. We read each on its own terms rather than by
+                    regional average.
+                  </p>
+                </Reveal>
+              </div>
+
+              {/* Markers, in place of any map or globe */}
+              <Reveal delay={0.2}>
+                <dl className="mt-[clamp(2rem,3.4vw,3rem)]">
+                  {markers.map((m) => (
+                    <div
+                      key={m.k}
+                      className="rd-row-inv flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-[clamp(0.875rem,1.5vw,1.15rem)] last:border-b last:border-[var(--rd-line-inv)]"
+                    >
+                      <dt className="rd-label text-[var(--rd-sage)]">{m.k}</dt>
+                      <dd className="rd-h4 text-bone">{m.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

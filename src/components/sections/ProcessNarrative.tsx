@@ -1,14 +1,16 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 
 /**
- * How we work. Wording is kept deliberately generic to the advisory process
- * itself — it does not claim any service, permission or capability beyond what
- * SOFISAM states about strategic consulting, advisory and structuring.
+ * 07 — Way of working. Wording is kept deliberately generic to the advisory
+ * process itself — it does not claim any service, permission or capability
+ * beyond what SOFISAM states about strategic consulting, advisory and
+ * structuring.
+ *
+ * Five steps in sequence: a hairline rail with a mark per step on desktop,
+ * two columns on tablet, a compact vertical timeline on phones. Every
+ * description stays visible — nothing depends on hover or a click.
  */
 const steps = [
   {
@@ -39,30 +41,24 @@ const steps = [
 ];
 
 export function ProcessNarrative() {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 78%', 'end 55%'],
-  });
-  const railScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   return (
-    <section className="section bg-bone" aria-labelledby="process-heading">
-      <div className="shell-wide">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+    <section className="rd-section rd-paper" aria-labelledby="process-heading">
+      <div className="rd-shell">
+        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <Reveal className="flex items-center gap-4">
-              <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-              <p className="t-label text-gold">Way of Working</p>
+            <Reveal className="rd-kicker">
+              <p className="rd-label">Way of Working</p>
             </Reveal>
-            <h2 id="process-heading" className="t-h2 mt-7 max-w-[15ch] text-ink">
+            <h2
+              id="process-heading"
+              className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[15ch] text-[var(--rd-ink)]"
+            >
               <MaskedLines lines={['A sequence, not', 'a methodology.']} />
             </h2>
           </div>
-          <div className="lg:col-span-5 lg:pb-2">
+          <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
             <Reveal delay={0.1}>
-              <p className="t-body max-w-[40ch] text-ink/55">
+              <p className="rd-body max-w-[40ch] text-[var(--rd-stone)]">
                 Every engagement is different. The order in which we think about
                 one rarely is.
               </p>
@@ -70,50 +66,30 @@ export function ProcessNarrative() {
           </div>
         </div>
 
-        {/* Steps */}
-        <div ref={ref} className="relative mt-[var(--space-section-md)]">
-          {/* Progress rail — vertical on mobile, horizontal on desktop */}
-          <div
-            aria-hidden
-            className="absolute left-[0.68rem] top-2 h-[calc(100%-1rem)] w-px bg-ink/10 lg:left-0 lg:top-0 lg:h-px lg:w-full"
-          >
-            <motion.div
-              className="h-full w-full origin-top bg-gold lg:origin-left"
-              style={
-                reduce
-                  ? { transform: 'scale(1)' }
-                  : { scaleY: railScale, scaleX: railScale }
-              }
-            />
-          </div>
+        <ol className="mt-[var(--rd-pad-sm)] grid gap-x-[clamp(1.5rem,2.4vw,2.5rem)] gap-y-8 border-l border-[var(--rd-line)] pl-6 sm:grid-cols-2 sm:gap-y-10 sm:border-l-0 sm:pl-0 lg:grid-cols-5 lg:gap-y-0">
+          {steps.map((s, i) => (
+            <Reveal
+              as="li"
+              key={s.k}
+              delay={i * 0.06}
+              className="group relative transition-colors duration-500 sm:border-t sm:border-[var(--rd-line)] sm:pt-6 sm:last:col-span-2 sm:hover:border-[var(--rd-accent)] lg:last:col-span-1"
+            >
+              {/* Mark on the rail */}
+              <span
+                aria-hidden
+                className="absolute -left-[1.6rem] top-[0.4rem] block h-[0.4rem] w-[0.4rem] rounded-full bg-[var(--rd-accent)] sm:-top-[0.2rem] sm:left-0"
+              />
 
-          <ol className="grid gap-y-9 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-0 lg:pt-10">
-            {steps.map((s, i) => (
-              <Reveal
-                as="li"
-                key={s.k}
-                delay={i * 0.07}
-                className="relative pl-10 lg:pl-0 lg:pr-5"
-              >
-                {/* Node */}
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-[0.35rem] block h-[1.35rem] w-[1.35rem] rounded-full border border-gold bg-bone lg:-top-[3.2rem] lg:left-0"
-                >
-                  <span className="absolute inset-[0.36rem] rounded-full bg-gold" />
+              <div className="transition-transform duration-500 ease-premium group-hover:translate-y-[-2px]">
+                <span className="rd-num block text-[0.85rem] text-[var(--rd-accent-ink)]">
+                  {s.k}
                 </span>
-
-                <span className="t-index block text-[0.72rem] text-gold">{s.k}</span>
-                <h3 className="mt-3 font-display text-[clamp(1.45rem,2.2vw,1.85rem)] leading-tight tracking-tight text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-3 max-w-[34ch] text-[0.88rem] font-light leading-relaxed text-ink/55">
-                  {s.body}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+                <h3 className="rd-h4 mt-3 text-[var(--rd-ink)]">{s.title}</h3>
+                <p className="rd-small mt-3 max-w-[34ch] text-[var(--rd-stone)]">{s.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

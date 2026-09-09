@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, DrawRule, ImageReveal } from '@/components/animations/Reveal';
-import { Parallax, ScaleOnScroll } from '@/components/animations/Parallax';
+import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
 import { PageHero } from '@/components/layout/PageHero';
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
 import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
@@ -58,8 +57,7 @@ const operatingPrinciples = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero — the shared internal-page hero, same size step as Services and
-          Insights: full-bleed architecture, dark veil, bottom-anchored copy. */}
+      {/* Hero — the shared internal-page hero, unchanged */}
       <PageHero
         eyebrow="About SOFISAM"
         headline={['A firm built', 'around judgement.']}
@@ -71,39 +69,40 @@ export default function AboutPage() {
       />
 
       {/* 02 — Editorial intro: oversized statement against a narrow body column */}
-      <section className="section bg-bone" aria-labelledby="about-intro">
-        <div className="shell-wide">
-          <div className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-            <p className="t-label text-gold">{welcomeCopy.eyebrow}</p>
-          </div>
+      <section className="rd-section rd-paper" aria-labelledby="about-intro">
+        <div className="rd-shell">
+          <Reveal className="rd-kicker">
+            <p className="rd-label">{welcomeCopy.eyebrow}</p>
+          </Reveal>
 
           <h2 id="about-intro" className="sr-only">
             The firm in its own words
           </h2>
 
-          <div className="mt-[var(--content-gap-lg)] grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-14">
+          <div className="mt-[clamp(1.5rem,3vw,2.75rem)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-7">
               <Reveal>
-                <p className="font-display text-[clamp(1.8rem,4vw,3.3rem)] leading-[1.07] tracking-tighter text-ink">
+                <p className="rd-display max-w-[18ch] text-[var(--rd-ink)]">
                   {welcomeCopy.paragraphs[1]}
                 </p>
               </Reveal>
             </div>
 
-            <div className="lg:col-span-4 lg:col-start-9 lg:pt-2">
+            <div className="lg:col-span-4 lg:col-start-9 lg:pt-3">
               <Reveal delay={0.1}>
-                <p className="t-lead text-ink">{welcomeCopy.positioning}</p>
+                <p className="rd-lead text-[var(--rd-ink)]">{welcomeCopy.positioning}</p>
               </Reveal>
 
-              <DrawRule className="my-[var(--content-gap-md)]" />
+              <Reveal delay={0.14}>
+                <span aria-hidden className="rd-rule my-[var(--rd-gap)] block" />
+              </Reveal>
 
-              <div className="space-y-5">
+              <div className="space-y-6">
                 <Reveal delay={0.16}>
-                  <p className="t-body text-ink/65">{welcomeCopy.paragraphs[0]}</p>
+                  <p className="rd-body text-[var(--rd-stone)]">{welcomeCopy.paragraphs[0]}</p>
                 </Reveal>
                 <Reveal delay={0.22}>
-                  <p className="t-body text-ink/65">{welcomeCopy.paragraphs[2]}</p>
+                  <p className="rd-body text-[var(--rd-stone)]">{welcomeCopy.paragraphs[2]}</p>
                 </Reveal>
               </div>
             </div>
@@ -111,104 +110,90 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 03 — Layered composition: one dominant plate, one inset */}
-      <section className="section-md bg-bone" aria-label="Architectural composition">
-        <div className="shell-wide">
-          <div className="relative">
-            <ImageReveal className="hidden sm:block">
-              <ScaleOnScroll
-                className="media aspect-[16/9] w-full lg:aspect-[21/9]"
-                from={1.12}
-                to={1}
-              >
+      {/* 03 — Architectural pair: two plates at different weights */}
+      <section className="rd-section-sm rd-paper" aria-label="Architectural composition">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap-sm)] sm:grid-cols-12 sm:gap-[clamp(1rem,2vw,1.75rem)]">
+            <ImageReveal className="sm:col-span-8">
+              <div className="rd-media aspect-[16/10] w-full lg:aspect-[16/9]">
                 <Picture
                   name="lattice-white"
                   alt="Pale architectural screen forming a precise repeating lattice across a building facade"
-                  sizes="100vw"
+                  sizes="(min-width:640px) 64vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full"
                 />
-              </ScaleOnScroll>
+              </div>
             </ImageReveal>
 
-            {/* Inset plate. Overlaps the band from sm upward and simply sits
-                beneath it on phones, so nothing is cropped or pushed off-canvas. */}
-            <ImageReveal
-              delay={0.14}
-              className="w-full sm:absolute sm:-bottom-[10%] sm:right-0 sm:w-[30%] lg:w-[25%]"
-            >
-              <div className="media aspect-[4/5] w-full sm:aspect-[3/4] sm:border-[10px] sm:border-bone">
+            <ImageReveal delay={0.12} className="sm:col-span-4 sm:pt-[clamp(2rem,5vw,5rem)]">
+              <div className="rd-media aspect-[4/5] w-full sm:aspect-[3/4]">
                 <Picture
                   name="facade-pale"
                   alt="Slender pale tower rising beside a sheer reflective glass facade"
-                  sizes="(min-width:640px) 30vw, 100vw"
+                  sizes="(min-width:640px) 32vw, 100vw"
                   focal="62% 40%"
                   className="h-full w-full"
                 />
               </div>
             </ImageReveal>
           </div>
-
-          {/* Clears the overlap only where the inset actually overlaps */}
-          <div aria-hidden className="hidden sm:block sm:h-[7vw] lg:h-[5vw]" />
         </div>
       </section>
 
-      {/* 04 — Dark full-bleed statement */}
-      <section
-        className="panel relative w-full overflow-hidden bg-ink text-bone"
-        aria-labelledby="about-international"
-      >
-        <Parallax strength={9} className="absolute inset-0">
-          <div className="media veil-editorial h-full w-full">
-            <Picture
-              name="city-mono"
-              alt=""
-              decorative
-              sizes="100vw"
-              focal="50% 45%"
-              className="h-full w-full"
-            />
+      {/* 04 — Dark statement panel */}
+      <section className="rd-section-sm rd-paper" aria-labelledby="about-international">
+        <div className="rd-shell">
+          <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
+            <div className="media veil-editorial absolute inset-0">
+              <Picture
+                name="city-mono"
+                alt=""
+                decorative
+                sizes="100vw"
+                focal="50% 45%"
+                className="h-full w-full"
+              />
+            </div>
+
+            <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[30rem]">
+              <Reveal className="rd-kicker">
+                <p className="rd-label">International Perspective</p>
+              </Reveal>
+
+              <h2
+                id="about-international"
+                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[17ch] text-bone"
+              >
+                <MaskedLines
+                  lines={['Relationships and', 'partnerships that', 'span the globe.']}
+                />
+              </h2>
+
+              <Reveal delay={0.14}>
+                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[48ch] text-bone/75">
+                  From our world headquarters in the {contact.headquarters}, we work
+                  with counterparties whose assumptions were formed elsewhere — and
+                  read each position on its own terms rather than by regional average.
+                </p>
+              </Reveal>
+            </div>
           </div>
-        </Parallax>
-
-        <div className="panel-inner shell-wide relative z-10 flex min-h-[28rem] flex-col justify-end py-[var(--space-section-lg)] lg:min-h-[32rem]">
-          <Reveal className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-            <p className="t-label text-gold">International Perspective</p>
-          </Reveal>
-
-          <h2
-            id="about-international"
-            className="t-h1 mt-[var(--content-gap-md)] max-w-[17ch] text-bone"
-          >
-            <MaskedLines
-              lines={['Relationships and', 'partnerships that', 'span the globe.']}
-            />
-          </h2>
-
-          <Reveal delay={0.14}>
-            <p className="t-lead mt-[var(--content-gap-md)] max-w-[48ch] text-bone/70">
-              From our world headquarters in the {contact.headquarters}, we work
-              with counterparties whose assumptions were formed elsewhere — and
-              read each position on its own terms rather than by regional average.
-            </p>
-          </Reveal>
         </div>
       </section>
 
-      {/* 05 — Corporate advisory: sticky plate, scrolling copy */}
-      <section className="section bg-bone" aria-labelledby="about-positioning">
-        <div className="shell-wide">
-          <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-14">
+      {/* 05 — Corporate advisory: plate beside scrolling copy */}
+      <section className="rd-section rd-paper" aria-labelledby="about-positioning">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-[7.5rem]">
+              <div className="lg:sticky lg:top-[8rem]">
                 <ImageReveal>
-                  <div className="media aspect-[4/5] w-full">
+                  <div className="rd-media aspect-[4/5] w-full">
                     <Picture
                       name="lounge-dark"
                       alt="Darkened executive lounge with slatted screens and low, considered lighting"
-                      sizes="(min-width:1024px) 40vw, 100vw"
+                      sizes="(min-width:1024px) 42vw, 100vw"
                       focal="50% 50%"
                       className="h-full w-full"
                     />
@@ -217,21 +202,20 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-6 lg:col-start-7 lg:pt-[var(--content-gap-lg)]">
-              <Reveal className="flex items-center gap-4">
-                <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-                <p className="t-label text-gold">Corporate Advisory</p>
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-[clamp(1rem,3vw,3rem)]">
+              <Reveal className="rd-kicker">
+                <p className="rd-label">Corporate Advisory</p>
               </Reveal>
 
               <h2
                 id="about-positioning"
-                className="t-h2 mt-[var(--content-gap-md)] max-w-[16ch] text-ink"
+                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-[var(--rd-ink)]"
               >
                 <MaskedLines lines={['Where the', 'decision cannot', 'be delegated.']} />
               </h2>
 
               <Reveal delay={0.12}>
-                <p className="t-body mt-[var(--content-gap-md)] max-w-[48ch] text-ink/65">
+                <p className="rd-body mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[48ch] text-[var(--rd-stone)]">
                   The matters we are brought into tend to sit above the level at
                   which an organisation can resolve them internally: what a
                   leadership team should do next, how a board should hold a
@@ -241,7 +225,7 @@ export default function AboutPage() {
               </Reveal>
 
               <Reveal delay={0.18}>
-                <p className="t-body mt-5 max-w-[48ch] text-ink/65">
+                <p className="rd-body mt-5 max-w-[48ch] text-[var(--rd-stone)]">
                   Our principals are highly successful business executives and
                   investors that bring unique perspectives to all of our mandates
                   and investments. That is the vantage point the advice is given
@@ -257,25 +241,24 @@ export default function AboutPage() {
       <AdvisoryPrinciples />
 
       {/* 07 — Working principles as an editorial ledger, not a card grid */}
-      <section className="section bg-bone" aria-labelledby="about-principles">
-        <div className="shell-wide">
-          <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:gap-14">
+      <section className="rd-section rd-paper-2" aria-labelledby="about-principles">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-4">
-              <div className="lg:sticky lg:top-[7.5rem]">
-                <Reveal className="flex items-center gap-4">
-                  <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-                  <p className="t-label text-gold">Working Principles</p>
+              <div className="lg:sticky lg:top-[8rem]">
+                <Reveal className="rd-kicker">
+                  <p className="rd-label">Working Principles</p>
                 </Reveal>
 
                 <h2
                   id="about-principles"
-                  className="t-h2 mt-[var(--content-gap-md)] max-w-[13ch] text-ink"
+                  className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[13ch] text-[var(--rd-ink)]"
                 >
                   <MaskedLines lines={['How the firm', 'actually operates.']} />
                 </h2>
 
                 <Reveal delay={0.1}>
-                  <p className="t-body mt-6 max-w-[34ch] text-ink/55">
+                  <p className="rd-small mt-6 max-w-[34ch] text-[var(--rd-stone)]">
                     Six commitments that govern how an engagement is taken on and
                     how it is carried.
                   </p>
@@ -283,22 +266,22 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <ol className="border-t border-ink/12 lg:col-span-7 lg:col-start-6">
+            <ol className="lg:col-span-7 lg:col-start-6">
               {operatingPrinciples.map((p, i) => (
                 <Reveal
                   as="li"
                   key={p.k}
                   delay={i * 0.05}
-                  className="group grid grid-cols-[auto_1fr] gap-x-5 border-b border-ink/12 py-6 sm:gap-x-8 sm:py-7"
+                  className="rd-row rd-row-hover last:border-b last:border-[var(--rd-line)]"
                 >
-                  <span className="t-index pt-[0.35rem] text-[0.8rem] text-gold">{p.k}</span>
-                  <div>
-                    <h3 className="max-w-[24ch] font-display text-[clamp(1.2rem,2vw,1.6rem)] leading-snug tracking-tight text-ink transition-colors duration-500 group-hover:text-gold">
-                      {p.t}
-                    </h3>
-                    <p className="mt-2.5 max-w-[46ch] text-[0.9rem] font-light leading-relaxed text-ink/55">
-                      {p.d}
-                    </p>
+                  <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 px-1 py-[clamp(1.5rem,2.4vw,2rem)] sm:gap-x-8">
+                    <span className="rd-num pt-[0.3rem] text-[0.9rem] text-[var(--rd-accent-ink)]">
+                      {p.k}
+                    </span>
+                    <div>
+                      <h3 className="rd-h4 max-w-[26ch] text-[var(--rd-ink)]">{p.t}</h3>
+                      <p className="rd-small mt-3 max-w-[48ch] text-[var(--rd-stone)]">{p.d}</p>
+                    </div>
                   </div>
                 </Reveal>
               ))}
@@ -307,18 +290,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 08 — Dubai / DMCC: editorial header, then a full-bleed band */}
-      <section className="section-md bg-bone" aria-labelledby="about-dmcc">
-        <div className="shell-wide">
-          <div className="grid gap-[var(--content-gap-lg)] lg:grid-cols-12 lg:items-end lg:gap-14">
-            <div className="lg:col-span-5">
-              <Reveal className="flex items-center gap-4">
-                <span aria-hidden className="block h-px w-10 shrink-0 bg-gold sm:w-16" />
-                <p className="t-label text-gold">Dubai — DMCC</p>
+      {/* 08 — Dubai / DMCC: editorial header, then a wide plate */}
+      <section className="rd-section rd-paper" aria-labelledby="about-dmcc">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end lg:gap-[clamp(2rem,3.5vw,4rem)]">
+            <div className="lg:col-span-4">
+              <Reveal className="rd-kicker">
+                <p className="rd-label">Dubai — DMCC</p>
               </Reveal>
               <h2
                 id="about-dmcc"
-                className="t-h2 mt-[var(--content-gap-md)] max-w-[15ch] text-ink"
+                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[12ch] text-[var(--rd-ink)]"
               >
                 <MaskedLines lines={['World', 'headquarters.']} />
               </h2>
@@ -326,7 +308,7 @@ export default function AboutPage() {
 
             <div className="lg:col-span-4">
               <Reveal delay={0.1}>
-                <p className="t-body max-w-[44ch] text-ink/65">
+                <p className="rd-body max-w-[44ch] text-[var(--rd-stone)]">
                   SOFISAM FZCO is based in the {contact.headquarters}, a free
                   zone in Jumeirah Lake Towers that concentrates internationally
                   oriented businesses within a defined and well-understood
@@ -335,11 +317,11 @@ export default function AboutPage() {
               </Reveal>
             </div>
 
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 lg:col-start-10">
               <Reveal delay={0.16}>
-                <p className="t-label text-ink/40">Address</p>
-                <address className="mt-3 not-italic">
-                  <p className="font-display text-[1.1rem] leading-relaxed tracking-tight text-ink">
+                <p className="rd-label text-[var(--rd-stone)]">Address</p>
+                <address className="mt-4 not-italic">
+                  <p className="rd-h4 leading-relaxed text-[var(--rd-ink)]">
                     {contact.address.line1}
                     <br />
                     {contact.address.line2}
@@ -348,23 +330,19 @@ export default function AboutPage() {
               </Reveal>
             </div>
           </div>
-        </div>
 
-        <ImageReveal className="mt-[var(--content-gap-lg)]">
-          <ScaleOnScroll
-            className="media aspect-[16/9] w-full lg:aspect-[24/9]"
-            from={1.1}
-            to={1}
-          >
-            <Picture
-              name="dubai-haze"
-              alt="Dubai skyline seen across the water in warm morning haze"
-              sizes="100vw"
-              focal="50% 55%"
-              className="h-full w-full"
-            />
-          </ScaleOnScroll>
-        </ImageReveal>
+          <ImageReveal className="mt-[var(--rd-pad-sm)]">
+            <div className="rd-media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9]">
+              <Picture
+                name="dubai-haze"
+                alt="Dubai skyline seen across the water in warm morning haze"
+                sizes="100vw"
+                focal="50% 55%"
+                className="h-full w-full"
+              />
+            </div>
+          </ImageReveal>
+        </div>
       </section>
 
       {/* 09 — Global perspective */}

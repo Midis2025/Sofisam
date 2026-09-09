@@ -87,7 +87,7 @@ export function ContactForm() {
   }
 
   const fieldBase =
-    'peer w-full bg-transparent pb-3 pt-2 text-[1.0625rem] font-light text-bone ' +
+    'peer min-h-[3rem] w-full bg-transparent pb-3 pt-2 text-[1.0625rem] font-light text-bone ' +
     'placeholder:text-bone/20 focus:outline-none disabled:opacity-60';
 
   return (
@@ -173,7 +173,7 @@ export function ContactForm() {
             aria-invalid={showError('message')}
             aria-describedby={showError('message') ? `${id}-message-err` : undefined}
             placeholder="How can we help?"
-            className={`${fieldBase} resize-none`}
+            className={`${fieldBase} min-h-[9rem] resize-none`}
           />
         </Field>
       </div>
@@ -269,7 +269,7 @@ function Field({
   return (
     <div className="group/field">
       <div className="flex items-baseline justify-between gap-4">
-        <label htmlFor={id} className="t-label text-bone/45">
+        <label htmlFor={id} className="rd-label text-[var(--rd-sage)]">
           {label}
           {required && (
             <span aria-hidden className="ml-1 text-gold">

@@ -7,7 +7,7 @@ import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { CTASection } from '@/components/sections/CTASection';
-import { Reveal, DrawRule } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
 import { insights, insightBySlug } from '@/data/insights';
 import { site } from '@/data/site';
 
@@ -101,40 +101,32 @@ export default async function InsightPage({
       </PageHero>
 
       {/* Article body */}
-      <article className="section bg-bone pb-[var(--space-section-md)]">
-        <div className="shell-wide">
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+      <article className="rd-section rd-paper">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
             {/* Side rail */}
             <aside className="lg:col-span-3">
               <div className="lg:sticky lg:top-[8rem]">
-                <p className="t-label text-gold">In this piece</p>
-                <ol className="mt-5 space-y-3">
+                <p className="rd-label text-[var(--rd-accent-ink)]">In this piece</p>
+                <ol className="mt-6">
                   {insight.body
                     .filter((b) => b.heading)
                     .map((b, i) => (
-                      <li key={b.heading} className="flex gap-3">
-                        <span className="t-index shrink-0 pt-[0.2rem] text-[0.66rem] text-ink/30">
+                      <li key={b.heading} className="rd-row flex gap-4 py-3.5">
+                        <span className="rd-num shrink-0 pt-[0.2rem] text-[0.66rem] text-[var(--rd-stone)]">
                           {String(i + 1).padStart(2, '0')}
                         </span>
-                        <span className="text-[0.86rem] font-light leading-snug text-ink/55">
-                          {b.heading}
-                        </span>
+                        <span className="rd-small text-[var(--rd-stone)]">{b.heading}</span>
                       </li>
                     ))}
                 </ol>
 
-                <DrawRule className="my-7" />
-
                 <Link
                   href="/insights"
-                  className="group inline-flex items-center gap-2 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-ink/60 hover:text-ink"
+                  className="group rd-cta mt-7 text-[var(--rd-stone)] hover:text-[var(--rd-ink)]"
                 >
                   <span className="link-underline">All insights</span>
-                  <ArrowUpRight
-                    aria-hidden
-                    strokeWidth={1.5}
-                    className="h-3.5 w-3.5 transition-transform duration-500 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
+                  <ArrowUpRight aria-hidden strokeWidth={1.5} className="rd-arrow h-3.5 w-3.5" />
                 </Link>
               </div>
             </aside>
@@ -145,7 +137,9 @@ export default async function InsightPage({
                 <section key={block.heading ?? `block-${bi}`} className={bi > 0 ? 'mt-12' : ''}>
                   {block.heading && (
                     <Reveal>
-                      <h2 className="t-h3 mb-6 max-w-[22ch] text-ink">{block.heading}</h2>
+                      <h2 className="rd-h3 mb-6 max-w-[22ch] text-[var(--rd-ink)]">
+                        {block.heading}
+                      </h2>
                     </Reveal>
                   )}
                   <div className="space-y-6">
@@ -154,8 +148,8 @@ export default async function InsightPage({
                         <p
                           className={
                             bi === 0 && pi === 0
-                              ? 'max-w-[58ch] text-[clamp(1.15rem,1.75vw,1.5rem)] font-light leading-[1.6] tracking-[-0.006em] text-ink'
-                              : 'max-w-[62ch] text-[clamp(1rem,1.1vw,1.0625rem)] font-light leading-[1.8] text-ink/70'
+                              ? 'rd-lead max-w-[58ch] text-[var(--rd-ink)]'
+                              : 'rd-body max-w-[62ch] text-[var(--rd-stone)]'
                           }
                         >
                           {p}
@@ -167,8 +161,8 @@ export default async function InsightPage({
                   {/* Pull quote inserted after the second block */}
                   {insight.pullQuote && bi === 1 && (
                     <Reveal delay={0.1}>
-                      <blockquote className="my-12 border-l border-gold py-2 pl-6 sm:pl-9">
-                        <p className="max-w-[26ch] font-display text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.14] tracking-tighter text-ink">
+                      <blockquote className="my-12 border-l border-[var(--rd-accent)] py-2 pl-6 sm:pl-9">
+                        <p className="max-w-[28ch] font-display text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.14] tracking-tighter text-[var(--rd-ink)]">
                           {insight.pullQuote}
                         </p>
                       </blockquote>
@@ -177,10 +171,10 @@ export default async function InsightPage({
                 </section>
               ))}
 
-              <DrawRule className="mt-14" />
+              <span aria-hidden className="rd-rule mt-14 block" />
 
               <Reveal>
-                <p className="mt-7 max-w-[58ch] text-[0.82rem] font-light leading-relaxed text-ink/45">
+                <p className="rd-meta mt-7 max-w-[58ch] text-[var(--rd-stone)]">
                   This piece is general commentary and does not constitute
                   investment, legal or tax advice, or an offer of any service.
                   Nothing in it describes a specific engagement of SOFISAM FZCO.
@@ -192,47 +186,44 @@ export default async function InsightPage({
       </article>
 
       {/* More insights */}
-      <section className="section bg-bone pt-0" aria-labelledby="related-heading">
-        <div className="shell-wide">
-          <Reveal className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-            <h2 id="related-heading" className="t-label text-gold">
+      <section className="rd-section rd-paper-2" aria-labelledby="related-heading">
+        <div className="rd-shell">
+          <Reveal className="rd-kicker">
+            <h2 id="related-heading" className="rd-label">
               More Insights
             </h2>
           </Reveal>
 
-          <DrawRule className="mt-8" />
-
-          <ul className="mt-[var(--content-gap-lg)] grid gap-x-8 gap-y-10 sm:grid-cols-2">
+          <ul className="mt-[var(--rd-pad-sm)] grid gap-x-[clamp(2rem,4vw,4.5rem)] gap-y-[var(--rd-gap)] sm:grid-cols-2">
             {related.map((item, i) => (
               <Reveal as="li" key={item.slug} delay={i * 0.08}>
                 <Link href={`/insights/${item.slug}`} className="group block">
-                  <div className="media media-zoom aspect-[16/10] w-full">
+                  <div className="rd-media rd-media-zoom aspect-[16/10] w-full">
                     <Picture
                       name={item.image}
                       alt={item.imageAlt}
-                      sizes="(min-width:640px) 44vw, 100vw"
+                      sizes="(min-width:640px) 46vw, 100vw"
                       focal={item.focal}
                       className="h-full w-full"
                     />
                   </div>
                   <div className="mt-6 flex items-start justify-between gap-5">
                     <div className="min-w-0">
-                      <span className="t-label text-gold">{item.category}</span>
-                      <h3 className="t-h3 mt-4 max-w-[20ch] text-ink transition-colors duration-500 group-hover:text-gold">
+                      <span className="rd-label text-[var(--rd-accent-ink)]">{item.category}</span>
+                      <h3 className="rd-h3 mt-4 max-w-[22ch] text-[var(--rd-ink)] transition-colors duration-500 group-hover:text-[var(--rd-accent-deep)]">
                         {item.title}
                       </h3>
                     </div>
                     <span
                       aria-hidden
-                      className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/45 transition-all duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink"
+                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--rd-line)] text-[var(--rd-stone)] transition-colors duration-500 ease-premium group-hover:border-[var(--rd-accent)] group-hover:bg-[var(--rd-accent)] group-hover:text-[var(--rd-ink)] sm:flex"
                     >
-                      <ArrowUpRight strokeWidth={1.4} className="h-4 w-4" />
+                      <ArrowUpRight strokeWidth={1.4} className="rd-arrow h-4 w-4" />
                     </span>
                   </div>
-                  <div className="mt-4 flex items-center gap-5 text-[0.74rem] font-light tracking-wide text-ink/40">
+                  <div className="rd-meta mt-4 flex items-center gap-5 text-[var(--rd-stone)]">
                     <time dateTime={item.isoDate}>{item.date}</time>
-                    <span aria-hidden className="h-px w-5 bg-ink/20" />
+                    <span aria-hidden className="h-px w-5 bg-[var(--rd-line)]" />
                     <span>{item.readingTime}</span>
                   </div>
                 </Link>

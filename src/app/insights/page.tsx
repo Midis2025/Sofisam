@@ -6,8 +6,7 @@ import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { CTASection } from '@/components/sections/CTASection';
-import { Reveal, DrawRule, ImageReveal } from '@/components/animations/Reveal';
-import { ScaleOnScroll } from '@/components/animations/Parallax';
+import { Reveal, ImageReveal } from '@/components/animations/Reveal';
 import { insights, featuredInsight, secondaryInsights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 
@@ -40,20 +39,19 @@ export default function InsightsPage() {
       />
 
       {/* Featured */}
-      <section className="section bg-bone" aria-labelledby="featured-heading">
-        <div className="shell-wide">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-4">
-            <Reveal className="flex items-center gap-4">
-              <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-              <p className="t-label text-gold">Featured Insight</p>
+      <section className="rd-section rd-paper" aria-labelledby="featured-heading">
+        <div className="rd-shell">
+          <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
+            <Reveal className="rd-kicker">
+              <p className="rd-label">Featured Insight</p>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <ul className="flex flex-wrap items-center gap-2.5">
                 {categories.map((c) => (
                   <li
                     key={c}
-                    className="t-label border border-ink/12 px-3 py-2 text-ink/45"
+                    className="rd-label rounded-full border border-[var(--rd-line)] px-4 py-2.5 text-[var(--rd-stone)]"
                   >
                     {c}
                   </li>
@@ -62,16 +60,13 @@ export default function InsightsPage() {
             </Reveal>
           </div>
 
-          <DrawRule className="mt-8" />
-
-          <article className="mt-[var(--space-section-sm)]">
-            <Link href={`/insights/${featuredInsight.slug}`} className="group block">
+          <article className="mt-[var(--rd-pad-sm)]">
+            <Link
+              href={`/insights/${featuredInsight.slug}`}
+              className="group rd-card rd-lift block p-[clamp(1.25rem,2.2vw,2rem)]"
+            >
               <ImageReveal>
-                <ScaleOnScroll
-                  className="media aspect-[16/10] w-full lg:aspect-[21/9]"
-                  from={1.1}
-                  to={1}
-                >
+                <div className="rd-media rd-media-in rd-media-zoom aspect-[16/10] w-full lg:aspect-[21/9]">
                   <Picture
                     name={featuredInsight.image}
                     alt={featuredInsight.imageAlt}
@@ -80,40 +75,43 @@ export default function InsightsPage() {
                     priority
                     className="h-full w-full"
                   />
-                </ScaleOnScroll>
+                </div>
               </ImageReveal>
 
-              <div className="mt-8 grid gap-6 lg:grid-cols-12 lg:gap-12">
+              <div className="mt-[var(--rd-gap)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
                 <div className="lg:col-span-7">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <span className="t-label text-gold">{featuredInsight.category}</span>
-                    <span aria-hidden className="h-px w-6 bg-ink/20" />
+                    <span className="rd-label text-[var(--rd-accent-ink)]">
+                      {featuredInsight.category}
+                    </span>
+                    <span aria-hidden className="h-px w-6 bg-[var(--rd-line)]" />
                     <time
                       dateTime={featuredInsight.isoDate}
-                      className="text-[0.75rem] font-light tracking-wide text-ink/40"
+                      className="rd-meta text-[var(--rd-stone)]"
                     >
                       {featuredInsight.date}
                     </time>
-                    <span aria-hidden className="h-px w-6 bg-ink/20" />
-                    <span className="text-[0.75rem] font-light tracking-wide text-ink/40">
+                    <span aria-hidden className="h-px w-6 bg-[var(--rd-line)]" />
+                    <span className="rd-meta text-[var(--rd-stone)]">
                       {featuredInsight.readingTime}
                     </span>
                   </div>
 
                   <h2
                     id="featured-heading"
-                    className="t-h1 mt-6 max-w-[16ch] text-ink transition-colors duration-500 group-hover:text-gold"
+                    className="rd-display mt-6 max-w-[16ch] text-[var(--rd-ink)] transition-colors duration-500 group-hover:text-[var(--rd-accent-deep)]"
                   >
                     {featuredInsight.title}
                   </h2>
                 </div>
 
                 <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-end lg:pb-2">
-                  <p className="t-lead max-w-[44ch] text-ink/65">
+                  <p className="rd-lead max-w-[44ch] text-[var(--rd-stone)]">
                     {featuredInsight.summary}
                   </p>
-                  <span className="link-underline mt-7 inline-block w-fit text-[0.68rem] font-medium uppercase tracking-[0.2em] text-ink/70">
-                    Read the piece
+                  <span className="rd-cta mt-6 w-fit text-[var(--rd-ink)] group-hover:text-[var(--rd-accent-deep)]">
+                    <span className="link-underline">Read the piece</span>
+                    <ArrowUpRight aria-hidden strokeWidth={1.5} className="rd-arrow h-3.5 w-3.5" />
                   </span>
                 </div>
               </div>
@@ -123,72 +121,59 @@ export default function InsightsPage() {
       </section>
 
       {/* Latest */}
-      <section className="section bg-bone pt-0" aria-labelledby="latest-heading">
-        <div className="shell-wide">
-          <Reveal className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-            <h2 id="latest-heading" className="t-label text-gold">
+      <section className="rd-section rd-paper-2" aria-labelledby="latest-heading">
+        <div className="rd-shell">
+          <Reveal className="rd-kicker">
+            <h2 id="latest-heading" className="rd-label">
               Latest
             </h2>
           </Reveal>
 
-          <DrawRule className="mt-8" />
-
-          <ul className="mt-[var(--content-gap-lg)]">
+          <ul className="mt-[var(--rd-pad-sm)] grid gap-[clamp(0.875rem,1.4vw,1.25rem)] sm:grid-cols-2">
             {secondaryInsights.map((item, i) => (
-              <Reveal
-                as="li"
-                key={item.slug}
-                delay={i * 0.07}
-                className="border-b border-ink/12"
-              >
+              <Reveal as="li" key={item.slug} delay={i * 0.07}>
                 <Link
                   href={`/insights/${item.slug}`}
-                  className="group grid gap-6 py-[var(--content-gap-lg)] md:grid-cols-12 md:items-center md:gap-10"
+                  className="group rd-card rd-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]"
                 >
-                  <div className="media media-zoom aspect-[16/10] w-full md:col-span-4 md:aspect-[4/3]">
+                  <div className="rd-media rd-media-in rd-media-zoom aspect-[16/10] w-full">
                     <Picture
                       name={item.image}
                       alt={item.imageAlt}
-                      sizes="(min-width:768px) 32vw, 100vw"
+                      sizes="(min-width:640px) 46vw, 100vw"
                       focal={item.focal}
                       className="h-full w-full"
                     />
                   </div>
 
-                  <div className="md:col-span-6">
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                      <span className="t-label text-gold">{item.category}</span>
-                      <span aria-hidden className="h-px w-5 bg-ink/20" />
-                      <time
-                        dateTime={item.isoDate}
-                        className="text-[0.74rem] font-light tracking-wide text-ink/40"
-                      >
-                        {item.date}
-                      </time>
-                      <span aria-hidden className="h-px w-5 bg-ink/20" />
-                      <span className="text-[0.74rem] font-light tracking-wide text-ink/40">
-                        {item.readingTime}
-                      </span>
+                  <div className="mt-6 flex items-start justify-between gap-5">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                        <span className="rd-label text-[var(--rd-accent-ink)]">{item.category}</span>
+                        <span aria-hidden className="h-px w-5 bg-[var(--rd-line)]" />
+                        <time dateTime={item.isoDate} className="rd-meta text-[var(--rd-stone)]">
+                          {item.date}
+                        </time>
+                        <span aria-hidden className="h-px w-5 bg-[var(--rd-line)]" />
+                        <span className="rd-meta text-[var(--rd-stone)]">{item.readingTime}</span>
+                      </div>
+
+                      <h3 className="rd-h3 mt-4 max-w-[22ch] text-[var(--rd-ink)] transition-colors duration-500 group-hover:text-[var(--rd-accent-deep)]">
+                        {item.title}
+                      </h3>
                     </div>
 
-                    <h3 className="t-h2 mt-4 max-w-[20ch] text-ink transition-colors duration-500 group-hover:text-gold">
-                      {item.title}
-                    </h3>
-
-                    <p className="t-body mt-4 max-w-[46ch] text-ink/55">
-                      {item.summary}
-                    </p>
-                  </div>
-
-                  <div className="md:col-span-2 md:flex md:justify-end">
                     <span
                       aria-hidden
-                      className="flex h-12 w-12 items-center justify-center rounded-full border border-ink/15 text-ink/45 transition-all duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink"
+                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--rd-line)] text-[var(--rd-stone)] transition-colors duration-500 ease-premium group-hover:border-[var(--rd-accent)] group-hover:bg-[var(--rd-accent)] group-hover:text-[var(--rd-ink)] sm:flex"
                     >
-                      <ArrowUpRight strokeWidth={1.4} className="h-4 w-4" />
+                      <ArrowUpRight strokeWidth={1.4} className="rd-arrow h-4 w-4" />
                     </span>
                   </div>
+
+                  <p className="rd-small mt-4 max-w-[44ch] text-[var(--rd-stone)]">
+                    {item.summary}
+                  </p>
                 </Link>
               </Reveal>
             ))}

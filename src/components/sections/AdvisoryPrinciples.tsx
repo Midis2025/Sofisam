@@ -1,151 +1,98 @@
 'use client';
 
-import { useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-
-import { Picture } from '@/components/ui/Picture';
-import { Reveal, DrawRule } from '@/components/animations/Reveal';
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 
 /**
+ * 05 — Advisory principles.
+ *
  * The five principles are drawn directly from SOFISAM's own description of its
  * advice: "confidential, unconflicted and strategic advice, built over decades
  * of international business experience".
+ *
+ * Set as a manifesto ledger: a standing title column beside five divided rows.
+ * Every description stays visible at every breakpoint — nothing is hidden
+ * behind a hover or a toggle; the hover only shifts the row a few pixels.
  */
 const principles = [
   {
     word: 'Confidential',
     note: 'Sensitive positions are handled in a closed circle, by the principals who took them on.',
-    image: 'lounge-dark',
-    focal: '50% 50%',
-    alt: 'Darkened executive lounge with slatted timber screens and low, considered lighting',
   },
   {
     word: 'Unconflicted',
     note: 'No product to place and no side to favour. The recommendation reflects the situation, not the adviser.',
-    image: 'facade-pale',
-    focal: '50% 45%',
-    alt: 'Pale minimal tower rising beside a sheer glass facade under a clear sky',
   },
   {
     word: 'Strategic',
     note: 'Advice framed around what a decision commits you to, not only what it promises.',
-    image: 'spiral-dark',
-    focal: '50% 50%',
-    alt: 'Dark spiral stair seen from below, forming a precise geometric spiral',
   },
   {
     word: 'International',
     note: 'Relationships and partnerships that span the globe, read jurisdiction by jurisdiction.',
-    image: 'district-dusk',
-    focal: '50% 45%',
-    alt: 'International financial district towers at dusk under a heavy sky',
   },
   {
     word: 'Experienced',
     note: 'Built over decades of international business experience, and the judgement that comes with it.',
-    image: 'tower-detail',
-    focal: '50% 50%',
-    alt: 'Close detail of a dark corporate tower facade with lit interiors visible through the glass',
   },
 ] as const;
 
 export function AdvisoryPrinciples() {
-  const reduce = useReducedMotion();
-  const [active, setActive] = useState(0);
-
   return (
-    <section
-      className="section relative overflow-hidden bg-ink text-bone"
-      aria-labelledby="principles-heading"
-    >
-      {/* Backdrop imagery reacting to the active principle */}
-      <div className="absolute inset-0" aria-hidden>
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={principles[active].word}
-            className="absolute inset-0"
-            initial={reduce ? false : { opacity: 0, scale: 1.07 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.1, ease: EASE }}
-          >
-            <Picture
-              name={principles[active].image}
-              alt=""
-              decorative
-              sizes="100vw"
-              focal={principles[active].focal}
-              className="h-full w-full"
-            />
-          </motion.div>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-ink/85" />
-      </div>
+    <section className="rd-section rd-paper-2" aria-labelledby="principles-heading">
+      <div className="rd-shell">
+        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+          {/* Standing title */}
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-[8rem]">
+              <Reveal className="rd-kicker">
+                <p className="rd-label">Advisory Principles</p>
+              </Reveal>
 
-      <div className="shell-wide relative z-10">
-        <Reveal className="flex items-center gap-4">
-          <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-          <p className="t-label text-gold">Advisory Principles</p>
-        </Reveal>
+              <h2
+                id="principles-heading"
+                className="rd-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[18ch] text-[var(--rd-ink)]"
+              >
+                <MaskedLines
+                  lines={['Five words that decide', 'what we will and', 'will not say.']}
+                />
+              </h2>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-12 lg:items-end">
-          <h2 id="principles-heading" className="t-h2 max-w-[16ch] text-bone lg:col-span-7">
-            Five words that decide what we will and will not say.
-          </h2>
-          <p className="t-body max-w-[38ch] text-bone/55 lg:col-span-5 lg:pb-2">
-            The advice SOFISAM provides is described in its own terms:
-            confidential, unconflicted and strategic, built over decades of
-            international business experience.
-          </p>
-        </div>
+              <Reveal delay={0.1}>
+                <p className="rd-small mt-6 max-w-[38ch] text-[var(--rd-stone)]">
+                  The advice SOFISAM provides is described in its own terms:
+                  confidential, unconflicted and strategic, built over decades of
+                  international business experience.
+                </p>
+              </Reveal>
+            </div>
+          </div>
 
-        <DrawRule tone="light" className="mt-[var(--space-section-sm)]" />
-
-        {/* Word list */}
-        <ul className="mt-[var(--content-gap-md)]">
-          {principles.map((p, i) => {
-            const isActive = i === active;
-            return (
-              <li key={p.word} className="border-b border-bone/12">
-                <button
-                  type="button"
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  onClick={() => setActive(i)}
-                  aria-pressed={isActive}
-                  className="group flex w-full flex-col gap-3 py-[var(--content-gap-md)] text-left md:flex-row md:items-baseline md:gap-8"
-                >
-                  <span
-                    aria-hidden
-                    className={`t-index shrink-0 text-[0.72rem] transition-colors duration-500 ${
-                      isActive ? 'text-gold' : 'text-bone/45'
-                    }`}
-                  >
+          {/* Principles */}
+          <ol className="lg:col-span-7 lg:col-start-6">
+            {principles.map((p, i) => (
+              <Reveal
+                as="li"
+                key={p.word}
+                delay={i * 0.05}
+                className="group rd-row last:border-b last:border-[var(--rd-line)]"
+              >
+                <div className="grid grid-cols-[2.25rem_1fr] gap-x-3 py-[clamp(1.5rem,2.6vw,2.25rem)] transition-transform duration-500 ease-premium group-hover:translate-x-1.5 md:grid-cols-[3.25rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline md:gap-x-6">
+                  <span className="rd-num pt-[0.3rem] text-[0.9rem] text-[var(--rd-accent-ink)]">
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
-                  <span
-                    className={`font-display text-[clamp(2rem,5.4vw,4.25rem)] leading-[0.98] tracking-tighter transition-colors duration-500 md:flex-1 ${
-                      isActive ? 'text-bone' : 'text-bone/55'
-                    }`}
-                  >
+                  <h3 className="font-display text-[clamp(1.65rem,3.4vw,2.75rem)] leading-[1.02] tracking-tighter text-[var(--rd-ink)]">
                     {p.word}
-                  </span>
+                  </h3>
 
-                  <span
-                    className={`max-w-[40ch] text-[0.86rem] font-light leading-relaxed transition-colors duration-500 md:w-[32%] md:shrink-0 ${
-                      isActive ? 'text-bone/70' : 'text-bone/45'
-                    }`}
-                  >
+                  <p className="rd-small col-start-2 mt-3 max-w-[42ch] text-[var(--rd-stone)] md:col-start-3 md:mt-0">
                     {p.note}
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

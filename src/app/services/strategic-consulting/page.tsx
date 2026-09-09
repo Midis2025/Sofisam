@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, DrawRule, ImageReveal } from '@/components/animations/Reveal';
-import { Parallax, ScaleOnScroll } from '@/components/animations/Parallax';
+import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
@@ -50,6 +49,25 @@ const framework = [
   },
 ];
 
+const themeMedia = [
+  {
+    name: 'district-dusk',
+    alt: 'International financial district towers standing against a heavy dusk sky',
+  },
+  {
+    name: 'spiral-dark',
+    alt: 'Dark spiral stair seen from below, forming a precise geometric spiral',
+  },
+  {
+    name: 'lounge-dark',
+    alt: 'Darkened executive lounge with slatted screens and low, considered lighting',
+  },
+  {
+    name: 'dubai-haze',
+    alt: 'Dubai skyline across the water in warm morning haze',
+  },
+];
+
 export default function StrategicConsultingPage() {
   return (
     <>
@@ -69,11 +87,10 @@ export default function StrategicConsultingPage() {
       />
 
       {/* Introduction — oversized lead */}
-      <section className="section bg-bone" aria-labelledby="sc-intro">
-        <div className="shell-wide">
-          <Reveal className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-            <p className="t-label text-gold">Introduction</p>
+      <section className="rd-section rd-paper" aria-labelledby="sc-intro">
+        <div className="rd-shell">
+          <Reveal className="rd-kicker">
+            <p className="rd-label">Introduction</p>
           </Reveal>
 
           <h2 id="sc-intro" className="sr-only">
@@ -81,24 +98,22 @@ export default function StrategicConsultingPage() {
           </h2>
 
           <Reveal delay={0.06}>
-            <p className="mt-8 max-w-[24ch] font-display text-[clamp(1.85rem,4.6vw,3.6rem)] leading-[1.08] tracking-tighter text-ink">
+            <p className="rd-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[22ch] text-[var(--rd-ink)]">
               {service.intro.lead}
             </p>
           </Reveal>
 
-          <DrawRule className="mt-[var(--space-section-sm)]" />
-
-          <div className="mt-[var(--content-gap-lg)] grid gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-4">
+          <div className="mt-[var(--rd-pad-sm)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
+            <div className="lg:col-span-3">
               <Reveal>
-                <p className="t-label text-ink/40">Strategic perspective</p>
+                <p className="rd-label text-[var(--rd-stone)]">Strategic perspective</p>
               </Reveal>
             </div>
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 lg:col-start-5">
               <div className="space-y-6">
                 {service.intro.body.map((p, i) => (
                   <Reveal key={p} delay={i * 0.08}>
-                    <p className="t-lead max-w-[56ch] text-ink/70">{p}</p>
+                    <p className="rd-lead max-w-[56ch] text-[var(--rd-stone)]">{p}</p>
                   </Reveal>
                 ))}
               </div>
@@ -107,130 +122,135 @@ export default function StrategicConsultingPage() {
         </div>
       </section>
 
-      {/* Decision framework — dark, meridian motif, numbered ledger */}
-      <section
-        className="relative overflow-hidden bg-ink text-bone"
-        aria-labelledby="sc-framework"
-      >
-
-        <div className="shell-wide relative z-10 section">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+      {/* Decision framework — numbered ledger on a warm dark ground */}
+      <section className="rd-section rd-dark" aria-labelledby="sc-framework">
+        <div className="rd-shell">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
             <div className="lg:col-span-7 lg:col-start-4">
-              <Reveal className="flex items-center gap-4">
-                <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-                <p className="t-label text-gold">Decision Framework</p>
+              <Reveal className="rd-kicker">
+                <p className="rd-label">Decision Framework</p>
               </Reveal>
-              <h2 id="sc-framework" className="t-h2 mt-7 max-w-[17ch] text-bone">
-                <MaskedLines lines={['Five questions we', 'work through before', 'we give a view.']} />
+              <h2
+                id="sc-framework"
+                className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[17ch] text-bone"
+              >
+                <MaskedLines
+                  lines={['Five questions we', 'work through before', 'we give a view.']}
+                />
               </h2>
             </div>
           </div>
 
-          <ol className="mt-[var(--space-section-sm)] lg:ml-[25%]">
+          <ol className="mt-[var(--rd-pad-sm)] lg:ml-[25%]">
             {framework.map((f, i) => (
               <Reveal
                 as="li"
                 key={f.n}
                 delay={i * 0.05}
-                className="grid gap-4 border-t border-bone/12 py-8 md:grid-cols-12 md:gap-8 md:py-10"
+                className="rd-row-inv rd-row-inv-hover last:border-b last:border-[var(--rd-line-inv)]"
               >
-                <span className="t-index text-[clamp(1.5rem,2.6vw,2.1rem)] text-gold md:col-span-1">
-                  {f.n}
-                </span>
-                <h3 className="max-w-[24ch] font-display text-[clamp(1.4rem,2.5vw,2rem)] leading-tight tracking-tight text-bone md:col-span-6">
-                  {f.q}
-                </h3>
-                <p className="max-w-[42ch] text-[0.92rem] font-light leading-relaxed text-bone/55 md:col-span-5">
-                  {f.a}
-                </p>
+                <div className="grid gap-x-8 gap-y-4 px-1 py-[clamp(1.75rem,3vw,2.5rem)] md:grid-cols-12">
+                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent)] md:col-span-1">
+                    {f.n}
+                  </span>
+                  <h3 className="rd-h3 max-w-[24ch] text-bone md:col-span-6">{f.q}</h3>
+                  <p className="rd-small max-w-[42ch] text-[var(--rd-sage)] md:col-span-5">
+                    {f.a}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* Full-bleed global outlook */}
-      <section
-        className="relative w-full overflow-hidden bg-ink text-bone"
-        aria-labelledby="sc-outlook"
-      >
-        <Parallax strength={9} className="absolute inset-0">
-          <div className="media veil-editorial h-full w-full">
-            <Picture
-              name="city-mono"
-              alt=""
-              decorative
-              sizes="100vw"
-              focal="50% 40%"
-              className="h-full w-full"
-            />
-          </div>
-        </Parallax>
+      {/* Global outlook — statement panel */}
+      <section className="rd-section-sm rd-paper" aria-labelledby="sc-outlook">
+        <div className="rd-shell">
+          <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
+            <div className="media veil-editorial absolute inset-0">
+              <Picture
+                name="city-mono"
+                alt=""
+                decorative
+                sizes="100vw"
+                focal="50% 40%"
+                className="h-full w-full"
+              />
+            </div>
 
-        <div className="shell-wide relative z-10 flex min-h-[30rem] lg:min-h-[34rem] flex-col justify-end py-[var(--space-section-lg)]">
-          <Reveal className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-10 bg-gold sm:w-16" />
-            <p className="t-label text-gold">Global Outlook</p>
-          </Reveal>
-          <h2 id="sc-outlook" className="t-h1 mt-7 max-w-[16ch] text-bone">
-            <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
-          </h2>
-          <Reveal delay={0.14}>
-            <p className="t-lead mt-8 max-w-[48ch] text-bone/65">
-              The conditions that sustain a market are rarely in the same
-              documents as the numbers describing it. That is where the work has
-              to go.
-            </p>
-          </Reveal>
+            <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[30rem]">
+              <Reveal className="rd-kicker">
+                <p className="rd-label">Global Outlook</p>
+              </Reveal>
+              <h2
+                id="sc-outlook"
+                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-bone"
+              >
+                <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
+              </h2>
+              <Reveal delay={0.14}>
+                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[48ch] text-bone/70">
+                  The conditions that sustain a market are rarely in the same
+                  documents as the numbers describing it. That is where the work has
+                  to go.
+                </p>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Themes — alternating editorial split */}
-      <section className="section bg-bone" aria-labelledby="sc-themes">
-        <div className="shell-wide">
+      <section className="rd-section rd-paper-2" aria-labelledby="sc-themes">
+        <div className="rd-shell">
           <h2 id="sc-themes" className="sr-only">
             How we work in strategic consulting
           </h2>
 
-          <ul className="space-y-[var(--space-section-md)]">
-            {service.themes.map((t, i) => (
-              <li
-                key={t.label}
-                className={`grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-12 ${
-                  i % 2 === 1 ? 'lg:[direction:rtl]' : ''
-                }`}
-              >
-                <div className={`lg:col-span-5 ${i % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
-                  <Reveal>
-                    <p className="t-label text-gold">{t.label}</p>
-                    <h3 className="t-h3 mt-5 max-w-[18ch] text-ink">{t.title}</h3>
-                    <p className="t-body mt-5 max-w-[44ch] text-ink/60">{t.body}</p>
-                  </Reveal>
-                </div>
+          <ul className="space-y-[var(--rd-pad-sm)]">
+            {service.themes.map((t, i) => {
+              const flipped = i % 2 === 1;
+              const m = themeMedia[i] ?? themeMedia[0];
+              return (
+                <li
+                  key={t.label}
+                  className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]"
+                >
+                  <div
+                    className={
+                      flipped
+                        ? 'lg:col-span-5 lg:col-start-8 lg:row-start-1'
+                        : 'lg:col-span-5'
+                    }
+                  >
+                    <Reveal>
+                      <p className="rd-label text-[var(--rd-accent-ink)]">{t.label}</p>
+                      <h3 className="rd-h3 mt-5 max-w-[18ch] text-[var(--rd-ink)]">{t.title}</h3>
+                      <p className="rd-body mt-5 max-w-[44ch] text-[var(--rd-stone)]">{t.body}</p>
+                    </Reveal>
+                  </div>
 
-                <ImageReveal className={`lg:col-span-6 lg:col-start-7 ${i % 2 === 1 ? 'lg:[direction:ltr]' : ''}`}>
-                  <ScaleOnScroll className="media aspect-[16/10] w-full" from={1.1} to={1}>
-                    <Picture
-                      name={
-                        ['district-dusk', 'spiral-dark', 'lounge-dark', 'dubai-haze'][i] ??
-                        'district-dusk'
-                      }
-                      alt={
-                        [
-                          'International financial district towers standing against a heavy dusk sky',
-                          'Dark spiral stair seen from below, forming a precise geometric spiral',
-                          'Darkened executive lounge with slatted screens and low, considered lighting',
-                          'Dubai skyline across the water in warm morning haze',
-                        ][i] ?? ''
-                      }
-                      sizes="(min-width:1024px) 50vw, 100vw"
-                      focal="50% 50%"
-                      className="h-full w-full"
-                    />
-                  </ScaleOnScroll>
-                </ImageReveal>
-              </li>
-            ))}
+                  <ImageReveal
+                    className={
+                      flipped
+                        ? 'lg:col-span-6 lg:col-start-1 lg:row-start-1'
+                        : 'lg:col-span-6 lg:col-start-7'
+                    }
+                  >
+                    <div className="rd-media aspect-[16/10] w-full">
+                      <Picture
+                        name={m.name}
+                        alt={m.alt}
+                        sizes="(min-width:1024px) 50vw, 100vw"
+                        focal="50% 50%"
+                        className="h-full w-full"
+                      />
+                    </div>
+                  </ImageReveal>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>

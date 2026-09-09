@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { contact, copyright, footerCopy } from '@/data/site';
 import { services } from '@/data/services';
 import { insights } from '@/data/insights';
-import { Reveal, DrawRule } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
 
 const YEAR = new Date().getFullYear();
 
@@ -17,14 +17,14 @@ const pages = [
 ];
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="t-label text-gold">{children}</h2>;
+  return <h2 className="rd-label text-[var(--rd-accent)]">{children}</h2>;
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="link-underline inline-block py-[0.7rem] text-[0.92rem] font-light text-bone/60 transition-colors duration-400 hover:text-bone"
+      className="link-underline inline-block py-[0.7rem] text-[0.95rem] font-light text-bone/60 transition-colors duration-400 hover:text-bone"
     >
       {children}
     </Link>
@@ -33,55 +33,54 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-ink text-bone">
-
-      <div className="shell-wide relative z-10">
-        {/* Top: statement */}
-        <Reveal as="div" className="pt-[var(--space-section-md)]">
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+    <footer className="rd-dark rd-on-dark relative overflow-hidden">
+      <div className="rd-shell relative z-10 pt-[var(--rd-pad-sm)]">
+        {/* Statement and contact */}
+        <Reveal as="div">
+          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-7">
-              <p className="font-display text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.14] tracking-tighter text-bone">
-                {footerCopy.statement}
-              </p>
-              <p className="mt-4 max-w-[38ch] text-[0.98rem] font-light leading-relaxed text-bone/50">
+              <p className="rd-h2 max-w-[20ch] text-bone">{footerCopy.statement}</p>
+              <p className="rd-body mt-5 max-w-[38ch] text-[var(--rd-sage)]">
                 {footerCopy.location}
               </p>
             </div>
 
-            <div className="lg:col-span-5 lg:pt-2">
-              <ColumnHeading>{footerCopy.contactHeading}</ColumnHeading>
-              <address className="mt-6 not-italic">
-                <p className="text-[0.98rem] font-light leading-relaxed text-bone/60">
-                  {contact.address.line1}
-                  <br />
-                  {contact.address.line2}
-                </p>
-                <div className="mt-5 flex flex-col gap-2">
-                  <a
-                    href={`tel:${contact.phoneHref}`}
-                    className="link-underline inline-flex w-fit py-[0.7rem] text-[0.98rem] font-light text-bone/80 hover:text-gold"
-                  >
-                    {contact.phone}
-                  </a>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="link-underline inline-flex w-fit py-[0.7rem] text-[0.98rem] font-light text-bone/80 hover:text-gold"
-                  >
-                    {contact.email}
-                  </a>
-                </div>
-              </address>
+            <div className="lg:col-span-5">
+              <div className="rd-block-inv h-full">
+                <ColumnHeading>{footerCopy.contactHeading}</ColumnHeading>
+                <address className="mt-5 not-italic">
+                  <p className="rd-small text-bone/60">
+                    {contact.address.line1}
+                    <br />
+                    {contact.address.line2}
+                  </p>
+                  <div className="mt-4 flex flex-col items-start">
+                    <a
+                      href={`tel:${contact.phoneHref}`}
+                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-bone/85 hover:text-[var(--rd-accent)]"
+                    >
+                      {contact.phone}
+                    </a>
+                    <a
+                      href={`mailto:${contact.email}`}
+                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-bone/85 hover:text-[var(--rd-accent)]"
+                    >
+                      {contact.email}
+                    </a>
+                  </div>
+                </address>
+              </div>
             </div>
           </div>
         </Reveal>
 
-        <DrawRule tone="light" className="my-[var(--space-section-sm)]" />
+        <span aria-hidden className="rd-rule-inv my-[var(--rd-pad-sm)]" />
 
-        {/* Navigation columns */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-12 lg:gap-x-10">
+        {/* Directory */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,2.6vw,3rem)]">
           <nav aria-label="Footer pages" className="lg:col-span-3">
             <ColumnHeading>Navigate</ColumnHeading>
-            <ul className="mt-5 flex flex-col items-start">
+            <ul className="mt-4 flex flex-col items-start">
               {pages.map((p) => (
                 <li key={p.href}>
                   <FooterLink href={p.href}>{p.label}</FooterLink>
@@ -92,7 +91,7 @@ export function Footer() {
 
           <nav aria-label="Footer services" className="lg:col-span-3">
             <ColumnHeading>Services</ColumnHeading>
-            <ul className="mt-5 flex flex-col items-start">
+            <ul className="mt-4 flex flex-col items-start">
               {services.map((s) => (
                 <li key={s.slug}>
                   <FooterLink href={`/services/${s.slug}`}>{s.title}</FooterLink>
@@ -103,7 +102,7 @@ export function Footer() {
 
           <nav aria-label="Footer insights" className="col-span-2 md:col-span-2 lg:col-span-4">
             <ColumnHeading>Insights</ColumnHeading>
-            <ul className="mt-5 flex flex-col items-start">
+            <ul className="mt-4 flex flex-col items-start">
               {insights.map((i) => (
                 <li key={i.slug} className="max-w-[34ch]">
                   <FooterLink href={`/insights/${i.slug}`}>{i.title}</FooterLink>
@@ -116,7 +115,7 @@ export function Footer() {
             <ColumnHeading>Enquiries</ColumnHeading>
             <Link
               href="/contact"
-              className="group/f mt-3 inline-flex items-center gap-2 py-[0.7rem] text-[0.92rem] font-light text-bone/80 transition-colors hover:text-gold"
+              className="group/f mt-3 inline-flex items-center gap-2 py-[0.7rem] text-[0.95rem] font-light text-bone/80 transition-colors hover:text-[var(--rd-accent)]"
             >
               <span className="link-underline">Start a conversation</span>
               <ArrowUpRight
@@ -128,8 +127,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Oversized wordmark */}
-        <div className="mt-[var(--content-gap-lg)] overflow-hidden" aria-hidden>
+        {/* Wordmark */}
+        <div className="mt-[var(--rd-pad-sm)] overflow-hidden" aria-hidden>
           <img
             src="/logo.png"
             alt=""
@@ -140,16 +139,14 @@ export function Footer() {
           />
         </div>
 
-        <DrawRule tone="light" className="mt-[var(--content-gap-md)]" />
+        <span aria-hidden className="rd-rule-inv mt-[clamp(1.5rem,2.4vw,2rem)]" />
 
-        {/* Legal bar */}
-        <div className="flex flex-col gap-3 py-6 text-[0.76rem] font-light tracking-wide text-bone/35 sm:flex-row sm:items-center sm:justify-between">
+        {/* Legal */}
+        <div className="rd-meta flex flex-col gap-3 py-7 text-bone/35 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {YEAR} {copyright}
           </p>
-          <p className="uppercase tracking-[0.2em]">
-            Dubai Multi Commodities Centre
-          </p>
+          <p className="rd-label text-bone/35">Dubai Multi Commodities Centre</p>
         </div>
       </div>
     </footer>
