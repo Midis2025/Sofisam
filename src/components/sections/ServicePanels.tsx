@@ -19,7 +19,7 @@ export function ServicePanels() {
         {/* Header */}
         <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
           <div className="lg:col-span-7">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Three Disciplines</p>
             </Reveal>
 
@@ -92,7 +92,6 @@ export function ServicePanels() {
                           alt={s.hero.imageAlt}
                           sizes="(min-width:1024px) 58vw, 100vw"
                           focal={s.hero.focal}
-                          priority={i === 0}
                           className="h-full w-full"
                         />
                       </div>

@@ -63,7 +63,7 @@ export default function AdvisoryPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
             <div className="lg:col-span-4">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Introduction</p>
               </Reveal>
               <h2
@@ -124,7 +124,7 @@ export default function AdvisoryPage() {
             </ImageReveal>
 
             <div className="lg:col-span-6 lg:col-start-7">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Corporate Governance</p>
               </Reveal>
 
@@ -166,7 +166,7 @@ export default function AdvisoryPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Experience</p>
               </Reveal>
               <h2

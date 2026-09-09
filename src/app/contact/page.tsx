@@ -34,7 +34,7 @@ export default function ContactPage() {
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             {/* Information — roughly 40% */}
             <div className="lg:col-span-5">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">{contactCopy.eyebrow}</p>
               </Reveal>
 
@@ -109,7 +109,6 @@ export default function ContactPage() {
                     alt="Dubai's financial district gate building illuminated at dusk"
                     sizes="(min-width:1024px) 40vw, 100vw"
                     focal="50% 45%"
-                    priority
                     className="h-full w-full"
                   />
                 </div>
@@ -141,7 +140,7 @@ export default function ContactPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Location</p>
               </Reveal>
               <h2

@@ -46,7 +46,7 @@ export function ProcessNarrative() {
       <div className="rd-shell">
         <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Way of Working</p>
             </Reveal>
             <h2

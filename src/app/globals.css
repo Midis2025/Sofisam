@@ -481,10 +481,18 @@
     --rd-max: 87.5rem;
     --rd-gutter: clamp(1.25rem, 4vw, 5rem);
 
-    /* Section rhythm: ~64px phone, ~80px at 768, ~106px at 1024,
-       ~150px at 1440, capped at 152px. */
-    --rd-pad: clamp(4rem, 10.4vw, 9.5rem);
-    --rd-pad-sm: clamp(2.75rem, 6.6vw, 6rem);
+    /* --- Vertical rhythm -----------------------------------------
+       Spacing is designed at the BOUNDARY between two sections, not
+       independently inside each one. `--rd-pad` is the full break a
+       section carries; `--rd-pad-edge` is the trimmed value used on
+       both sides of a change of ground, so a colour boundary never
+       pays twice. Stepped rather than fluid, so each breakpoint lands
+       on a chosen number instead of an accident of viewport width. */
+    --rd-pad: 3.25rem;      /* 52px — phone      */
+    --rd-pad-edge: 2.5rem;  /* 40px              */
+
+    /* The step between a section's heading and its composition. */
+    --rd-pad-sm: clamp(2.25rem, 4vw, 3.75rem); /* 36 → 60px */
 
     --rd-gap: clamp(1.75rem, 3.6vw, 3.75rem);
     --rd-gap-sm: clamp(1rem, 1.8vw, 1.75rem);
@@ -508,12 +516,32 @@
   }
 
   .rd-section-sm {
-    padding-block: var(--rd-pad-sm);
+    padding-block: var(--rd-pad-edge);
   }
 
-  /* Two redesigned sections sharing a ground should read as one break. */
-  .rd-section + .rd-section {
-    padding-top: var(--rd-pad-sm);
+  /* --- Boundaries -------------------------------------------------
+     Neighbours on the same ground read as one break: the first section
+     carries it and the second starts flush, so two paddings never add
+     up into a viewport of dead space. */
+  .rd-section.rd-paper + .rd-section.rd-paper,
+  .rd-section.rd-paper-2 + .rd-section.rd-paper-2,
+  .rd-section.rd-dark + .rd-section.rd-dark {
+    padding-top: 0;
+  }
+
+  /* Where the ground changes, the edge itself does the separating, so
+     both sides are trimmed. */
+  .rd-section.rd-paper + .rd-section:not(.rd-paper),
+  .rd-section.rd-paper-2 + .rd-section:not(.rd-paper-2),
+  .rd-section.rd-dark + .rd-section:not(.rd-dark) {
+    padding-top: var(--rd-pad-edge);
+  }
+
+  .rd-section:not(.rd-paper):has(+ .rd-section.rd-paper),
+  .rd-section:not(.rd-paper-2):has(+ .rd-section.rd-paper-2),
+  .rd-section:not(.rd-dark):has(+ .rd-section.rd-dark),
+  .rd-section:has(+ footer) {
+    padding-bottom: var(--rd-pad-edge);
   }
 
   .rd-paper {
@@ -853,6 +881,50 @@
   @media (prefers-reduced-motion: reduce) {
     .rd-lift:hover {
       transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------
+   Section rhythm — stepped
+   ------------------------------------------------------------
+   The break a section carries, and the trimmed value used either
+   side of a change of ground. Boundaries therefore land at roughly
+   52px on a phone, 80px at tablet and 100–112px on a desktop,
+   rather than two paddings adding into a blank screen. */
+@layer base {
+  @media (min-width: 640px) {
+    :root {
+      --rd-pad: 4.5rem;      /* 72px */
+      --rd-pad-edge: 3rem;   /* 48px */
+    }
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --rd-pad: 5rem;        /* 80px */
+      --rd-pad-edge: 3.25rem;/* 52px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --rd-pad: 5.75rem;     /* 92px */
+      --rd-pad-edge: 3.5rem; /* 56px */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    :root {
+      --rd-pad: 6.25rem;     /* 100px */
+      --rd-pad-edge: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    :root {
+      --rd-pad: 7rem;        /* 112px */
+      --rd-pad-edge: 4rem;   /* 64px  */
     }
   }
 }

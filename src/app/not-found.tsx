@@ -20,7 +20,6 @@ export default function NotFound() {
           decorative
           sizes="100vw"
           focal="50% 40%"
-          priority
           className="h-full w-full"
         />
       </div>

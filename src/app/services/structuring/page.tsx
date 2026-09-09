@@ -80,7 +80,7 @@ export default function StructuringPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
             <div className="lg:col-span-3">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Introduction</p>
               </Reveal>
             </div>
@@ -112,7 +112,7 @@ export default function StructuringPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-6">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Framework Thinking</p>
               </Reveal>
               <h2
@@ -195,7 +195,7 @@ export default function StructuringPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Structuring Approach</p>
               </Reveal>
               <h2
@@ -255,7 +255,7 @@ export default function StructuringPage() {
             </ImageReveal>
 
             <div className="lg:col-span-5">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Mandates &amp; Investments</p>
               </Reveal>
 
@@ -283,7 +283,7 @@ export default function StructuringPage() {
       </section>
 
       {/* Proven frameworks — statement panel */}
-      <section className="rd-section-sm rd-paper-2" aria-labelledby="st-precision">
+      <section className="rd-section rd-paper-2" aria-labelledby="st-precision">
         <div className="rd-shell">
           <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
             <div className="media veil-editorial absolute inset-0">
@@ -298,7 +298,7 @@ export default function StructuringPage() {
             </div>
 
             <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[28rem]">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Proven Frameworks</p>
               </Reveal>
               <h2

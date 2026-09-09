@@ -35,10 +35,10 @@ export function ExecutivePerspective() {
   return (
     <section className="rd-section rd-paper" aria-labelledby="executive-heading">
       <div className="rd-shell">
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-x-[clamp(2.5rem,4.5vw,5rem)]">
+        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-[clamp(2.5rem,4.5vw,5rem)]">
           {/* Statement */}
           <div className="lg:col-span-7 lg:row-start-1">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Executive Perspective</p>
             </Reveal>
 

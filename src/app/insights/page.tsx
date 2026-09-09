@@ -42,7 +42,7 @@ export default function InsightsPage() {
       <section className="rd-section rd-paper" aria-labelledby="featured-heading">
         <div className="rd-shell">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Featured Insight</p>
             </Reveal>
 
@@ -72,7 +72,6 @@ export default function InsightsPage() {
                     alt={featuredInsight.imageAlt}
                     sizes="100vw"
                     focal={featuredInsight.focal}
-                    priority
                     className="h-full w-full"
                   />
                 </div>
@@ -123,7 +122,7 @@ export default function InsightsPage() {
       {/* Latest */}
       <section className="rd-section rd-paper-2" aria-labelledby="latest-heading">
         <div className="rd-shell">
-          <Reveal className="rd-kicker">
+          <Reveal kind="label" className="rd-kicker">
             <h2 id="latest-heading" className="rd-label">
               Latest
             </h2>

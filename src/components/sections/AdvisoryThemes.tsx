@@ -41,7 +41,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
 
           {/* Themes */}
           <div className="lg:col-span-6 lg:col-start-7">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Advisory Perspective</p>
             </Reveal>
 

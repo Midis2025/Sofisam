@@ -47,26 +47,26 @@ export function ExpertiseSequence() {
   return (
     <section id="expertise" className="rd-section rd-paper" aria-labelledby="expertise-heading">
       <div className="rd-shell">
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <Reveal className="rd-kicker">
+        {/* Compact section header: statement and standfirst share a baseline
+            rather than sitting in a half-empty band of their own. */}
+        <div className="grid gap-[clamp(1.25rem,3vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.8fr)] lg:items-end">
+          <div>
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">{servicesIntro.eyebrow}</p>
             </Reveal>
             <h2
               id="expertise-heading"
-              className="rd-display mt-[clamp(1.25rem,2.6vw,2.25rem)] text-[var(--rd-ink)]"
+              className="rd-display mt-[clamp(1rem,2vw,1.75rem)] text-[var(--rd-ink)]"
             >
               <MaskedLines lines={[servicesIntro.heading]} />
             </h2>
           </div>
 
-          <div className="lg:col-span-4 lg:col-start-9 lg:pb-3">
-            <Reveal delay={0.1}>
-              <p className="rd-body max-w-[42ch] text-[var(--rd-stone)]">
-                {servicesIntro.standfirst}
-              </p>
-            </Reveal>
-          </div>
+          <Reveal kind="body" delay={0.1} className="lg:pb-3">
+            <p className="rd-body max-w-[42ch] text-[var(--rd-stone)]">
+              {servicesIntro.standfirst}
+            </p>
+          </Reveal>
         </div>
 
         {/* Tile grid */}

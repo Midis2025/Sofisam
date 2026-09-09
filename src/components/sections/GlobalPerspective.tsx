@@ -1,15 +1,18 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
 
 /**
- * 03 — Global perspective.
+ * Global perspective.
  *
- * One dark editorial panel: a large image plate against a statement column,
- * with the markers set as data rows. They describe how the firm works, not
- * where it has offices — the only location asserted anywhere on the site is
- * the stated Dubai headquarters.
+ * Two compositions of the same content: `panel` (the homepage) sets it as a
+ * dark plate-and-statement panel; `editorial` (the About page) opens it out
+ * into a centred statement, three typographic columns and a wide lower plate,
+ * so the two pages never read as the same section twice.
+ *
+ * The markers describe how the firm works, not where it has offices — the only
+ * location asserted anywhere on the site is the stated Dubai headquarters.
  */
 const markers = [
   { k: 'Base', v: 'Dubai' },
@@ -17,15 +20,89 @@ const markers = [
   { k: 'Method', v: 'Strategic Relationships' },
 ];
 
-export function GlobalPerspective() {
+const LEAD =
+  'From our world headquarters in the Dubai Multi Commodities Centre, our relationships and partnerships span the globe.';
+const NOTE =
+  'Conditions that govern an outcome rarely travel between jurisdictions. We read each on its own terms rather than by regional average.';
+
+export function GlobalPerspective({
+  variant = 'panel',
+}: {
+  variant?: 'panel' | 'editorial';
+}) {
+  if (variant === 'editorial') {
+    return (
+      <section className="rd-section rd-paper" aria-labelledby="global-heading">
+        <div className="rd-shell">
+          {/* Centred statement */}
+          <div className="mx-auto max-w-[52rem] text-center">
+            <Reveal kind="label" className="rd-kicker justify-center">
+              <p className="rd-label">Global Perspective</p>
+            </Reveal>
+
+            <h2
+              id="global-heading"
+              className="rd-display mt-[clamp(1rem,2vw,1.75rem)] text-[var(--rd-ink)]"
+            >
+              <MaskedLines lines={['One vantage point.', 'A global field of view.']} />
+            </h2>
+
+            <Reveal kind="body" delay={0.12}>
+              <p className="rd-lead mx-auto mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[46ch] text-[var(--rd-stone)]">
+                {LEAD}
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Three typographic columns */}
+          <dl className="mt-[var(--rd-pad-sm)] grid gap-x-[clamp(2rem,4vw,4.5rem)] sm:grid-cols-3">
+            {markers.map((m, i) => (
+              <RowReveal
+                as="div"
+                key={m.k}
+                delay={i * 0.09}
+                className="pt-[clamp(1.25rem,2vw,1.75rem)]"
+              >
+                <dt className="rd-label text-[var(--rd-stone)]">{m.k}</dt>
+                <dd className="mt-4 font-display text-[clamp(1.5rem,2.6vw,2.35rem)] leading-[1.08] tracking-tighter text-[var(--rd-ink)]">
+                  {m.v}
+                </dd>
+              </RowReveal>
+            ))}
+          </dl>
+
+          <Reveal kind="body" delay={0.1}>
+            <p className="rd-small mt-[clamp(1.75rem,3vw,2.5rem)] max-w-[62ch] text-[var(--rd-stone)]">
+              {NOTE}
+            </p>
+          </Reveal>
+
+          {/* Wide lower plate */}
+          <ImageReveal delay={0.08} className="mt-[var(--rd-pad-sm)]">
+            <div className="rd-media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9]">
+              <Picture
+                name="city-mono"
+                alt=""
+                decorative
+                sizes="100vw"
+                focal="50% 45%"
+                className="h-full w-full"
+              />
+            </div>
+          </ImageReveal>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="rd-section-sm rd-paper" aria-labelledby="global-heading">
+    <section className="rd-section rd-paper" aria-labelledby="global-heading">
       <div className="rd-shell">
         <div className="rd-tile-dark rd-on-dark p-[clamp(1rem,1.8vw,1.5rem)]">
           <div className="grid gap-[clamp(1.25rem,2.4vw,2.5rem)] lg:grid-cols-12 lg:items-stretch">
             {/* Image plate — the dominant element */}
             <ImageReveal className="lg:col-span-7">
-              <div className="rd-media rd-media-in aspect-[4/3] h-full w-full lg:aspect-auto lg:min-h-[30rem]">
+              <div className="rd-media rd-media-in aspect-[4/3] h-full w-full lg:aspect-auto lg:min-h-[28rem]">
                 <Picture
                   name="city-mono"
                   alt=""
@@ -40,30 +117,25 @@ export function GlobalPerspective() {
             {/* Statement */}
             <div className="flex flex-col justify-between p-[clamp(0.5rem,1.4vw,1.5rem)] lg:col-span-5">
               <div>
-                <Reveal className="rd-kicker">
+                <Reveal kind="label" className="rd-kicker">
                   <p className="rd-label">Global Perspective</p>
                 </Reveal>
 
                 <h2
                   id="global-heading"
-                  className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[13ch] text-bone"
+                  className="rd-h2 mt-[clamp(1rem,2vw,1.5rem)] max-w-[13ch] text-bone"
                 >
                   <MaskedLines lines={['One vantage point.', 'A global field', 'of view.']} />
                 </h2>
 
-                <Reveal delay={0.1}>
+                <Reveal kind="body" delay={0.1}>
                   <p className="rd-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[40ch] text-bone/75">
-                    From our world headquarters in the Dubai Multi Commodities
-                    Centre, our relationships and partnerships span the globe.
+                    {LEAD}
                   </p>
                 </Reveal>
 
-                <Reveal delay={0.16}>
-                  <p className="rd-small mt-4 max-w-[42ch] text-[var(--rd-sage)]">
-                    Conditions that govern an outcome rarely travel between
-                    jurisdictions. We read each on its own terms rather than by
-                    regional average.
-                  </p>
+                <Reveal kind="body" delay={0.16}>
+                  <p className="rd-small mt-4 max-w-[42ch] text-[var(--rd-sage)]">{NOTE}</p>
                 </Reveal>
               </div>
 

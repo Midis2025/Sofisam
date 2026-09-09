@@ -89,7 +89,7 @@ export default function StrategicConsultingPage() {
       {/* Introduction — oversized lead */}
       <section className="rd-section rd-paper" aria-labelledby="sc-intro">
         <div className="rd-shell">
-          <Reveal className="rd-kicker">
+          <Reveal kind="label" className="rd-kicker">
             <p className="rd-label">Introduction</p>
           </Reveal>
 
@@ -127,7 +127,7 @@ export default function StrategicConsultingPage() {
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
             <div className="lg:col-span-7 lg:col-start-4">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Decision Framework</p>
               </Reveal>
               <h2
@@ -165,7 +165,7 @@ export default function StrategicConsultingPage() {
       </section>
 
       {/* Global outlook — statement panel */}
-      <section className="rd-section-sm rd-paper" aria-labelledby="sc-outlook">
+      <section className="rd-section rd-paper" aria-labelledby="sc-outlook">
         <div className="rd-shell">
           <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
             <div className="media veil-editorial absolute inset-0">
@@ -180,7 +180,7 @@ export default function StrategicConsultingPage() {
             </div>
 
             <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[30rem]">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Global Outlook</p>
               </Reveal>
               <h2

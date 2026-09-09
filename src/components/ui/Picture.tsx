@@ -1,5 +1,3 @@
-import ReactDOM from 'react-dom';
-
 import imageMeta from '@/data/image-meta.json';
 
 interface Meta {
@@ -68,14 +66,10 @@ export function Picture({
   const fallbackWidth = m.variants[Math.min(2, m.variants.length - 1)];
   const src = srcFor(name, fallbackWidth);
 
-  if (priority) {
-    ReactDOM.preload(src, {
-      as: 'image',
-      imageSrcSet: srcSet,
-      imageSizes: sizes,
-      fetchPriority: 'high',
-    });
-  }
+  // A priority image is loaded eagerly at high fetch priority, but no preload
+  // hint is emitted: the <img> is already in the initial HTML, so the hint buys
+  // almost nothing, and route prefetching carried those hints onto pages that
+  // never render the image — which the browser reports as an unused preload.
 
   return (
     <img

@@ -47,12 +47,12 @@ export function Newsletter() {
   }
 
   return (
-    <section className="rd-section-sm rd-paper" aria-labelledby="newsletter-heading">
+    <section className="rd-section rd-paper" aria-labelledby="newsletter-heading">
       <div className="rd-shell">
         <div className="rd-tile-dark rd-on-dark px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)]">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-6">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Newsletter</p>
               </Reveal>
 

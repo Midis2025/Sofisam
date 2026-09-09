@@ -44,7 +44,7 @@ export function AdvisoryPrinciples() {
           {/* Standing title */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-[8rem]">
-              <Reveal className="rd-kicker">
+              <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Advisory Principles</p>
               </Reveal>
 

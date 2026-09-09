@@ -14,9 +14,9 @@ interface CTASectionProps {
 }
 
 /**
- * 10 — Enquiries. The closing composition on every page: an oversized
- * statement on the left, the existing description and contact routes in a
- * panel on the right, over a plate of architecture.
+ * 10 — Enquiries. The closing composition on every page: a typographic
+ * statement and the contact routes on the left, one plate on the right. Kept
+ * compact so the page does not trail off into empty ground before the footer.
  */
 export function CTASection({
   eyebrow = 'Enquiries',
@@ -28,54 +28,54 @@ export function CTASection({
   return (
     <section className="rd-section rd-paper" aria-labelledby="cta-heading">
       <div className="rd-shell">
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-          <div className="lg:col-span-6">
-            <Reveal className="rd-kicker">
+        <div className="grid gap-[clamp(2rem,5vw,5rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-center">
+          <div>
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">{eyebrow}</p>
             </Reveal>
 
             <h2
               id="cta-heading"
-              className="rd-display mt-[clamp(1.25rem,2.6vw,2.25rem)] max-w-[12ch] text-[var(--rd-ink)]"
+              className="rd-display mt-[clamp(1rem,2vw,1.75rem)] max-w-[12ch] text-[var(--rd-ink)]"
             >
               <MaskedLines lines={lines} />
             </h2>
-          </div>
 
-          <div className="lg:col-span-6">
-            <Reveal delay={0.12}>
-              <div className="rd-card p-[clamp(1.25rem,2.2vw,2rem)]">
-                <p className="rd-body max-w-[46ch] text-[var(--rd-stone)]">{body}</p>
-
-                <div className="mt-[clamp(1.5rem,2.4vw,2rem)] flex flex-wrap items-center gap-3">
-                  <ButtonLink href="/contact" tone="dark" variant="solid">
-                    Get in Touch
-                  </ButtonLink>
-                  <ButtonLink
-                    href={`mailto:${contact.email}`}
-                    tone="dark"
-                    variant="outline"
-                    withArrow={false}
-                  >
-                    {contact.email}
-                  </ButtonLink>
-                </div>
-              </div>
+            <Reveal kind="body" delay={0.12}>
+              <p className="rd-body mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[46ch] text-[var(--rd-stone)]">
+                {body}
+              </p>
             </Reveal>
 
-            <ImageReveal delay={0.16} className="mt-[clamp(0.875rem,1.4vw,1.25rem)]">
-              <div className="rd-media aspect-[16/9] w-full lg:aspect-[16/8]">
-                <Picture
-                  name={image}
-                  alt=""
-                  decorative
-                  sizes="(min-width:1024px) 48vw, 100vw"
-                  focal={focal}
-                  className="h-full w-full"
-                />
+            <Reveal kind="body" delay={0.18}>
+              <div className="mt-[clamp(1.5rem,2.4vw,2rem)] flex flex-wrap items-center gap-3">
+                <ButtonLink href="/contact" tone="dark" variant="solid">
+                  Get in Touch
+                </ButtonLink>
+                <ButtonLink
+                  href={`mailto:${contact.email}`}
+                  tone="dark"
+                  variant="outline"
+                  withArrow={false}
+                >
+                  {contact.email}
+                </ButtonLink>
               </div>
-            </ImageReveal>
+            </Reveal>
           </div>
+
+          <ImageReveal delay={0.1}>
+            <div className="rd-media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[3/4]">
+              <Picture
+                name={image}
+                alt=""
+                decorative
+                sizes="(min-width:1024px) 40vw, 100vw"
+                focal={focal}
+                className="h-full w-full"
+              />
+            </div>
+          </ImageReveal>
         </div>
       </div>
     </section>

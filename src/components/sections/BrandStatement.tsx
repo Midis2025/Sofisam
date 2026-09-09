@@ -19,7 +19,7 @@ export function BrandStatement() {
       aria-labelledby="welcome-heading"
     >
       <div className="rd-shell">
-        <Reveal className="rd-kicker">
+        <Reveal kind="label" className="rd-kicker">
           <p className="rd-label">{welcomeCopy.eyebrow}</p>
         </Reveal>
 
@@ -32,12 +32,15 @@ export function BrandStatement() {
           />
         </h2>
 
-        <div className="mt-[var(--rd-pad-sm)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+        {/* Image and statement read as one composition: the columns are
+            proportioned rather than snapped to a 12-column grid, and the
+            statement is centred against the plate. */}
+        <div className="mt-[clamp(3rem,5vw,4.5rem)] grid gap-[clamp(2rem,5vw,5rem)] lg:grid-cols-[minmax(0,1.4fr)_minmax(300px,0.9fr)] lg:items-center">
           {/* Image plate with a floating location card */}
-          <div className="lg:col-span-7">
+          <div>
             <div className="relative">
               <ImageReveal>
-                <div className="rd-media aspect-[4/5] w-full sm:aspect-[16/11] lg:aspect-[5/4]">
+                <div className="rd-media aspect-[4/5] w-full sm:aspect-[16/11] lg:aspect-[1.35/1]">
                   <Picture
                     name="business-bay"
                     alt="Dubai's Business Bay towers standing in soft morning haze above the water"
@@ -67,7 +70,7 @@ export function BrandStatement() {
           </div>
 
           {/* Statement */}
-          <div className="lg:col-span-5 lg:pt-[clamp(0.5rem,2vw,2.5rem)]">
+          <div>
             <Reveal>
               <p className="rd-lead max-w-[42ch] text-[var(--rd-ink)]">
                 {welcomeCopy.paragraphs[0]}
@@ -75,7 +78,7 @@ export function BrandStatement() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <span aria-hidden className="rd-rule my-[var(--rd-gap)] block" />
+              <span aria-hidden className="rd-rule my-[clamp(1.5rem,2.6vw,2.25rem)] block" />
             </Reveal>
 
             <Reveal delay={0.12}>
@@ -85,7 +88,7 @@ export function BrandStatement() {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <span aria-hidden className="rd-rule my-[var(--rd-gap)] block" />
+              <span aria-hidden className="rd-rule my-[clamp(1.5rem,2.6vw,2.25rem)] block" />
             </Reveal>
 
             <Reveal delay={0.22}>

@@ -49,7 +49,7 @@ export function DubaiSection() {
 
           {/* Information panel */}
           <div className="lg:col-span-5">
-            <Reveal className="rd-kicker">
+            <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Dubai — DMCC</p>
             </Reveal>
 

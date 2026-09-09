@@ -188,7 +188,7 @@ export default async function InsightPage({
       {/* More insights */}
       <section className="rd-section rd-paper-2" aria-labelledby="related-heading">
         <div className="rd-shell">
-          <Reveal className="rd-kicker">
+          <Reveal kind="label" className="rd-kicker">
             <h2 id="related-heading" className="rd-label">
               More Insights
             </h2>
