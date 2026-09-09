@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
 
+import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
@@ -59,56 +58,18 @@ const operatingPrinciples = [
 export default function AboutPage() {
   return (
     <>
-      {/* 01 — Hero: one architectural field with the statement held at its
-             foot. The ground stays dark because the fixed header sits over it
-             before any scroll, and its wordmark is the light one. */}
-      <section className="relative w-full overflow-hidden bg-ink" aria-labelledby="about-hero">
-        <div className="media veil-bottom absolute inset-0">
-          <Picture
-            name="difc-gate"
-            alt="Dubai's financial district gate building lit at dusk, framed between surrounding towers"
-            sizes="100vw"
-            priority
-            focal="50% 45%"
-            className="h-full w-full"
-          />
-        </div>
-
-        <div className="rd-shell relative z-10 flex flex-col justify-end pb-[clamp(3rem,5vw,6rem)] pt-[calc(var(--header-h)+clamp(2.5rem,6vh,4.5rem))] lg:min-h-[clamp(32.5rem,66vh,45rem)]">
-          <nav aria-label="Breadcrumb" className="mb-auto pb-[clamp(2rem,6vw,5rem)]">
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] uppercase tracking-[0.16em] text-bone/45">
-              <li className="flex items-center gap-2">
-                <Link href="/" className="link-underline inline-block py-2 hover:text-bone">
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight aria-hidden strokeWidth={1.4} className="h-3 w-3 text-bone/25" />
-                <span aria-current="page" className="inline-block py-2 text-bone/75">
-                  About
-                </span>
-              </li>
-            </ol>
-          </nav>
-
-          <Reveal kind="label" className="rd-kicker">
-            <p className="rd-label">About SOFISAM</p>
-          </Reveal>
-
-          <h1
-            id="about-hero"
-            className="rd-display mt-[clamp(1rem,2vw,1.75rem)] max-w-[16ch] text-bone"
-          >
-            <MaskedLines lines={['A firm built', 'around judgement.']} />
-          </h1>
-
-          <Reveal kind="body" delay={0.2}>
-            <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[44ch] text-bone/70">
-              {welcomeCopy.positioning}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      {/* 01 — Hero: the shared inner-page hero, so About sits in the same
+             family as Services, Insights and the service pages — one grid,
+             one container, statement left and the page's own plate right. */}
+      <PageHero
+        eyebrow="About SOFISAM"
+        headline={['A firm built', 'around judgement.']}
+        standfirst={welcomeCopy.positioning}
+        image="difc-gate"
+        imageAlt="Dubai's financial district gate building lit at dusk, framed between surrounding towers"
+        focal="50% 45%"
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+      />
 
       {/* 02 — The firm in its own words: typography-led. A narrow label rail, a
              main statement column, one tall plate held off to the side. */}
