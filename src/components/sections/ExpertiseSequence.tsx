@@ -49,7 +49,7 @@ export function ExpertiseSequence() {
       <div className="rd-shell">
         {/* Compact section header: statement and standfirst share a baseline
             rather than sitting in a half-empty band of their own. */}
-        <div className="grid gap-[clamp(1.25rem,3vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.8fr)] lg:items-end">
+        <div className="rd-head">
           <div>
             <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">{servicesIntro.eyebrow}</p>
@@ -63,7 +63,7 @@ export function ExpertiseSequence() {
           </div>
 
           <Reveal kind="body" delay={0.1} className="lg:pb-3">
-            <p className="rd-body max-w-[48ch] text-[var(--rd-stone)]">
+            <p className="rd-body rd-head-note text-[var(--rd-stone)]">
               {servicesIntro.standfirst}
             </p>
           </Reveal>

@@ -99,7 +99,7 @@ export default function StructuringPage() {
               <div className="mt-[clamp(2rem,3.4vw,3rem)] space-y-6">
                 {service.intro.body.map((p, i) => (
                   <Reveal key={p} delay={0.08 * (i + 1)}>
-                    <p className="rd-body max-w-[54ch] text-[var(--rd-stone)]">{p}</p>
+                    <p className="rd-body max-w-[56ch] text-[var(--rd-stone)]">{p}</p>
                   </Reveal>
                 ))}
               </div>
@@ -111,21 +111,21 @@ export default function StructuringPage() {
       {/* Framework thinking — architecture beside an editorial ledger */}
       <section className="rd-section rd-dark" aria-labelledby="st-framework">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-6">
+          <div className="rd-head">
+            <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Framework Thinking</p>
               </Reveal>
               <h2
                 id="st-framework"
-                className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[15ch] text-bone"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-bone"
               >
                 <MaskedLines lines={['Intent before', 'instrument.']} />
               </h2>
             </div>
-            <div className="lg:col-span-5 lg:col-start-8 lg:pb-2">
+            <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body max-w-[44ch] text-[var(--rd-sage)]">
+                <p className="rd-body rd-head-note text-[var(--rd-sage)]">
                   We begin with what an arrangement is meant to achieve and for
                   whom, and only then consider the form it should take. The
                   reverse order produces structures that outlive their purpose.
@@ -194,21 +194,27 @@ export default function StructuringPage() {
       {/* Design tests — precise ledger */}
       <section className="rd-section rd-paper" aria-labelledby="st-tests">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
+          <div className="rd-head rd-head-ledger">
+            <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Structuring Approach</p>
               </Reveal>
               <h2
                 id="st-tests"
-                className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[16ch] text-[var(--rd-ink)]"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--rd-ink)]"
               >
-                <MaskedLines lines={['Five tests a', 'structure has', 'to survive.']} />
+                <span className="sr-only">Five tests a structure has to survive.</span>
+                <span aria-hidden className="block lg:hidden">
+                  <MaskedLines lines={['Five tests a', 'structure has', 'to survive.']} />
+                </span>
+                <span aria-hidden className="hidden lg:block">
+                  <MaskedLines lines={['Five tests a structure', 'has to survive.']} />
+                </span>
               </h2>
             </div>
-            <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
+            <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body max-w-[38ch] text-[var(--rd-stone)]">
+                <p className="rd-body rd-head-note text-[var(--rd-stone)]">
                   Applied to mandates and investments alike, and revisited when
                   circumstances move away from the base case.
                 </p>
@@ -224,12 +230,12 @@ export default function StructuringPage() {
                 delay={i * 0.05}
                 className="rd-row rd-row-hover last:border-b last:border-[var(--rd-line)]"
               >
-                <div className="grid gap-x-8 gap-y-3 px-1 py-[clamp(1.75rem,3vw,2.4rem)] md:grid-cols-12">
-                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent-ink)] md:col-span-1">
+                <div className="rd-ledger px-1 py-[clamp(1.75rem,3vw,2.4rem)]">
+                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent-ink)]">
                     {t.n}
                   </span>
-                  <h3 className="rd-h3 max-w-[24ch] text-[var(--rd-ink)] md:col-span-6">{t.t}</h3>
-                  <p className="rd-small max-w-[44ch] text-[var(--rd-stone)] md:col-span-5">
+                  <h3 className="rd-h3 max-w-[26ch] text-[var(--rd-ink)]">{t.t}</h3>
+                  <p className="rd-small max-w-[44ch] text-[var(--rd-stone)]">
                     {t.d}
                   </p>
                 </div>
@@ -302,12 +308,18 @@ export default function StructuringPage() {
               </Reveal>
               <h2
                 id="st-precision"
-                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-bone"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-bone"
               >
-                <MaskedLines lines={['Novelty is rarely', 'a virtue in a', 'structure.']} />
+                <span className="sr-only">Novelty is rarely a virtue in a structure.</span>
+                <span aria-hidden className="block lg:hidden">
+                  <MaskedLines lines={['Novelty is rarely', 'a virtue in a', 'structure.']} />
+                </span>
+                <span aria-hidden className="hidden lg:block">
+                  <MaskedLines lines={['Novelty is rarely', 'a virtue in a structure.']} />
+                </span>
               </h2>
               <Reveal delay={0.14}>
-                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-bone/70">
+                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-bone/70">
                   Established frameworks carry the weight of everything that has
                   already been tested against them. We fit them to the situation
                   rather than fitting the situation to them.

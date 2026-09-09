@@ -126,18 +126,26 @@ export default function StrategicConsultingPage() {
       {/* Decision framework — numbered ledger on a warm dark ground */}
       <section className="rd-section rd-dark" aria-labelledby="sc-framework">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
-            <div className="lg:col-span-8">
+          <div>
+            <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Decision Framework</p>
               </Reveal>
               <h2
                 id="sc-framework"
-                className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[17ch] text-bone"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-bone"
               >
-                <MaskedLines
-                  lines={['Five questions we', 'work through before', 'we give a view.']}
-                />
+                <span className="sr-only">
+                  Five questions we work through before we give a view.
+                </span>
+                <span aria-hidden className="block lg:hidden">
+                  <MaskedLines
+                    lines={['Five questions we', 'work through before', 'we give a view.']}
+                  />
+                </span>
+                <span aria-hidden className="hidden lg:block">
+                  <MaskedLines lines={['Five questions we work through', 'before we give a view.']} />
+                </span>
               </h2>
             </div>
           </div>
@@ -150,12 +158,12 @@ export default function StrategicConsultingPage() {
                 delay={i * 0.05}
                 className="rd-row-inv rd-row-inv-hover last:border-b last:border-[var(--rd-line-inv)]"
               >
-                <div className="grid gap-x-8 gap-y-4 px-1 py-[clamp(1.75rem,3vw,2.5rem)] md:grid-cols-12">
-                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent)] md:col-span-1">
+                <div className="rd-ledger px-1 py-[clamp(1.75rem,3vw,2.5rem)]">
+                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent)]">
                     {f.n}
                   </span>
-                  <h3 className="rd-h3 max-w-[24ch] text-bone md:col-span-6">{f.q}</h3>
-                  <p className="rd-small max-w-[42ch] text-[var(--rd-sage)] md:col-span-5">
+                  <h3 className="rd-h3 max-w-[26ch] text-bone">{f.q}</h3>
+                  <p className="rd-small max-w-[42ch] text-[var(--rd-sage)]">
                     {f.a}
                   </p>
                 </div>
@@ -187,12 +195,18 @@ export default function StrategicConsultingPage() {
               </Reveal>
               <h2
                 id="sc-outlook"
-                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-bone"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-bone"
               >
-                <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
+                <span className="sr-only">Growth is published. Durability is not.</span>
+                <span aria-hidden className="block lg:hidden">
+                  <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
+                </span>
+                <span aria-hidden className="hidden lg:block">
+                  <MaskedLines lines={['Growth is published.', 'Durability is not.']} />
+                </span>
               </h2>
               <Reveal delay={0.14}>
-                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[48ch] text-bone/70">
+                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-bone/70">
                   The conditions that sustain a market are rarely in the same
                   documents as the numbers describing it. That is where the work has
                   to go.

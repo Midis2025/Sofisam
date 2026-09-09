@@ -103,7 +103,7 @@ export default function AboutPage() {
                 </RowReveal>
 
                 <RowReveal as="div" delay={0.1} className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
-                  <p className="rd-body max-w-[38ch] text-[var(--rd-stone)]">
+                  <p className="rd-body rd-head-note text-[var(--rd-stone)]">
                     {welcomeCopy.paragraphs[0]}
                   </p>
                   <p className="rd-body mt-5 max-w-[38ch] text-[var(--rd-stone)]">
@@ -181,7 +181,7 @@ export default function AboutPage() {
       <section className="rd-section rd-dark rd-on-dark" aria-labelledby="about-positioning">
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-[clamp(2.5rem,4.5vw,5rem)]">
-            <div className="lg:col-span-7">
+            <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Corporate Advisory</p>
               </Reveal>
@@ -237,7 +237,7 @@ export default function AboutPage() {
              order. The DOM order is 01–06, so a phone stacks them correctly. */}
       <section className="rd-section rd-paper" aria-labelledby="about-principles">
         <div className="rd-shell">
-          <div className="grid gap-[clamp(1.5rem,5vw,9.375rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.75fr)] lg:items-end">
+          <div className="rd-head">
             <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Working Principles</p>
@@ -252,7 +252,7 @@ export default function AboutPage() {
             </div>
 
             <Reveal kind="body" delay={0.1} className="lg:pb-2">
-              <p className="rd-body max-w-[38ch] text-[var(--rd-stone)]">
+              <p className="rd-body rd-head-note text-[var(--rd-stone)]">
                 Six commitments that govern how an engagement is taken on and
                 how it is carried.
               </p>

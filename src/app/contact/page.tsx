@@ -138,21 +138,21 @@ export default function ContactPage() {
       {/* Location */}
       <section className="rd-section rd-paper" aria-labelledby="location-heading">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
+          <div className="rd-head">
+            <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Location</p>
               </Reveal>
               <h2
                 id="location-heading"
-                className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[15ch] text-[var(--rd-ink)]"
+                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--rd-ink)]"
               >
                 <MaskedLines lines={['World headquarters,', 'Jumeirah Lake Towers.']} />
               </h2>
             </div>
-            <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
+            <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body max-w-[40ch] text-[var(--rd-stone)]">
+                <p className="rd-body rd-head-note text-[var(--rd-stone)]">
                   {site.name} is based in the {contact.headquarters}. Visits are
                   by arrangement.
                 </p>

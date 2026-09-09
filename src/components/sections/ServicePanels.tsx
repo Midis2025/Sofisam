@@ -17,23 +17,29 @@ export function ServicePanels() {
     <section className="rd-section rd-paper" aria-labelledby="services-panels">
       <div className="rd-shell">
         {/* Header */}
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-end lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-          <div className="lg:col-span-7">
+        <div className="rd-head">
+          <div>
             <Reveal kind="label" className="rd-kicker">
               <p className="rd-label">Three Disciplines</p>
             </Reveal>
 
             <h2
               id="services-panels"
-              className="rd-h2 mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[13ch] text-[var(--rd-ink)]"
+              className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--rd-ink)]"
             >
-              <MaskedLines lines={['One standard', 'of judgement,', 'three forms.']} />
+              <span className="sr-only">One standard of judgement, three forms.</span>
+              <span aria-hidden className="block lg:hidden">
+                <MaskedLines lines={['One standard', 'of judgement,', 'three forms.']} />
+              </span>
+              <span aria-hidden className="hidden lg:block">
+                <MaskedLines lines={['One standard of judgement,', 'three forms.']} />
+              </span>
             </h2>
           </div>
 
-          <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
+          <div className="lg:pb-2">
             <Reveal delay={0.12}>
-              <p className="rd-body max-w-[46ch] text-[var(--rd-stone)]">
+              <p className="rd-body rd-head-note text-[var(--rd-stone)]">
                 Consulting, advisory and structuring are separate practices, but
                 they are not separate opinions. Whichever one an engagement
                 begins in, the reasoning behind it is the same.
