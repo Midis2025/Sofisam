@@ -22,46 +22,37 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Six working principles. `wide` drives the staggered grid: a large block and a
- * compact one alternate so the sequence never settles into six equal cards.
- */
+/** Six working principles, in order — one grid lays them out. */
 const operatingPrinciples = [
   {
     k: '01',
     t: 'Independence is structural',
     d: 'We hold no product to place and no side to favour. That is a condition of how the firm is set up, not an intention it announces.',
-    wide: true,
   },
   {
     k: '02',
     t: 'Discretion is the default',
     d: 'Engagements are handled in a closed circle and remain there. Confidentiality is a working condition rather than a clause.',
-    wide: false,
   },
   {
     k: '03',
     t: 'Judgement over volume',
     d: 'A small number of matters, taken seriously, by the principals who accepted them.',
-    wide: false,
   },
   {
     k: '04',
     t: 'A plain recommendation',
     d: 'Where we have a view, we give it — with the reasoning attached and the downside stated.',
-    wide: true,
   },
   {
     k: '05',
     t: 'Read each market on its terms',
     d: 'Conditions rarely travel between jurisdictions. Neither should the assumptions built on them.',
-    wide: true,
   },
   {
     k: '06',
     t: 'Availability after the decision',
     d: 'The difficult questions rarely arrive on the day a decision is taken.',
-    wide: false,
   },
 ];
 
@@ -278,11 +269,13 @@ export default function AboutPage() {
       {/* 05 — Confidential / Unconflicted / Strategic / International / Experienced */}
       <AdvisoryPrinciples />
 
-      {/* 06 — Working principles: a staggered sequence, large and compact
-             blocks alternating, each entering after the one before it. */}
+      {/* 06 — Working principles: one grid, two columns, three aligned rows.
+             Every item shares the same internal structure so the numbers,
+             titles, descriptions and rules all line up, and the six enter in
+             order. The DOM order is 01–06, so a phone stacks them correctly. */}
       <section className="rd-section rd-paper" aria-labelledby="about-principles">
         <div className="rd-shell">
-          <div className="grid gap-[clamp(1.25rem,3vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.8fr)] lg:items-end">
+          <div className="grid gap-[clamp(1.5rem,5vw,9.375rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.75fr)] lg:items-end">
             <div>
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Working Principles</p>
@@ -290,38 +283,41 @@ export default function AboutPage() {
 
               <h2
                 id="about-principles"
-                className="rd-h2 mt-[clamp(1rem,2vw,1.75rem)] max-w-[13ch] text-[var(--rd-ink)]"
+                className="rd-display mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[14ch] text-[var(--rd-ink)]"
               >
                 <MaskedLines lines={['How the firm', 'actually operates.']} />
               </h2>
             </div>
 
             <Reveal kind="body" delay={0.1} className="lg:pb-2">
-              <p className="rd-body max-w-[34ch] text-[var(--rd-stone)]">
+              <p className="rd-body max-w-[38ch] text-[var(--rd-stone)]">
                 Six commitments that govern how an engagement is taken on and
                 how it is carried.
               </p>
             </Reveal>
           </div>
 
-          <ol className="mt-[var(--rd-pad-sm)] grid gap-x-[clamp(1.5rem,3vw,3.5rem)] sm:grid-cols-2 lg:grid-cols-5">
+          <ol className="mt-[clamp(3.5rem,4.5vw,4.5rem)] grid grid-cols-1 gap-x-[clamp(3.5rem,6vw,6.875rem)] md:grid-cols-2">
             {operatingPrinciples.map((p, i) => (
               <RowReveal
                 key={p.k}
-                delay={i * 0.09}
-                className={`group py-[clamp(1.25rem,2.2vw,2rem)] ${
-                  p.wide ? 'lg:col-span-3' : 'lg:col-span-2'
-                }`}
+                delay={i * 0.08}
+                className="group pb-[clamp(2rem,2.6vw,2.5rem)] pt-[clamp(1.75rem,2.4vw,2.125rem)]"
               >
-                <div className="flex items-baseline gap-4">
-                  <span className="rd-num text-[0.85rem] text-[var(--rd-accent-ink)]">{p.k}</span>
-                  <h3 className="rd-h4 max-w-[26ch] text-[var(--rd-ink)] transition-transform duration-500 ease-premium group-hover:translate-x-1">
-                    {p.t}
-                  </h3>
+                <div className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-3 sm:gap-x-4">
+                  <span className="rd-num pt-[0.3rem] text-[0.85rem] text-[var(--rd-accent-ink)]">
+                    {p.k}
+                  </span>
+
+                  <div>
+                    <h3 className="font-display text-[clamp(1.25rem,1.45vw,1.6rem)] leading-[1.15] tracking-tight text-[var(--rd-ink)] transition-transform duration-500 ease-premium group-hover:translate-x-1">
+                      {p.t}
+                    </h3>
+                    <p className="mt-3 max-w-[46ch] text-[0.9375rem] font-light leading-[1.55] text-[var(--rd-stone)]">
+                      {p.d}
+                    </p>
+                  </div>
                 </div>
-                <p className="rd-small mt-3 max-w-[46ch] pl-[2.4rem] text-[var(--rd-stone)]">
-                  {p.d}
-                </p>
               </RowReveal>
             ))}
           </ol>

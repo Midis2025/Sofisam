@@ -25,11 +25,24 @@ export function BrandStatement() {
 
         <h2
           id="welcome-heading"
-          className="rd-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[16ch] text-[var(--rd-ink)] md:max-w-[26ch] lg:max-w-[72%]"
+          className="rd-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[16ch] text-[var(--rd-ink)] md:max-w-[30ch] lg:max-w-[78%]"
         >
-          <MaskedLines
-            lines={['International Strategic', 'Consulting, Advisory and', 'Structuring Firm.']}
-          />
+          {/* One sentence, broken for the viewport rather than by a tag: three
+              lines where the measure is narrow, two on a desktop. The reader
+              and the screen reader both get the same sentence. */}
+          <span className="sr-only">
+            International Strategic Consulting, Advisory and Structuring Firm.
+          </span>
+          <span aria-hidden className="block lg:hidden">
+            <MaskedLines
+              lines={['International Strategic', 'Consulting, Advisory and', 'Structuring Firm.']}
+            />
+          </span>
+          <span aria-hidden className="hidden lg:block">
+            <MaskedLines
+              lines={['International Strategic Consulting,', 'Advisory and Structuring Firm.']}
+            />
+          </span>
         </h2>
 
         {/* Image and statement read as one composition: the columns are

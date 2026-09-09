@@ -976,3 +976,65 @@
     border-radius: 0;
   }
 }
+
+
+/* ------------------------------------------------------------
+   Enquiries — the closing band
+   ------------------------------------------------------------
+   The photograph carries the section, but the scrim is the site's
+   own warm off-white rather than a dark banner: the copy side reads
+   as paper, the architecture stays visible as it clears to the
+   right. On a phone the copy occupies far more of the frame, so the
+   grade runs vertically and a little denser. */
+@layer components {
+  .rd-cta-veil {
+    background: linear-gradient(
+      90deg,
+      rgba(245, 242, 237, 0.94) 0%,
+      rgba(245, 242, 237, 0.86) 32%,
+      rgba(245, 242, 237, 0.62) 58%,
+      rgba(245, 242, 237, 0.26) 78%,
+      rgba(245, 242, 237, 0.1) 100%
+    );
+  }
+
+  @media (max-width: 767px) {
+    .rd-cta-veil {
+      background: linear-gradient(
+        180deg,
+        rgba(245, 242, 237, 0.95) 0%,
+        rgba(245, 242, 237, 0.9) 46%,
+        rgba(245, 242, 237, 0.74) 100%
+      );
+    }
+  }
+
+  /* A touch of the saturation taken out so the photograph sits with
+     the palette instead of competing with it. */
+  .rd-cta-photo > img {
+    filter: saturate(0.88) contrast(0.97);
+  }
+
+  .rd-cta-h {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 10.5vw, 4.2rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .rd-cta-h {
+      font-size: clamp(3.4rem, 4.8vw, 5.8rem);
+      line-height: 0.94;
+    }
+  }
+}
+
+/* The closing band's own arrow travel — kept local to this section so the
+   shared button primitive, and the locked hero that uses it, are unaffected. */
+@layer components {
+  .rd-cta-actions a:hover svg {
+    transform: translate3d(6px, 0, 0);
+  }
+}
