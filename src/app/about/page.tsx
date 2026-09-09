@@ -74,7 +74,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="rd-shell below-header relative z-10 flex flex-col justify-end pb-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[clamp(32.5rem,68vh,47.5rem)]">
+        <div className="rd-shell relative z-10 flex flex-col justify-end pb-[clamp(3rem,5vw,6rem)] pt-[calc(var(--header-h)+clamp(2.5rem,6vh,4.5rem))] lg:min-h-[clamp(32.5rem,66vh,45rem)]">
           <nav aria-label="Breadcrumb" className="mb-auto pb-[clamp(2rem,6vw,5rem)]">
             <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] uppercase tracking-[0.16em] text-bone/45">
               <li className="flex items-center gap-2">

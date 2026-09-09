@@ -63,6 +63,7 @@ export default function StructuringPage() {
       <PageHero
         eyebrow={service.hero.eyebrow}
         headline={['Form determines', 'what a structure', 'can withstand.']}
+        headlineWide={['Form determines what', 'a structure can withstand.']}
         standfirst={service.hero.standfirst}
         image={service.hero.image}
         imageAlt={service.hero.imageAlt}
@@ -283,7 +284,7 @@ export default function StructuringPage() {
       </section>
 
       {/* Proven frameworks — statement panel */}
-      <section className="rd-section rd-dark rd-on-dark relative overflow-hidden" aria-labelledby="st-precision">
+      <section className="rd-section rd-band rd-on-dark relative overflow-hidden" aria-labelledby="st-precision">
         <div className="media veil-editorial absolute inset-0">
               <Picture
                 name="gold-lattice"

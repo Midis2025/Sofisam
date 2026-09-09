@@ -530,7 +530,8 @@
      up into a viewport of dead space. */
   .rd-section.rd-paper + .rd-section.rd-paper,
   .rd-section.rd-paper-2 + .rd-section.rd-paper-2,
-  .rd-section.rd-dark + .rd-section.rd-dark {
+  .rd-section.rd-dark + .rd-section.rd-dark,
+  .rd-section.rd-band + .rd-section.rd-band {
     padding-top: 0;
   }
 
@@ -538,13 +539,15 @@
      both sides are trimmed. */
   .rd-section.rd-paper + .rd-section:not(.rd-paper),
   .rd-section.rd-paper-2 + .rd-section:not(.rd-paper-2),
-  .rd-section.rd-dark + .rd-section:not(.rd-dark) {
+  .rd-section.rd-dark + .rd-section:not(.rd-dark),
+  .rd-section.rd-band + .rd-section:not(.rd-band) {
     padding-top: var(--rd-pad-edge);
   }
 
   .rd-section:not(.rd-paper):has(+ .rd-section.rd-paper),
   .rd-section:not(.rd-paper-2):has(+ .rd-section.rd-paper-2),
   .rd-section:not(.rd-dark):has(+ .rd-section.rd-dark),
+  .rd-section:not(.rd-band):has(+ .rd-section.rd-band),
   .rd-section:has(+ footer) {
     padding-bottom: var(--rd-pad-edge);
   }
@@ -557,7 +560,8 @@
     background-color: var(--rd-paper-2);
   }
 
-  .rd-dark {
+  .rd-dark,
+  .rd-band {
     background-color: var(--rd-umber);
     color: #f6f4ef;
   }

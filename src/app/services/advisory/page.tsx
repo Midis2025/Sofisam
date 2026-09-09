@@ -46,6 +46,7 @@ export default function AdvisoryPage() {
       <PageHero
         eyebrow={service.hero.eyebrow}
         headline={['Counsel formed', 'in the room where', 'decisions are taken.']}
+        headlineWide={['Counsel formed in the room', 'where decisions are taken.']}
         standfirst={service.hero.standfirst}
         image={service.hero.image}
         imageAlt={service.hero.imageAlt}

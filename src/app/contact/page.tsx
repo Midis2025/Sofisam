@@ -30,10 +30,10 @@ export default function ContactPage() {
       {/* Statement and form. The ground stays dark here because the fixed
           header sits over it before any scroll. */}
       <section className="rd-dark relative" aria-labelledby="contact-heading">
-        <div className="rd-shell below-header pb-[var(--rd-pad)]">
+        <div className="rd-shell pb-[var(--rd-pad)] pt-[calc(var(--header-h)+clamp(2.5rem,6vh,4.5rem))]">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             {/* Information — roughly 40% */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 lg:flex lg:flex-col">
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">{contactCopy.eyebrow}</p>
               </Reveal>
@@ -102,8 +102,8 @@ export default function ContactPage() {
                 </div>
               </Reveal>
 
-              <ImageReveal delay={0.12} className="mt-[clamp(2rem,3.4vw,3rem)]">
-                <div className="rd-media aspect-[16/10] w-full lg:aspect-[4/3]">
+              <ImageReveal delay={0.12} className="mt-[clamp(2rem,3.4vw,3rem)] lg:relative lg:min-h-[16rem] lg:flex-1">
+                <div className="rd-media aspect-[16/10] w-full lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
                   <Picture
                     name="difc-gate"
                     alt="Dubai's financial district gate building illuminated at dusk"

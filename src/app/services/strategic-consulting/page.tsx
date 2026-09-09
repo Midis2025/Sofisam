@@ -74,6 +74,7 @@ export default function StrategicConsultingPage() {
       <PageHero
         eyebrow={service.hero.eyebrow}
         headline={['Judgement applied', 'to consequential', 'decisions.']}
+        headlineWide={['Judgement applied to', 'consequential decisions.']}
         standfirst={service.hero.standfirst}
         image={service.hero.image}
         imageAlt={service.hero.imageAlt}
@@ -126,7 +127,7 @@ export default function StrategicConsultingPage() {
       <section className="rd-section rd-dark" aria-labelledby="sc-framework">
         <div className="rd-shell">
           <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
-            <div className="lg:col-span-7 lg:col-start-4">
+            <div className="lg:col-span-8">
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Decision Framework</p>
               </Reveal>
@@ -141,7 +142,7 @@ export default function StrategicConsultingPage() {
             </div>
           </div>
 
-          <ol className="mt-[var(--rd-pad-sm)] lg:ml-[25%]">
+          <ol className="mt-[var(--rd-pad-sm)]">
             {framework.map((f, i) => (
               <Reveal
                 as="li"
@@ -166,7 +167,7 @@ export default function StrategicConsultingPage() {
 
       {/* Global outlook — statement panel */}
       <section
-        className="rd-section rd-dark rd-on-dark relative overflow-hidden"
+        className="rd-section rd-band rd-on-dark relative overflow-hidden"
         aria-labelledby="sc-outlook"
       >
         <div className="media veil-editorial absolute inset-0">
