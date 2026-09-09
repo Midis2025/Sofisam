@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
@@ -87,41 +88,35 @@ export default function StrategicConsultingPage() {
         ]}
       />
 
-      {/* Introduction — oversized lead */}
-      <section className="rd-section rd-paper" aria-labelledby="sc-intro">
-        <div className="rd-shell">
-          <Reveal kind="label" className="rd-kicker">
-            <p className="rd-label">Introduction</p>
-          </Reveal>
+      {/* Introduction */}
+      <ServiceIntro
+        labelledBy="sc-intro"
+        label="Introduction"
+        heading={
+          <>
+            <h2 id="sc-intro" className="sr-only">
+              Introduction to Strategic Consulting
+            </h2>
+            <Reveal delay={0.06}>
+              <p className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]">
+                {service.intro.lead}
+              </p>
+            </Reveal>
+          </>
+        }
+      >
+        <Reveal>
+          <p className="rd-label text-[var(--rd-stone)]">Strategic perspective</p>
+        </Reveal>
 
-          <h2 id="sc-intro" className="sr-only">
-            Introduction to Strategic Consulting
-          </h2>
-
-          <Reveal delay={0.06}>
-            <p className="rd-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[22ch] text-[var(--rd-ink)]">
-              {service.intro.lead}
-            </p>
-          </Reveal>
-
-          <div className="mt-[var(--rd-pad-sm)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
-            <div className="lg:col-span-3">
-              <Reveal>
-                <p className="rd-label text-[var(--rd-stone)]">Strategic perspective</p>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-8 lg:col-start-5">
-              <div className="space-y-6">
-                {service.intro.body.map((p, i) => (
-                  <Reveal key={p} delay={i * 0.08}>
-                    <p className="rd-lead max-w-[56ch] text-[var(--rd-stone)]">{p}</p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="rd-intro-body">
+          {service.intro.body.map((p, i) => (
+            <Reveal key={p} delay={0.08 * (i + 1)}>
+              <p className="rd-lead text-[var(--rd-stone)]">{p}</p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceIntro>
 
       {/* Decision framework — numbered ledger on a warm dark ground */}
       <section className="rd-section rd-dark" aria-labelledby="sc-framework">

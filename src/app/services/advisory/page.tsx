@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { AdvisoryThemes } from '@/components/sections/AdvisoryThemes';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { CTASection } from '@/components/sections/CTASection';
@@ -59,54 +60,50 @@ export default function AdvisoryPage() {
         ]}
       />
 
-      {/* Introduction — split, closing on an oversized statement */}
-      <section className="rd-section rd-paper" aria-labelledby="adv-intro">
-        <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
-            <div className="lg:col-span-4">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Introduction</p>
-              </Reveal>
-              <h2
-                id="adv-intro"
-                className="rd-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-[var(--rd-ink)]"
-              >
-                Executive decision-making, supported rather than substituted.
-              </h2>
-            </div>
+      {/* Introduction */}
+      <ServiceIntro
+        labelledBy="adv-intro"
+        label="Introduction"
+        heading={
+          <h2
+            id="adv-intro"
+            className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]"
+          >
+            Executive decision-making, supported rather than substituted.
+          </h2>
+        }
+        below={
+          <>
+            <Reveal delay={0.05}>
+              <span aria-hidden className="rd-rule my-[clamp(3rem,4vw,4rem)] block" />
+            </Reveal>
 
-            <div className="lg:col-span-7 lg:col-start-6">
-              <Reveal>
-                <p className="rd-lead max-w-[54ch] text-[var(--rd-ink)]">{service.intro.lead}</p>
-              </Reveal>
+            <Reveal delay={0.08}>
+              <blockquote>
+                <p className="rd-display max-w-[20ch] text-[var(--rd-ink)]">
+                  Built over decades of international business experience.
+                </p>
+                <footer className="mt-8 flex items-center gap-4">
+                  <span aria-hidden className="block h-px w-12 bg-[var(--rd-accent)]" />
+                  <span className="rd-label text-[var(--rd-stone)]">SOFISAM FZCO</span>
+                </footer>
+              </blockquote>
+            </Reveal>
+          </>
+        }
+      >
+        <Reveal delay={0.06}>
+          <p className="rd-lead text-[var(--rd-ink)]">{service.intro.lead}</p>
+        </Reveal>
 
-              <div className="mt-7 space-y-6">
-                {service.intro.body.map((p, i) => (
-                  <Reveal key={p} delay={0.08 * (i + 1)}>
-                    <p className="rd-body max-w-[56ch] text-[var(--rd-stone)]">{p}</p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <Reveal delay={0.05}>
-            <span aria-hidden className="rd-rule my-[var(--rd-pad-sm)] block" />
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <blockquote>
-              <p className="rd-display max-w-[20ch] text-[var(--rd-ink)]">
-                Built over decades of international business experience.
-              </p>
-              <footer className="mt-8 flex items-center gap-4">
-                <span aria-hidden className="block h-px w-12 bg-[var(--rd-accent)]" />
-                <span className="rd-label text-[var(--rd-stone)]">SOFISAM FZCO</span>
-              </footer>
-            </blockquote>
-          </Reveal>
+        <div className="rd-intro-body">
+          {service.intro.body.map((p, i) => (
+            <Reveal key={p} delay={0.08 * (i + 1)}>
+              <p className="rd-body text-[var(--rd-stone)]">{p}</p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceIntro>
 
       {/* Governance — plate beside a precise ledger */}
       <section className="rd-section rd-paper-2" aria-labelledby="adv-governance">

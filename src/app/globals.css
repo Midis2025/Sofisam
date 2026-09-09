@@ -1102,3 +1102,62 @@
     }
   }
 }
+
+/* ------------------------------------------------------------
+   Post-hero introduction
+   ------------------------------------------------------------
+   One foundation for the section that opens an inner page: the same
+   grid, the same measures and the same rhythm, whatever each page
+   puts inside it. */
+@layer components {
+  /* The first content section after an inner-page hero. The hero is a
+     dark section but not an `.rd-section`, so it is matched here and
+     nowhere else. */
+  section.rd-dark:not(.rd-section) + .rd-section {
+    padding-top: clamp(2.25rem, 5vw, 5.5rem);
+  }
+
+  .rd-intro {
+    display: grid;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+  @media (min-width: 1024px) {
+    .rd-intro {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      column-gap: clamp(3.5rem, 6vw, 6.875rem);
+      align-items: start;
+    }
+  }
+
+  /* The statement in the left column. One scale for all three service
+     pages, whether the page opens on a heading or on a longer sentence. */
+  .rd-intro-title {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.7vw, 2.6rem);
+    line-height: 1.14;
+    letter-spacing: -0.022em;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* One rhythm for the copy column, and one measure for its prose. */
+  .rd-intro-copy > * + * {
+    margin-top: clamp(1.25rem, 1.6vw, 1.75rem);
+  }
+
+  .rd-intro-copy .rd-lead,
+  .rd-intro-copy .rd-body {
+    max-width: 62ch;
+  }
+
+  /* Supporting paragraphs sit a step below an opening statement. */
+  .rd-intro-copy > .rd-intro-body {
+    margin-top: clamp(2rem, 3vw, 2.75rem);
+  }
+
+  .rd-intro-body > * + * {
+    margin-top: clamp(1.25rem, 1.6vw, 1.75rem);
+  }
+}

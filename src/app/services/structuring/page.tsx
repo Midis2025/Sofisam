@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
@@ -77,36 +78,30 @@ export default function StructuringPage() {
       />
 
       {/* Introduction */}
-      <section className="rd-section rd-paper" aria-labelledby="st-intro">
-        <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12">
-            <div className="lg:col-span-3">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Introduction</p>
-              </Reveal>
-            </div>
-
-            <div className="lg:col-span-8 lg:col-start-5">
-              <h2 id="st-intro" className="sr-only">
-                Introduction to Structuring
-              </h2>
-              <Reveal>
-                <p className="rd-display max-w-[24ch] text-[var(--rd-ink)]">
-                  {service.intro.lead}
-                </p>
-              </Reveal>
-
-              <div className="mt-[clamp(2rem,3.4vw,3rem)] space-y-6">
-                {service.intro.body.map((p, i) => (
-                  <Reveal key={p} delay={0.08 * (i + 1)}>
-                    <p className="rd-body max-w-[56ch] text-[var(--rd-stone)]">{p}</p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
+      <ServiceIntro
+        labelledBy="st-intro"
+        label="Introduction"
+        heading={
+          <>
+            <h2 id="st-intro" className="sr-only">
+              Introduction to Structuring
+            </h2>
+            <Reveal delay={0.06}>
+              <p className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]">
+                {service.intro.lead}
+              </p>
+            </Reveal>
+          </>
+        }
+      >
+        <div>
+          {service.intro.body.map((p, i) => (
+            <Reveal key={p} delay={0.08 * (i + 1)}>
+              <p className="rd-body text-[var(--rd-stone)]">{p}</p>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </ServiceIntro>
 
       {/* Framework thinking — architecture beside an editorial ledger */}
       <section className="rd-section rd-dark" aria-labelledby="st-framework">
