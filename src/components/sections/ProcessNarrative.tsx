@@ -58,7 +58,7 @@ export function ProcessNarrative() {
           </div>
           <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
             <Reveal delay={0.1}>
-              <p className="rd-body max-w-[40ch] text-[var(--rd-stone)]">
+              <p className="rd-body max-w-[46ch] text-[var(--rd-stone)]">
                 Every engagement is different. The order in which we think about
                 one rarely is.
               </p>

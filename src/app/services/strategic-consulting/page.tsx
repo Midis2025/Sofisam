@@ -165,10 +165,11 @@ export default function StrategicConsultingPage() {
       </section>
 
       {/* Global outlook — statement panel */}
-      <section className="rd-section rd-paper" aria-labelledby="sc-outlook">
-        <div className="rd-shell">
-          <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
-            <div className="media veil-editorial absolute inset-0">
+      <section
+        className="rd-section rd-dark rd-on-dark relative overflow-hidden"
+        aria-labelledby="sc-outlook"
+      >
+        <div className="media veil-editorial absolute inset-0">
               <Picture
                 name="city-mono"
                 alt=""
@@ -179,7 +180,7 @@ export default function StrategicConsultingPage() {
               />
             </div>
 
-            <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[30rem]">
+            <div className="rd-shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Global Outlook</p>
               </Reveal>
@@ -197,8 +198,6 @@ export default function StrategicConsultingPage() {
                 </p>
               </Reveal>
             </div>
-          </div>
-        </div>
       </section>
 
       {/* Themes — alternating editorial split */}

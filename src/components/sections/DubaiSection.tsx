@@ -61,14 +61,14 @@ export function DubaiSection() {
             </h2>
 
             <Reveal delay={0.1}>
-              <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[42ch] text-[var(--rd-ink)]">
+              <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-[var(--rd-ink)]">
                 From our world headquarters in the {contact.headquarters}, our
                 relationships and partnerships span the globe.
               </p>
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="rd-small mt-5 max-w-[44ch] text-[var(--rd-stone)]">
+              <p className="rd-small mt-5 max-w-[52ch] text-[var(--rd-stone)]">
                 The city sits where the working day meets Asia in the morning and
                 Europe and the Americas in the afternoon. What makes it useful is
                 not the coordinates but the density of counterparties who are

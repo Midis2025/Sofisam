@@ -476,10 +476,15 @@
     --rd-line-inv-soft: rgba(246, 244, 239, 0.08);
 
     /* --- Layout --------------------------------------------------
-       1400px of content, gutters ~20px on a phone, ~32px at 768,
-       ~58px at 1440 and capped at 80px. */
-    --rd-max: 87.5rem;
-    --rd-gutter: clamp(1.25rem, 4vw, 5rem);
+       Sections are always the full width of the page; this is the
+       measure of the content inside them. 1600px of content, opening
+       to 1760px at 1920 and 1920px beyond 2304, so a large display is
+       used rather than framed. Gutters run ~18px on the smallest
+       phone, ~35px at 768, ~46px at 1024, ~65px at 1440 and cap at
+       96px — enough side space to read against, never enough to leave
+       the page floating in the middle of the screen. */
+    --rd-max: 100rem; /* 1600px */
+    --rd-gutter: clamp(1.125rem, 4.5vw, 6rem);
 
     /* --- Vertical rhythm -----------------------------------------
        Spacing is designed at the BOUNDARY between two sections, not
@@ -561,7 +566,7 @@
   .rd-display {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 5.4rem);
+    font-size: clamp(2.5rem, 5vw, 6rem);
     line-height: 0.99;
     letter-spacing: -0.03em;
   }
@@ -569,7 +574,7 @@
   .rd-h2 {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400;
-    font-size: clamp(2rem, 3.8vw, 4.2rem);
+    font-size: clamp(2rem, 3.8vw, 4.6rem);
     line-height: 1.02;
     letter-spacing: -0.026em;
   }
@@ -577,7 +582,7 @@
   .rd-h3 {
     font-family: var(--font-display), Georgia, serif;
     font-weight: 400;
-    font-size: clamp(1.4rem, 2vw, 2.2rem);
+    font-size: clamp(1.4rem, 2vw, 2.4rem);
     line-height: 1.14;
     letter-spacing: -0.018em;
   }
@@ -926,5 +931,48 @@
       --rd-pad: 7rem;        /* 112px */
       --rd-pad-edge: 4rem;   /* 64px  */
     }
+  }
+}
+
+/* ------------------------------------------------------------
+   Wide displays
+   ------------------------------------------------------------
+   The measure opens up rather than leaving the page marooned in the
+   middle of a large screen. */
+@layer base {
+  @media (min-width: 1920px) {
+    :root {
+      --rd-max: 110rem; /* 1760px */
+    }
+  }
+
+  @media (min-width: 2304px) {
+    :root {
+      --rd-max: 120rem; /* 1920px */
+    }
+  }
+}
+
+@layer components {
+  /* A wider container for image-led bands that should read broader
+     than the reading measure. */
+  .rd-shell-wide {
+    width: 100%;
+    max-width: calc(var(--rd-max) + 10rem + 2 * var(--rd-gutter));
+    margin-inline: auto;
+    padding-inline: var(--rd-gutter);
+  }
+
+  /* Full-bleed band: the ground runs edge to edge and only the content
+     inside it is held to the container. */
+  .rd-bleed {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Media that meets the edge of the page keeps square corners. */
+  .rd-media-flat {
+    border-radius: 0;
   }
 }

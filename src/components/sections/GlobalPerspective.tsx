@@ -96,10 +96,9 @@ export function GlobalPerspective({
   }
 
   return (
-    <section className="rd-section rd-paper" aria-labelledby="global-heading">
+    <section className="rd-section rd-dark rd-on-dark" aria-labelledby="global-heading">
       <div className="rd-shell">
-        <div className="rd-tile-dark rd-on-dark p-[clamp(1rem,1.8vw,1.5rem)]">
-          <div className="grid gap-[clamp(1.25rem,2.4vw,2.5rem)] lg:grid-cols-12 lg:items-stretch">
+        <div className="grid gap-[clamp(1.5rem,3vw,3.5rem)] lg:grid-cols-12 lg:items-stretch">
             {/* Image plate — the dominant element */}
             <ImageReveal className="lg:col-span-7">
               <div className="rd-media rd-media-in aspect-[4/3] h-full w-full lg:aspect-auto lg:min-h-[28rem]">
@@ -115,7 +114,7 @@ export function GlobalPerspective({
             </ImageReveal>
 
             {/* Statement */}
-            <div className="flex flex-col justify-between p-[clamp(0.5rem,1.4vw,1.5rem)] lg:col-span-5">
+            <div className="flex flex-col justify-between lg:col-span-5 lg:py-[clamp(0.5rem,1.5vw,1.5rem)]">
               <div>
                 <Reveal kind="label" className="rd-kicker">
                   <p className="rd-label">Global Perspective</p>
@@ -129,13 +128,13 @@ export function GlobalPerspective({
                 </h2>
 
                 <Reveal kind="body" delay={0.1}>
-                  <p className="rd-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[40ch] text-bone/75">
+                  <p className="rd-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-bone/75">
                     {LEAD}
                   </p>
                 </Reveal>
 
                 <Reveal kind="body" delay={0.16}>
-                  <p className="rd-small mt-4 max-w-[42ch] text-[var(--rd-sage)]">{NOTE}</p>
+                  <p className="rd-small mt-4 max-w-[50ch] text-[var(--rd-sage)]">{NOTE}</p>
                 </Reveal>
               </div>
 
@@ -156,7 +155,6 @@ export function GlobalPerspective({
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }

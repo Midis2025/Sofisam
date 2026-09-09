@@ -283,10 +283,8 @@ export default function StructuringPage() {
       </section>
 
       {/* Proven frameworks — statement panel */}
-      <section className="rd-section rd-paper-2" aria-labelledby="st-precision">
-        <div className="rd-shell">
-          <div className="rd-panel rd-on-dark relative overflow-hidden bg-ink">
-            <div className="media veil-editorial absolute inset-0">
+      <section className="rd-section rd-dark rd-on-dark relative overflow-hidden" aria-labelledby="st-precision">
+        <div className="media veil-editorial absolute inset-0">
               <Picture
                 name="gold-lattice"
                 alt=""
@@ -297,7 +295,7 @@ export default function StructuringPage() {
               />
             </div>
 
-            <div className="relative z-10 flex min-h-[24rem] flex-col justify-end px-[clamp(1.5rem,4vw,4.5rem)] py-[clamp(2.5rem,5vw,4.5rem)] lg:min-h-[28rem]">
+        <div className="rd-shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Proven Frameworks</p>
               </Reveal>
@@ -314,8 +312,6 @@ export default function StructuringPage() {
                   rather than fitting the situation to them.
                 </p>
               </Reveal>
-            </div>
-          </div>
         </div>
       </section>
 

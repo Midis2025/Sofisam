@@ -52,7 +52,7 @@ export function ExecutivePerspective() {
             </h2>
 
             <Reveal delay={0.12}>
-              <p className="rd-lead mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[44ch] text-[var(--rd-ink)]">
+              <p className="rd-lead mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[50ch] text-[var(--rd-ink)]">
                 Our principals are highly successful business executives and
                 investors that bring unique perspectives to all of our mandates
                 and investments.
@@ -60,7 +60,7 @@ export function ExecutivePerspective() {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <p className="rd-body mt-5 max-w-[48ch] text-[var(--rd-stone)]">
+              <p className="rd-body mt-5 max-w-[56ch] text-[var(--rd-stone)]">
                 That distinction matters more than it sounds. Someone who has
                 carried a decision — its financing, its timing, its consequences
                 for the people involved — asks different questions of a proposal

@@ -182,10 +182,9 @@ export default function AboutPage() {
       {/* 03 — International perspective: image-led, the statement carried on a
              card that overlaps the plate from sm upward. */}
       <section className="rd-section rd-paper-2" aria-labelledby="about-international">
-        <div className="rd-shell">
           <div className="relative">
             <ImageReveal>
-              <div className="rd-media aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[21/9]">
+              <div className="rd-media rd-media-flat aspect-[4/3] w-full sm:aspect-[16/9] lg:aspect-[21/9]">
                 <Picture
                   name="city-mono"
                   alt=""
@@ -197,9 +196,10 @@ export default function AboutPage() {
               </div>
             </ImageReveal>
 
+            <div className="rd-shell sm:absolute sm:inset-x-0 sm:bottom-[clamp(1rem,2.5vw,2.5rem)]">
             <Reveal
               delay={0.12}
-              className="mt-[clamp(1rem,2vw,1.5rem)] sm:absolute sm:bottom-[clamp(1rem,2.5vw,2.5rem)] sm:left-[clamp(1rem,2.5vw,2.5rem)] sm:mt-0 sm:max-w-[34rem]"
+              className="mt-[clamp(1rem,2vw,1.5rem)] sm:mt-0 sm:max-w-[34rem]"
             >
               <div className="rd-card p-[clamp(1.25rem,2.2vw,2rem)]">
                 <div className="rd-kicker">
@@ -220,8 +220,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </Reveal>
+            </div>
           </div>
-        </div>
       </section>
 
       {/* 04 — Corporate advisory: the page's dark passage. */}

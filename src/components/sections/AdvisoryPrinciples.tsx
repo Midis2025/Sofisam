@@ -58,7 +58,7 @@ export function AdvisoryPrinciples() {
               </h2>
 
               <Reveal delay={0.1}>
-                <p className="rd-small mt-6 max-w-[38ch] text-[var(--rd-stone)]">
+                <p className="rd-small mt-6 max-w-[44ch] text-[var(--rd-stone)]">
                   The advice SOFISAM provides is described in its own terms:
                   confidential, unconflicted and strategic, built over decades of
                   international business experience.
@@ -85,7 +85,7 @@ export function AdvisoryPrinciples() {
                     {p.word}
                   </h3>
 
-                  <p className="rd-small col-start-2 mt-3 max-w-[42ch] text-[var(--rd-stone)] md:col-start-3 md:mt-0">
+                  <p className="rd-small col-start-2 mt-3 max-w-[48ch] text-[var(--rd-stone)] md:col-start-3 md:mt-0">
                     {p.note}
                   </p>
                 </div>

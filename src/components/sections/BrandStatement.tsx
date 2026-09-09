@@ -72,7 +72,7 @@ export function BrandStatement() {
           {/* Statement */}
           <div>
             <Reveal>
-              <p className="rd-lead max-w-[42ch] text-[var(--rd-ink)]">
+              <p className="rd-lead max-w-[50ch] text-[var(--rd-ink)]">
                 {welcomeCopy.paragraphs[0]}
               </p>
             </Reveal>
@@ -92,7 +92,7 @@ export function BrandStatement() {
             </Reveal>
 
             <Reveal delay={0.22}>
-              <p className="rd-body max-w-[46ch] text-[var(--rd-stone)]">
+              <p className="rd-body max-w-[56ch] text-[var(--rd-stone)]">
                 {welcomeCopy.paragraphs[2]}
               </p>
             </Reveal>

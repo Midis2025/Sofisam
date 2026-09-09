@@ -33,7 +33,7 @@ export function ServicePanels() {
 
           <div className="lg:col-span-4 lg:col-start-9 lg:pb-2">
             <Reveal delay={0.12}>
-              <p className="rd-body max-w-[40ch] text-[var(--rd-stone)]">
+              <p className="rd-body max-w-[46ch] text-[var(--rd-stone)]">
                 Consulting, advisory and structuring are separate practices, but
                 they are not separate opinions. Whichever one an engagement
                 begins in, the reasoning behind it is the same.

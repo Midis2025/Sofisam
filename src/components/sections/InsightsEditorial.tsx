@@ -34,7 +34,7 @@ export function InsightsEditorial() {
 
           <div className="lg:col-span-4 lg:col-start-9 lg:pb-3">
             <Reveal delay={0.1}>
-              <p className="rd-body max-w-[42ch] text-[var(--rd-stone)]">
+              <p className="rd-body max-w-[48ch] text-[var(--rd-stone)]">
                 {insightsIntro.standfirst}
               </p>
             </Reveal>

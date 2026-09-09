@@ -63,7 +63,7 @@ export function ExpertiseSequence() {
           </div>
 
           <Reveal kind="body" delay={0.1} className="lg:pb-3">
-            <p className="rd-body max-w-[42ch] text-[var(--rd-stone)]">
+            <p className="rd-body max-w-[48ch] text-[var(--rd-stone)]">
               {servicesIntro.standfirst}
             </p>
           </Reveal>

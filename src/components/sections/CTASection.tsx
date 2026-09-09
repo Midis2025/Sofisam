@@ -42,7 +42,7 @@ export function CTASection({
             </h2>
 
             <Reveal kind="body" delay={0.12}>
-              <p className="rd-body mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[46ch] text-[var(--rd-stone)]">
+              <p className="rd-body mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[54ch] text-[var(--rd-stone)]">
                 {body}
               </p>
             </Reveal>
