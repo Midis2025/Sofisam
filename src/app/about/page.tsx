@@ -177,24 +177,26 @@ export default function AboutPage() {
           </div>
       </section>
 
-      {/* 04 — Corporate advisory: the page's dark passage. */}
+      {/* 04 — Corporate advisory: the page's dark passage. Statement and
+             plate share one row, the plate out of the height calculation so
+             the two start and finish together. */}
       <section className="rd-section rd-dark rd-on-dark" aria-labelledby="about-positioning">
         <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-[clamp(2.5rem,4.5vw,5rem)]">
-            <div>
+          <div className="grid items-stretch gap-[clamp(2rem,6vw,6.25rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(26.25rem,0.92fr)]">
+            <div className="flex flex-col justify-center">
               <Reveal kind="label" className="rd-kicker">
                 <p className="rd-label">Corporate Advisory</p>
               </Reveal>
 
               <h2
                 id="about-positioning"
-                className="rd-display mt-[clamp(1rem,2vw,1.75rem)] max-w-[14ch] text-bone"
+                className="rd-display mt-[clamp(1.5rem,2.2vw,2rem)] max-w-[47.5rem] text-bone"
               >
                 <MaskedLines lines={['Where the', 'decision cannot', 'be delegated.']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="rd-body mt-[clamp(1.5rem,2.6vw,2.25rem)] max-w-[54ch] text-bone/75">
+                <p className="rd-body mt-[clamp(2rem,2.8vw,2.75rem)] max-w-[54ch] text-bone/75">
                   The matters we are brought into tend to sit above the level at
                   which an organisation can resolve them internally: what a
                   leadership team should do next, how a board should hold a
@@ -213,12 +215,12 @@ export default function AboutPage() {
               </Reveal>
             </div>
 
-            <ImageReveal delay={0.1} className="lg:col-span-5">
-              <div className="rd-media aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[4/5]">
+            <ImageReveal delay={0.1} className="lg:relative lg:h-full lg:min-h-[32.5rem] lg:max-h-[43.75rem]">
+              <div className="rd-media aspect-[4/3] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
                 <Picture
                   name="lounge-dark"
                   alt="Darkened executive lounge with slatted screens and low, considered lighting"
-                  sizes="(min-width:1024px) 40vw, 100vw"
+                  sizes="(min-width:1024px) 44vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full"
                 />
