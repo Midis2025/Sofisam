@@ -992,13 +992,16 @@
    grade runs vertically and a little denser. */
 @layer components {
   .rd-cta-veil {
+    /* Weighted to the copy on the left, but the right no longer clears
+       completely: the actions sit over that side and need a calm ground
+       to read against, while the architecture stays visible through it. */
     background: linear-gradient(
       90deg,
-      rgba(245, 242, 237, 0.94) 0%,
-      rgba(245, 242, 237, 0.86) 32%,
-      rgba(245, 242, 237, 0.62) 58%,
-      rgba(245, 242, 237, 0.26) 78%,
-      rgba(245, 242, 237, 0.1) 100%
+      rgba(246, 243, 238, 0.95) 0%,
+      rgba(246, 243, 238, 0.88) 30%,
+      rgba(246, 243, 238, 0.7) 52%,
+      rgba(246, 243, 238, 0.55) 74%,
+      rgba(246, 243, 238, 0.48) 100%
     );
   }
 
@@ -1040,6 +1043,16 @@
 @layer components {
   .rd-cta-actions a:hover svg {
     transform: translate3d(6px, 0, 0);
+  }
+
+  /* The outline action sits over the open side of the photograph, where the
+     scrim is lightest and the glazing behind it is busiest. It carries its own
+     translucent ground so the address stays legible — the button itself is the
+     surface, rather than a card being drawn around the pair. */
+  .rd-cta-mail {
+    background: rgba(246, 243, 238, 0.72);
+    backdrop-filter: blur(6px);
+    border-color: rgba(20, 20, 20, 0.22);
   }
 }
 
