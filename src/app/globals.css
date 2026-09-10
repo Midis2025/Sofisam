@@ -552,6 +552,15 @@
     padding-bottom: var(--rd-pad-edge);
   }
 
+  /* The footer is a sibling of <main>, not of the sections, so the rule above
+     never reaches the closing section of a page. Where that section carries the
+     footer's own dark ground there is no seam to mark the boundary, and the
+     untrimmed padding leaves a band of empty ground; the trimmed edge is the
+     same value every other ground boundary uses. */
+  #main > .rd-section.rd-dark:last-child {
+    padding-bottom: var(--rd-pad-edge);
+  }
+
   .rd-paper {
     background-color: var(--rd-paper);
   }
