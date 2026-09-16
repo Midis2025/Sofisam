@@ -36,8 +36,9 @@ preparation step described below.
 | `/robots.txt`, `/sitemap.xml` | Generated from `src/data` |
 
 The three service pages deliberately share no page template — each has its own
-composition (a numbered decision ledger, a sticky-media accordion, and an
-image-led typographic framework respectively).
+composition (a numbered decision ledger, a standing plate beside an open
+theme ledger, and an image-led typographic framework respectively). The
+Services landing page is an interactive index rather than a list of all three.
 
 ---
 
@@ -76,13 +77,18 @@ be applied:**
 
 - `public/logo.png` — the original asset from the live site, unmodified.
 - `public/logo-dark.png` — the same artwork with its white wordmark recoloured
-  to ink for use on light backgrounds. Proportions and the gold mark are
-  untouched; it is a colourway of the original, not a redraw.
+  to ink, kept for any future light-ground use. The header no longer swaps
+  wordmarks (its ground is dark from the top of the page to the bottom), so
+  nothing currently references it.
 - `src/app/favicon.ico` — the original favicon from the live site.
 
 Brand colours were extracted from the live site's stylesheet:
-`#C5A47E` (gold), `#A68A68` (deep gold), `#0A0A0A`/`#1A1A1A` (near-blacks),
-`#F5F5F0` (warm ivory). The palette in `tailwind.config.ts` is built on these.
+`#C5A47E` (gold), `#A68A68` (deep gold), `#0A0A0A`/`#1A1A1A` (near-blacks) and
+`#F5F5F0` (warm ivory). The palette warms those very slightly so the gold sits
+with the grounds rather than against them — obsidian `#0A0A0B` and ivory
+`#F5F2EC` — and `#7D6038` is the deeper bronze small accent text uses on ivory,
+where the gold itself falls below a usable contrast ratio. The tokens live in
+`globals.css`; `tailwind.config.ts` mirrors only the ones utilities reference.
 
 ---
 
@@ -92,9 +98,11 @@ Brand colours were extracted from the live site's stylesheet:
 - Text/UI: **Inter** (`--font-sans`)
 
 Both are loaded through `next/font/google`, self-hosted at build time. The type
-scale lives in `src/app/globals.css` as `.t-display`, `.t-h1`, `.t-h2`,
-`.t-h3`, `.t-lead`, `.t-body`, `.t-label`, `.t-index` — all `clamp()`-based, so
-sizing is fluid rather than breakpoint-stepped.
+scale lives in `src/app/globals.css` as `.t-hero`, `.t-display`, `.t-h2`,
+`.t-h3`, `.t-h4`, `.t-lead`, `.t-body`, `.t-small`, `.t-meta`, `.t-label` and
+`.t-num` — all `clamp()`-based, so sizing is fluid rather than
+breakpoint-stepped. `.t-hero` is reserved for the homepage; every other page
+opens on `.t-display`.
 
 ---
 
@@ -120,20 +128,24 @@ generated files in `public/images/` and the manifest are committed.
 ## Hero video
 
 The homepage hero plays a licensed golden-hour Dubai skyline clip, stored
-locally in `public/videos/`:
+locally in `public/videos/`. One file serves every viewport:
 
 | File | Use |
 | --- | --- |
-| `hero-dubai-1080.mp4` | 3.3 MB — viewports ≥ 768px |
-| `hero-dubai-720.mp4` | 1.2 MB — viewports < 768px |
+| `West Point Gold.mp4` | the hero clip (the space in the name is percent-encoded in the `src`) |
 | `hero-poster.jpg` | `<video poster>`, extracted from frame 1 |
 
 `HeroVideo` renders the poster still first — that carries first paint and is
 the permanent fallback — and attaches the `<video>` only after mount, so it
 never blocks render or competes with the LCP text. Playback is skipped entirely
-under `prefers-reduced-motion`, on `saveData`, and on 2g effective
-connections; in each case the still simply remains. The element pauses when
-scrolled out of view.
+under `prefers-reduced-motion`, below 768px, on `saveData` and on 2g/3g
+effective connections; in each case the still simply remains. The element
+pauses when scrolled out of view.
+
+The clip is 11 MB — the one genuinely heavy asset on the site. It is deferred
+until after mount and never competes with the LCP text (measured LCP on the
+homepage is ~0.26 s), but if it is ever re-encoded, a 1080p and a 720p variant
+would be the obvious next step.
 
 The matching WebP poster variants (`hero-video-poster-*`) are in
 `public/images/` and registered in the image manifest like any other asset.
@@ -142,24 +154,31 @@ The matching WebP poster variants (`hero-video-poster-*`) are in
 
 ## Spacing system
 
-All vertical rhythm comes from three section steps and three content gaps
-defined in `globals.css`, rather than per-component clamps:
+Vertical rhythm is designed at the **boundary between two sections**, not
+independently inside each one:
 
 ```
---space-section-lg   ~56px phone · ~75px 768 · ~99px 1024 · 112px desktop
---space-section-md
---space-section-sm
---content-gap-lg / -md / -sm
+--pad        the full break a section carries
+             56px phone · 88px 768 · 104px 1024 · 116px 1280 · 128px 1536
+--pad-edge   the trimmed value used on both sides of a change of ground
+--pad-sm     the step between a section's heading and its composition
+--gap        the gap between columns inside a section
 ```
 
-Horizontal layout is one container: `--container-max` (1680px of content) with
-`--gutter` running ~22px on the narrowest phone, ~32px at tablet and 4.5vw on
-desktop. `.shell-wide` is the only container class; `.section`, `.section-md`
-and `.section-sm` are the only vertical steps.
+Two neighbours on the same ground read as one break — the first carries it and
+the second starts flush — so two paddings never add up into a viewport of dead
+space. Where the ground changes, the edge itself does the separating and both
+sides are trimmed. Those rules live in `globals.css` and key off the ground
+classes, so a section never has to know what follows it.
 
-`--header-h` (72 / 80 / 88px) is the single source of truth for header height,
-and `.below-header` is what keeps hero content clear of it. Nothing should
-hard-code a top offset to clear the header.
+Horizontal layout is one container: `--max` (1600px of content, opening to
+1720px beyond 1920) with `--gutter` running ~20px on the narrowest phone, ~36px
+at 768, ~48px at 1024 and capping at 96px. `.shell` is the container; the wider
+`.shell-wide` is used only by the header and the homepage hero.
+
+`--header-h` (72 / 80 / 88px) is the single source of truth for header height.
+`.below-header` keeps the homepage hero clear of it and every other hero adds
+it into its own top padding. Nothing should hard-code a top offset.
 
 ---
 
@@ -199,15 +218,58 @@ code changes.
 src/
   app/                  routes, metadata, sitemap, robots, 404
   components/
-    layout/             Header, MegaMenu (in Header), MobileMenu, Footer,
+    layout/             Header (expertise panel included), MobileMenu, Footer,
                         PageHero, PageTransition
     sections/           page-level compositions
-    ui/                 Picture, HeroVideo, Button, Accordion, ScrollProgress
-    animations/         Reveal, MaskedLines, DrawRule, ImageReveal,
-                        Parallax, ScaleOnScroll
+    ui/                 Picture, HeroVideo, Button, Magnetic, Preloader,
+                        Cursor, ScrollProgress
+    animations/         Reveal, MaskedLines, RowReveal, ImageReveal, Parallax
   data/                 verified content + generated image manifest
-  lib/                  form submission boundary
+  lib/                  form submission boundary, intro timing
 ```
+
+### Three sections worth knowing about
+
+Most sections are ordinary composition. These three carry behaviour:
+
+- **`Hero`** — two columns over the footage. The right column is an advisory
+  panel standing the three disciplines on an architectural plate: it advances
+  itself every six seconds so the frame is never static, and stops the moment a
+  mouse enters, from which point the reader is driving. Hidden below `lg`,
+  where it would push the hero past one screen.
+- **`ProcessNarrative`** — the five steps are a pinned horizontal rail from
+  `lg`. The travel is measured rather than guessed: the distance is the rail's
+  overflow past the window and the scroll track is made exactly that much taller
+  than one screen, so scrolling and travelling move one-for-one at any width.
+  Below `lg`, and under reduced motion where pinning would strand the content,
+  the same five steps are a vertical ledger.
+- **`ServiceShowcase`** — the homepage index. Three full-width rows with no
+  image column at all: a plate follows the pointer across the list on a spring,
+  carrying the photograph of whichever discipline is under it, so the type keeps
+  the whole measure. Below `lg` the same content is a stacked sequence.
+- **`ServiceSelector`** — the Services page's index. A real tablist, so arrow
+  keys move between disciplines and each panel is associated with its tab.
+  Deliberately a different interaction from the homepage's hover-led index:
+  there you preview a discipline, here you commit to one and get its substance.
+
+### The interaction layer
+
+Three pieces sit above the page and are easy to miss when reading the tree:
+
+- **`Preloader`** — the opening sequence. An inline script in the document
+  head sets `data-preload` on `<html>` before first paint, so the curtain is
+  never drawn over a page the visitor has already seen this session. The same
+  script clears the attribute after four seconds as a failsafe: if the bundle
+  never hydrates, a CSS rule removes the curtain outright rather than leaving
+  the page behind a black screen.
+- **`Cursor`** — a gold dot and a trailing ring, attached only on a device with
+  a real pointer that is not asking for reduced motion. It hides the native
+  cursor by setting `data-cursor="on"`, and only after the first pointer move,
+  so the pointer is never missing. Text fields keep their caret.
+- **`useIntroDelay`** (`lib/intro.ts`) — how long a hero waits before its
+  opening sequence begins. It reads the preload attribute once during the first
+  client render, so the first view of a session holds until the curtain lifts
+  and every navigation after that starts immediately.
 
 ### Two implementation notes worth keeping in mind
 
@@ -216,10 +278,9 @@ src/
    IntersectionObserver on it never fires. `MaskedLines` therefore puts
    `whileInView` on the unclipped wrapper and drives the lines with variants.
 
-2. **Tailwind opacity and duration scales are extended in
-   `tailwind.config.ts`.** The defaults only define 5% opacity steps and a
-   handful of durations; any other value (`border-ink/12`, `duration-400`)
-   silently produces no rule. The config now defines every integer opacity.
+2. **Tailwind's opacity scale is extended in `tailwind.config.ts`.** The default
+   only defines 5% steps, so any other value (`border-ink/12`) silently
+   produces no rule. The config defines every integer opacity.
 
 ---
 
@@ -227,33 +288,90 @@ src/
 
 - One `<h1>` per page, logical heading order, semantic landmarks.
 - Skip link, visible gold focus ring on every interactive element.
-- `aria-expanded` on the mega-menu, mobile menu and accordions; Escape closes
-  the mega-menu and the mobile menu; the mobile menu locks background scroll
-  and restores position on close.
+- `aria-expanded` on the expertise panel and the mobile menu; Escape closes
+  both; the mobile menu locks background scroll and restores position on close.
 - All decorative imagery is `alt=""` + `aria-hidden`; content imagery has
   descriptive alt text.
-- `prefers-reduced-motion: reduce` drops entrance animations, parallax and the
-  hero video entirely; verified that no content remains
-  hidden or offset under it.
+- `prefers-reduced-motion: reduce` drops entrance animations, parallax, route
+  transitions, the magnetic actions, the custom cursor and the hero video
+  entirely, and shortens the opening sequence to a fade; verified that no
+  content remains hidden or offset under it.
 - Interactive controls meet a ~44px touch target on mobile.
 
 ---
 
 ## Verification performed
 
-- Content parity: an automated check confirms every distinct string from the
-  live source site appears somewhere in the new build (51/51).
-- Routes: all 12 render 200 (404 route returns 404) with no console errors, no
-  failed requests, no broken images, no `#` placeholder links.
-- Responsive: 320/360/375/390/414/430/480/768/834/1024/1280/1440/1600/1920/2560
-  plus two landscape phone sizes, across all pages — no horizontal overflow and
-  no element escaping the viewport.
-- Hero fits within the viewport without scrolling on every device ≥640px tall,
-  and never collides with the header at any width.
-- Section gaps measured at 1440/834/390: no unexplained band exceeds the two
-  adjacent section steps; the larger remaining gaps are centred min-height CTA
-  panels, which are intentional.
-- Hero video verified playing on desktop (1080p) and mobile (720p), and absent
-  under reduced-motion.
-- Core Web Vitals on the production build (local): CLS ≈ 0.000, FCP ~140–240 ms,
-  LCP ~0.22–1.54 s.
+Against the production build, driven headlessly through the Chrome DevTools
+Protocol:
+
+- **Content parity:** every verbatim string recorded in `src/data` renders in
+  the built HTML (46/46). `src/data/` is unchanged from before the redesign, so
+  the content source of truth is intact.
+- **Routes:** all eleven render 200 (the 404 route returns 404) with no console
+  errors and no uncaught exceptions.
+- **Responsive:** 320 / 390 / 768 / 834 / 1280 / 1600 / 2560 across every page —
+  `scrollWidth === clientWidth` at all of them, so nothing overflows
+  horizontally.
+- **Opening sequence:** the curtain clears on every route, `data-preload`
+  resolves to `done` and `body` is left scrollable; the four-second failsafe
+  covers a bundle that never hydrates.
+- **Reduced motion:** entrance animations, parallax, route transitions, the
+  magnetic actions, the custom cursor, the hero panel's auto-advance and the
+  hero video are all dropped, the pinned horizontal rail falls back to a
+  vertical ledger, and the opening sequence collapses to a short fade.
+- **Interaction:** the Services tablist reports one selected tab and one
+  visible panel after a switch, with no exceptions thrown; the pinned rail is
+  inert below `lg` (measured: the section is 1124px on a 390px viewport and
+  2276px at 1600px, with only one of the two forms laid out at each).
+
+---
+
+## Design references
+
+The redesign was directed against three reference boards. They informed layout,
+hierarchy, motion and spacing only — none of their imagery, copy, sections or
+brand marks appear anywhere on the site.
+
+They are third-party design work, so they are **not committed**: they live in
+`_source_assets/references/` locally, which `.gitignore` excludes. The table
+below records what each one contributed so the reasoning survives without the
+files.
+
+| File | What was taken from it |
+| --- | --- |
+| `ref-1-brand-board.jpg` | Confirmation of the charcoal / warm-ivory / muted-gold palette and the editorial serif pairing. |
+| `ref-2-property-platform.jpg` | Full-bleed imagery with corner captions; a centred statement carrying its own emphasis. |
+| `ref-3-agency-site.webp` | The numbered service rows with a plate that follows the pointer, and the oversized wordmark cropped by the bottom edge of the page. |
+
+
+
+---
+
+## Surfaces
+
+The interface is built from layered, generously rounded surfaces rather than
+bare type on empty ground. One radius scale covers everything:
+
+```
+--r-sm  8px    chips, marks
+--r-md  14px   controls, plates nested inside a card
+--r-lg  18→28px  cards, plates, panels
+```
+
+Only media that meets the edge of the page stays square — `.media-flat` marks
+those six full-bleed plates. A plate nested inside a card takes `.media-in`, one
+step tighter, so it reads as held rather than floating.
+
+Four surfaces, shared across every page:
+
+| Class | Where |
+| --- | --- |
+| `.surface` | raised, on ivory — insight cards, process cards, markers |
+| `.surface-tint` | the warmer counterpart, used to break up a run of them |
+| `.surface-dark` | one inverted card among light ones, to give a row a centre of gravity |
+| `.surface-inv` | on obsidian; add `bg-ink/40 backdrop-blur-xl` where it sits over a photograph |
+
+`.surface-lift` adds the hover shift, `.chip` is the pill label and `.badge` the
+circular action mark that closes a card or a row. Shadows are two very wide,
+very low-opacity layers (`--lift` / `--lift-hover`) — never a hard drop shadow.

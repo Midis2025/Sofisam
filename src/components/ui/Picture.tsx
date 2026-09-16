@@ -93,7 +93,3 @@ export function Picture({
     />
   );
 }
-
-export function getImageMeta(name: string) {
-  return meta[name];
-}

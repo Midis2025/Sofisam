@@ -98,7 +98,7 @@ export default function StrategicConsultingPage() {
               Introduction to Strategic Consulting
             </h2>
             <Reveal delay={0.06}>
-              <p className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]">
+              <p className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--ink)]">
                 {service.intro.lead}
               </p>
             </Reveal>
@@ -106,59 +106,55 @@ export default function StrategicConsultingPage() {
         }
       >
         <Reveal>
-          <p className="rd-label text-[var(--rd-stone)]">Strategic perspective</p>
+          <p className="t-label text-[var(--stone)]">Strategic perspective</p>
         </Reveal>
 
-        <div className="rd-intro-body">
+        <div className="intro-body">
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="rd-lead text-[var(--rd-stone)]">{p}</p>
+              <p className="t-lead text-[var(--stone)]">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
       {/* Decision framework — numbered ledger on a warm dark ground */}
-      <section className="rd-section rd-dark" aria-labelledby="sc-framework">
-        <div className="rd-shell">
-          <div>
-            <div>
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Decision Framework</p>
-              </Reveal>
-              <h2
-                id="sc-framework"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-bone"
-              >
-                <span className="sr-only">
-                  Five questions we work through before we give a view.
-                </span>
-                <span aria-hidden className="block lg:hidden">
-                  <MaskedLines
-                    lines={['Five questions we', 'work through before', 'we give a view.']}
-                  />
-                </span>
-                <span aria-hidden className="hidden lg:block">
-                  <MaskedLines lines={['Five questions we work through', 'before we give a view.']} />
-                </span>
-              </h2>
-            </div>
-          </div>
+      <section className="section ground-dark" aria-labelledby="sc-framework">
+        <div className="shell">
+          <Reveal kind="label" className="kicker">
+            <p className="t-label">Decision Framework</p>
+          </Reveal>
+          <h2
+            id="sc-framework"
+            className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+          >
+            <span className="sr-only">
+              Five questions we work through before we give a view.
+            </span>
+            <span aria-hidden className="block lg:hidden">
+              <MaskedLines
+                lines={['Five questions we', 'work through before', 'we give a view.']}
+              />
+            </span>
+            <span aria-hidden className="hidden lg:block">
+              <MaskedLines lines={['Five questions we work through', 'before we give a view.']} />
+            </span>
+          </h2>
 
-          <ol className="mt-[var(--rd-pad-sm)]">
+          <ol className="mt-[var(--pad-sm)]">
             {framework.map((f, i) => (
               <Reveal
                 as="li"
                 key={f.n}
                 delay={i * 0.05}
-                className="rd-row-inv rd-row-inv-hover last:border-b last:border-[var(--rd-line-inv)]"
+                className="row-inv row-inv-hover last:border-b last:border-[var(--line-inv)]"
               >
-                <div className="rd-ledger px-1 py-[clamp(1.75rem,3vw,2.5rem)]">
-                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent)]">
+                <div className="ledger px-1 py-[clamp(1.75rem,3vw,2.5rem)]">
+                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--gold)]">
                     {f.n}
                   </span>
-                  <h3 className="rd-h3 max-w-[26ch] text-bone">{f.q}</h3>
-                  <p className="rd-small max-w-[42ch] text-[var(--rd-sage)]">
+                  <h3 className="t-h3 max-w-[26ch] text-ivory">{f.q}</h3>
+                  <p className="t-small max-w-[42ch] text-[var(--sage)]">
                     {f.a}
                   </p>
                 </div>
@@ -170,61 +166,60 @@ export default function StrategicConsultingPage() {
 
       {/* Global outlook — statement panel */}
       <section
-        className="rd-section rd-band rd-on-dark relative overflow-hidden"
+        className="section ground-dark on-dark relative overflow-hidden"
         aria-labelledby="sc-outlook"
       >
-        <div className="media veil-editorial absolute inset-0">
-              <Picture
-                name="city-mono"
-                alt=""
-                decorative
-                sizes="100vw"
-                focal="50% 40%"
-                className="h-full w-full"
-              />
-            </div>
+        <div className="media media-flat veil-editorial absolute inset-0">
+          <Picture
+            name="city-mono"
+            alt=""
+            decorative
+            sizes="100vw"
+            focal="50% 40%"
+            className="h-full w-full"
+          />
+        </div>
 
-            <div className="rd-shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Global Outlook</p>
-              </Reveal>
-              <h2
-                id="sc-outlook"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-bone"
-              >
-                <span className="sr-only">Growth is published. Durability is not.</span>
-                <span aria-hidden className="block lg:hidden">
-                  <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
-                </span>
-                <span aria-hidden className="hidden lg:block">
-                  <MaskedLines lines={['Growth is published.', 'Durability is not.']} />
-                </span>
-              </h2>
-              <Reveal delay={0.14}>
-                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-bone/70">
-                  The conditions that sustain a market are rarely in the same
-                  documents as the numbers describing it. That is where the work has
-                  to go.
-                </p>
-              </Reveal>
-            </div>
+        <div className="shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
+          <Reveal kind="label" className="kicker">
+            <p className="t-label">Global Outlook</p>
+          </Reveal>
+          <h2
+            id="sc-outlook"
+            className="t-h2 head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
+          >
+            <span className="sr-only">Growth is published. Durability is not.</span>
+            <span aria-hidden className="block lg:hidden">
+              <MaskedLines lines={['Growth is', 'published.', 'Durability is not.']} />
+            </span>
+            <span aria-hidden className="hidden lg:block">
+              <MaskedLines lines={['Growth is published.', 'Durability is not.']} />
+            </span>
+          </h2>
+          <Reveal delay={0.14}>
+            <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-ivory/70">
+              The conditions that sustain a market are rarely in the same documents as
+              the numbers describing it. That is where the work has to go.
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       {/* Themes — alternating editorial split */}
-      <section className="rd-section rd-paper-2" aria-labelledby="sc-themes">
-        <div className="rd-shell">
+      <section className="section ground-ivory-2" aria-labelledby="sc-themes">
+        <div className="shell">
           <h2 id="sc-themes" className="sr-only">
             How we work in strategic consulting
           </h2>
 
-          <ul className="space-y-[var(--rd-pad-sm)]">
+          <ul className="space-y-[var(--pad-sm)]">
             {service.themes.map((t, i) => {
               const flipped = i % 2 === 1;
               const m = themeMedia[i] ?? themeMedia[0];
               return (
                 <li
                   key={t.label}
-                  className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]"
+                  className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]"
                 >
                   <div
                     className={
@@ -234,9 +229,9 @@ export default function StrategicConsultingPage() {
                     }
                   >
                     <Reveal>
-                      <p className="rd-label text-[var(--rd-accent-ink)]">{t.label}</p>
-                      <h3 className="rd-h3 mt-5 max-w-[18ch] text-[var(--rd-ink)]">{t.title}</h3>
-                      <p className="rd-body mt-5 max-w-[44ch] text-[var(--rd-stone)]">{t.body}</p>
+                      <p className="t-label text-[var(--gold-ink)]">{t.label}</p>
+                      <h3 className="t-h3 mt-5 max-w-[18ch] text-[var(--ink)]">{t.title}</h3>
+                      <p className="t-body mt-5 max-w-[44ch] text-[var(--stone)]">{t.body}</p>
                     </Reveal>
                   </div>
 
@@ -247,7 +242,7 @@ export default function StrategicConsultingPage() {
                         : 'lg:col-span-6 lg:col-start-7'
                     }
                   >
-                    <div className="rd-media aspect-[16/10] w-full">
+                    <div className="media aspect-[16/10] w-full">
                       <Picture
                         name={m.name}
                         alt={m.alt}

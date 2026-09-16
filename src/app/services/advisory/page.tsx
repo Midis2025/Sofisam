@@ -67,7 +67,7 @@ export default function AdvisoryPage() {
         heading={
           <h2
             id="adv-intro"
-            className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]"
+            className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--ink)]"
           >
             Executive decision-making, supported rather than substituted.
           </h2>
@@ -75,17 +75,17 @@ export default function AdvisoryPage() {
         below={
           <>
             <Reveal delay={0.05}>
-              <span aria-hidden className="rd-rule my-[clamp(3rem,4vw,4rem)] block" />
+              <span aria-hidden className="rule my-[clamp(3rem,4vw,4rem)] block" />
             </Reveal>
 
             <Reveal delay={0.08}>
               <blockquote>
-                <p className="rd-display max-w-[20ch] text-[var(--rd-ink)]">
+                <p className="t-display max-w-[20ch] text-[var(--ink)]">
                   Built over decades of international business experience.
                 </p>
                 <footer className="mt-8 flex items-center gap-4">
-                  <span aria-hidden className="block h-px w-12 bg-[var(--rd-accent)]" />
-                  <span className="rd-label text-[var(--rd-stone)]">SOFISAM FZCO</span>
+                  <span aria-hidden className="block h-px w-12 bg-[var(--gold)]" />
+                  <span className="t-label text-[var(--stone)]">SOFISAM FZCO</span>
                 </footer>
               </blockquote>
             </Reveal>
@@ -93,24 +93,24 @@ export default function AdvisoryPage() {
         }
       >
         <Reveal delay={0.06}>
-          <p className="rd-lead text-[var(--rd-ink)]">{service.intro.lead}</p>
+          <p className="t-lead text-[var(--ink)]">{service.intro.lead}</p>
         </Reveal>
 
-        <div className="rd-intro-body">
+        <div className="intro-body">
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="rd-body text-[var(--rd-stone)]">{p}</p>
+              <p className="t-body text-[var(--stone)]">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
       {/* Governance — plate beside a precise ledger */}
-      <section className="rd-section rd-paper-2" aria-labelledby="adv-governance">
-        <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+      <section className="section ground-ivory-2" aria-labelledby="adv-governance">
+        <div className="shell">
+          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <ImageReveal className="lg:col-span-5">
-              <div className="rd-media aspect-[4/5] w-full">
+              <div className="media aspect-[4/5] w-full">
                 <Picture
                   name="lattice-white"
                   alt="Pale architectural screen forming a precise repeating lattice"
@@ -122,19 +122,19 @@ export default function AdvisoryPage() {
             </ImageReveal>
 
             <div className="lg:col-span-6 lg:col-start-7">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Corporate Governance</p>
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Corporate Governance</p>
               </Reveal>
 
               <h2
                 id="adv-governance"
-                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[15ch] text-[var(--rd-ink)]"
+                className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[15ch] text-[var(--ink)]"
               >
                 <MaskedLines lines={['Governance is a', 'working system,', 'not a document.']} />
               </h2>
 
               <Reveal delay={0.12}>
-                <p className="rd-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-[var(--rd-stone)]">
+                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-[var(--stone)]">
                   We consider how authority, oversight and accountability are
                   distributed, and whether that distribution matches the scale of
                   what is being decided.
@@ -144,9 +144,9 @@ export default function AdvisoryPage() {
               <dl className="mt-[clamp(2rem,3.4vw,3rem)]">
                 {governanceNotes.map((g, i) => (
                   <Reveal key={g.t} delay={i * 0.06}>
-                    <div className="rd-row grid gap-2 py-[clamp(1.25rem,2vw,1.6rem)] last:border-b last:border-[var(--rd-line)] sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-8">
-                      <dt className="rd-label text-[var(--rd-stone)] sm:pt-1">{g.t}</dt>
-                      <dd className="rd-small max-w-[44ch] text-[var(--rd-ink)]/80">{g.d}</dd>
+                    <div className="row grid gap-2 py-[clamp(1.25rem,2vw,1.6rem)] last:border-b last:border-[var(--line)] sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-8">
+                      <dt className="t-label text-[var(--stone)] sm:pt-1">{g.t}</dt>
+                      <dd className="t-small max-w-[44ch] text-[var(--ink)]/80">{g.d}</dd>
                     </div>
                   </Reveal>
                 ))}
@@ -160,23 +160,23 @@ export default function AdvisoryPage() {
       <AdvisoryThemes themes={service.themes} />
 
       {/* Experience statement */}
-      <section className="rd-section rd-paper" aria-labelledby="adv-experience">
-        <div className="rd-shell">
-          <div className="rd-head">
+      <section className="section ground-ivory" aria-labelledby="adv-experience">
+        <div className="shell">
+          <div className="head">
             <div>
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Experience</p>
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Experience</p>
               </Reveal>
               <h2
                 id="adv-experience"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--rd-ink)]"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--ink)]"
               >
                 <MaskedLines lines={['The view of', 'an owner, not', 'an observer.']} />
               </h2>
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body rd-head-note text-[var(--rd-stone)]">
+                <p className="t-body head-note text-[var(--stone)]">
                   Our principals are highly successful business executives and
                   investors that bring unique perspectives to all of our mandates
                   and investments.
@@ -185,8 +185,8 @@ export default function AdvisoryPage() {
             </div>
           </div>
 
-          <ImageReveal className="mt-[var(--rd-pad-sm)]">
-            <div className="rd-media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[21/9]">
+          <ImageReveal className="mt-[var(--pad-sm)]">
+            <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[21/9]">
               <Picture
                 name="tower-dusk"
                 alt="Corporate tower facade at dusk with warmly lit interiors behind a vertical fin curtain wall"

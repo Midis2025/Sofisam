@@ -17,14 +17,14 @@ const pages = [
 ];
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="rd-label text-[var(--rd-accent)]">{children}</h2>;
+  return <h2 className="t-label text-gold">{children}</h2>;
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="link-underline inline-block py-[0.7rem] text-[0.95rem] font-light text-bone/60 transition-colors duration-400 hover:text-bone"
+      className="link-underline inline-block py-[0.7rem] text-[0.95rem] font-light text-ivory/55 transition-colors duration-400 hover:text-ivory"
     >
       {children}
     </Link>
@@ -33,23 +33,21 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 
 export function Footer() {
   return (
-    <footer className="rd-dark rd-on-dark relative overflow-hidden">
-      <div className="rd-shell relative z-10 pt-[var(--rd-pad-sm)]">
+    <footer className="ground-dark on-dark relative overflow-hidden">
+      <div className="shell relative z-10 pt-[var(--pad-sm)]">
         {/* Statement and contact */}
         <Reveal as="div">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <div className="lg:col-span-7">
-              <p className="rd-h2 max-w-[20ch] text-bone">{footerCopy.statement}</p>
-              <p className="rd-body mt-5 max-w-[38ch] text-[var(--rd-sage)]">
-                {footerCopy.location}
-              </p>
+              <p className="t-h2 max-w-[20ch] text-ivory">{footerCopy.statement}</p>
+              <p className="t-body mt-6 max-w-[38ch] text-sage">{footerCopy.location}</p>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="rd-block-inv h-full">
+              <div className="surface-inv h-full">
                 <ColumnHeading>{footerCopy.contactHeading}</ColumnHeading>
                 <address className="mt-5 not-italic">
-                  <p className="rd-small text-bone/60">
+                  <p className="t-small text-ivory/55">
                     {contact.address.line1}
                     <br />
                     {contact.address.line2}
@@ -57,13 +55,13 @@ export function Footer() {
                   <div className="mt-4 flex flex-col items-start">
                     <a
                       href={`tel:${contact.phoneHref}`}
-                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-bone/85 hover:text-[var(--rd-accent)]"
+                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-ivory/85 hover:text-gold"
                     >
                       {contact.phone}
                     </a>
                     <a
                       href={`mailto:${contact.email}`}
-                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-bone/85 hover:text-[var(--rd-accent)]"
+                      className="link-underline inline-flex py-[0.6rem] text-[1.0625rem] font-light text-ivory/85 hover:text-gold"
                     >
                       {contact.email}
                     </a>
@@ -74,7 +72,7 @@ export function Footer() {
           </div>
         </Reveal>
 
-        <span aria-hidden className="rd-rule-inv my-[var(--rd-pad-sm)]" />
+        <span aria-hidden className="rule-inv my-[var(--pad-sm)]" />
 
         {/* Directory */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,2.6vw,3rem)]">
@@ -115,39 +113,41 @@ export function Footer() {
             <ColumnHeading>Enquiries</ColumnHeading>
             <Link
               href="/contact"
-              className="group/f mt-3 inline-flex items-center gap-2 py-[0.7rem] text-[0.95rem] font-light text-bone/80 transition-colors hover:text-[var(--rd-accent)]"
+              className="group/f mt-3 inline-flex items-center gap-2 py-[0.7rem] text-[0.95rem] font-light text-ivory/80 transition-colors hover:text-gold"
             >
               <span className="link-underline">Start a conversation</span>
               <ArrowUpRight
                 aria-hidden
                 strokeWidth={1.5}
-                className="h-4 w-4 transition-transform duration-500 ease-premium group-hover/f:translate-x-0.5 group-hover/f:-translate-y-0.5"
+                className="h-4 w-4 transition-transform duration-500 ease-premium group-hover/f:-translate-y-0.5 group-hover/f:translate-x-0.5"
               />
             </Link>
           </div>
         </div>
 
-        {/* Wordmark */}
-        <div className="mt-[var(--rd-pad-sm)] overflow-hidden" aria-hidden>
-          <img
-            src="/logo.png"
-            alt=""
-            width={834}
-            height={209}
-            loading="lazy"
-            className="h-auto max-h-[9rem] w-full max-w-none object-contain opacity-[0.07] lg:max-h-[11rem]"
-          />
-        </div>
-
-        <span aria-hidden className="rd-rule-inv mt-[clamp(1.5rem,2.4vw,2rem)]" />
+        <span aria-hidden className="rule-inv mt-[var(--pad-sm)]" />
 
         {/* Legal */}
-        <div className="rd-meta flex flex-col gap-3 py-7 text-bone/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="t-meta flex flex-col gap-3 py-7 text-ivory/35 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {YEAR} {copyright}
           </p>
-          <p className="rd-label text-bone/35">Dubai Multi Commodities Centre</p>
+          <p className="t-label text-ivory/35">{contact.headquarters}</p>
         </div>
+      </div>
+
+      {/* The wordmark closes the page at full width, cropped at its own
+          baseline so it reads as the ground the site is printed on rather
+          than as one more logo placement. */}
+      <div aria-hidden className="relative h-[clamp(3.5rem,11vw,10rem)] overflow-hidden">
+        <img
+          src="/logo.png"
+          alt=""
+          width={834}
+          height={209}
+          loading="lazy"
+          className="absolute inset-x-[var(--gutter)] -top-[10%] h-auto w-[calc(100%-2*var(--gutter))] max-w-none opacity-[0.08]"
+        />
       </div>
     </footer>
   );

@@ -34,17 +34,17 @@ export function ServiceIntro({
   below,
 }: ServiceIntroProps) {
   return (
-    <section className="rd-section rd-paper" aria-labelledby={labelledBy}>
-      <div className="rd-shell">
-        <div className="rd-intro">
+    <section className="section ground-ivory" aria-labelledby={labelledBy}>
+      <div className="shell">
+        <div className="intro">
           <div>
-            <Reveal kind="label" className="rd-kicker">
-              <p className="rd-label">{label}</p>
+            <Reveal kind="label" className="kicker">
+              <p className="t-label">{label}</p>
             </Reveal>
             {heading}
           </div>
 
-          <div className="rd-intro-copy">{children}</div>
+          <div className="intro-copy">{children}</div>
         </div>
 
         {below}

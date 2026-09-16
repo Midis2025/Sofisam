@@ -10,9 +10,20 @@ import { navItems } from './nav-data';
 import { MobileMenu } from './MobileMenu';
 import { services } from '@/data/services';
 import { Picture } from '@/components/ui/Picture';
+import { Magnetic } from '@/components/ui/Magnetic';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * Site header.
+ *
+ * Transparent over the hero, and on scroll it settles into dark glass — the
+ * ground never turns light, so the wordmark, the navigation and the action
+ * keep one treatment from the top of the page to the bottom of it.
+ *
+ * The services item opens a full-width panel carrying the three disciplines
+ * with their imagery. Hovering a discipline brings its plate forward.
+ */
 export function Header() {
   const pathname = usePathname();
   const reduce = useReducedMotion();
@@ -20,9 +31,9 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const [hovered, setHovered] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Scroll state — drives the solid/blurred header treatment.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -36,7 +47,6 @@ export function Header() {
     setMegaOpen(false);
   }, [pathname]);
 
-  // Escape closes the mega-menu.
   useEffect(() => {
     if (!megaOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -52,66 +62,55 @@ export function Header() {
   };
   const scheduleCloseMega = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setMegaOpen(false), 140);
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
   };
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
-  // Solid treatment once scrolled, or whenever the mega-menu is open.
-  const solid = scrolled || megaOpen;
+  const glass = scrolled || megaOpen;
 
   return (
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:bg-ink focus:px-5 focus:py-3 focus:text-[0.7rem] focus:uppercase focus:tracking-[0.22em] focus:text-bone"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[190] focus:bg-ink focus:px-5 focus:py-3 focus:text-[0.72rem] focus:uppercase focus:tracking-[0.22em] focus:text-ivory"
       >
         Skip to content
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-500 ease-premium ${
-          solid
-            ? 'border-b border-ink/10 bg-bone/90 backdrop-blur-xl'
+        className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${
+          glass
+            ? 'border-b border-ivory/10 bg-ink/[0.88] backdrop-blur-2xl'
             : 'border-b border-transparent bg-transparent'
         }`}
         onMouseLeave={scheduleCloseMega}
       >
-        <div className="shell-wide flex h-[4.5rem] items-center justify-between gap-6 lg:h-[5.5rem]">
-          {/* Logo */}
+        <div
+          className={`shell-wide relative flex items-center justify-between gap-6 transition-[height] duration-700 ease-premium ${
+            glass ? 'h-[4rem] lg:h-[4.75rem]' : 'h-[4.5rem] lg:h-[5.5rem]'
+          }`}
+        >
+          {/* Wordmark */}
           <Link
             href="/"
             aria-label="SOFISAM FZCO — home"
             className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2"
           >
-            <span className="relative block h-[1.9rem] w-[7.6rem] sm:h-[2.26rem] sm:w-[9rem] lg:h-[2.57rem] lg:w-[10.25rem]">
-              <img
-                src="/logo.png"
-                alt="SOFISAM FZCO"
-                width={834}
-                height={209}
-                className={`absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-500 ease-premium ${
-                  solid ? 'opacity-0' : 'opacity-100'
-                }`}
-              />
-              <img
-                src="/logo-dark.png"
-                alt=""
-                aria-hidden
-                width={834}
-                height={209}
-                className={`absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-500 ease-premium ${
-                  solid ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </span>
+            <img
+              src="/logo.png"
+              alt="SOFISAM FZCO"
+              width={834}
+              height={209}
+              className="h-[1.85rem] w-auto transition-opacity duration-500 ease-premium hover:opacity-80 sm:h-[2.15rem] lg:h-[2.45rem]"
+            />
           </Link>
 
-          {/* Desktop navigation */}
+          {/* Navigation — centred */}
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-9 lg:flex xl:gap-11"
+            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 lg:flex xl:gap-12"
           >
             {navItems
               .filter((n) => n.label !== 'Contact')
@@ -122,7 +121,6 @@ export function Header() {
                 return (
                   <div
                     key={item.href}
-                    className="relative"
                     onMouseEnter={hasChildren ? openMega : scheduleCloseMega}
                   >
                     <Link
@@ -130,14 +128,8 @@ export function Header() {
                       aria-haspopup={hasChildren || undefined}
                       aria-expanded={hasChildren ? megaOpen : undefined}
                       onFocus={hasChildren ? openMega : undefined}
-                      className={`group relative block py-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] transition-colors duration-400 ${
-                        solid
-                          ? active
-                            ? 'text-ink'
-                            : 'text-ink/60 hover:text-ink'
-                          : active
-                            ? 'text-bone'
-                            : 'text-bone/70 hover:text-bone'
+                      className={`group relative block py-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition-colors duration-400 ${
+                        active ? 'text-ivory' : 'text-ivory/60 hover:text-ivory'
                       }`}
                     >
                       {item.label}
@@ -155,29 +147,25 @@ export function Header() {
               })}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Action */}
           <div className="hidden lg:block">
-            <Link
-              href="/contact"
-              className={`group/cta relative inline-flex min-h-[2.75rem] items-center gap-2.5 overflow-hidden border px-6 py-3 text-[0.68rem] font-medium uppercase tracking-[0.2em] transition-colors duration-500 ease-premium ${
-                solid
-                  ? 'border-ink/25 text-ink hover:text-bone'
-                  : 'border-bone/35 text-bone hover:text-ink'
-              }`}
-            >
-              <span
-                aria-hidden
-                className={`absolute inset-0 origin-bottom scale-y-0 transition-transform duration-[600ms] ease-premium group-hover/cta:scale-y-100 ${
-                  solid ? 'bg-ink' : 'bg-gold'
-                }`}
-              />
-              <span className="relative z-10">Get in Touch</span>
-              <ArrowUpRight
-                aria-hidden
-                strokeWidth={1.5}
-                className="relative z-10 h-[0.85rem] w-[0.85rem] transition-transform duration-500 ease-premium group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5"
-              />
-            </Link>
+            <Magnetic strength={0.22}>
+              <Link
+                href="/contact"
+                className="group/cta relative inline-flex min-h-[2.75rem] items-center gap-2.5 overflow-hidden rounded-full border border-ivory/30 px-7 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ivory transition-colors duration-500 ease-premium hover:text-ink"
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 origin-bottom scale-y-0 bg-gold transition-transform duration-[650ms] ease-premium group-hover/cta:scale-y-100"
+                />
+                <span className="relative z-10">Get in Touch</span>
+                <ArrowUpRight
+                  aria-hidden
+                  strokeWidth={1.5}
+                  className="relative z-10 h-[0.85rem] w-[0.85rem] transition-transform duration-500 ease-premium group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
+                />
+              </Link>
+            </Magnetic>
           </div>
 
           {/* Mobile trigger */}
@@ -187,80 +175,106 @@ export function Header() {
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            className="relative z-10 -mr-2 flex h-11 w-11 items-center justify-center lg:hidden"
+            className="group relative z-10 -mr-2 flex h-11 w-11 items-center justify-center lg:hidden"
           >
-            <span className="flex w-6 flex-col gap-[6px]">
-              <span
-                className={`block h-px w-full transition-colors duration-500 ${
-                  solid ? 'bg-ink' : 'bg-bone'
-                }`}
-              />
-              <span
-                className={`block h-px w-full transition-colors duration-500 ${
-                  solid ? 'bg-ink' : 'bg-bone'
-                }`}
-              />
+            <span className="flex w-6 flex-col items-end gap-[7px]">
+              <span className="block h-px w-full bg-ivory transition-all duration-500 ease-premium" />
+              <span className="block h-px w-2/3 bg-ivory transition-all duration-500 ease-premium group-hover:w-full" />
             </span>
           </button>
         </div>
 
-        {/* Mega menu */}
+        {/* Expertise panel */}
         <AnimatePresence>
           {megaOpen && (
             <motion.div
               key="mega"
-              initial={reduce ? false : { opacity: 0, y: -8 }}
+              initial={reduce ? false : { opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
-              transition={{ duration: 0.42, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-b border-ink/10 bg-bone/[0.98] backdrop-blur-xl lg:block"
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+              transition={{ duration: 0.45, ease: EASE }}
+              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-ink/90 backdrop-blur-2xl lg:block"
               onMouseEnter={openMega}
               onMouseLeave={scheduleCloseMega}
             >
-              <div className="shell-wide grid grid-cols-12 gap-10 py-12 xl:py-14">
-                <div className="col-span-3">
-                  <p className="t-label text-gold">Our Expertise</p>
-                  <p className="mt-5 max-w-[22ch] font-display text-[1.55rem] leading-[1.15] tracking-tighter text-ink">
-                    Three disciplines, one standard of judgement.
-                  </p>
+              <div className="shell-wide grid grid-cols-12 gap-12 py-14 xl:py-16">
+                {/* Standing statement and the plate for the hovered discipline */}
+                <div className="col-span-4 flex flex-col justify-between">
+                  <div>
+                    <p className="t-label text-gold">Our Expertise</p>
+                    <p className="mt-6 max-w-[20ch] font-display text-[1.9rem] leading-[1.1] tracking-tighter text-ivory">
+                      Three disciplines, one standard of judgement.
+                    </p>
+                  </div>
+
                   <Link
                     href="/services"
-                    className="link-underline mt-7 inline-flex items-center gap-2 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-ink/70 hover:text-ink"
+                    className="link-underline mt-10 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ivory/60 hover:text-ivory"
                   >
                     All services
                     <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
                   </Link>
                 </div>
 
-                <ul className="col-span-9 grid grid-cols-3 gap-x-8">
-                  {services.map((s) => (
-                    <li key={s.slug} className="group/mm">
+                {/* The disciplines */}
+                <ul className="col-span-5 self-center">
+                  {services.map((s, i) => (
+                    <li key={s.slug}>
                       <Link
                         href={`/services/${s.slug}`}
-                        className="block border-t border-ink/12 pt-5 transition-colors duration-500 hover:border-gold"
+                        onMouseEnter={() => setHovered(i)}
+                        onFocus={() => setHovered(i)}
+                        className="group/mm row-inv block py-6 last:border-b last:border-[var(--line-inv)]"
                       >
-                        <div className="media media-zoom relative mb-5 aspect-[16/10] w-full">
-                          <Picture
-                            name={s.hero.image}
-                            alt=""
-                            decorative
-                            sizes="(min-width:1280px) 22vw, 26vw"
-                            focal={s.hero.focal}
-                          />
-                        </div>
-                        <div className="flex items-baseline gap-3">
-                          <span className="t-index text-[0.85rem] tracking-normal text-gold">{s.index}</span>
-                          <h3 className="font-display text-[1.25rem] leading-tight tracking-tight text-ink transition-colors duration-400 group-hover/mm:text-gold">
+                        <span className="flex items-center justify-between gap-6">
+                          <span
+                            className={`font-display text-[clamp(1.5rem,2vw,2.1rem)] leading-tight tracking-tight transition-colors duration-500 ${
+                              hovered === i ? 'text-gold' : 'text-ivory'
+                            }`}
+                          >
                             {s.title}
-                          </h3>
-                        </div>
-                        <p className="mt-2.5 max-w-[30ch] text-[0.84rem] font-light leading-relaxed text-ink/55">
+                          </span>
+                          <ArrowUpRight
+                            aria-hidden
+                            strokeWidth={1.4}
+                            className={`h-5 w-5 shrink-0 transition-all duration-500 ease-premium ${
+                              hovered === i
+                                ? 'translate-x-0 text-gold opacity-100'
+                                : '-translate-x-2 text-ivory/40 opacity-0'
+                            }`}
+                          />
+                        </span>
+                        <span className="mt-2 block max-w-[38ch] text-[0.86rem] font-light leading-relaxed text-ivory/45">
                           {s.navDescription}
-                        </p>
+                        </span>
                       </Link>
                     </li>
                   ))}
                 </ul>
+
+                {/* Crossfading plate */}
+                <div className="col-span-3 col-start-10">
+                  <div className="media relative aspect-[3/4] w-full">
+                    {services.map((s, i) => (
+                      <span
+                        key={s.slug}
+                        aria-hidden
+                        className={`absolute inset-0 transition-opacity duration-700 ease-premium ${
+                          hovered === i ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      >
+                        <Picture
+                          name={s.hero.image}
+                          alt=""
+                          decorative
+                          sizes="20vw"
+                          focal={s.hero.focal}
+                          className="h-full w-full object-cover"
+                        />
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}

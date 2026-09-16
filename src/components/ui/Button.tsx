@@ -4,11 +4,14 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 
+import { Magnetic } from '@/components/ui/Magnetic';
+
 type Tone = 'dark' | 'light';
 type Variant = 'solid' | 'outline';
 
 interface BaseProps {
   children: ReactNode;
+  /** `dark` sits on ivory, `light` sits on obsidian. */
   tone?: Tone;
   variant?: Variant;
   className?: string;
@@ -17,26 +20,24 @@ interface BaseProps {
 
 const shell =
   'group/btn relative inline-flex items-center justify-center gap-3 overflow-hidden ' +
-  'min-h-[3rem] px-7 py-[0.95rem] sm:px-9 sm:py-[1.05rem] ' +
-  'text-[0.7rem] font-medium uppercase tracking-[0.22em] leading-none ' +
-  'transition-colors duration-500 ease-premium';
+  'min-h-[3.25rem] px-8 py-[1rem] sm:px-10 sm:py-[1.1rem] ' +
+  'text-[0.72rem] font-medium uppercase tracking-[0.22em] leading-none ' +
+  'rounded-full transition-colors duration-500 ease-premium';
 
 function toneClasses(tone: Tone, variant: Variant) {
   if (variant === 'solid') {
     return tone === 'dark'
-      ? 'border border-ink bg-ink text-bone hover:text-ink'
-      : 'border border-bone bg-bone text-ink hover:text-bone';
+      ? 'border border-ink bg-ink text-ivory hover:text-ink'
+      : 'border border-ivory bg-ivory text-ink hover:text-ivory';
   }
   return tone === 'dark'
-    ? 'border border-ink/25 text-ink hover:text-bone'
-    : 'border border-bone/35 text-bone hover:text-ink';
+    ? 'border border-ink/25 text-ink hover:text-ivory'
+    : 'border border-ivory/30 text-ivory hover:text-ink';
 }
 
+/** The masked fill that sweeps up on hover. */
 function fillClasses(tone: Tone, variant: Variant) {
-  // The masked fill that sweeps in on hover.
-  if (variant === 'solid') {
-    return tone === 'dark' ? 'bg-gold' : 'bg-ink';
-  }
+  if (variant === 'solid') return tone === 'dark' ? 'bg-gold' : 'bg-ink';
   return tone === 'dark' ? 'bg-ink' : 'bg-gold';
 }
 
@@ -55,7 +56,7 @@ function Inner({
     <>
       <span
         aria-hidden
-        className={`absolute inset-0 origin-bottom scale-y-0 transition-transform duration-[600ms] ease-premium group-hover/btn:scale-y-100 group-focus-visible/btn:scale-y-100 ${fillClasses(
+        className={`absolute inset-0 origin-bottom scale-y-0 transition-transform duration-[650ms] ease-premium group-hover/btn:scale-y-100 group-focus-visible/btn:scale-y-100 ${fillClasses(
           tone,
           variant,
         )}`}
@@ -72,6 +73,19 @@ function Inner({
   );
 }
 
+function Wrap({
+  magnetic,
+  className,
+  children,
+}: {
+  magnetic: boolean;
+  className: string;
+  children: ReactNode;
+}) {
+  if (!magnetic) return <>{children}</>;
+  return <Magnetic className={className}>{children}</Magnetic>;
+}
+
 export function ButtonLink({
   href,
   children,
@@ -79,26 +93,30 @@ export function ButtonLink({
   variant = 'solid',
   className = '',
   withArrow = true,
-}: BaseProps & { href: string }) {
-  const external = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
+  magnetic = true,
+}: BaseProps & { href: string; /** Magnetic pull on hover. */ magnetic?: boolean }) {
+  const external =
+    href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
   const cls = `${shell} ${toneClasses(tone, variant)} ${className}`;
 
-  if (external) {
-    return (
-      <a href={href} className={cls}>
-        <Inner tone={tone} variant={variant} withArrow={withArrow}>
-          {children}
-        </Inner>
-      </a>
-    );
-  }
+  const inner = (
+    <Inner tone={tone} variant={variant} withArrow={withArrow}>
+      {children}
+    </Inner>
+  );
 
   return (
-    <Link href={href} className={cls}>
-      <Inner tone={tone} variant={variant} withArrow={withArrow}>
-        {children}
-      </Inner>
-    </Link>
+    <Wrap magnetic={magnetic} className={className.includes('w-full') ? 'w-full' : ''}>
+      {external ? (
+        <a href={href} className={cls}>
+          {inner}
+        </a>
+      ) : (
+        <Link href={href} className={cls}>
+          {inner}
+        </Link>
+      )}
+    </Wrap>
   );
 }
 

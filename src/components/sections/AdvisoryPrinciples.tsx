@@ -1,9 +1,9 @@
 'use client';
 
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Reveal, MaskedLines, RowReveal } from '@/components/animations/Reveal';
 
 /**
- * 05 — Advisory principles.
+ * Advisory principles.
  *
  * The five principles are drawn directly from SOFISAM's own description of its
  * advice: "confidential, unconflicted and strategic advice, built over decades
@@ -38,19 +38,19 @@ const principles = [
 
 export function AdvisoryPrinciples() {
   return (
-    <section className="rd-section rd-paper-2" aria-labelledby="principles-heading">
-      <div className="rd-shell">
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+    <section className="section ground-ivory-2" aria-labelledby="principles-heading">
+      <div className="shell">
+        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
           {/* Standing title */}
           <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-[8rem]">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Advisory Principles</p>
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Advisory Principles</p>
               </Reveal>
 
               <h2
                 id="principles-heading"
-                className="rd-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[18ch] text-[var(--rd-ink)]"
+                className="t-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[18ch] text-ink"
               >
                 <MaskedLines
                   lines={['Five words that decide', 'what we will and', 'will not say.']}
@@ -58,7 +58,7 @@ export function AdvisoryPrinciples() {
               </h2>
 
               <Reveal delay={0.1}>
-                <p className="rd-small mt-6 max-w-[44ch] text-[var(--rd-stone)]">
+                <p className="t-small mt-7 max-w-[44ch] text-stone">
                   The advice SOFISAM provides is described in its own terms:
                   confidential, unconflicted and strategic, built over decades of
                   international business experience.
@@ -70,26 +70,25 @@ export function AdvisoryPrinciples() {
           {/* Principles */}
           <ol className="lg:col-span-7 lg:col-start-6">
             {principles.map((p, i) => (
-              <Reveal
-                as="li"
+              <RowReveal
                 key={p.word}
                 delay={i * 0.05}
-                className="group rd-row last:border-b last:border-[var(--rd-line)]"
+                className="group last:border-b last:border-[var(--line)]"
               >
-                <div className="grid grid-cols-[2.25rem_1fr] gap-x-3 py-[clamp(1.5rem,2.6vw,2.25rem)] transition-transform duration-500 ease-premium group-hover:translate-x-1.5 md:grid-cols-[3.25rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline md:gap-x-6">
-                  <span className="rd-num pt-[0.3rem] text-[0.9rem] text-[var(--rd-accent-ink)]">
+                <div className="grid grid-cols-[2.25rem_1fr] gap-x-3 py-[clamp(1.5rem,2.6vw,2.5rem)] transition-transform duration-500 ease-premium group-hover:translate-x-2 md:grid-cols-[3.25rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline md:gap-x-6">
+                  <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold-ink">
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
-                  <h3 className="font-display text-[clamp(1.65rem,3.4vw,2.75rem)] leading-[1.02] tracking-tighter text-[var(--rd-ink)]">
+                  <h3 className="font-display text-[clamp(1.75rem,3.4vw,3rem)] leading-[1.02] tracking-tighter text-ink">
                     {p.word}
                   </h3>
 
-                  <p className="rd-small col-start-2 mt-3 max-w-[48ch] text-[var(--rd-stone)] md:col-start-3 md:mt-0">
+                  <p className="t-small col-start-2 mt-3 max-w-[48ch] text-stone md:col-start-3 md:mt-0">
                     {p.note}
                   </p>
                 </div>
-              </Reveal>
+              </RowReveal>
             ))}
           </ol>
         </div>

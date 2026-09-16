@@ -11,8 +11,11 @@ import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 type State = 'idle' | 'loading' | 'success' | 'error';
 
 /**
- * 09 — Newsletter. One clean panel: statement on the left, field and button on
- * the right. Submission behaviour, validation and every string are unchanged.
+ * Newsletter.
+ *
+ * A statement on the left, a single field on the right. The field is a line
+ * rather than a box: its label lifts and its rule draws gold on focus.
+ * Submission behaviour, validation and every string are unchanged.
  */
 export function Newsletter() {
   const id = useId();
@@ -47,36 +50,28 @@ export function Newsletter() {
   }
 
   return (
-    <section className="rd-section rd-dark rd-on-dark" aria-labelledby="newsletter-heading">
-      <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-            <div className="lg:col-span-6">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Newsletter</p>
-              </Reveal>
+    <section className="section ground-dark on-dark" aria-labelledby="newsletter-heading">
+      <div className="shell">
+        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-end lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+          <div className="lg:col-span-6">
+            <Reveal kind="label" className="kicker">
+              <p className="t-label">Newsletter</p>
+            </Reveal>
 
-              <h2
-                id="newsletter-heading"
-                className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] text-bone"
-              >
-                <MaskedLines lines={[newsletterCopy.heading]} />
-              </h2>
+            <h2 id="newsletter-heading" className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory">
+              <MaskedLines lines={[newsletterCopy.heading]} />
+            </h2>
 
-              <Reveal delay={0.12}>
-                <p className="rd-body mt-5 max-w-[44ch] text-[var(--rd-sage)]">
-                  {newsletterCopy.standfirst}
-                </p>
-              </Reveal>
-            </div>
+            <Reveal delay={0.12}>
+              <p className="t-body mt-6 max-w-[44ch] text-sage">{newsletterCopy.standfirst}</p>
+            </Reveal>
+          </div>
 
-            <div className="lg:col-span-5 lg:col-start-8">
-              <Reveal delay={0.1}>
-                <form onSubmit={onSubmit} noValidate>
-                  <label htmlFor={`${id}-email`} className="rd-label block text-[var(--rd-sage)]">
-                    {newsletterCopy.fieldLabel}
-                  </label>
-
-                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+          <div className="lg:col-span-5 lg:col-start-8">
+            <Reveal delay={0.1}>
+              <form onSubmit={onSubmit} noValidate>
+                <div className="flex items-end gap-4">
+                  <span className="field flex-1">
                     <input
                       id={`${id}-email`}
                       name="email"
@@ -95,89 +90,90 @@ export function Newsletter() {
                       aria-invalid={invalid}
                       aria-describedby={message ? `${id}-msg` : undefined}
                       disabled={state === 'loading'}
-                      placeholder="name@company.com"
-                      className={`min-h-[3rem] w-full flex-1 rounded-[var(--rd-r-md)] border bg-bone/[0.04] px-5 py-3 text-[1.0625rem] font-light text-bone transition-colors duration-500 placeholder:text-bone/25 focus:border-[var(--rd-accent)] focus:outline-none disabled:opacity-60 ${
-                        invalid ? 'border-[var(--rd-accent)]' : 'border-bone/20'
-                      }`}
+                      placeholder=" "
+                      className="field-input disabled:opacity-60"
                     />
+                    <label htmlFor={`${id}-email`} className="field-label">
+                      {newsletterCopy.fieldLabel}
+                    </label>
+                    <span aria-hidden className="field-line" />
+                  </span>
 
-                    <button
-                      type="submit"
-                      disabled={state === 'loading'}
-                      className="group/sub inline-flex min-h-[3rem] shrink-0 items-center justify-center gap-2.5 rounded-[var(--rd-r-md)] bg-bone px-7 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-[var(--rd-ink)] transition-colors duration-500 ease-premium hover:bg-[var(--rd-accent)] disabled:opacity-60"
-                    >
-                      {newsletterCopy.submitLabel}
-                      <AnimatePresence mode="wait" initial={false}>
-                        {state === 'loading' ? (
-                          <motion.span
-                            key="loading"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            <Loader2 aria-hidden className="h-4 w-4 animate-spin" strokeWidth={1.5} />
-                          </motion.span>
-                        ) : state === 'success' ? (
-                          <motion.span
-                            key="done"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            <Check aria-hidden className="h-4 w-4" strokeWidth={1.5} />
-                          </motion.span>
-                        ) : (
-                          <motion.span
-                            key="idle"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            <ArrowRight
-                              aria-hidden
-                              className="h-4 w-4 transition-transform duration-500 ease-premium group-hover/sub:translate-x-0.5"
-                              strokeWidth={1.5}
-                            />
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </button>
-                  </div>
-
-                  <div className="mt-4 min-h-[2.75rem]">
-                    <AnimatePresence mode="wait">
-                      {message ? (
-                        <motion.p
-                          key={message}
-                          id={`${id}-msg`}
-                          role={invalid ? 'alert' : 'status'}
-                          initial={{ opacity: 0, y: 6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.35 }}
-                          className={`rd-small ${
-                            invalid ? 'text-[var(--rd-accent)]' : 'text-bone/70'
-                          }`}
-                        >
-                          {message}
-                        </motion.p>
-                      ) : (
-                        <motion.p
-                          key="privacy"
+                  <button
+                    type="submit"
+                    disabled={state === 'loading'}
+                    aria-label={newsletterCopy.submitLabel}
+                    className="group/sub mb-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-500 ease-premium hover:border-gold hover:bg-gold hover:text-ink disabled:opacity-60"
+                  >
+                    <AnimatePresence mode="wait" initial={false}>
+                      {state === 'loading' ? (
+                        <motion.span
+                          key="loading"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="rd-meta text-bone/40"
                         >
-                          {newsletterCopy.privacyNote}
-                        </motion.p>
+                          <Loader2 aria-hidden className="h-4 w-4 animate-spin" strokeWidth={1.5} />
+                        </motion.span>
+                      ) : state === 'success' ? (
+                        <motion.span
+                          key="done"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          <Check aria-hidden className="h-4 w-4" strokeWidth={1.5} />
+                        </motion.span>
+                      ) : (
+                        <motion.span
+                          key="idle"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          <ArrowRight
+                            aria-hidden
+                            className="h-4 w-4 transition-transform duration-500 ease-premium group-hover/sub:translate-x-0.5"
+                            strokeWidth={1.5}
+                          />
+                        </motion.span>
                       )}
                     </AnimatePresence>
-                  </div>
-                </form>
-              </Reveal>
-            </div>
+                  </button>
+                </div>
+
+                <div className="mt-5 min-h-[2.5rem]">
+                  <AnimatePresence mode="wait">
+                    {message ? (
+                      <motion.p
+                        key={message}
+                        id={`${id}-msg`}
+                        role={invalid ? 'alert' : 'status'}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35 }}
+                        className={`t-small ${invalid ? 'text-gold' : 'text-ivory/70'}`}
+                      >
+                        {message}
+                      </motion.p>
+                    ) : (
+                      <motion.p
+                        key="privacy"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="t-meta text-ivory/40"
+                      >
+                        {newsletterCopy.privacyNote}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </form>
+            </Reveal>
           </div>
+        </div>
       </div>
     </section>
   );

@@ -6,6 +6,8 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
+import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
+import { Cursor } from '@/components/ui/Cursor';
 import { site, contact } from '@/data/site';
 
 const sans = Inter({
@@ -94,12 +96,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sans.variable} ${display.variable}`}>
+      <head>
+        {/* Decides before first paint whether the opening sequence runs, so
+            the curtain is never painted over a page the visitor has already
+            seen this session. */}
+        <script dangerouslySetInnerHTML={{ __html: preloadInitScript }} />
+      </head>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"
           // Structured data uses only values verified on sofisam.com.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationSchema) }}
         />
+        <Preloader />
+        <Cursor />
         <ScrollProgress />
         <Header />
         <PageTransition>

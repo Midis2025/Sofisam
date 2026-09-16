@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 
 import { Hero } from '@/components/sections/Hero';
 import { BrandStatement } from '@/components/sections/BrandStatement';
-import { ExpertiseSequence } from '@/components/sections/ExpertiseSequence';
-import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
+import { ServiceShowcase } from '@/components/sections/ServiceShowcase';
 import { ExecutivePerspective } from '@/components/sections/ExecutivePerspective';
+import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
 import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
 import { DubaiSection } from '@/components/sections/DubaiSection';
 import { ProcessNarrative } from '@/components/sections/ProcessNarrative';
@@ -24,14 +24,21 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * The homepage is a sequence rather than a stack of sections: a cinematic
+ * opening, a statement on ivory, the disciplines on obsidian, the firm's
+ * vantage point, two full-bleed passages carrying the city, the way it works,
+ * the research index, and the closing band. Grounds alternate and no two
+ * consecutive sections share a composition.
+ */
 export default function HomePage() {
   return (
     <>
       <Hero />
       <BrandStatement />
-      <ExpertiseSequence />
-      <GlobalPerspective />
+      <ServiceShowcase />
       <ExecutivePerspective />
+      <GlobalPerspective />
       <AdvisoryPrinciples />
       <DubaiSection />
       <ProcessNarrative />

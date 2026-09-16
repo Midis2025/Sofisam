@@ -87,7 +87,7 @@ export default function StructuringPage() {
               Introduction to Structuring
             </h2>
             <Reveal delay={0.06}>
-              <p className="rd-intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--rd-ink)]">
+              <p className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--ink)]">
                 {service.intro.lead}
               </p>
             </Reveal>
@@ -97,30 +97,30 @@ export default function StructuringPage() {
         <div>
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="rd-body text-[var(--rd-stone)]">{p}</p>
+              <p className="t-body text-[var(--stone)]">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
       {/* Framework thinking — architecture beside an editorial ledger */}
-      <section className="rd-section rd-dark" aria-labelledby="st-framework">
-        <div className="rd-shell">
-          <div className="rd-head">
+      <section className="section ground-dark" aria-labelledby="st-framework">
+        <div className="shell">
+          <div className="head">
             <div>
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Framework Thinking</p>
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Framework Thinking</p>
               </Reveal>
               <h2
                 id="st-framework"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-bone"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
               >
                 <MaskedLines lines={['Intent before', 'instrument.']} />
               </h2>
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body rd-head-note text-[var(--rd-sage)]">
+                <p className="t-body head-note text-[var(--sage)]">
                   We begin with what an arrangement is meant to achieve and for
                   whom, and only then consider the form it should take. The
                   reverse order produces structures that outlive their purpose.
@@ -129,9 +129,9 @@ export default function StructuringPage() {
             </div>
           </div>
 
-          <div className="mt-[var(--rd-pad-sm)] grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+          <div className="mt-[var(--pad-sm)] grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <ImageReveal className="lg:col-span-5">
-              <div className="rd-media aspect-[4/5] w-full">
+              <div className="media aspect-[4/5] w-full">
                 <Picture
                   name="structure-grid"
                   alt="Dark modular facade of precisely repeating panels, read as a structural grid"
@@ -144,9 +144,9 @@ export default function StructuringPage() {
 
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal>
-                <p className="rd-label text-[var(--rd-sage)]">The order of decisions</p>
-                <p className="rd-display mt-5 text-[var(--rd-accent)]">Intent</p>
-                <p className="rd-body mt-4 max-w-[44ch] text-[var(--rd-sage)]">
+                <p className="t-label text-[var(--sage)]">The order of decisions</p>
+                <p className="t-display mt-5 text-[var(--gold)]">Intent</p>
+                <p className="t-body mt-4 max-w-[44ch] text-[var(--sage)]">
                   Everything below resolves from it. Settle the intent and the
                   instruments follow; reverse the order and the structure ends
                   up explaining itself rather than working.
@@ -159,14 +159,14 @@ export default function StructuringPage() {
                     as="li"
                     key={l.t}
                     delay={i * 0.06}
-                    className="rd-row-inv last:border-b last:border-[var(--rd-line-inv)]"
+                    className="row-inv last:border-b last:border-[var(--line-inv)]"
                   >
                     <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline gap-x-4 py-[clamp(1.1rem,1.8vw,1.5rem)] sm:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)] sm:gap-x-6">
-                      <span className="rd-num text-[0.85rem] text-[var(--rd-accent)]">
+                      <span className="t-num text-[0.85rem] text-[var(--gold)]">
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <span className="rd-h4 text-bone">{l.t}</span>
-                      <span className="rd-small col-start-2 mt-2 max-w-[26ch] text-[var(--rd-sage)] sm:col-start-3 sm:mt-0">
+                      <span className="t-h4 text-ivory">{l.t}</span>
+                      <span className="t-small col-start-2 mt-2 max-w-[26ch] text-[var(--sage)] sm:col-start-3 sm:mt-0">
                         {l.d}
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export default function StructuringPage() {
               </ol>
 
               <Reveal delay={0.2}>
-                <p className="rd-meta mt-6 max-w-[46ch] text-bone/40">
+                <p className="t-meta mt-6 max-w-[46ch] text-ivory/40">
                   Illustrative. These are the decisions a well-formed framework
                   settles in advance, not a description of any specific
                   arrangement.
@@ -187,16 +187,16 @@ export default function StructuringPage() {
       </section>
 
       {/* Design tests — precise ledger */}
-      <section className="rd-section rd-paper" aria-labelledby="st-tests">
-        <div className="rd-shell">
-          <div className="rd-head rd-head-ledger">
+      <section className="section ground-ivory" aria-labelledby="st-tests">
+        <div className="shell">
+          <div className="head head-ledger">
             <div>
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Structuring Approach</p>
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Structuring Approach</p>
               </Reveal>
               <h2
                 id="st-tests"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--rd-ink)]"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--ink)]"
               >
                 <span className="sr-only">Five tests a structure has to survive.</span>
                 <span aria-hidden className="block lg:hidden">
@@ -209,7 +209,7 @@ export default function StructuringPage() {
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="rd-body rd-head-note text-[var(--rd-stone)]">
+                <p className="t-body head-note text-[var(--stone)]">
                   Applied to mandates and investments alike, and revisited when
                   circumstances move away from the base case.
                 </p>
@@ -217,20 +217,20 @@ export default function StructuringPage() {
             </div>
           </div>
 
-          <ol className="mt-[var(--rd-pad-sm)]">
+          <ol className="mt-[var(--pad-sm)]">
             {tests.map((t, i) => (
               <Reveal
                 as="li"
                 key={t.n}
                 delay={i * 0.05}
-                className="rd-row rd-row-hover last:border-b last:border-[var(--rd-line)]"
+                className="row row-hover last:border-b last:border-[var(--line)]"
               >
-                <div className="rd-ledger px-1 py-[clamp(1.75rem,3vw,2.4rem)]">
-                  <span className="rd-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--rd-accent-ink)]">
+                <div className="ledger px-1 py-[clamp(1.75rem,3vw,2.4rem)]">
+                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--gold-ink)]">
                     {t.n}
                   </span>
-                  <h3 className="rd-h3 max-w-[26ch] text-[var(--rd-ink)]">{t.t}</h3>
-                  <p className="rd-small max-w-[44ch] text-[var(--rd-stone)]">
+                  <h3 className="t-h3 max-w-[26ch] text-[var(--ink)]">{t.t}</h3>
+                  <p className="t-small max-w-[44ch] text-[var(--stone)]">
                     {t.d}
                   </p>
                 </div>
@@ -241,11 +241,11 @@ export default function StructuringPage() {
       </section>
 
       {/* Mandates and investments */}
-      <section className="rd-section rd-paper-2" aria-labelledby="st-mandates">
-        <div className="rd-shell">
-          <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+      <section className="section ground-ivory-2" aria-labelledby="st-mandates">
+        <div className="shell">
+          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <ImageReveal className="lg:col-span-7">
-              <div className="rd-media aspect-[16/11] w-full">
+              <div className="media aspect-[16/11] w-full">
                 <Picture
                   name="spiral-dark"
                   alt="Dark spiral stair seen from below, forming a precise geometric spiral"
@@ -257,25 +257,25 @@ export default function StructuringPage() {
             </ImageReveal>
 
             <div className="lg:col-span-5">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Mandates &amp; Investments</p>
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Mandates &amp; Investments</p>
               </Reveal>
 
               <h2
                 id="st-mandates"
-                className="rd-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[20ch] text-[var(--rd-ink)]"
+                className="t-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[20ch] text-[var(--ink)]"
               >
                 Terms that stay legible when conditions move.
               </h2>
 
               <Reveal delay={0.12}>
-                <p className="rd-body mt-5 max-w-[42ch] text-[var(--rd-stone)]">
+                <p className="t-body mt-5 max-w-[42ch] text-[var(--stone)]">
                   {service.themes[1].body}
                 </p>
               </Reveal>
 
               <Reveal delay={0.18}>
-                <p className="rd-body mt-5 max-w-[42ch] text-[var(--rd-stone)]">
+                <p className="t-body mt-5 max-w-[42ch] text-[var(--stone)]">
                   {service.themes[2].body}
                 </p>
               </Reveal>
@@ -285,8 +285,8 @@ export default function StructuringPage() {
       </section>
 
       {/* Proven frameworks — statement panel */}
-      <section className="rd-section rd-band rd-on-dark relative overflow-hidden" aria-labelledby="st-precision">
-        <div className="media veil-editorial absolute inset-0">
+      <section className="section ground-dark on-dark relative overflow-hidden" aria-labelledby="st-precision">
+        <div className="media media-flat veil-editorial absolute inset-0">
               <Picture
                 name="gold-lattice"
                 alt=""
@@ -297,13 +297,13 @@ export default function StructuringPage() {
               />
             </div>
 
-        <div className="rd-shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
-              <Reveal kind="label" className="rd-kicker">
-                <p className="rd-label">Proven Frameworks</p>
+        <div className="shell relative z-10 flex min-h-[16rem] flex-col justify-end lg:min-h-[22rem]">
+              <Reveal kind="label" className="kicker">
+                <p className="t-label">Proven Frameworks</p>
               </Reveal>
               <h2
                 id="st-precision"
-                className="rd-h2 rd-head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-bone"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
               >
                 <span className="sr-only">Novelty is rarely a virtue in a structure.</span>
                 <span aria-hidden className="block lg:hidden">
@@ -314,7 +314,7 @@ export default function StructuringPage() {
                 </span>
               </h2>
               <Reveal delay={0.14}>
-                <p className="rd-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-bone/70">
+                <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-ivory/70">
                   Established frameworks carry the weight of everything that has
                   already been tested against them. We fit them to the situation
                   rather than fitting the situation to them.

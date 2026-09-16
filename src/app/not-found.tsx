@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-screen-safe items-center overflow-hidden bg-ink text-bone">
-      <div className="media veil-bottom absolute inset-0">
+    <section className="relative flex min-h-screen-safe items-center overflow-hidden bg-ink text-ivory">
+      <div className="media media-flat veil-hero absolute inset-0">
         <Picture
           name="towers-mono"
           alt=""
@@ -24,12 +24,12 @@ export default function NotFound() {
         />
       </div>
 
-      <div className="below-header shell-wide relative z-10 pb-[var(--space-section-lg)]">
+      <div className="below-header shell relative z-10 pb-[var(--pad)]">
         <p className="t-label text-gold">Error 404</p>
 
-        <h1 className="t-display mt-7 max-w-[14ch] text-bone">Page not found.</h1>
+        <h1 className="t-display mt-7 max-w-[14ch] text-ivory">Page not found.</h1>
 
-        <p className="t-lead mt-7 max-w-[46ch] text-bone/60">
+        <p className="t-lead mt-7 max-w-[46ch] text-ivory/60">
           The page you were looking for is not here. It may have moved, or the
           address may be incomplete.
         </p>
@@ -43,8 +43,8 @@ export default function NotFound() {
           </ButtonLink>
         </div>
 
-        <nav aria-label="Suggested pages" className="mt-14 border-t border-bone/15 pt-8">
-          <p className="t-label text-bone/40">Elsewhere on the site</p>
+        <nav aria-label="Suggested pages" className="mt-14 border-t border-ivory/15 pt-8">
+          <p className="t-label text-ivory/40">Elsewhere on the site</p>
           <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
             {[
               { label: 'About', href: '/about' },
@@ -55,7 +55,7 @@ export default function NotFound() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="link-underline text-[0.95rem] font-light text-bone/70 hover:text-bone"
+                  className="link-underline text-[0.95rem] font-light text-ivory/70 hover:text-ivory"
                 >
                   {l.label}
                 </Link>

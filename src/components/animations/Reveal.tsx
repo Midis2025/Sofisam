@@ -117,31 +117,6 @@ export function MaskedLines({
   );
 }
 
-/** Thin rule that draws itself in from the left. */
-export function DrawRule({
-  className = '',
-  tone = 'dark',
-  delay = 0,
-}: {
-  className?: string;
-  tone?: 'dark' | 'light';
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  const color = tone === 'dark' ? 'bg-ink/15' : 'bg-bone/20';
-
-  if (reduce) return <span className={`block h-px w-full ${color} ${className}`} />;
-
-  return (
-    <motion.span
-      className={`block h-px w-full origin-left ${color} ${className}`}
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.85, ease: EASE, delay }}
-    />
-  );
-}
 
 /**
  * A numbered row: the divider grows from the left, the number fades and the
@@ -162,7 +137,7 @@ export function RowReveal({
 }) {
   const reduce = useReducedMotion();
   const Comp = (as === 'li' ? motion.li : motion.div) as typeof motion.div;
-  const line = tone === 'dark' ? 'bg-[var(--rd-line)]' : 'bg-[var(--rd-line-inv)]';
+  const line = tone === 'dark' ? 'bg-[var(--line)]' : 'bg-[var(--line-inv)]';
 
   if (reduce) {
     const Static = as as 'div';

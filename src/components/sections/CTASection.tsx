@@ -16,7 +16,7 @@ interface CTASectionProps {
   eyebrow?: string;
   lines?: string[];
   body?: string;
-  /** Name of the existing asset in the image manifest. */
+  /** Name of an existing asset in the image manifest. */
   image?: string;
   focal?: string;
 }
@@ -25,9 +25,9 @@ interface CTASectionProps {
  * Enquiries — the closing band on every page that carries this section.
  *
  * The page's own architectural photograph is the ground, under a scrim of the
- * site's own warm off-white. The statement holds the left of the measure and
- * the two actions sit as a column on the right, level with the copy, so the
- * band reads across its full width instead of massing on one side.
+ * site's own warm ivory. The statement holds the left of the measure and the
+ * two actions sit as a column on the right, level with the copy, so the band
+ * reads across its full width instead of massing on one side.
  */
 export function CTASection({
   eyebrow = 'Enquiries',
@@ -39,18 +39,14 @@ export function CTASection({
   const reduce = useReducedMotion();
 
   return (
-    <section
-      className="rd-paper relative w-full overflow-hidden"
-      aria-labelledby="cta-heading"
-    >
-      {/* The photograph, full bleed. It settles once on entry and is never
-          animated after that. */}
+    <section className="ground-ivory relative w-full overflow-hidden" aria-labelledby="cta-heading">
+      {/* The photograph settles once on entry and is never animated after. */}
       <motion.div
-        className="media rd-cta-photo absolute inset-0"
-        initial={reduce ? false : { scale: 1.02, opacity: 0.9 }}
+        className="media media-flat media-graded absolute inset-0"
+        initial={reduce ? false : { scale: 1.03, opacity: 0.9 }}
         whileInView={{ scale: 1, opacity: 1 }}
         viewport={VIEWPORT}
-        transition={{ duration: 1, ease: EASE }}
+        transition={{ duration: 1.1, ease: EASE }}
       >
         <Picture
           name={image}
@@ -64,29 +60,29 @@ export function CTASection({
 
       <motion.div
         aria-hidden
-        className="rd-cta-veil absolute inset-0"
+        className="veil-ivory absolute inset-0"
         initial={reduce ? false : { opacity: 0.8 }}
         whileInView={{ opacity: 1 }}
         viewport={VIEWPORT}
         transition={{ duration: 0.9, ease: EASE }}
       />
 
-      <div className="rd-shell relative z-10 flex min-h-[clamp(31.25rem,58vh,41.25rem)] items-center py-[clamp(3.5rem,6vw,6.25rem)]">
+      <div className="shell relative z-10 flex min-h-[clamp(31.25rem,58vh,43rem)] items-center py-[clamp(3.5rem,6vw,6.5rem)]">
         <div className="grid w-full gap-[clamp(2.5rem,8vw,8.75rem)] lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.65fr)] lg:items-end">
           {/* Statement */}
-          <div className="max-w-[38.75rem]">
-            {/* Label — the rule draws itself, then the word arrives */}
+          <div className="max-w-[40rem]">
+            {/* The rule draws itself, then the word arrives */}
             <div className="flex items-center gap-[0.875rem]">
               <motion.span
                 aria-hidden
-                className="block h-px w-[clamp(1.75rem,3.2vw,2.75rem)] shrink-0 origin-left bg-[var(--rd-accent)]"
+                className="block h-px w-[clamp(1.75rem,3.2vw,2.75rem)] shrink-0 origin-left bg-gold"
                 initial={reduce ? false : { scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
               />
               <motion.p
-                className="rd-label text-[var(--rd-accent-ink)]"
+                className="t-label text-gold-ink"
                 initial={reduce ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={VIEWPORT}
@@ -98,13 +94,13 @@ export function CTASection({
 
             <h2
               id="cta-heading"
-              className="rd-cta-h mt-[clamp(1.25rem,1.9vw,1.75rem)] max-w-[9ch] text-[var(--rd-ink)]"
+              className="t-display mt-[clamp(1.25rem,1.9vw,1.75rem)] max-w-[9ch] text-ink"
             >
               <MaskedLines lines={lines} delay={0.46} stagger={0.08} />
             </h2>
 
             <motion.p
-              className="rd-body mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[36rem] text-[var(--rd-stone)]"
+              className="t-body mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[36rem] text-stone"
               initial={reduce ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
@@ -116,7 +112,7 @@ export function CTASection({
 
           {/* Actions — a column on the right, level with the copy */}
           <motion.div
-            className="rd-cta-actions flex w-full flex-col gap-3 sm:max-w-[26rem] lg:max-w-[23.75rem] lg:justify-self-end lg:pb-1"
+            className="flex w-full flex-col gap-3 sm:max-w-[26rem] lg:max-w-[23.75rem] lg:justify-self-end lg:pb-1"
             initial={reduce ? false : { opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={VIEWPORT}
@@ -126,17 +122,22 @@ export function CTASection({
               href="/contact"
               tone="dark"
               variant="solid"
-              className="h-[3.25rem] w-full justify-between"
+              magnetic={false}
+              className="w-full justify-between"
             >
               Get in Touch
             </ButtonLink>
 
+            {/* The outline action sits over the open side of the photograph,
+                where the scrim is lightest and the glazing behind it busiest,
+                so it carries its own translucent ground. */}
             <ButtonLink
               href={`mailto:${contact.email}`}
               tone="dark"
               variant="outline"
               withArrow={false}
-              className="rd-cta-mail h-[3.25rem] w-full justify-between"
+              magnetic={false}
+              className="w-full justify-between border-ink/25 bg-ivory/70 backdrop-blur-md"
             >
               {contact.email}
             </ButtonLink>

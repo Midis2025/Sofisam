@@ -11,8 +11,8 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
   const next = services[(i + 1) % services.length];
 
   return (
-    <nav aria-label="Other services" className="rd-paper">
-      <div className="rd-shell">
+    <nav aria-label="Other services" className="ground-ivory">
+      <div className="shell">
         <ul className="grid sm:grid-cols-2">
           {[
             { s: prev, dir: 'Previous' as const },
@@ -20,8 +20,8 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
           ].map(({ s, dir }) => (
             <li
               key={dir}
-              className={`rd-row rd-row-hover last:border-b last:border-[var(--rd-line)] sm:border-b sm:border-[var(--rd-line)] ${
-                dir === 'Next' ? 'sm:border-l sm:border-l-[var(--rd-line)]' : ''
+              className={`row row-hover last:border-b last:border-[var(--line)] sm:border-b sm:border-[var(--line)] ${
+                dir === 'Next' ? 'sm:border-l sm:border-l-[var(--line)]' : ''
               }`}
             >
               <Link
@@ -34,7 +34,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   <ArrowLeft
                     aria-hidden
                     strokeWidth={1.4}
-                    className="h-5 w-5 shrink-0 text-[var(--rd-stone)] transition-all duration-500 ease-premium group-hover:-translate-x-1 group-hover:text-[var(--rd-accent-ink)]"
+                    className="h-5 w-5 shrink-0 text-[var(--stone)] transition-all duration-500 ease-premium group-hover:-translate-x-1 group-hover:text-[var(--gold-ink)]"
                   />
                 )}
 
@@ -43,7 +43,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                     dir === 'Next' ? 'sm:flex-row-reverse sm:text-right' : ''
                   }`}
                 >
-                  <span className="rd-media rd-media-sm hidden aspect-square w-16 shrink-0 sm:block">
+                  <span className="media hidden aspect-square w-16 shrink-0 sm:block">
                     <Picture
                       name={s.hero.image}
                       alt=""
@@ -53,8 +53,8 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                     />
                   </span>
                   <span className="min-w-0">
-                    <span className="rd-label block text-[var(--rd-accent-ink)]">{dir}</span>
-                    <span className="rd-h3 mt-2.5 block truncate text-[var(--rd-ink)] transition-colors duration-500 group-hover:text-[var(--rd-accent-deep)]">
+                    <span className="t-label block text-[var(--gold-ink)]">{dir}</span>
+                    <span className="t-h3 mt-2.5 block truncate text-[var(--ink)] transition-colors duration-500 group-hover:text-[var(--gold-deep)]">
                       {s.title}
                     </span>
                   </span>
@@ -64,7 +64,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   <ArrowRight
                     aria-hidden
                     strokeWidth={1.4}
-                    className="h-5 w-5 shrink-0 text-[var(--rd-stone)] transition-all duration-500 ease-premium group-hover:translate-x-1 group-hover:text-[var(--rd-accent-ink)]"
+                    className="h-5 w-5 shrink-0 text-[var(--stone)] transition-all duration-500 ease-premium group-hover:translate-x-1 group-hover:text-[var(--gold-ink)]"
                   />
                 )}
               </Link>

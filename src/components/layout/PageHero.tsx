@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 import { Picture } from '@/components/ui/Picture';
+import { useIntroDelay } from '@/lib/intro';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -27,21 +28,22 @@ interface PageHeroProps {
   crumbs?: Crumb[];
   /** Extra content rendered under the standfirst (meta rows, actions). */
   children?: ReactNode;
-  /** A slightly deeper minimum for the three service pages. */
+  /** A deeper frame for the three service pages. */
   size?: 'tall' | 'standard';
 }
 
 /**
- * Internal-page hero — one alignment system for every inner page.
+ * Inner-page hero.
  *
- * The statement and the plate share a single grid: the statement takes a little
- * over half, and the plate is taken out of the row's height calculation so it
- * starts and finishes with the text beside it rather than towering past it. The
- * row therefore sizes itself from the content, which keeps these heroes in the
- * 520–720px range instead of becoming full-screen banners.
+ * One cinematic frame for every page below the homepage: the page's own
+ * architectural photograph running edge to edge under a scrim, the trail at
+ * the top of the frame and the statement held to the bottom-left of the
+ * measure. It shares the homepage's language without repeating its full
+ * viewport height, and it never falls into the image-beside-text arrangement
+ * the content sections use.
  *
- * The ground stays dark because the fixed header sits over it before any
- * scroll, and the header's wordmark is the light one.
+ * The photograph settles out of a slight scale on entry; the headline arrives
+ * from behind its own mask, line by line.
  */
 export function PageHero({
   eyebrow,
@@ -56,35 +58,60 @@ export function PageHero({
   size = 'standard',
 }: PageHeroProps) {
   const reduce = useReducedMotion();
-  const minH = size === 'tall' ? 'lg:min-h-[26rem]' : 'lg:min-h-[24rem]';
+  const d = useIntroDelay(0.55, 0.05);
+  const minH = size === 'tall' ? 'min-h-[clamp(34rem,80vh,50rem)]' : 'min-h-[clamp(30rem,68vh,44rem)]';
   const full = (headlineWide ?? headline).join(' ');
 
   return (
     <section
-      className="rd-dark relative w-full"
+      className="ground-dark veil-bottom relative w-full overflow-hidden"
       aria-label={`${headline.join(' ')} — introduction`}
     >
-      <div className="rd-shell pb-[clamp(3rem,5vw,6rem)] pt-[calc(var(--header-h)+clamp(2.5rem,6vh,4.5rem))]">
+      <motion.div
+        className="absolute inset-0"
+        initial={reduce ? false : { scale: 1.06, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.6, ease: EASE, delay: d }}
+      >
+        <Picture
+          name={image}
+          alt={imageAlt}
+          sizes="100vw"
+          priority
+          focal={focal}
+          className="h-full w-full object-cover"
+        />
+      </motion.div>
+
+      {/* A short band under the header so the fixed navigation and the trail
+          always have a ground, whatever the photograph is doing up there. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-[calc(var(--header-h)+9rem)] bg-gradient-to-b from-ink/90 via-ink/60 to-transparent"
+      />
+
+      <div
+        className={`shell relative z-10 flex flex-col pb-[clamp(2.5rem,5vw,4.5rem)] pt-[calc(var(--header-h)+clamp(1.5rem,4vh,2.75rem))] ${minH}`}
+      >
         {crumbs && crumbs.length > 0 && (
           <motion.nav
             aria-label="Breadcrumb"
-            className="mb-[clamp(2rem,3.4vw,4rem)]"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+            transition={{ duration: 0.6, ease: EASE, delay: d + 0.1 }}
           >
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] uppercase tracking-[0.16em] text-bone/45">
+            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] uppercase tracking-[0.16em] text-ivory/60">
               {crumbs.map((c, i) => (
                 <li key={c.label} className="flex items-center gap-2">
                   {i > 0 && (
-                    <ChevronRight aria-hidden strokeWidth={1.4} className="h-3 w-3 text-bone/25" />
+                    <ChevronRight aria-hidden strokeWidth={1.4} className="h-3 w-3 text-ivory/40" />
                   )}
                   {c.href ? (
-                    <Link href={c.href} className="link-underline inline-block py-2 hover:text-bone">
+                    <Link href={c.href} className="link-underline inline-block py-2 hover:text-ivory">
                       {c.label}
                     </Link>
                   ) : (
-                    <span aria-current="page" className="inline-block py-2 text-bone/75">
+                    <span aria-current="page" className="inline-block py-2 text-ivory/90">
                       {c.label}
                     </span>
                   )}
@@ -94,77 +121,53 @@ export function PageHero({
           </motion.nav>
         )}
 
-        <div
-          className={`grid items-stretch gap-[clamp(2rem,6vw,6.875rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(26.25rem,0.95fr)]`}
-        >
-          {/* Statement */}
-          <div className="flex flex-col justify-center">
-            <motion.div
-              className="rd-kicker"
-              initial={reduce ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: EASE, delay: 0.16 }}
-            >
-              <p className="rd-label">{eyebrow}</p>
-            </motion.div>
-
-            <h1 className="rd-display mt-[clamp(1rem,2vw,1.75rem)] max-w-[18ch] text-bone lg:max-w-[56.25rem]">
-              {headlineWide ? (
-                <>
-                  <span className="sr-only">{full}</span>
-                  <span aria-hidden className="block lg:hidden">
-                    <Lines lines={headline} reduce={reduce} />
-                  </span>
-                  <span aria-hidden className="hidden lg:block">
-                    <Lines lines={headlineWide} reduce={reduce} />
-                  </span>
-                </>
-              ) : (
-                <Lines lines={headline} reduce={reduce} />
-              )}
-            </h1>
-
-            {standfirst && (
-              <motion.p
-                className="rd-lead mt-[clamp(1.5rem,2.4vw,2.75rem)] max-w-[45rem] text-bone/70"
-                initial={reduce ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
-              >
-                {standfirst}
-              </motion.p>
-            )}
-
-            {children && (
-              <motion.div
-                initial={reduce ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.62 }}
-              >
-                {children}
-              </motion.div>
-            )}
-          </div>
-
-          {/* Plate — out of the height calculation from lg, so the row is sized
-              by the statement and the two finish together. */}
+        {/* Statement — bottom-weighted */}
+        <div className="mt-auto w-full max-w-[min(100%,62rem)] pt-[clamp(2rem,6vh,4rem)]">
           <motion.div
-            className={`lg:relative lg:h-full lg:max-h-[42.5rem] ${minH}`}
-            initial={reduce ? false : { opacity: 0, clipPath: 'inset(0% 0% 100% 0%)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
-            transition={{ duration: 1, ease: EASE, delay: 0.28 }}
+            className="kicker"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: EASE, delay: d + 0.16 }}
           >
-            <div className="rd-media aspect-[4/3] w-full sm:aspect-[16/9] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
-              <Picture
-                name={image}
-                alt={imageAlt}
-                sizes="(min-width:1024px) 46vw, 100vw"
-                priority
-                focal={focal}
-                className="h-full w-full"
-              />
-            </div>
+            <p className="t-label text-gold">{eyebrow}</p>
           </motion.div>
+
+          <h1 className="t-display mt-[clamp(1rem,2vw,1.75rem)] max-w-[18ch] text-ivory lg:max-w-[20ch]">
+            {headlineWide ? (
+              <>
+                <span className="sr-only">{full}</span>
+                <span aria-hidden className="block lg:hidden">
+                  <Lines lines={headline} reduce={reduce} delay={d + 0.22} />
+                </span>
+                <span aria-hidden className="hidden lg:block">
+                  <Lines lines={headlineWide} reduce={reduce} delay={d + 0.22} />
+                </span>
+              </>
+            ) : (
+              <Lines lines={headline} reduce={reduce} delay={d + 0.22} />
+            )}
+          </h1>
+
+          {standfirst && (
+            <motion.p
+              className="t-lead mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[46rem] text-ivory/75"
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: EASE, delay: d + 0.5 }}
+            >
+              {standfirst}
+            </motion.p>
+          )}
+
+          {children && (
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: EASE, delay: d + 0.62 }}
+            >
+              {children}
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
@@ -172,16 +175,24 @@ export function PageHero({
 }
 
 /** Masked line reveal for the headline. */
-function Lines({ lines, reduce }: { lines: string[]; reduce: boolean | null }) {
+function Lines({
+  lines,
+  reduce,
+  delay,
+}: {
+  lines: string[];
+  reduce: boolean | null;
+  delay: number;
+}) {
   return (
     <>
       {lines.map((line, i) => (
         <span key={line} className="block overflow-hidden pb-[0.07em]">
           <motion.span
             className="block"
-            initial={reduce ? false : { y: '110%' }}
+            initial={reduce ? false : { y: '112%' }}
             animate={{ y: '0%' }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.24 + i * 0.08 }}
+            transition={{ duration: 0.9, ease: EASE, delay: delay + i * 0.09 }}
           >
             {line}
           </motion.span>

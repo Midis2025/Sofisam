@@ -1,14 +1,18 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Short cross-fade between routes. Deliberately brief — long page
- * transitions read as latency rather than polish.
+ * Route transition.
+ *
+ * The outgoing page settles and fades, the incoming one rises into place after
+ * it. Deliberately brief and deliberately vertical — it matches the direction
+ * everything else on the site enters from, and a long page transition reads as
+ * latency rather than polish.
  */
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -17,13 +21,16 @@ export function PageTransition({ children }: { children: ReactNode }) {
   if (reduce) return <>{children}</>;
 
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: EASE }}
-    >
-      {children}
-    </motion.div>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.55, ease: EASE }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 }

@@ -12,14 +12,14 @@ type ServiceTheme = { label: string; title: string; body: string };
  */
 export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
   return (
-    <section className="rd-section rd-dark" aria-labelledby="advisory-themes">
-      <div className="rd-shell">
-        <div className="grid gap-[var(--rd-gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
+    <section className="section ground-dark" aria-labelledby="advisory-themes">
+      <div className="shell">
+        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
           {/* Standing media */}
           <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-[8rem]">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
               <ImageReveal>
-                <div className="rd-media aspect-[4/5] w-full">
+                <div className="media aspect-[4/5] w-full">
                   <Picture
                     name="lounge-dark"
                     alt="Darkened executive lounge with slatted timber screens and low, considered lighting"
@@ -31,7 +31,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
               </ImageReveal>
 
               <Reveal delay={0.12}>
-                <p className="rd-meta mt-5 max-w-[36ch] text-bone/40">
+                <p className="t-meta mt-5 max-w-[36ch] text-ivory/40">
                   Imagery is illustrative. No photograph on this site depicts a
                   principal of the firm.
                 </p>
@@ -41,29 +41,29 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
 
           {/* Themes */}
           <div className="lg:col-span-6 lg:col-start-7">
-            <Reveal kind="label" className="rd-kicker">
-              <p className="rd-label">Advisory Perspective</p>
+            <Reveal kind="label" className="kicker">
+              <p className="t-label">Advisory Perspective</p>
             </Reveal>
 
             <h2
               id="advisory-themes"
-              className="rd-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-bone"
+              className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-ivory"
             >
               <MaskedLines lines={['What the counsel', 'actually covers.']} />
             </h2>
 
-            <ol className="mt-[var(--rd-pad-sm)]">
+            <ol className="mt-[var(--pad-sm)]">
               {themes.map((t, i) => (
                 <Reveal
                   as="li"
                   key={t.title}
                   delay={i * 0.06}
-                  className="rd-row-inv last:border-b last:border-[var(--rd-line-inv)]"
+                  className="row-inv last:border-b last:border-[var(--line-inv)]"
                 >
                   <div className="py-[clamp(1.5rem,2.6vw,2.25rem)]">
-                    <p className="rd-label text-[var(--rd-accent)]">{t.label}</p>
-                    <h3 className="rd-h3 mt-4 max-w-[24ch] text-bone">{t.title}</h3>
-                    <p className="rd-small mt-4 max-w-[54ch] text-[var(--rd-sage)]">{t.body}</p>
+                    <p className="t-label text-[var(--gold)]">{t.label}</p>
+                    <h3 className="t-h3 mt-4 max-w-[24ch] text-ivory">{t.title}</h3>
+                    <p className="t-small mt-4 max-w-[54ch] text-[var(--sage)]">{t.body}</p>
                   </div>
                 </Reveal>
               ))}

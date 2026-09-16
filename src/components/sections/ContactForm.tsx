@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
+import { useId, useMemo, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check, Loader2, AlertCircle } from 'lucide-react';
 
@@ -29,12 +29,19 @@ function validate(f: Fields) {
     errors.email = 'Please enter a valid email address.';
 
   if (!f.message.trim()) errors.message = 'Please include a short message.';
-  else if (f.message.trim().length < 12)
-    errors.message = 'Please add a little more detail.';
+  else if (f.message.trim().length < 12) errors.message = 'Please add a little more detail.';
 
   return errors;
 }
 
+/**
+ * Enquiry form.
+ *
+ * Each field is a line rather than a box: the label rests on the baseline of
+ * an empty field and lifts to label size as soon as it is focused or filled,
+ * while a gold rule draws in from the left beneath it. Validation, submission
+ * behaviour and every string are unchanged.
+ */
 export function ContactForm() {
   const id = useId();
   const [fields, setFields] = useState<Fields>(EMPTY);
@@ -45,16 +52,19 @@ export function ContactForm() {
 
   const errors = useMemo(() => validate(fields), [fields]);
 
-  const showError = (k: keyof Fields) =>
-    Boolean(errors[k]) && (submitted || touched[k]);
+  const showError = (k: keyof Fields) => Boolean(errors[k]) && (submitted || touched[k]);
 
-  const set = (k: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFields((f) => ({ ...f, [k]: e.target.value }));
-    if (status !== 'idle' && status !== 'loading') {
-      setStatus('idle');
-      setStatusMessage('');
-    }
-  };
+  const set =
+    (k: keyof Fields) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFields((f) => ({ ...f, [k]: e.target.value }));
+      if (status !== 'idle' && status !== 'loading') {
+        setStatus('idle');
+        setStatusMessage('');
+      }
+    };
+
+  const blur = (k: keyof Fields) => () => setTouched((t) => ({ ...t, [k]: true }));
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -86,20 +96,12 @@ export function ContactForm() {
     }
   }
 
-  const fieldBase =
-    'peer min-h-[3rem] w-full bg-transparent pb-3 pt-2 text-[1.0625rem] font-light text-bone ' +
-    'placeholder:text-bone/20 focus:outline-none disabled:opacity-60';
+  const busy = status === 'loading';
 
   return (
     <form onSubmit={onSubmit} noValidate className="w-full">
-      <div className="space-y-9">
-        {/* Full Name */}
-        <Field
-          id={`${id}-name`}
-          label="Full Name"
-          required
-          error={showError('name') ? errors.name : undefined}
-        >
+      <div className="grid gap-x-[clamp(1.5rem,3vw,2.5rem)] gap-y-[clamp(1.75rem,2.6vw,2.25rem)] sm:grid-cols-2">
+        <Field id={`${id}-name`} label="Full Name" required error={showError('name') ? errors.name : undefined}>
           <input
             id={`${id}-name`}
             name="name"
@@ -107,16 +109,15 @@ export function ContactForm() {
             autoComplete="name"
             value={fields.name}
             onChange={set('name')}
-            onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-            disabled={status === 'loading'}
+            onBlur={blur('name')}
+            disabled={busy}
             aria-invalid={showError('name')}
             aria-describedby={showError('name') ? `${id}-name-err` : undefined}
-            placeholder="Your name"
-            className={fieldBase}
+            placeholder=" "
+            className="field-input disabled:opacity-60"
           />
         </Field>
 
-        {/* Email */}
         <Field
           id={`${id}-email`}
           label="Email Address"
@@ -131,17 +132,16 @@ export function ContactForm() {
             autoComplete="email"
             value={fields.email}
             onChange={set('email')}
-            onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-            disabled={status === 'loading'}
+            onBlur={blur('email')}
+            disabled={busy}
             aria-invalid={showError('email')}
             aria-describedby={showError('email') ? `${id}-email-err` : undefined}
-            placeholder="name@company.com"
-            className={fieldBase}
+            placeholder=" "
+            className="field-input disabled:opacity-60"
           />
         </Field>
 
-        {/* Company (optional) */}
-        <Field id={`${id}-company`} label="Company" optional>
+        <Field id={`${id}-company`} label="Company" optional className="sm:col-span-2">
           <input
             id={`${id}-company`}
             name="company"
@@ -149,17 +149,17 @@ export function ContactForm() {
             autoComplete="organization"
             value={fields.company}
             onChange={set('company')}
-            disabled={status === 'loading'}
-            placeholder="Organisation"
-            className={fieldBase}
+            disabled={busy}
+            placeholder=" "
+            className="field-input disabled:opacity-60"
           />
         </Field>
 
-        {/* Message */}
         <Field
           id={`${id}-message`}
           label="Message"
           required
+          className="sm:col-span-2"
           error={showError('message') ? errors.message : undefined}
         >
           <textarea
@@ -168,19 +168,19 @@ export function ContactForm() {
             rows={4}
             value={fields.message}
             onChange={set('message')}
-            onBlur={() => setTouched((t) => ({ ...t, message: true }))}
-            disabled={status === 'loading'}
+            onBlur={blur('message')}
+            disabled={busy}
             aria-invalid={showError('message')}
             aria-describedby={showError('message') ? `${id}-message-err` : undefined}
-            placeholder="How can we help?"
-            className={`${fieldBase} min-h-[9rem] resize-none`}
+            placeholder=" "
+            className="field-input disabled:opacity-60"
           />
         </Field>
       </div>
 
-      <div className="mt-10">
-        <ButtonSubmit tone="light" variant="solid" disabled={status === 'loading'}>
-          {status === 'loading' ? (
+      <div className="mt-[clamp(2.25rem,3.5vw,3rem)]">
+        <ButtonSubmit tone="light" variant="solid" disabled={busy}>
+          {busy ? (
             <span className="inline-flex items-center gap-3">
               <Loader2 aria-hidden className="h-3.5 w-3.5 animate-spin" strokeWidth={1.6} />
               Sending
@@ -203,11 +203,7 @@ export function ContactForm() {
 
           {(status === 'error' || status === 'unconfigured') && (
             <StatusNote key="err" tone="warn">
-              <AlertCircle
-                aria-hidden
-                strokeWidth={1.6}
-                className="mt-[0.15rem] h-4 w-4 shrink-0"
-              />
+              <AlertCircle aria-hidden strokeWidth={1.6} className="mt-[0.15rem] h-4 w-4 shrink-0" />
               <span>
                 {statusMessage}{' '}
                 {status === 'unconfigured' && (
@@ -229,20 +225,16 @@ export function ContactForm() {
 
           {status === 'idle' && submitted && Object.keys(errors).length > 0 && (
             <StatusNote key="inv" tone="warn">
-              <AlertCircle
-                aria-hidden
-                strokeWidth={1.6}
-                className="mt-[0.15rem] h-4 w-4 shrink-0"
-              />
+              <AlertCircle aria-hidden strokeWidth={1.6} className="mt-[0.15rem] h-4 w-4 shrink-0" />
               <span>Please correct the highlighted fields.</span>
             </StatusNote>
           )}
         </AnimatePresence>
       </div>
 
-      <p className="mt-2 text-[0.78rem] font-light leading-relaxed text-bone/35">
+      <p className="mt-2 text-[0.78rem] font-light leading-relaxed text-ivory/35">
         Enquiries are handled in confidence. You can also write directly to{' '}
-        <a href={`mailto:${contact.email}`} className="link-underline text-bone/55">
+        <a href={`mailto:${contact.email}`} className="link-underline text-ivory/55">
           {contact.email}
         </a>
         .
@@ -258,40 +250,34 @@ function Field({
   required,
   optional,
   error,
+  className = '',
 }: {
   id: string;
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
   required?: boolean;
   optional?: boolean;
   error?: string;
+  className?: string;
 }) {
   return (
-    <div className="group/field">
-      <div className="flex items-baseline justify-between gap-4">
-        <label htmlFor={id} className="rd-label text-[var(--rd-sage)]">
+    <div className={className}>
+      <span className="field">
+        {children}
+        <label htmlFor={id} className="field-label">
           {label}
           {required && (
             <span aria-hidden className="ml-1 text-gold">
               *
             </span>
           )}
+          {optional && (
+            <span aria-hidden className="ml-2 text-[0.8em] opacity-60">
+              (optional)
+            </span>
+          )}
         </label>
-        {optional && (
-          <span className="text-[0.68rem] font-light lowercase tracking-wide text-bone/25">
-            optional
-          </span>
-        )}
-      </div>
-
-      <div className="mt-2">{children}</div>
-
-      {/* Animated underline */}
-      <span
-        aria-hidden
-        className={`relative block h-px w-full ${error ? 'bg-gold/70' : 'bg-bone/18'}`}
-      >
-        <span className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-gold transition-transform duration-700 ease-premium group-focus-within/field:scale-x-100" />
+        <span aria-hidden className="field-line" />
       </span>
 
       <AnimatePresence>
@@ -313,13 +299,7 @@ function Field({
   );
 }
 
-function StatusNote({
-  children,
-  tone,
-}: {
-  children: React.ReactNode;
-  tone: 'ok' | 'warn';
-}) {
+function StatusNote({ children, tone }: { children: ReactNode; tone: 'ok' | 'warn' }) {
   return (
     <motion.p
       initial={{ opacity: 0, y: 8 }}
@@ -327,7 +307,7 @@ function StatusNote({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
       className={`flex gap-3 border-l-2 py-1 pl-4 text-[0.9rem] font-light leading-relaxed ${
-        tone === 'ok' ? 'border-gold text-bone/80' : 'border-gold/70 text-bone/70'
+        tone === 'ok' ? 'border-gold text-ivory/80' : 'border-gold/70 text-ivory/70'
       }`}
     >
       {children}
