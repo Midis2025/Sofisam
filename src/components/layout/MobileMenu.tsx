@@ -17,6 +17,10 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * The panel wipes down from the top edge, then the items arrive in sequence.
  * The three disciplines are listed under Services rather than folded behind a
  * toggle: on a phone an extra tap to see three lines is friction, not economy.
+ *
+ * The panel is the site's glass, at full height: the page stays visible
+ * through it, heavily blurred and darkened. It is fixed to the frame and
+ * nothing in it follows the pointer — a menu is a place, not an object.
  */
 export function MobileMenu({
   open,
@@ -73,7 +77,7 @@ export function MobileMenu({
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 z-[110] flex flex-col bg-ink text-ivory lg:hidden"
+          className="fixed inset-0 z-[110] flex flex-col bg-ink/[0.86] text-ivory backdrop-blur-3xl backdrop-saturate-150 lg:hidden"
           initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
           animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
           exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
@@ -93,9 +97,9 @@ export function MobileMenu({
               type="button"
               onClick={onClose}
               aria-label="Close menu"
-              className="-mr-2 flex h-11 w-11 items-center justify-center text-ivory/70 transition-colors duration-500 hover:text-gold"
+              className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] text-ivory/70 shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] hover:text-gold"
             >
-              <X strokeWidth={1.25} className="h-6 w-6" />
+              <X strokeWidth={1.25} className="h-5 w-5" />
             </button>
           </div>
 
@@ -152,31 +156,35 @@ export function MobileMenu({
             </ul>
 
             <motion.div
-              className="shell pb-14"
+              className="shell pb-14 pt-2"
               initial={reduce ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
             >
-              <p className="t-label text-gold">Contact</p>
-              <div className="mt-5 flex flex-col items-start">
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
-                >
-                  {contact.email}
-                </a>
-                <a
-                  href={`tel:${contact.phoneHref}`}
-                  className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
-                >
-                  {contact.phone}
-                </a>
+              <div className="surface-inv">
+                <p className="t-label text-gold">Contact</p>
+
+                <div className="mt-5 flex flex-col items-start">
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
+                  >
+                    {contact.email}
+                  </a>
+                  <a
+                    href={`tel:${contact.phoneHref}`}
+                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
+                  >
+                    {contact.phone}
+                  </a>
+                </div>
+
+                <address className="mt-6 text-[0.86rem] font-light not-italic leading-relaxed text-ivory/40">
+                  {contact.address.line1}
+                  <br />
+                  {contact.address.line2}
+                </address>
               </div>
-              <address className="mt-6 text-[0.86rem] font-light not-italic leading-relaxed text-ivory/40">
-                {contact.address.line1}
-                <br />
-                {contact.address.line2}
-              </address>
             </motion.div>
           </nav>
         </motion.div>

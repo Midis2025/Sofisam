@@ -143,8 +143,9 @@ export function GlobalPerspective({
           {markers.map((m, i) => (
             <Reveal
               key={m.k}
+              kind="card"
               delay={i * 0.09}
-              className="surface-inv border-ivory/15 bg-ink/40 backdrop-blur-xl"
+              className="surface-inv surface-lift bg-ink/45"
             >
               <dt className="t-label text-gold">{m.k}</dt>
               <dd className="mt-3.5 font-display text-[clamp(1.35rem,2.2vw,2.15rem)] leading-[1.1] tracking-tighter text-ivory">

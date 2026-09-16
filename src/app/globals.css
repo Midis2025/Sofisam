@@ -86,11 +86,46 @@
     --lift-hover: 0 1px 2px rgba(10, 10, 11, 0.05),
       0 26px 56px -20px rgba(10, 10, 11, 0.22);
 
+    /* ---------- Glass ---------------------------------------------
+       Every raised object on the site is one material: a pane of
+       glass held a measured distance off the ground. Two families,
+       because glass reads from what is behind it — `--g-*` is the
+       frosted-white pane used on ivory, `--g-inv-*` the smoked pane
+       used on obsidian. Depth is three stacked shadows: a contact
+       shadow at the edge, a mid shadow for the gap, and a wide, very
+       soft one for the room. The inset line on top is the light
+       catching the upper rim. */
+    --g-bg: rgba(255, 255, 255, 0.55);
+    --g-bg-hi: rgba(255, 255, 255, 0.76);
+    --g-line: rgba(10, 10, 11, 0.09);
+    --g-line-hi: rgba(10, 10, 11, 0.14);
+    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+    --g-inv-bg: rgba(255, 255, 255, 0.06);
+    --g-inv-bg-hi: rgba(255, 255, 255, 0.11);
+    --g-inv-line: rgba(255, 255, 255, 0.15);
+    --g-inv-line-hi: rgba(255, 255, 255, 0.3);
+    --g-inv-rim: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+    --blur: 16px;
+    --blur-lg: 24px;
+
+    /* Depth. `--depth-2` is the same object, raised. */
+    --depth-1: 0 1px 1px rgba(10, 10, 11, 0.04), 0 6px 14px -6px rgba(10, 10, 11, 0.1),
+      0 20px 44px -20px rgba(10, 10, 11, 0.18);
+    --depth-2: 0 2px 2px rgba(10, 10, 11, 0.05), 0 12px 26px -10px rgba(10, 10, 11, 0.14),
+      0 34px 70px -24px rgba(10, 10, 11, 0.28);
+
+    --depth-inv-1: 0 2px 6px rgba(0, 0, 0, 0.28), 0 18px 44px -18px rgba(0, 0, 0, 0.5);
+    --depth-inv-2: 0 4px 12px rgba(0, 0, 0, 0.34), 0 30px 64px -22px rgba(0, 0, 0, 0.66);
+
     /* ---------- Header safe area --------------------------------- */
     --header-h: 4.5rem; /* 72px — mobile */
 
     /* ---------- Motion -------------------------------------------- */
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    /* Glass moves on its own curve: a long, flat settle with no overshoot. */
+    --ease-glass: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   @media (min-width: 640px) {
@@ -597,69 +632,200 @@
   }
 
   /* ---------- Surfaces ----------------------------------------
-     A block lifted off the ground. Definition comes from tone, a
-     hairline and a wide low shadow — never a hard edge. `.surface`
-     sits on ivory, `.surface-inv` on obsidian, and `.surface-tint`
-     is the warmer counterpart used to break up a run of them. */
+     A block lifted off the ground — and on this site that block is
+     glass. Definition comes from four things at once: a translucent
+     pane, the ground blurred behind it, a rim of light along the top
+     edge, and layered shadow for the gap underneath. Never a hard
+     edge, never a flat fill.
+
+     `.surface` and `.surface-tint` are the frosted panes used on
+     ivory; `.surface-inv` and `.surface-dark` the smoked panes used
+     on obsidian. All four are the same object in different light. */
   .surface,
   .surface-tint,
   .surface-inv,
   .surface-dark {
     position: relative;
+    isolation: isolate;
     border-radius: var(--r-lg);
+    backdrop-filter: blur(var(--blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
     transition:
-      background-color 0.55s var(--ease),
-      border-color 0.55s var(--ease),
-      box-shadow 0.55s var(--ease),
-      transform 0.55s var(--ease);
+      background-color 0.55s var(--ease-glass),
+      border-color 0.55s var(--ease-glass),
+      box-shadow 0.55s var(--ease-glass),
+      transform 0.55s var(--ease-glass);
+  }
+
+  /* The light streak. It lives in the pane's own box and is drawn by
+     moving a gradient's background-position, so nothing overflows and
+     nothing is clipped — the pane's own radius bounds it. Parked off
+     the right edge at rest; on hover it crosses to the left. */
+  .surface::after,
+  .surface-tint::after,
+  .surface-inv::after,
+  .surface-dark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: linear-gradient(
+      104deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.32) 50%,
+      transparent 60%
+    );
+    background-size: 280% 100%;
+    background-position: 190% 0;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition:
+      background-position 1.15s var(--ease-glass),
+      opacity 0.45s var(--ease-glass);
+  }
+
+  .surface-lift:hover::after,
+  .surface-lift:focus-visible::after,
+  .group:hover > .surface-lift::after {
+    background-position: -90% 0;
+    opacity: 1;
   }
 
   .surface {
-    background-color: #fdfcfa;
-    border: 1px solid rgba(10, 10, 11, 0.07);
-    box-shadow: var(--lift);
+    background-color: var(--g-bg);
+    border: 1px solid var(--g-line);
+    box-shadow: var(--depth-1), var(--g-rim);
   }
 
   .surface-tint {
-    background-color: var(--ivory-2);
-    border: 1px solid rgba(10, 10, 11, 0.05);
+    background-color: rgba(238, 233, 223, 0.66);
+    border: 1px solid var(--g-line);
+    box-shadow: var(--depth-1), var(--g-rim);
   }
 
   .surface-inv {
-    background-color: rgba(245, 242, 236, 0.05);
-    border: 1px solid var(--line-inv-soft);
+    background-color: var(--g-inv-bg);
+    border: 1px solid var(--g-inv-line);
+    box-shadow: var(--depth-inv-1), var(--g-inv-rim);
     padding: clamp(1.1rem, 1.8vw, 1.6rem) clamp(1.25rem, 2vw, 1.9rem);
   }
 
   .surface-dark {
-    background-color: var(--obsidian-2);
+    background-color: rgba(16, 16, 18, 0.62);
     color: var(--ivory);
-    border: 1px solid var(--line-inv-soft);
+    border: 1px solid var(--g-inv-line);
+    box-shadow: var(--depth-inv-1), var(--g-inv-rim);
   }
 
-  /* The lift is a shift of weight, not a jump. */
-  .surface-lift:hover {
-    transform: translateY(-4px);
+  /* The lift is a shift of weight, not a jump: the pane rises a few
+     pixels, the gap beneath it opens, and the rim brightens. */
+  .surface-lift:hover,
+  .group:hover > .surface-lift {
+    transform: translateY(-5px);
   }
 
-  .surface.surface-lift:hover {
-    box-shadow: var(--lift-hover);
-    border-color: rgba(10, 10, 11, 0.1);
+  .surface.surface-lift:hover,
+  .group:hover > .surface.surface-lift {
+    background-color: var(--g-bg-hi);
+    border-color: var(--g-line-hi);
+    box-shadow: var(--depth-2), var(--g-rim);
   }
 
-  .surface-tint.surface-lift:hover {
-    background-color: #e7e0d3;
+  .surface-tint.surface-lift:hover,
+  .group:hover > .surface-tint.surface-lift {
+    background-color: rgba(238, 233, 223, 0.85);
+    border-color: var(--g-line-hi);
+    box-shadow: var(--depth-2), var(--g-rim);
   }
 
   .surface-inv.surface-lift:hover,
-  .surface-dark.surface-lift:hover {
-    background-color: rgba(245, 242, 236, 0.08);
-    border-color: var(--line-inv);
+  .surface-dark.surface-lift:hover,
+  .group:hover > .surface-inv.surface-lift,
+  .group:hover > .surface-dark.surface-lift {
+    background-color: var(--g-inv-bg-hi);
+    border-color: var(--g-inv-line-hi);
+    box-shadow: var(--depth-inv-2), var(--g-inv-rim);
+  }
+
+  /* Where panes stack on top of one another — the principle deck — the
+     fill goes nearly opaque. Three sheets of 55% glass is not depth, it
+     is three pages of type read at once. */
+  .surface-solid {
+    background-color: rgba(253, 252, 250, 0.95);
+  }
+
+  .surface-solid.surface-lift:hover,
+  .group:hover > .surface-solid.surface-lift {
+    background-color: rgba(255, 255, 255, 0.98);
+  }
+
+  /* Glass is expensive to composite over a moving page. A phone gets
+     the same design with a thinner pane: less blur, shallower shadow,
+     more opaque fill so the contrast holds without it. */
+  @media (max-width: 767px) {
+    .surface,
+    .surface-tint,
+    .surface-inv,
+    .surface-dark {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .surface {
+      background-color: rgba(255, 255, 255, 0.78);
+    }
+
+    .surface-tint {
+      background-color: rgba(238, 233, 223, 0.88);
+    }
+
+    .surface,
+    .surface-tint {
+      box-shadow:
+        0 1px 1px rgba(10, 10, 11, 0.04),
+        0 14px 30px -14px rgba(10, 10, 11, 0.18),
+        var(--g-rim);
+    }
+
+    .surface-inv,
+    .surface-dark {
+      box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.55), var(--g-inv-rim);
+    }
+  }
+
+  /* No backdrop-filter — a translucent pane would leave the type on
+     the raw ground. Fall back to an opaque one. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .surface {
+      background-color: #fdfcfa;
+    }
+
+    .surface-tint {
+      background-color: var(--ivory-2);
+    }
+
+    .surface-inv {
+      background-color: rgba(245, 242, 236, 0.07);
+    }
+
+    .surface-dark {
+      background-color: var(--obsidian-2);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .surface-lift:hover {
+    .surface-lift:hover,
+    .group:hover > .surface-lift {
       transform: none;
+    }
+
+    .surface::after,
+    .surface-tint::after,
+    .surface-inv::after,
+    .surface-dark::after {
+      display: none;
     }
   }
 
@@ -670,7 +836,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid var(--line);
+    border: 1px solid var(--g-line);
     border-radius: 999px;
     padding: 0.6rem 1.05rem;
     font-size: 0.7rem;
@@ -678,15 +844,22 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--stone);
+    background-color: var(--g-bg);
+    box-shadow: 0 1px 1px rgba(10, 10, 11, 0.03), var(--g-rim);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
     transition:
-      border-color 0.5s var(--ease),
-      color 0.5s var(--ease),
-      background-color 0.5s var(--ease);
+      border-color 0.5s var(--ease-glass),
+      color 0.5s var(--ease-glass),
+      box-shadow 0.5s var(--ease-glass),
+      background-color 0.5s var(--ease-glass);
   }
 
   .chip-inv {
-    border-color: var(--line-inv);
+    border-color: var(--g-inv-line);
     color: var(--sage);
+    background-color: var(--g-inv-bg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), var(--g-inv-rim);
   }
 
   /* The circular action mark that closes a card or a row. */
@@ -697,19 +870,26 @@
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    border: 1px solid var(--line);
+    border: 1px solid var(--g-line);
     border-radius: 999px;
     color: var(--stone);
+    background-color: var(--g-bg);
+    box-shadow: 0 2px 6px -2px rgba(10, 10, 11, 0.12), var(--g-rim);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
     transition:
-      background-color 0.55s var(--ease),
-      border-color 0.55s var(--ease),
-      color 0.55s var(--ease),
-      transform 0.55s var(--ease);
+      background-color 0.55s var(--ease-glass),
+      border-color 0.55s var(--ease-glass),
+      box-shadow 0.55s var(--ease-glass),
+      color 0.55s var(--ease-glass),
+      transform 0.55s var(--ease-glass);
   }
 
   .badge-inv {
-    border-color: var(--line-inv);
+    border-color: var(--g-inv-line);
     color: rgba(245, 242, 236, 0.5);
+    background-color: var(--g-inv-bg);
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.35), var(--g-inv-rim);
   }
 
   .badge-lg {
@@ -720,8 +900,19 @@
   .group:hover .badge,
   .group:hover .badge-inv {
     background-color: var(--gold);
-    border-color: var(--gold);
+    border-color: rgba(255, 255, 255, 0.35);
     color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 20px -6px rgba(197, 164, 126, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .group:hover .badge,
+    .group:hover .badge-inv {
+      transform: none;
+    }
   }
 
   /* ============================================================
@@ -774,6 +965,263 @@
 
   .group:hover .arrow-right {
     transform: translate3d(4px, 0, 0);
+  }
+
+
+  /* ---------- Buttons ------------------------------------------
+     One object in four lights. A button is a pane of glass held a
+     little further off the ground than a card, with a rim of light
+     on its upper edge and a streak that crosses it on hover.
+
+     Nothing here chases the pointer. The whole interaction is a
+     lift, a hair of scale and the streak, on one long curve — a
+     heavy object being raised, not a control being nudged.
+
+       .btn-dark-*    on ivory        .btn-light-*   on obsidian
+       *-solid        the primary     *-outline      the secondary  */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    backdrop-filter: blur(var(--blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 0.5s var(--ease-glass),
+      box-shadow 0.5s var(--ease-glass),
+      background-color 0.5s var(--ease-glass),
+      border-color 0.5s var(--ease-glass),
+      color 0.5s var(--ease-glass);
+  }
+
+  @media (min-width: 640px) {
+    .btn {
+      padding: 1.1rem 2.5rem;
+    }
+  }
+
+  /* The streak. Same mechanism as the panes: a gradient parked off
+     the right edge, moved across by background-position, bounded by
+     the button's own radius. */
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: linear-gradient(
+      104deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 58%
+    );
+    background-size: 280% 100%;
+    background-position: 190% 0;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition:
+      background-position 1.05s var(--ease-glass),
+      opacity 0.4s var(--ease-glass);
+  }
+
+  .btn:hover::after,
+  .btn:focus-visible::after {
+    background-position: -90% 0;
+    opacity: 1;
+  }
+
+  .btn > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* The lift: three pixels up, three per cent out. */
+  .btn:hover,
+  .btn:focus-visible {
+    transform: translate3d(0, -3px, 0) scale(1.03);
+  }
+
+  .btn:active {
+    transform: translate3d(0, -1px, 0) scale(1.005);
+    transition-duration: 0.14s;
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .btn:disabled:hover {
+    transform: none;
+  }
+
+  /* Primary, on ivory — smoked glass. */
+  .btn-dark-solid {
+    color: var(--ivory);
+    background-color: rgba(10, 10, 11, 0.9);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 55%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: var(--depth-1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .btn-dark-solid:hover,
+  .btn-dark-solid:focus-visible {
+    background-color: rgba(10, 10, 11, 0.96);
+    border-color: rgba(197, 164, 126, 0.55);
+    box-shadow: var(--depth-2), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  /* Secondary, on ivory — a clear pane. */
+  .btn-dark-outline {
+    color: var(--ink);
+    background-color: var(--g-bg);
+    border: 1px solid var(--g-line-hi);
+    box-shadow: var(--depth-1), var(--g-rim);
+  }
+
+  .btn-dark-outline:hover,
+  .btn-dark-outline:focus-visible {
+    background-color: var(--g-bg-hi);
+    border-color: rgba(10, 10, 11, 0.2);
+    box-shadow: var(--depth-2), var(--g-rim);
+  }
+
+  /* Primary, on obsidian — a lit pane. */
+  .btn-light-solid {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.92);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(238, 233, 223, 0.35) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      0 20px 50px -18px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-light-solid:hover,
+  .btn-light-solid:focus-visible {
+    background-color: rgba(255, 255, 255, 0.98);
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.34),
+      0 30px 64px -20px rgba(0, 0, 0, 0.62),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  /* Secondary, on obsidian — the clear glass of the brief. */
+  .btn-light-outline {
+    color: var(--ivory);
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: var(--depth-inv-1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .btn-light-outline:hover,
+  .btn-light-outline:focus-visible {
+    background-color: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow: var(--depth-inv-2), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  /* The header action: the same pane at control height. */
+  .btn-sm {
+    min-height: 2.75rem;
+    gap: 0.625rem;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+
+  @media (min-width: 640px) {
+    .btn-sm {
+      padding: 0.8rem 1.9rem;
+    }
+  }
+
+  /* The arrow leads the lift. */
+  .btn .btn-arrow {
+    transition: transform 0.5s var(--ease-glass);
+  }
+
+  .btn:hover .btn-arrow,
+  .btn:focus-visible .btn-arrow {
+    transform: translate3d(4px, 0, 0);
+  }
+
+  .btn:hover .btn-arrow-up,
+  .btn:focus-visible .btn-arrow-up {
+    transform: translate3d(3px, -3px, 0);
+  }
+
+  /* On a phone the pane thins out and the lift goes: a tap has no
+     hover to lift out of, and a full-strength blur on a list of
+     controls is the most expensive thing on the page. */
+  @media (max-width: 767px) {
+    .btn {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding-left: 1.6rem;
+      padding-right: 1.6rem;
+      letter-spacing: 0.16em;
+    }
+
+    .btn-dark-outline {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-light-outline {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .btn-dark-outline {
+      background-color: #fdfcfa;
+    }
+
+    .btn-light-outline {
+      background-color: rgba(245, 242, 236, 0.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:focus-visible,
+    .btn:active {
+      transform: none;
+    }
+
+    .btn::after {
+      display: none;
+    }
+
+    .btn:hover .btn-arrow,
+    .btn:focus-visible .btn-arrow,
+    .btn:hover .btn-arrow-up,
+    .btn:focus-visible .btn-arrow-up {
+      transform: none;
+    }
   }
 
   /* ============================================================

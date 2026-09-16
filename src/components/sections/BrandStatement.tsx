@@ -2,6 +2,7 @@
 
 import { welcomeCopy, contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Tilt } from '@/components/ui/Tilt';
 import { Parallax } from '@/components/animations/Parallax';
 import { Reveal, ImageReveal } from '@/components/animations/Reveal';
 import { SplitText, FocusIn } from '@/components/animations/SplitText';
@@ -73,21 +74,24 @@ export function BrandStatement() {
 
         <div className="shell relative">
           <Reveal
+            kind="card"
             delay={0.12}
             className="-mt-[clamp(2.5rem,6vw,5rem)] sm:max-w-[30rem] lg:max-w-[34rem]"
           >
-            <div className="surface flex items-start gap-4 p-[clamp(1.25rem,2.2vw,1.9rem)]">
-              <span
-                aria-hidden
-                className="mt-[0.6rem] block h-px w-6 shrink-0 bg-gold sm:w-9"
-              />
-              <div>
-                <p className="t-label text-gold-ink">World headquarters</p>
-                <p className="t-small mt-3 max-w-[32ch] text-stone">
-                  {contact.headquarters}, Jumeirah Lake Towers, Dubai.
-                </p>
+            <Tilt>
+              <div className="surface surface-lift flex items-start gap-4 p-[clamp(1.25rem,2.2vw,1.9rem)]">
+                <span
+                  aria-hidden
+                  className="mt-[0.6rem] block h-px w-6 shrink-0 bg-gold sm:w-9"
+                />
+                <div>
+                  <p className="t-label text-gold-ink">World headquarters</p>
+                  <p className="t-small mt-3 max-w-[32ch] text-stone">
+                    {contact.headquarters}, Jumeirah Lake Towers, Dubai.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Tilt>
           </Reveal>
         </div>
       </div>
@@ -105,7 +109,7 @@ export function BrandStatement() {
               </Reveal>
 
               <Reveal delay={0.1}>
-                <div className="surface-tint mt-8 p-[clamp(1.1rem,1.8vw,1.5rem)]">
+                <div className="surface-tint surface-lift mt-8 p-[clamp(1.1rem,1.8vw,1.5rem)]">
                   <p className="t-label text-gold-ink">Positioning</p>
                   <p className="t-small mt-3 max-w-[30ch] text-stone">
                     {welcomeCopy.positioning}

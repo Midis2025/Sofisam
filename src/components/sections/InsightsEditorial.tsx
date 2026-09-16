@@ -104,7 +104,7 @@ export function InsightsEditorial() {
         {/* The remainder, as a catalogue of surfaces */}
         <ul className="mt-[clamp(1rem,1.6vw,1.5rem)] grid gap-[clamp(0.75rem,1.2vw,1.1rem)]">
           {secondaryInsights.map((item, i) => (
-            <Reveal as="li" key={item.slug} delay={i * 0.07}>
+            <Reveal as="li" key={item.slug} kind="card" delay={i * 0.07}>
               <Link
                 href={`/insights/${item.slug}`}
                 className="group surface surface-lift grid items-center gap-x-[clamp(1.25rem,2.6vw,3rem)] gap-y-4 p-[clamp(0.875rem,1.4vw,1.25rem)] sm:grid-cols-[minmax(0,10rem)_minmax(0,1fr)] lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,0.85fr)_auto]"

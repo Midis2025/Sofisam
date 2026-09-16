@@ -4,6 +4,7 @@ import { PageHero } from '@/components/layout/PageHero';
 import { ServiceSelector } from '@/components/sections/ServiceSelector';
 import { ProcessNarrative } from '@/components/sections/ProcessNarrative';
 import { CTASection } from '@/components/sections/CTASection';
+import { Tilt } from '@/components/ui/Tilt';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 import { servicesIntro } from '@/data/site';
 
@@ -77,18 +78,16 @@ export default function ServicesPage() {
 
           <ul className="mt-[var(--pad-sm)] grid gap-[clamp(0.875rem,1.4vw,1.25rem)] md:grid-cols-3">
             {whoWeAdvise.map((w, i) => (
-              <Reveal
-                as="li"
-                key={w.t}
-                delay={i * 0.08}
-                className="surface-inv flex h-full flex-col"
-              >
-                <span
-                  aria-hidden
-                  className="block h-px w-8 bg-[var(--gold)]"
-                />
-                <h3 className="t-h4 mt-5 max-w-[20ch] text-ivory">{w.t}</h3>
-                <p className="t-small mt-3 max-w-[38ch] text-[var(--sage)]">{w.d}</p>
+              <Reveal as="li" key={w.t} kind="card" delay={i * 0.08} className="h-full">
+                <Tilt className="h-full">
+                  <div className="surface-inv surface-lift flex h-full flex-col">
+                    <span aria-hidden className="block h-px w-8 bg-[var(--gold)]" />
+                    <h3 className="t-h4 mt-5 max-w-[20ch] text-ivory">{w.t}</h3>
+                    <p className="t-small mt-3 max-w-[38ch] text-[var(--sage)]">
+                      {w.d}
+                    </p>
+                  </div>
+                </Tilt>
               </Reveal>
             ))}
           </ul>

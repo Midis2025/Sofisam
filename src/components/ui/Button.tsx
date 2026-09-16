@@ -1,10 +1,6 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { ReactNode } from 'react';
-
-import { Magnetic } from '@/components/ui/Magnetic';
 
 type Tone = 'dark' | 'light';
 type Variant = 'solid' | 'outline';
@@ -16,74 +12,48 @@ interface BaseProps {
   variant?: Variant;
   className?: string;
   withArrow?: boolean;
+  /** The header's control height. */
+  size?: 'md' | 'sm';
 }
 
-const shell =
-  'group/btn relative inline-flex items-center justify-center gap-3 overflow-hidden ' +
-  'min-h-[3.25rem] px-8 py-[1rem] sm:px-10 sm:py-[1.1rem] ' +
-  'text-[0.72rem] font-medium uppercase tracking-[0.22em] leading-none ' +
-  'rounded-full transition-colors duration-500 ease-premium';
+/**
+ * The site's actions.
+ *
+ * A button is a pane of glass: translucent, the ground blurred behind it,
+ * a rim of light on its upper edge, and layered shadow for the gap
+ * underneath. On hover it rises three pixels, grows three per cent, and a
+ * soft streak crosses its face — one long curve, no overshoot, nothing
+ * that follows the pointer. The whole treatment lives in `globals.css`
+ * under `.btn`, so every action on the site is the same object.
+ */
 
-function toneClasses(tone: Tone, variant: Variant) {
-  if (variant === 'solid') {
-    return tone === 'dark'
-      ? 'border border-ink bg-ink text-ivory hover:text-ink'
-      : 'border border-ivory bg-ivory text-ink hover:text-ivory';
-  }
-  return tone === 'dark'
-    ? 'border border-ink/25 text-ink hover:text-ivory'
-    : 'border border-ivory/30 text-ivory hover:text-ink';
+/**
+ * Spelled out rather than composed. Tailwind decides what to keep in the
+ * built stylesheet by looking for class names in the source, so a name
+ * assembled at runtime is a name it never sees — and silently drops.
+ */
+const VARIANT: Record<Tone, Record<Variant, string>> = {
+  dark: { solid: 'btn-dark-solid', outline: 'btn-dark-outline' },
+  light: { solid: 'btn-light-solid', outline: 'btn-light-outline' },
+};
+
+function classes(tone: Tone, variant: Variant, size: 'md' | 'sm') {
+  return `btn ${VARIANT[tone][variant]}${size === 'sm' ? ' btn-sm' : ''}`;
 }
 
-/** The masked fill that sweeps up on hover. */
-function fillClasses(tone: Tone, variant: Variant) {
-  if (variant === 'solid') return tone === 'dark' ? 'bg-gold' : 'bg-ink';
-  return tone === 'dark' ? 'bg-ink' : 'bg-gold';
-}
-
-function Inner({
-  children,
-  tone,
-  variant,
-  withArrow,
-}: {
-  children: ReactNode;
-  tone: Tone;
-  variant: Variant;
-  withArrow: boolean;
-}) {
+function Inner({ children, withArrow }: { children: ReactNode; withArrow: boolean }) {
   return (
     <>
-      <span
-        aria-hidden
-        className={`absolute inset-0 origin-bottom scale-y-0 transition-transform duration-[650ms] ease-premium group-hover/btn:scale-y-100 group-focus-visible/btn:scale-y-100 ${fillClasses(
-          tone,
-          variant,
-        )}`}
-      />
-      <span className="relative z-10">{children}</span>
+      <span>{children}</span>
       {withArrow && (
         <ArrowRight
           aria-hidden
-          className="relative z-10 h-[0.95rem] w-[0.95rem] transition-transform duration-500 ease-premium group-hover/btn:translate-x-1"
+          className="btn-arrow h-[0.95rem] w-[0.95rem]"
           strokeWidth={1.5}
         />
       )}
     </>
   );
-}
-
-function Wrap({
-  magnetic,
-  className,
-  children,
-}: {
-  magnetic: boolean;
-  className: string;
-  children: ReactNode;
-}) {
-  if (!magnetic) return <>{children}</>;
-  return <Magnetic className={className}>{children}</Magnetic>;
 }
 
 export function ButtonLink({
@@ -93,30 +63,21 @@ export function ButtonLink({
   variant = 'solid',
   className = '',
   withArrow = true,
-  magnetic = true,
-}: BaseProps & { href: string; /** Magnetic pull on hover. */ magnetic?: boolean }) {
+  size = 'md',
+}: BaseProps & { href: string }) {
   const external =
     href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
-  const cls = `${shell} ${toneClasses(tone, variant)} ${className}`;
+  const cls = `${classes(tone, variant, size)} ${className}`;
+  const inner = <Inner withArrow={withArrow}>{children}</Inner>;
 
-  const inner = (
-    <Inner tone={tone} variant={variant} withArrow={withArrow}>
-      {children}
-    </Inner>
-  );
-
-  return (
-    <Wrap magnetic={magnetic} className={className.includes('w-full') ? 'w-full' : ''}>
-      {external ? (
-        <a href={href} className={cls}>
-          {inner}
-        </a>
-      ) : (
-        <Link href={href} className={cls}>
-          {inner}
-        </Link>
-      )}
-    </Wrap>
+  return external ? (
+    <a href={href} className={cls}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={cls}>
+      {inner}
+    </Link>
   );
 }
 
@@ -126,6 +87,7 @@ export function ButtonSubmit({
   variant = 'solid',
   className = '',
   withArrow = true,
+  size = 'md',
   disabled,
   ...rest
 }: BaseProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
@@ -133,12 +95,10 @@ export function ButtonSubmit({
     <button
       type="submit"
       disabled={disabled}
-      className={`${shell} ${toneClasses(tone, variant)} disabled:cursor-not-allowed disabled:opacity-55 ${className}`}
+      className={`${classes(tone, variant, size)} ${className}`}
       {...rest}
     >
-      <Inner tone={tone} variant={variant} withArrow={withArrow}>
-        {children}
-      </Inner>
+      <Inner withArrow={withArrow}>{children}</Inner>
     </button>
   );
 }

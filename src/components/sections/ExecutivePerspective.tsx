@@ -1,6 +1,7 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
+import { Tilt } from '@/components/ui/Tilt';
 import { Reveal } from '@/components/animations/Reveal';
 import { SplitText, CurtainReveal } from '@/components/animations/SplitText';
 
@@ -88,35 +89,37 @@ export function ExecutivePerspective() {
           {markers.map((item, i) => {
             const inverted = i === 1;
             return (
-              <Reveal
-                key={item.t}
-                delay={i * 0.06}
-                className={`group ${
-                  inverted ? 'surface-dark' : 'surface'
-                } surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]`}
-              >
-                <span
-                  aria-hidden
-                  className={`t-num text-[0.78rem] ${
-                    inverted ? 'text-gold' : 'text-gold-ink'
-                  }`}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <dt
-                  className={`t-h4 mt-[clamp(1.75rem,3vw,2.75rem)] max-w-[20ch] ${
-                    inverted ? 'text-ivory' : 'text-ink'
-                  }`}
-                >
-                  {item.t}
-                </dt>
-                <dd
-                  className={`t-small mt-3 max-w-[34ch] ${
-                    inverted ? 'text-sage' : 'text-stone'
-                  }`}
-                >
-                  {item.d}
-                </dd>
+              <Reveal key={item.t} kind="card" delay={i * 0.06} className="h-full">
+                <Tilt className="h-full">
+                  <div
+                    className={`group ${
+                      inverted ? 'surface-dark' : 'surface'
+                    } surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]`}
+                  >
+                    <span
+                      aria-hidden
+                      className={`t-num text-[0.78rem] ${
+                        inverted ? 'text-gold' : 'text-gold-ink'
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <dt
+                      className={`t-h4 mt-[clamp(1.75rem,3vw,2.75rem)] max-w-[20ch] ${
+                        inverted ? 'text-ivory' : 'text-ink'
+                      }`}
+                    >
+                      {item.t}
+                    </dt>
+                    <dd
+                      className={`t-small mt-3 max-w-[34ch] ${
+                        inverted ? 'text-sage' : 'text-stone'
+                      }`}
+                    >
+                      {item.d}
+                    </dd>
+                  </div>
+                </Tilt>
               </Reveal>
             );
           })}

@@ -6,11 +6,19 @@ import type { ReactNode } from 'react';
 /** One easing for the whole site. */
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** Motion language: a label moves least, a heading most. */
+/**
+ * Motion language: a label moves least, a heading most.
+ *
+ * `card` is the odd one out. A pane of glass does not slide into place — it
+ * swings up out of the page on its lower edge, so it arrives with an eighth
+ * of a turn still to go and settles flat. Eight degrees is enough to read as
+ * depth and little enough that the type never blurs on the way.
+ */
 const KIND = {
-  label: { y: 12, duration: 0.46 },
-  heading: { y: 24, duration: 0.64 },
-  body: { y: 18, duration: 0.58 },
+  label: { y: 12, duration: 0.46, rotateX: 0 },
+  heading: { y: 24, duration: 0.64, rotateX: 0 },
+  body: { y: 18, duration: 0.58, rotateX: 0 },
+  card: { y: 40, duration: 0.8, rotateX: 8 },
 } as const;
 
 export type RevealKind = keyof typeof KIND;
@@ -51,8 +59,9 @@ export function Reveal({
   return (
     <Comp
       className={className}
-      initial={{ opacity: 0, y: y ?? spec.y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      style={spec.rotateX ? { transformPerspective: 1400 } : undefined}
+      initial={{ opacity: 0, y: y ?? spec.y, rotateX: spec.rotateX }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once, margin: '-8% 0px -10% 0px' }}
       transition={{ duration: duration ?? spec.duration, ease: EASE, delay }}
     >

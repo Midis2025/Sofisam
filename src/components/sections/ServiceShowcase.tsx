@@ -102,7 +102,7 @@ export function ServiceShowcase() {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.45, ease: EASE }}
                 >
-                  <span className="media block h-full w-full">
+                  <span className="media block h-full w-full shadow-[0_30px_70px_-24px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-ivory/15">
                     {services.map((s, i) => (
                       <motion.span
                         key={s.slug}

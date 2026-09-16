@@ -107,7 +107,7 @@ function Deck({ reduce }: { reduce: boolean | null }) {
     return (
       <ol className="mt-[var(--pad-sm)] space-y-4">
         {principles.map((p, i) => (
-          <li key={p.word} className="surface p-[clamp(1.5rem,3vw,3rem)]">
+          <li key={p.word} className="surface surface-solid p-[clamp(1.5rem,3vw,3rem)]">
             <Body word={p.word} note={p.note} index={i} total={principles.length} />
           </li>
         ))}
@@ -163,7 +163,7 @@ function Card({
     >
       <motion.div
         style={{ scale, opacity }}
-        className="surface origin-top p-[clamp(1.5rem,3vw,3rem)]"
+        className="surface surface-solid origin-top p-[clamp(1.5rem,3vw,3rem)]"
       >
         <Body word={word} note={note} index={index} total={total} />
       </motion.div>

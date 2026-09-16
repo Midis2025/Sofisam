@@ -207,7 +207,7 @@ src/
                         PageHero, PageTransition
     sections/           page-level compositions
     ui/                 Picture, SkylineScene, Button,
-                        Magnetic, Preloader, Cursor, ScrollProgress
+                        Tilt, Preloader, Cursor, ScrollProgress
     animations/         Reveal, MaskedLines, RowReveal, ImageReveal, Parallax,
                         SplitText, FocusIn, CurtainReveal, Marquee
   data/                 verified content + generated image manifest
@@ -411,8 +411,69 @@ Four surfaces, shared across every page:
 | `.surface` | raised, on ivory — insight cards, process cards, markers |
 | `.surface-tint` | the warmer counterpart, used to break up a run of them |
 | `.surface-dark` | one inverted card among light ones, to give a row a centre of gravity |
-| `.surface-inv` | on obsidian; add `bg-ink/40 backdrop-blur-xl` where it sits over a photograph |
+| `.surface-inv` | on obsidian, including over a photograph |
+| `.surface-solid` | a modifier for panes that stack on each other — see below |
 
-`.surface-lift` adds the hover shift, `.chip` is the pill label and `.badge` the
-circular action mark that closes a card or a row. Shadows are two very wide,
-very low-opacity layers (`--lift` / `--lift-hover`) — never a hard drop shadow.
+`.surface-lift` adds the hover behaviour, `.chip` is the pill label and
+`.badge` the circular action mark that closes a card or a row.
+
+### Glass
+
+Every raised object on the site is one material: a pane of glass held a
+measured distance off the ground. The pane is four things at once, and a card
+that drops any one of them stops reading as glass.
+
+| | On ivory (`--g-*`) | On obsidian (`--g-inv-*`) |
+| --- | --- | --- |
+| Fill | `rgba(255,255,255,.55)` | `rgba(255,255,255,.06)` |
+| Hairline | `rgba(10,10,11,.09)` | `rgba(255,255,255,.15)` |
+| Rim of light | `inset 0 1px 0 rgba(255,255,255,.85)` | `…,.14)` |
+| Backdrop | `blur(16px) saturate(140%)` | same |
+
+Depth is three stacked shadows rather than one drop shadow: a contact shadow at
+the edge, a mid shadow for the gap, and a wide, very soft one for the room
+(`--depth-1`, raised to `--depth-2` on hover; `--depth-inv-*` on obsidian).
+
+Hover is a lift of five pixels, a brighter rim, and a light streak crossing the
+face. The streak is a gradient moved by `background-position` inside the pane's
+own box, so nothing overflows and the pane's radius bounds it without an
+`overflow: hidden` that would clip the content.
+
+Three rules keep it honest:
+
+- **Stacked panes go opaque.** `.surface-solid` raises the fill to 95% for the
+  principle deck. Three sheets of 55% glass is not depth, it is three pages of
+  type read at once.
+- **Phones get a thinner pane.** Under 768 the blur drops to 8px, the fill goes
+  more opaque to hold contrast without it, and the shadows shallow out. A
+  full-strength blur on a list of controls is the most expensive thing on a page.
+- **No backdrop-filter, no translucency.** `@supports not` falls the panes back
+  to opaque fills, so the type never sits on the raw ground.
+
+### Buttons
+
+`.btn` is the same pane at control height, in four lights: `.btn-dark-solid`
+and `.btn-dark-outline` on ivory, `.btn-light-solid` and `.btn-light-outline`
+on obsidian, plus `.btn-sm` for the header's action. Hover is a three-pixel
+lift, three per cent of scale, the streak, and the arrow leading by four pixels
+— all on `--ease-glass` (`cubic-bezier(.22,1,.36,1)`), a long flat settle with
+no overshoot. Nothing chases the pointer.
+
+Those four names are spelled out in a lookup in `Button.tsx` rather than built
+from `btn-${tone}-${variant}`. Tailwind keeps a rule only if it can find the
+class name in the source, and a name assembled at runtime is one it never sees:
+composed that way, two of the four variants are silently dropped from the built
+stylesheet.
+
+### Tilt
+
+`<Tilt>` leans a card toward the pointer — three degrees at the corner, on a
+spring. The rotation sits on a wrapper, not on the card, so it composes with
+the card's own `.surface-lift` instead of fighting it for one transform. It is
+dropped under reduced motion and never engaged by touch. Cards that already
+carry a scroll-driven transform (the principle deck, the process rail) are left
+alone.
+
+Cards enter with `<Reveal kind="card">`: opacity, forty pixels of rise and
+eight degrees of `rotateX` over 800ms, so a pane swings up out of the page on
+its lower edge rather than sliding into place.

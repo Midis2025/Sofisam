@@ -10,7 +10,6 @@ import { navItems } from './nav-data';
 import { MobileMenu } from './MobileMenu';
 import { services } from '@/data/services';
 import { Picture } from '@/components/ui/Picture';
-import { Magnetic } from '@/components/ui/Magnetic';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -82,7 +81,7 @@ export function Header() {
       <header
         className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${
           glass
-            ? 'border-b border-ivory/10 bg-ink/[0.88] backdrop-blur-2xl'
+            ? 'border-b border-ivory/10 bg-ink/[0.72] shadow-[0_18px_44px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl backdrop-saturate-150'
             : 'border-b border-transparent bg-transparent'
         }`}
         onMouseLeave={scheduleCloseMega}
@@ -149,23 +148,14 @@ export function Header() {
 
           {/* Action */}
           <div className="hidden lg:block">
-            <Magnetic strength={0.22}>
-              <Link
-                href="/contact"
-                className="group/cta relative inline-flex min-h-[2.75rem] items-center gap-2.5 overflow-hidden rounded-full border border-ivory/30 px-7 py-3 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ivory transition-colors duration-500 ease-premium hover:text-ink"
-              >
-                <span
-                  aria-hidden
-                  className="absolute inset-0 origin-bottom scale-y-0 bg-gold transition-transform duration-[650ms] ease-premium group-hover/cta:scale-y-100"
-                />
-                <span className="relative z-10">Get in Touch</span>
-                <ArrowUpRight
-                  aria-hidden
-                  strokeWidth={1.5}
-                  className="relative z-10 h-[0.85rem] w-[0.85rem] transition-transform duration-500 ease-premium group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
-                />
-              </Link>
-            </Magnetic>
+            <Link href="/contact" className="btn btn-light-outline btn-sm">
+              <span>Get in Touch</span>
+              <ArrowUpRight
+                aria-hidden
+                strokeWidth={1.5}
+                className="btn-arrow btn-arrow-up h-[0.85rem] w-[0.85rem]"
+              />
+            </Link>
           </div>
 
           {/* Mobile trigger */}
@@ -175,9 +165,9 @@ export function Header() {
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            className="group relative z-10 -mr-2 flex h-11 w-11 items-center justify-center lg:hidden"
+            className="group relative z-10 -mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] lg:hidden"
           >
-            <span className="flex w-6 flex-col items-end gap-[7px]">
+            <span className="flex w-[1.15rem] flex-col items-end gap-[6px]">
               <span className="block h-px w-full bg-ivory transition-all duration-500 ease-premium" />
               <span className="block h-px w-2/3 bg-ivory transition-all duration-500 ease-premium group-hover:w-full" />
             </span>
@@ -193,7 +183,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-ink/90 backdrop-blur-2xl lg:block"
+              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-ink/[0.78] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
               onMouseEnter={openMega}
               onMouseLeave={scheduleCloseMega}
             >

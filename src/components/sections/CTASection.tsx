@@ -122,22 +122,20 @@ export function CTASection({
               href="/contact"
               tone="dark"
               variant="solid"
-              magnetic={false}
               className="w-full justify-between"
             >
               Get in Touch
             </ButtonLink>
 
             {/* The outline action sits over the open side of the photograph,
-                where the scrim is lightest and the glazing behind it busiest,
-                so it carries its own translucent ground. */}
+                where the scrim is lightest and the glazing behind it busiest.
+                The glass pane it is made of already carries its own ground. */}
             <ButtonLink
               href={`mailto:${contact.email}`}
               tone="dark"
               variant="outline"
               withArrow={false}
-              magnetic={false}
-              className="w-full justify-between border-ink/25 bg-ivory/70 backdrop-blur-md"
+              className="w-full justify-between"
             >
               {contact.email}
             </ButtonLink>

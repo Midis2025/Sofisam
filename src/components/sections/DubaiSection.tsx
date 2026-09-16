@@ -71,8 +71,9 @@ export function DubaiSection() {
           {notes.map((n, i) => (
             <Reveal
               key={n.k}
+              kind="card"
               delay={i * 0.08}
-              className="surface-inv border-ivory/15 bg-ink/40 backdrop-blur-xl"
+              className="surface-inv surface-lift bg-ink/45"
             >
               <dt className="t-label text-gold">{n.k}</dt>
               <dd className="t-h4 mt-3.5 max-w-[24ch] text-ivory">{n.v}</dd>

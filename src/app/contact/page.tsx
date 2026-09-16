@@ -115,8 +115,8 @@ export default function ContactPage() {
 
             {/* The form */}
             <div className="lg:col-span-6 lg:col-start-7">
-              <Reveal delay={0.1}>
-                <div className="border border-ivory/10 bg-ink/70 px-[clamp(1.25rem,3vw,3rem)] py-[clamp(2rem,3.6vw,3.25rem)] backdrop-blur-xl">
+              <Reveal kind="card" delay={0.1}>
+                <div className="surface-dark px-[clamp(1.25rem,3vw,3rem)] py-[clamp(2rem,3.6vw,3.25rem)]">
                   <h2 className="t-h3 text-ivory">Send a message</h2>
                   <p className="t-body mt-3 max-w-[42ch] text-sage">
                     Tell us briefly what you are working through and we will respond
@@ -225,7 +225,7 @@ export default function ContactPage() {
 function Badge({ children, static: isStatic }: { children: React.ReactNode; static?: boolean }) {
   return (
     <span
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ivory/15 bg-ivory/5 text-gold ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-inv-line)] bg-[var(--g-inv-bg)] text-gold shadow-[0_2px_8px_-2px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md ${
         isStatic
           ? ''
           : 'transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink'

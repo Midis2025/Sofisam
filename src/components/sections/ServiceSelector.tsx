@@ -7,6 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { services } from '@/data/services';
 import { Picture } from '@/components/ui/Picture';
+import { Tilt } from '@/components/ui/Tilt';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -235,15 +236,17 @@ export function ServiceSelector() {
           {current.themes.map((t, ti) => (
             <motion.div
               key={`${current.slug}-${t.title}`}
-              className="group surface surface-lift p-[clamp(1.25rem,2vw,1.75rem)]"
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE, delay: ti * 0.06 }}
+              style={{ transformPerspective: 1400 }}
+              initial={reduce ? false : { opacity: 0, y: 24, rotateX: 8 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.6, ease: EASE, delay: ti * 0.06 }}
             >
-              <dt className="t-label text-gold-ink">{t.label}</dt>
-              <dd className="t-h4 mt-3.5 max-w-[22ch] text-ink">
-                {t.title}
-              </dd>
+              <Tilt>
+                <div className="group surface surface-lift p-[clamp(1.25rem,2vw,1.75rem)]">
+                  <dt className="t-label text-gold-ink">{t.label}</dt>
+                  <dd className="t-h4 mt-3.5 max-w-[22ch] text-ink">{t.title}</dd>
+                </div>
+              </Tilt>
             </motion.div>
           ))}
         </dl>

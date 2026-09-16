@@ -44,7 +44,7 @@ export function Footer() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="surface-inv h-full">
+              <div className="surface-inv surface-lift h-full">
                 <ColumnHeading>{footerCopy.contactHeading}</ColumnHeading>
                 <address className="mt-5 not-italic">
                   <p className="t-small text-ivory/55">
