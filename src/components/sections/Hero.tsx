@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 import { heroCopy, contact } from '@/data/site';
-import { HeroVideo } from '@/components/ui/HeroVideo';
+import { Picture } from '@/components/ui/Picture';
 import { ButtonLink } from '@/components/ui/Button';
 import { useIntroDelay } from '@/lib/intro';
-import type { SceneHandle } from '@/components/ui/ArchitecturalScene';
+import type { SceneHandle } from '@/components/ui/SkylineScene';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -16,8 +16,8 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * three.js is never in the initial bundle. The chunk is requested only once
  * this component has decided the device should run the scene at all.
  */
-const ArchitecturalScene = dynamic(
-  () => import('@/components/ui/ArchitecturalScene').then((m) => m.ArchitecturalScene),
+const SkylineScene = dynamic(
+  () => import('@/components/ui/SkylineScene').then((m) => m.SkylineScene),
   { ssr: false },
 );
 
@@ -33,19 +33,19 @@ const FULL_HEADLINE = heroCopy.headline.join(' ');
 /**
  * Decides whether this device gets the WebGL scene.
  *
- * The scene is a desktop treatment. A phone gets the footage instead — not a
- * cut-down sphere, which would cost the battery and deliver less. Reduced
- * motion, data-saver, a slow connection, a narrow viewport, a touch pointer or
- * a machine with few cores all fall back the same way, and so does any device
- * where the context cannot be created.
+ * Three textured quads is cheap enough for a tablet, so the gate is 768 up.
+ * A phone gets the same photograph as a still: the scene's value is the
+ * parallax, and parallax needs either a pointer or a wide frame to read at
+ * all. Reduced motion, data-saver, a slow connection and a machine with few
+ * cores all fall back the same way, and so does any device where the context
+ * cannot be created or the photographs fail to load.
  */
 function useWantsScene() {
   const [wants, setWants] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (!window.matchMedia('(min-width: 1024px)').matches) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
 
     const conn = (
       navigator as Navigator & {
@@ -68,15 +68,15 @@ function useWantsScene() {
  * The opening frame.
  *
  * A centred cinematic composition: the label at the top of the frame, the
- * statement through its middle, the actions at the foot, and an abstract
- * financial district assembling behind all of it. The type sits in front of
- * the scene with its own scrim, so the skyline frames the headline rather
- * than competing with it.
+ * statement through its middle, the actions at the foot, and a photographic
+ * night skyline moving in depth behind all of it. The type sits in front of
+ * the scene with its own scrim, so the city frames the headline rather than
+ * competing with it.
  *
  * Where the scene is not appropriate — a phone, reduced motion, a slow
- * connection, no WebGL — the same composition runs over the architectural
- * footage instead. The layout, the copy and the timing are identical either
- * way; only the ground behind them changes.
+ * connection, no WebGL — the same composition runs over the same photograph,
+ * held still. The layout, the copy, the timing and the subject are identical
+ * either way; only the depth behind them is lost.
  */
 export function Hero() {
   const reduce = useReducedMotion();
@@ -128,28 +128,27 @@ export function Hero() {
       {/* ---------- Ground ---------- */}
       {showScene ? (
         <>
-          {/* The still carries the frame until the scene has drawn, so the
-              hero is never an empty black rectangle. */}
+          {/* The holding frame is the same photograph the scene's own mid
+              layer uses, so the hand-over to WebGL is invisible: no video, no
+              change of subject, nothing to catch on a reload. */}
           <div
-            className={`absolute inset-0 transition-opacity duration-[1400ms] ease-premium ${
+            aria-hidden
+            className={`absolute inset-0 transition-opacity duration-700 ease-premium ${
               sceneReady ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <HeroVideo
-              poster="hero-video-poster"
-              posterAlt="Dubai's Business Bay and Downtown skyline at golden hour"
-              focal="50% 58%"
+            <Picture
+              name="city-blue-night"
+              alt=""
+              decorative
+              sizes="100vw"
+              priority
+              focal="50% 50%"
+              className="h-full w-full object-cover"
             />
           </div>
 
-          <div
-            aria-hidden
-            className={`absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_45%,#15161a_0%,#0a0a0b_58%,#060607_100%)] transition-opacity duration-[1400ms] ease-premium ${
-              sceneReady ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-
-          <ArchitecturalScene
+          <SkylineScene
             className={`absolute inset-0 h-full w-full transition-opacity duration-[2000ms] ease-premium ${
               sceneReady ? 'opacity-100' : 'opacity-0'
             }`}
@@ -158,19 +157,22 @@ export function Hero() {
             onFail={() => setSceneFailed(true)}
           />
 
-          {/* A soft vignette seats the sphere in the frame and keeps the
+          {/* A soft vignette seats the city in the frame and keeps the
               baseline row off the brightest part of it. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_62%_at_50%_45%,transparent_0%,rgba(6,6,7,0.5)_76%,rgba(6,6,7,0.92)_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(82%_70%_at_50%_45%,transparent_0%,rgba(6,6,7,0.28)_78%,rgba(6,6,7,0.8)_100%)]"
           />
         </>
       ) : (
-        <div className="veil-hero absolute inset-0">
-          <HeroVideo
-            poster="hero-video-poster"
-            posterAlt="Dubai's Business Bay and Downtown skyline at golden hour"
-            focal="50% 58%"
+        <div className="media media-flat veil-hero absolute inset-0">
+          <Picture
+            name="city-blue-night"
+            alt="Aerial view of an international financial district lit at night"
+            sizes="100vw"
+            priority
+            focal="50% 50%"
+            className="h-full w-full"
           />
         </div>
       )}
@@ -210,7 +212,7 @@ export function Hero() {
               behind it. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-[-14%] inset-y-[-20%] bg-[radial-gradient(52%_44%_at_50%_48%,rgba(6,6,7,0.62)_0%,rgba(6,6,7,0.28)_58%,transparent_100%)]"
+            className="pointer-events-none absolute inset-x-[-14%] inset-y-[-20%] bg-[radial-gradient(50%_42%_at_50%_48%,rgba(6,6,7,0.58)_0%,rgba(6,6,7,0.24)_60%,transparent_100%)]"
           />
 
           <h1 className="t-hero relative max-w-[18ch] text-ivory">

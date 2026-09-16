@@ -125,30 +125,15 @@ generated files in `public/images/` and the manifest are committed.
 
 ---
 
-## Hero video
+## Hero background
 
-The homepage hero plays a licensed golden-hour Dubai skyline clip, stored
-locally in `public/videos/`. One file serves every viewport:
+The hero has no video. It is a photographic depth composition — see
+**The hero's scene** under Architecture.
 
-| File | Use |
-| --- | --- |
-| `West Point Gold.mp4` | the hero clip (the space in the name is percent-encoded in the `src`) |
-| `hero-poster.jpg` | `<video poster>`, extracted from frame 1 |
-
-`HeroVideo` renders the poster still first — that carries first paint and is
-the permanent fallback — and attaches the `<video>` only after mount, so it
-never blocks render or competes with the LCP text. Playback is skipped entirely
-under `prefers-reduced-motion`, below 768px, on `saveData` and on 2g/3g
-effective connections; in each case the still simply remains. The element
-pauses when scrolled out of view.
-
-The clip is 11 MB — the one genuinely heavy asset on the site. It is deferred
-until after mount and never competes with the LCP text (measured LCP on the
-homepage is ~0.26 s), but if it is ever re-encoded, a 1080p and a 720p variant
-would be the obvious next step.
-
-The matching WebP poster variants (`hero-video-poster-*`) are in
-`public/images/` and registered in the image manifest like any other asset.
+`public/videos/West Point Gold.mp4` (11 MB) and the `hero-video-poster-*`
+images are **no longer referenced by any code**. They were the previous hero
+treatment. Deleting them would take 11 MB out of the repository; they are left
+in place only because that is a content decision, not a code one.
 
 ---
 
@@ -221,7 +206,7 @@ src/
     layout/             Header (expertise panel included), MobileMenu, Footer,
                         PageHero, PageTransition
     sections/           page-level compositions
-    ui/                 Picture, HeroVideo, ArchitecturalScene, Button,
+    ui/                 Picture, SkylineScene, Button,
                         Magnetic, Preloader, Cursor, ScrollProgress
     animations/         Reveal, MaskedLines, RowReveal, ImageReveal, Parallax,
                         SplitText, FocusIn, CurtainReveal, Marquee
@@ -253,30 +238,49 @@ Most sections are ordinary composition. These three carry behaviour:
   Deliberately a different interaction from the homepage's hover-led index:
   there you preview a discipline, here you commit to one and get its substance.
 
-### The hero's 3D scene
+### The hero's scene
 
-`ArchitecturalScene` is an abstract international financial district, built on
-raw three.js. No model files: the towers are generated from four archetypes
-(slab, stepped, twisted, podium), and realism comes from three places —
+`SkylineScene` is photographic depth, not generated geometry.
 
-- a **generated facade texture** (one canvas for the glazing, one for which
-  windows are lit — offices light by floor, not at random);
-- **per-instance UV scaling**, a custom instanced attribute injected into the
-  standard material's shader, so one shared box geometry does not stretch its
-  windows differently on a wide podium than on a narrow shaft;
-- a **generated environment map** — a night gradient through PMREM, so the
-  glass carries real reflections rather than a single specular highlight.
+An earlier version modelled a district procedurally. It was abandoned: the
+geometry budget that holds a steady frame rate in a browser is the geometry
+budget that reads as a game, and no amount of material work closed that gap.
+Three real architectural photographs are instead hung at three depths in a
+perspective frustum —
 
-Depth is exponential fog, not a bokeh pass: real depth-of-field would add a
-full-screen pass across the whole hero for no visible gain at this scale.
+| Layer | z | Treatment |
+| --- | --- | --- |
+| far | -17 | a district against dusk sky, hazed and softened |
+| mid | -7.5 | the lit night district, the only sharp layer |
+| near | -2.1 | a close glass facade, far out of focus, feathered to the corners |
 
-three.js is behind `next/dynamic`, so it is never in the initial bundle and is
-only fetched once `useWantsScene` has decided the device should run it — a
-desktop viewport, a fine pointer, no reduced-motion, no data-saver, not a slow
-connection, and four cores or more. Everything else gets the architectural
-footage, and so does any device where the context cannot be created. The scene
-also measures its own frame rate for ~1.8s after the build settles and drops
-its pixel ratio once if it cannot hold 40fps.
+Because the planes sit at genuinely different distances the parallax is real:
+the camera moves and the layers separate by their own depth. Nothing is faked
+with offsets.
+
+The shader carries a cover fit (a plane aspect never matches a photograph),
+a variable-radius blur for depth of field, an atmospheric haze mix, and a slow
+shimmer that lifts only the brightest pixels — which on a night city means the
+windows and the traffic, and nothing else.
+
+**The sizing rule matters.** Each layer travels by its own `drift`, and the
+near layer moves further than a whole frustum height; the camera also pushes
+back on scroll, which widens the frustum at that depth. A flat percentage
+margin is not enough and its rectangular edge slides into frame. Planes are
+therefore sized from the worst case — camera fully back, plus that layer's
+full travel. The motion budget (`PASS`, `PTR`, `SCROLL_Y`, `CAM`, `DOLLY`) is
+declared once and used by both the animation and the sizing so the two cannot
+fall out of step.
+
+Depth of field is a per-layer blur rather than a post pass; the haze is fog in
+spirit but done in the shader, so there is no second render target anywhere.
+
+three.js is behind `next/dynamic`, never in the initial bundle, and fetched
+only once `useWantsScene` has cleared the device: 768px or wider, no reduced
+motion, no data-saver, not a 2g/3g connection, four cores or more. Everything
+else — and any device where the context cannot be created or the photographs
+fail to load — gets the same photograph held still, so the subject never
+changes between the two paths.
 
 ### The interaction layer
 
@@ -379,6 +383,7 @@ files.
 | `ref-1-brand-board.jpg` | Confirmation of the charcoal / warm-ivory / muted-gold palette and the editorial serif pairing. |
 | `ref-2-property-platform.jpg` | Full-bleed imagery with corner captions; a centred statement carrying its own emphasis. |
 | `ref-3-agency-site.webp` | The numbered service rows with a plate that follows the pointer, and the oversized wordmark cropped by the bottom edge of the page. |
+| `ref-4-hero-target-mockup.png` | An AI-generated mockup of the wanted hero. The composition it shows — centred label, statement, paragraph, two actions, a foot rail — is what the hero already does. Its side rails and numbered markers are invented copy, and it contains a person, so they are deliberately **not** built; see the content rule above. |
 
 
 
