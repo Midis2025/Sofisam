@@ -6,7 +6,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { featuredInsight, secondaryInsights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { Reveal, ImageReveal } from '@/components/animations/Reveal';
+import { SplitText } from '@/components/animations/SplitText';
 
 /**
  * Insights.
@@ -28,12 +29,12 @@ export function InsightsEditorial() {
             <Reveal kind="label" className="kicker">
               <p className="t-label">{insightsIntro.eyebrow}</p>
             </Reveal>
-            <h2
-              id="insights-heading"
+            <SplitText
+              as="h2"
+              text={insightsIntro.heading}
               className="t-display head-title mt-[clamp(1.25rem,2.6vw,2.25rem)] text-ink"
-            >
-              <MaskedLines lines={[insightsIntro.heading]} />
-            </h2>
+              stagger={0.06}
+            />
           </div>
 
           <div className="lg:pb-2">

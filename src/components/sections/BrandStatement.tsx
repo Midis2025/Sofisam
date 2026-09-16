@@ -3,7 +3,9 @@
 import { welcomeCopy, contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
 import { Parallax } from '@/components/animations/Parallax';
-import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { Reveal, ImageReveal } from '@/components/animations/Reveal';
+import { SplitText, FocusIn } from '@/components/animations/SplitText';
+import { Marquee } from '@/components/animations/Marquee';
 
 /**
  * Welcome to SOFISAM — the page's first statement.
@@ -25,25 +27,30 @@ export function BrandStatement() {
           <p className="t-label">{welcomeCopy.eyebrow}</p>
         </Reveal>
 
-        <h2
-          id="welcome-heading"
+        {/* The positioning line assembles itself word by word. */}
+        <SplitText
+          as="h2"
+          text={welcomeCopy.positioning}
           className="t-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[17ch] text-ink md:max-w-[26ch] lg:max-w-[88%]"
-        >
-          {/* One sentence, broken for the viewport rather than by a tag: three
-              lines where the measure is narrow, two on a desktop. The reader
-              and the screen reader both get the same sentence. */}
-          <span className="sr-only">{welcomeCopy.positioning}</span>
-          <span aria-hidden className="block lg:hidden">
-            <MaskedLines
-              lines={['International Strategic', 'Consulting, Advisory and', 'Structuring Firm.']}
-            />
-          </span>
-          <span aria-hidden className="hidden lg:block">
-            <MaskedLines
-              lines={['International Strategic Consulting,', 'Advisory and Structuring Firm.']}
-            />
-          </span>
-        </h2>
+          stagger={0.045}
+        />
+      </div>
+
+      {/* A band of the firm's own disciplines, travelling with the scroll. */}
+      <div className="border-y border-[var(--line)] py-[clamp(1rem,1.8vw,1.75rem)]">
+        <Marquee speed={2.5}>
+          {['Strategic Consulting', 'Advisory', 'Structuring'].map((word) => (
+            <span key={word} className="flex items-center">
+              <span className="px-[clamp(1.5rem,3vw,3rem)] font-display text-[clamp(1.75rem,3.4vw,3.25rem)] leading-none tracking-tighter text-ink/75">
+                {word}
+              </span>
+              <span
+                aria-hidden
+                className="block h-[0.45rem] w-[0.45rem] shrink-0 rounded-full bg-gold"
+              />
+            </span>
+          ))}
+        </Marquee>
       </div>
 
       {/* 2 — The city, edge to edge, with the firm's stated location carried
@@ -110,27 +117,29 @@ export function BrandStatement() {
 
           {/* The paragraphs, on their own rules */}
           <div className="lg:col-span-7 lg:col-start-6">
-            <Reveal>
+            <FocusIn>
               <p className="t-lead max-w-[52ch] text-ink">{welcomeCopy.paragraphs[0]}</p>
-            </Reveal>
+            </FocusIn>
 
             <Reveal delay={0.08}>
               <span aria-hidden className="rule my-[clamp(1.75rem,3vw,2.75rem)]" />
             </Reveal>
 
-            <Reveal delay={0.12}>
-              <p className="max-w-[24ch] font-display text-[clamp(1.6rem,2.6vw,2.6rem)] leading-[1.12] tracking-tighter text-ink">
-                {welcomeCopy.paragraphs[1]}
-              </p>
-            </Reveal>
+            <SplitText
+              as="p"
+              text={welcomeCopy.paragraphs[1]}
+              className="max-w-[24ch] font-display text-[clamp(1.6rem,2.6vw,2.6rem)] leading-[1.12] tracking-tighter text-ink"
+              delay={0.05}
+              stagger={0.03}
+            />
 
             <Reveal delay={0.18}>
               <span aria-hidden className="rule my-[clamp(1.75rem,3vw,2.75rem)]" />
             </Reveal>
 
-            <Reveal delay={0.22}>
+            <FocusIn delay={0.1}>
               <p className="t-body max-w-[56ch] text-stone">{welcomeCopy.paragraphs[2]}</p>
-            </Reveal>
+            </FocusIn>
           </div>
         </div>
       </div>

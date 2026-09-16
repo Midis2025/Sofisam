@@ -1,6 +1,16 @@
 'use client';
 
-import { Reveal, MaskedLines, RowReveal } from '@/components/animations/Reveal';
+import { useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
+
+import { Reveal } from '@/components/animations/Reveal';
+import { SplitText } from '@/components/animations/SplitText';
 
 /**
  * Advisory principles.
@@ -9,9 +19,14 @@ import { Reveal, MaskedLines, RowReveal } from '@/components/animations/Reveal';
  * advice: "confidential, unconflicted and strategic advice, built over decades
  * of international business experience".
  *
- * Set as a manifesto ledger: a standing title column beside five divided rows.
- * Every description stays visible at every breakpoint — nothing is hidden
- * behind a hover or a toggle; the hover only shifts the row a few pixels.
+ * They are built as a deck. Each principle is a card that sticks under the one
+ * before it, so scrolling gathers them into a stack rather than scrolling them
+ * past — the section assembles into a single object by the time you leave it.
+ * Cards behind the top one recede slightly, which is what makes the stack read
+ * as depth rather than as overlap.
+ *
+ * Under reduced motion the deck is a plain vertical list. Every description is
+ * visible in both.
  */
 const principles = [
   {
@@ -37,62 +52,148 @@ const principles = [
 ] as const;
 
 export function AdvisoryPrinciples() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="section ground-ivory-2" aria-labelledby="principles-heading">
       <div className="shell">
-        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-          {/* Standing title */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Advisory Principles</p>
-              </Reveal>
+        <div className="head">
+          <div>
+            <Reveal kind="label" className="kicker">
+              <p className="t-label">Advisory Principles</p>
+            </Reveal>
 
-              <h2
-                id="principles-heading"
-                className="t-h3 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[18ch] text-ink"
-              >
-                <MaskedLines
-                  lines={['Five words that decide', 'what we will and', 'will not say.']}
-                />
-              </h2>
-
-              <Reveal delay={0.1}>
-                <p className="t-small mt-7 max-w-[44ch] text-stone">
-                  The advice SOFISAM provides is described in its own terms:
-                  confidential, unconflicted and strategic, built over decades of
-                  international business experience.
-                </p>
-              </Reveal>
-            </div>
+            <SplitText
+              as="h2"
+              text="Five words that decide what we will and will not say."
+              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
+              stagger={0.04}
+            />
           </div>
 
-          {/* Principles */}
-          <ol className="lg:col-span-7 lg:col-start-6">
-            {principles.map((p, i) => (
-              <RowReveal
-                key={p.word}
-                delay={i * 0.05}
-                className="group last:border-b last:border-[var(--line)]"
-              >
-                <div className="grid grid-cols-[2.25rem_1fr] gap-x-3 py-[clamp(1.5rem,2.6vw,2.5rem)] transition-transform duration-500 ease-premium group-hover:translate-x-2 md:grid-cols-[3.25rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline md:gap-x-6">
-                  <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold-ink">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-
-                  <h3 className="font-display text-[clamp(1.75rem,3.4vw,3rem)] leading-[1.02] tracking-tighter text-ink">
-                    {p.word}
-                  </h3>
-
-                  <p className="t-small col-start-2 mt-3 max-w-[48ch] text-stone md:col-start-3 md:mt-0">
-                    {p.note}
-                  </p>
-                </div>
-              </RowReveal>
-            ))}
-          </ol>
+          <div className="lg:pb-2">
+            <Reveal delay={0.1}>
+              <p className="t-body head-note text-stone">
+                The advice SOFISAM provides is described in its own terms:
+                confidential, unconflicted and strategic, built over decades of
+                international business experience.
+              </p>
+            </Reveal>
+          </div>
         </div>
+
+        <Deck reduce={reduce} />
       </div>
     </section>
+  );
+}
+
+/**
+ * The deck.
+ *
+ * One scroll reading drives the whole stack. A card only begins to recede once
+ * the deck has scrolled past its own share of the track — which is what makes
+ * the recede coincide with the next card arriving over it, rather than
+ * starting the moment the card enters the viewport.
+ */
+function Deck({ reduce }: { reduce: boolean | null }) {
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end end'],
+  });
+
+  if (reduce) {
+    return (
+      <ol className="mt-[var(--pad-sm)] space-y-4">
+        {principles.map((p, i) => (
+          <li key={p.word} className="surface p-[clamp(1.5rem,3vw,3rem)]">
+            <Body word={p.word} note={p.note} index={i} total={principles.length} />
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
+  return (
+    <ol ref={ref} className="mt-[var(--pad-sm)]">
+      {principles.map((p, i) => (
+        <Card
+          key={p.word}
+          index={i}
+          total={principles.length}
+          progress={scrollYProgress}
+          {...p}
+        />
+      ))}
+    </ol>
+  );
+}
+
+function Card({
+  word,
+  note,
+  index,
+  total,
+  progress,
+}: {
+  word: string;
+  note: string;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+}) {
+  // The window during which this card is covered by the one after it.
+  const from = index / total;
+  const to = (index + 1) / total;
+
+  const scale = useTransform(progress, [from, to], [1, 0.9]);
+  const opacity = useTransform(progress, [from, to], [1, 0.35]);
+
+  return (
+    <li
+      className="sticky"
+      style={{
+        // Each card rests a little lower than the one before, so the stack
+        // shows its own edges.
+        top: `calc(var(--header-h) + 2rem + ${index * 1.75}rem)`,
+        marginBottom: index === total - 1 ? 0 : '1.25rem',
+        zIndex: index + 1,
+      }}
+    >
+      <motion.div
+        style={{ scale, opacity }}
+        className="surface origin-top p-[clamp(1.5rem,3vw,3rem)]"
+      >
+        <Body word={word} note={note} index={index} total={total} />
+      </motion.div>
+    </li>
+  );
+}
+
+function Body({
+  word,
+  note,
+  index,
+  total,
+}: {
+  word: string;
+  note: string;
+  index: number;
+  total: number;
+}) {
+  return (
+    <div className="grid items-baseline gap-x-[clamp(1.5rem,3vw,3.5rem)] gap-y-4 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.05fr)]">
+      <span className="t-num text-[0.9rem] text-gold-ink">
+        {String(index + 1).padStart(2, '0')}
+        <span className="text-stone/40"> / {String(total).padStart(2, '0')}</span>
+      </span>
+
+      <h3 className="font-display text-[clamp(2rem,4.2vw,3.75rem)] leading-[1.0] tracking-tighter text-ink">
+        {word}
+      </h3>
+
+      <p className="t-body col-start-1 max-w-[48ch] text-stone md:col-start-3">{note}</p>
+    </div>
   );
 }

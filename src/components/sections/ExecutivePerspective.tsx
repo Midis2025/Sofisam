@@ -1,7 +1,8 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
+import { SplitText, CurtainReveal } from '@/components/animations/SplitText';
 
 /** Stat-free credibility markers, drawn only from stated facts. */
 const markers = [
@@ -47,17 +48,7 @@ export function ExecutivePerspective() {
               id="executive-heading"
               className="t-h2 mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[15ch] text-ink lg:max-w-[18ch]"
             >
-              <span className="sr-only">
-                Advice given by people who have held the position.
-              </span>
-              <span aria-hidden className="block lg:hidden">
-                <MaskedLines
-                  lines={['Advice given by', 'people who have', 'held the position.']}
-                />
-              </span>
-              <span aria-hidden className="hidden lg:block">
-                <MaskedLines lines={['Advice given by people', 'who have held', 'the position.']} />
-              </span>
+              <SplitText text="Advice given by people who have held the position." stagger={0.045} />
             </h2>
 
             <Reveal kind="body" delay={0.12}>
@@ -78,7 +69,7 @@ export function ExecutivePerspective() {
           </div>
 
           {/* Plate — taller than the statement, so the column scrolls past it */}
-          <ImageReveal delay={0.08}>
+          <CurtainReveal delay={0.08} direction="left">
             <div className="media aspect-[4/5] w-full sm:aspect-[16/11] lg:aspect-[3/4.4]">
               <Picture
                 name="towers-mono"
@@ -88,7 +79,7 @@ export function ExecutivePerspective() {
                 className="h-full w-full"
               />
             </div>
-          </ImageReveal>
+          </CurtainReveal>
         </div>
 
         {/* Attributes — four standing cards. The second is inverted so the

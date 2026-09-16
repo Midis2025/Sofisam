@@ -3,7 +3,8 @@
 import { contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
 import { Parallax } from '@/components/animations/Parallax';
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
+import { SplitText } from '@/components/animations/SplitText';
 
 const notes = [
   { k: 'Location', v: 'Jumeirah Lake Towers, Dubai' },
@@ -42,12 +43,12 @@ export function DubaiSection() {
             <p className="t-label text-gold">Dubai — DMCC</p>
           </Reveal>
 
-          <h2
-            id="dubai-heading"
+          <SplitText
+            as="h2"
+            text="A base chosen for its reach."
             className="t-display mt-[clamp(1.25rem,2.4vw,2rem)] max-w-[13ch] text-ivory"
-          >
-            <MaskedLines lines={['A base chosen', 'for its reach.']} />
-          </h2>
+            stagger={0.05}
+          />
 
           <Reveal delay={0.1}>
             <p className="t-lead mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[48ch] text-ivory/80">

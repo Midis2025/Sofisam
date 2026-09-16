@@ -14,7 +14,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { services } from '@/data/services';
 import { servicesIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
+import { SplitText } from '@/components/animations/SplitText';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -66,12 +67,12 @@ export function ServiceShowcase() {
             <Reveal kind="label" className="kicker">
               <p className="t-label">{servicesIntro.eyebrow}</p>
             </Reveal>
-            <h2
-              id="expertise-heading"
+            <SplitText
+              as="h2"
+              text={servicesIntro.heading}
               className="t-display head-title mt-[clamp(1.25rem,2.4vw,2rem)] text-ivory"
-            >
-              <MaskedLines lines={[servicesIntro.heading]} />
-            </h2>
+              stagger={0.06}
+            />
           </div>
 
           <Reveal kind="body" delay={0.1} className="lg:pb-3">

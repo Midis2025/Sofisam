@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
+import { SplitText } from '@/components/animations/SplitText';
 
 /**
  * Way of working.
@@ -57,12 +58,12 @@ export function ProcessNarrative() {
             <Reveal kind="label" className="kicker">
               <p className="t-label">Way of Working</p>
             </Reveal>
-            <h2
-              id="process-heading"
+            <SplitText
+              as="h2"
+              text="A sequence, not a methodology."
               className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
-            >
-              <MaskedLines lines={['A sequence, not', 'a methodology.']} />
-            </h2>
+              stagger={0.05}
+            />
           </div>
           <div className="lg:pb-2">
             <Reveal delay={0.1}>

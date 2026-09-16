@@ -221,9 +221,10 @@ src/
     layout/             Header (expertise panel included), MobileMenu, Footer,
                         PageHero, PageTransition
     sections/           page-level compositions
-    ui/                 Picture, HeroVideo, Button, Magnetic, Preloader,
-                        Cursor, ScrollProgress
-    animations/         Reveal, MaskedLines, RowReveal, ImageReveal, Parallax
+    ui/                 Picture, HeroVideo, ArchitecturalScene, Button,
+                        Magnetic, Preloader, Cursor, ScrollProgress
+    animations/         Reveal, MaskedLines, RowReveal, ImageReveal, Parallax,
+                        SplitText, FocusIn, CurtainReveal, Marquee
   data/                 verified content + generated image manifest
   lib/                  form submission boundary, intro timing
 ```
@@ -251,6 +252,31 @@ Most sections are ordinary composition. These three carry behaviour:
   keys move between disciplines and each panel is associated with its tab.
   Deliberately a different interaction from the homepage's hover-led index:
   there you preview a discipline, here you commit to one and get its substance.
+
+### The hero's 3D scene
+
+`ArchitecturalScene` is an abstract international financial district, built on
+raw three.js. No model files: the towers are generated from four archetypes
+(slab, stepped, twisted, podium), and realism comes from three places —
+
+- a **generated facade texture** (one canvas for the glazing, one for which
+  windows are lit — offices light by floor, not at random);
+- **per-instance UV scaling**, a custom instanced attribute injected into the
+  standard material's shader, so one shared box geometry does not stretch its
+  windows differently on a wide podium than on a narrow shaft;
+- a **generated environment map** — a night gradient through PMREM, so the
+  glass carries real reflections rather than a single specular highlight.
+
+Depth is exponential fog, not a bokeh pass: real depth-of-field would add a
+full-screen pass across the whole hero for no visible gain at this scale.
+
+three.js is behind `next/dynamic`, so it is never in the initial bundle and is
+only fetched once `useWantsScene` has decided the device should run it — a
+desktop viewport, a fine pointer, no reduced-motion, no data-saver, not a slow
+connection, and four cores or more. Everything else gets the architectural
+footage, and so does any device where the context cannot be created. The scene
+also measures its own frame rate for ~1.8s after the build settles and drops
+its pixel ratio once if it cannot hold 40fps.
 
 ### The interaction layer
 
@@ -324,6 +350,16 @@ Protocol:
   visible panel after a switch, with no exceptions thrown; the pinned rail is
   inert below `lg` (measured: the section is 1124px on a 390px viewport and
   2276px at 1600px, with only one of the two forms laid out at each).
+- **The 3D hero:** renders with no console errors, and the fallback chain was
+  checked at 2560 / 1920 / 1440 / 1280 / 1024 / 768 / 430 / 390 / 375 — canvas
+  from 1024 up, the footage at 768, the still on phones, and no overflow at any
+  of them.
+
+**Not verified here:** the scene's frame rate on real hardware. The machine
+this was built on has only SwiftShader, whose software rasterisation reports a
+number that says nothing about a GPU. The adaptive pixel-ratio step exists
+because of that gap, not as a substitute for measuring it — worth checking on a
+real device.
 
 ---
 
