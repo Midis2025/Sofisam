@@ -177,6 +177,28 @@ export function SectionProgress() {
     };
   }, []);
 
+  /* ---------- Stand down over the footer ----------
+     The index reports a position within the page's sections. The footer is
+     not one of them — it sits outside `<main>` — so once the reader has
+     reached it the rail is reporting on a section they have already left,
+     and a number held over the closing frame is simply clutter on it. */
+
+  const [atFoot, setAtFoot] = useState(false);
+
+  useEffect(() => {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    const io = new IntersectionObserver(
+      ([e]) => setAtFoot(e.isIntersecting),
+      // Fires once the footer has taken the lower half of the viewport, which
+      // is the point at which the last section stops being what is on screen.
+      { rootMargin: '-50% 0px 0px 0px', threshold: 0 },
+    );
+    io.observe(footer);
+    return () => io.disconnect();
+  }, [pathname]);
+
   // Nothing is rendered on the server or before the first scan, so there is no
   // markup to mismatch on hydration.
   if (sections.length < 2) return null;
@@ -191,7 +213,9 @@ export function SectionProgress() {
       {/* ---------------- The rail, from 768 up ---------------- */}
       <nav
         aria-label="Page sections"
-        className="fixed right-[max(0.75rem,calc(var(--gutter)-1.75rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex"
+        className={`fixed right-[max(0.75rem,calc(var(--gutter)-1.75rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex ${
+          reduce ? '' : 'transition-opacity duration-500 ease-premium'
+        } ${atFoot ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
       >
         {/* The number of the section you are in. */}
         <AnimatePresence mode="wait" initial={false}>
@@ -276,7 +300,7 @@ export function SectionProgress() {
         aria-hidden
         className={`pointer-events-none fixed bottom-[max(0.875rem,env(safe-area-inset-bottom))] left-[var(--gutter)] right-[var(--gutter)] z-[90] flex justify-start md:hidden ${
           reduce ? '' : 'transition-opacity duration-500 ease-premium'
-        } ${idle ? 'opacity-0' : 'opacity-100'}`}
+        } ${idle || atFoot ? 'opacity-0' : 'opacity-100'}`}
       >
         <div className="flex max-w-full items-center gap-2.5 rounded-[var(--r-md)] border border-ivory/10 bg-[rgba(6,6,8,0.72)] px-3 py-2 shadow-[0_10px_30px_-14px_rgba(0,0,0,0.9)] backdrop-blur-md">
           <span className="t-num text-[0.66rem] text-gold">{pad(active + 1)}</span>
