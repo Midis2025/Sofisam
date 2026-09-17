@@ -333,8 +333,6 @@ export default function StructuringPage() {
         sectionLabel="Enquiries"
         lines={['Design it', 'to hold.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="structure-grid"
-        focal="50% 50%"
       />
     </>
   );

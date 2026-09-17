@@ -268,8 +268,6 @@ export default function StrategicConsultingPage() {
         sectionLabel="Enquiries"
         lines={['Bring us the', 'difficult one.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="city-blue-night"
-        focal="50% 55%"
       />
     </>
   );

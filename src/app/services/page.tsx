@@ -100,8 +100,6 @@ export default function ServicesPage() {
         eyebrow="Engagements"
         lines={['Discuss a', 'mandate.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="difc-gate"
-        focal="50% 40%"
       />
     </>
   );

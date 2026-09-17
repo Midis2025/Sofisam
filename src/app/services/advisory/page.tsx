@@ -207,8 +207,6 @@ export default function AdvisoryPage() {
         sectionLabel="Enquiries"
         lines={['Take counsel', 'in confidence.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="lounge-dark"
-        focal="50% 50%"
       />
     </>
   );

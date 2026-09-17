@@ -323,8 +323,6 @@ export default function AboutPage() {
         eyebrow="Enquiries"
         lines={['Speak with', 'the firm.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="tower-dusk"
-        focal="50% 45%"
       />
     </>
   );

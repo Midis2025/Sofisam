@@ -240,8 +240,6 @@ export default async function InsightPage({
         eyebrow="Enquiries"
         lines={['Discuss this', 'further.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="abstract-dark"
-        focal="50% 50%"
       />
     </>
   );

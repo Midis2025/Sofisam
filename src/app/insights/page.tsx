@@ -174,8 +174,6 @@ export default function InsightsPage() {
         eyebrow="Enquiries"
         lines={['Continue the', 'conversation.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
-        image="towers-mono"
-        focal="50% 40%"
       />
     </>
   );
