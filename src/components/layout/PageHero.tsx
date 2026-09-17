@@ -17,6 +17,13 @@ export interface Crumb {
 
 interface PageHeroProps {
   eyebrow: string;
+  /**
+   * The name this frame takes in the page index. It defaults to the eyebrow,
+   * which on most pages is the page's own name; where the eyebrow is a
+   * position in a series ('Service 02') or a category rather than a name, the
+   * page passes the name itself.
+   */
+  sectionLabel?: string;
   /** Line breaks for narrow measures. */
   headline: string[];
   /** Optional longer breaks used from lg, where the measure allows fewer lines. */
@@ -47,6 +54,7 @@ interface PageHeroProps {
  */
 export function PageHero({
   eyebrow,
+  sectionLabel,
   headline,
   headlineWide,
   standfirst,
@@ -64,7 +72,8 @@ export function PageHero({
 
   return (
     <section
-      className="ground-dark veil-bottom relative w-full overflow-hidden"
+      data-section={sectionLabel ?? eyebrow}
+      className="ground-void veil-bottom grain relative w-full overflow-hidden"
       aria-label={`${headline.join(' ')} — introduction`}
     >
       <motion.div
@@ -104,7 +113,7 @@ export function PageHero({
               {crumbs.map((c, i) => (
                 <li key={c.label} className="flex items-center gap-2">
                   {i > 0 && (
-                    <ChevronRight aria-hidden strokeWidth={1.4} className="h-3 w-3 text-ivory/40" />
+                    <ChevronRight aria-hidden strokeWidth={1.4} className="h-3 w-3 text-stone" />
                   )}
                   {c.href ? (
                     <Link href={c.href} className="link-underline inline-block py-2 hover:text-ivory">

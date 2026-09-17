@@ -73,7 +73,7 @@ export function Header() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[190] focus:bg-ink focus:px-5 focus:py-3 focus:text-[0.72rem] focus:uppercase focus:tracking-[0.22em] focus:text-ivory"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[190] focus:bg-void focus:px-5 focus:py-3 focus:text-[0.72rem] focus:uppercase focus:tracking-[0.22em] focus:text-ivory"
       >
         Skip to content
       </a>
@@ -81,7 +81,7 @@ export function Header() {
       <header
         className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${
           glass
-            ? 'border-b border-ivory/10 bg-ink/[0.72] shadow-[0_18px_44px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl backdrop-saturate-150'
+            ? 'border-b border-ivory/10 bg-void/[0.72] shadow-[0_18px_44px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl backdrop-saturate-150'
             : 'border-b border-transparent bg-transparent'
         }`}
         onMouseLeave={scheduleCloseMega}
@@ -183,7 +183,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-ink/[0.78] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
+              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-void/[0.78] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
               onMouseEnter={openMega}
               onMouseLeave={scheduleCloseMega}
             >
@@ -214,7 +214,7 @@ export function Header() {
                         href={`/services/${s.slug}`}
                         onMouseEnter={() => setHovered(i)}
                         onFocus={() => setHovered(i)}
-                        className="group/mm row-inv block py-6 last:border-b last:border-[var(--line-inv)]"
+                        className="group/mm row block py-6 last:border-b last:border-[var(--line)]"
                       >
                         <span className="flex items-center justify-between gap-6">
                           <span
@@ -234,7 +234,7 @@ export function Header() {
                             }`}
                           />
                         </span>
-                        <span className="mt-2 block max-w-[38ch] text-[0.86rem] font-light leading-relaxed text-ivory/45">
+                        <span className="mt-2 block max-w-[38ch] text-[0.86rem] font-light leading-relaxed text-stone">
                           {s.navDescription}
                         </span>
                       </Link>

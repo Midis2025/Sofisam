@@ -50,7 +50,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="section ground-dark on-dark" aria-labelledby="newsletter-heading">
+    <section data-section="Newsletter" className="section ground-void" aria-labelledby="newsletter-heading">
       <div className="shell">
         <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-end lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
           <div className="lg:col-span-6">
@@ -103,7 +103,7 @@ export function Newsletter() {
                     type="submit"
                     disabled={state === 'loading'}
                     aria-label={newsletterCopy.submitLabel}
-                    className="group/sub mb-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-500 ease-premium hover:border-gold hover:bg-gold hover:text-ink disabled:opacity-60"
+                    className="group/sub mb-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-500 ease-premium hover:border-gold hover:bg-gold hover:text-ivory disabled:opacity-60"
                   >
                     <AnimatePresence mode="wait" initial={false}>
                       {state === 'loading' ? (
@@ -163,7 +163,7 @@ export function Newsletter() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="t-meta text-ivory/40"
+                        className="t-meta text-stone"
                       >
                         {newsletterCopy.privacyNote}
                       </motion.p>

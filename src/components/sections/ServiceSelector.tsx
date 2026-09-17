@@ -49,7 +49,7 @@ export function ServiceSelector() {
   };
 
   return (
-    <section className="section ground-ivory" aria-labelledby="disciplines-heading">
+    <section data-section="Three Disciplines" className="section ground-char" aria-labelledby="disciplines-heading">
       <div className="shell">
         <div className="head">
           <div>
@@ -59,7 +59,7 @@ export function ServiceSelector() {
 
             <h2
               id="disciplines-heading"
-              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
+              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
             >
               <span className="sr-only">One standard of judgement, three forms.</span>
               <span aria-hidden className="block lg:hidden">
@@ -73,7 +73,7 @@ export function ServiceSelector() {
 
           <div className="lg:pb-2">
             <Reveal delay={0.12}>
-              <p className="t-body head-note text-stone">
+              <p className="t-body head-note text-sage">
                 Consulting, advisory and structuring are separate practices, but they
                 are not separate opinions. Whichever one an engagement begins in, the
                 reasoning behind it is the same.
@@ -123,7 +123,7 @@ export function ServiceSelector() {
                   <span className="flex items-baseline gap-[clamp(1rem,2vw,2rem)]">
                     <span
                       className={`t-num shrink-0 text-[0.85rem] transition-colors duration-500 ${
-                        on ? 'text-gold-ink' : 'text-stone/50'
+                        on ? 'text-gold' : 'text-stone'
                       }`}
                     >
                       {s.index}
@@ -131,7 +131,7 @@ export function ServiceSelector() {
 
                     <span
                       className={`block font-display text-[clamp(1.9rem,3.4vw,3.25rem)] leading-[1.04] tracking-tighter transition-colors duration-[600ms] ease-premium ${
-                        on ? 'text-ink' : 'text-ink/35 group-hover:text-ink/60'
+                        on ? 'text-ivory' : 'text-stone group-hover:text-ivory/80'
                       }`}
                     >
                       {s.title}
@@ -142,8 +142,8 @@ export function ServiceSelector() {
                       strokeWidth={1.3}
                       className={`ml-auto h-6 w-6 shrink-0 self-center transition-all duration-[600ms] ease-premium ${
                         on
-                          ? 'translate-x-0 text-gold-ink opacity-100'
-                          : '-translate-x-3 text-stone opacity-0'
+                          ? 'translate-x-0 text-gold opacity-100'
+                          : '-translate-x-3 text-sage opacity-0'
                       }`}
                     />
                   </span>
@@ -156,7 +156,7 @@ export function ServiceSelector() {
               <AnimatePresence mode="wait">
                 <motion.p
                   key={current.slug}
-                  className="t-lead max-w-[44ch] text-ink"
+                  className="t-lead max-w-[44ch] text-ivory"
                   initial={reduce ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
@@ -207,13 +207,13 @@ export function ServiceSelector() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, ease: EASE, delay: 0.08 }}
                     >
-                      <p className="t-body mt-[clamp(1.5rem,2.4vw,2rem)] max-w-[52ch] text-stone">
+                      <p className="t-body mt-[clamp(1.5rem,2.4vw,2rem)] max-w-[52ch] text-sage">
                         {s.intro.lead}
                       </p>
 
                       <Link
                         href={`/services/${s.slug}`}
-                        className="group cta mt-[clamp(1.5rem,2.4vw,2rem)] text-ink hover:text-gold-ink"
+                        className="group cta mt-[clamp(1.5rem,2.4vw,2rem)] text-ivory hover:text-gold"
                       >
                         <span className="link-underline">Explore {s.title}</span>
                         <ArrowUpRight
@@ -243,8 +243,8 @@ export function ServiceSelector() {
             >
               <Tilt>
                 <div className="group surface surface-lift p-[clamp(1.25rem,2vw,1.75rem)]">
-                  <dt className="t-label text-gold-ink">{t.label}</dt>
-                  <dd className="t-h4 mt-3.5 max-w-[22ch] text-ink">{t.title}</dd>
+                  <dt className="t-label text-gold">{t.label}</dt>
+                  <dd className="t-h4 mt-3.5 max-w-[22ch] text-ivory">{t.title}</dd>
                 </div>
               </Tilt>
             </motion.div>

@@ -36,7 +36,7 @@ const markers = [
  */
 export function ExecutivePerspective() {
   return (
-    <section className="section ground-ivory" aria-labelledby="executive-heading">
+    <section data-section="Executive Perspective" className="section ground-char" aria-labelledby="executive-heading">
       <div className="shell">
         <div className="grid items-start gap-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.85fr)]">
           {/* Statement */}
@@ -47,20 +47,20 @@ export function ExecutivePerspective() {
 
             <h2
               id="executive-heading"
-              className="t-h2 mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[15ch] text-ink lg:max-w-[18ch]"
+              className="t-h2 mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[15ch] text-ivory lg:max-w-[18ch]"
             >
               <SplitText text="Advice given by people who have held the position." stagger={0.045} />
             </h2>
 
             <Reveal kind="body" delay={0.12}>
-              <p className="t-lead mt-[clamp(1.75rem,2.8vw,2.75rem)] max-w-[50ch] text-ink">
+              <p className="t-lead mt-[clamp(1.75rem,2.8vw,2.75rem)] max-w-[50ch] text-ivory">
                 Our principals are highly successful business executives and investors
                 that bring unique perspectives to all of our mandates and investments.
               </p>
             </Reveal>
 
             <Reveal kind="body" delay={0.18}>
-              <p className="t-body mt-[clamp(1.5rem,2vw,2rem)] max-w-[56ch] text-stone">
+              <p className="t-body mt-[clamp(1.5rem,2vw,2rem)] max-w-[56ch] text-sage">
                 That distinction matters more than it sounds. Someone who has carried a
                 decision — its financing, its timing, its consequences for the people
                 involved — asks different questions of a proposal than someone who has
@@ -83,41 +83,29 @@ export function ExecutivePerspective() {
           </CurtainReveal>
         </div>
 
-        {/* Attributes — four standing cards. The second is inverted so the
+        {/* Attributes — four standing cards. The second sits on the deeper plate so the
             row has a centre of gravity rather than reading as a flat set. */}
         <dl className="mt-[clamp(2.5rem,4vw,4.5rem)] grid gap-[clamp(0.75rem,1.2vw,1.1rem)] sm:grid-cols-2 lg:grid-cols-4">
           {markers.map((item, i) => {
-            const inverted = i === 1;
+            const deep = i === 1;
             return (
               <Reveal key={item.t} kind="card" delay={i * 0.06} className="h-full">
                 <Tilt className="h-full">
                   <div
                     className={`group ${
-                      inverted ? 'surface-dark' : 'surface'
+                      deep ? 'surface-deep' : 'surface'
                     } surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]`}
                   >
-                    <span
-                      aria-hidden
-                      className={`t-num text-[0.78rem] ${
-                        inverted ? 'text-gold' : 'text-gold-ink'
-                      }`}
-                    >
+                    {/* The plate changes, the type does not: there is one
+                        ground on this site, so both depths take the same
+                        three text colours. */}
+                    <span aria-hidden className="t-num text-[0.78rem] text-gold">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <dt
-                      className={`t-h4 mt-[clamp(1.75rem,3vw,2.75rem)] max-w-[20ch] ${
-                        inverted ? 'text-ivory' : 'text-ink'
-                      }`}
-                    >
+                    <dt className="t-h4 mt-[clamp(1.75rem,3vw,2.75rem)] max-w-[20ch] text-ivory">
                       {item.t}
                     </dt>
-                    <dd
-                      className={`t-small mt-3 max-w-[34ch] ${
-                        inverted ? 'text-sage' : 'text-stone'
-                      }`}
-                    >
-                      {item.d}
-                    </dd>
+                    <dd className="t-small mt-3 max-w-[34ch] text-sage">{item.d}</dd>
                   </div>
                 </Tilt>
               </Reveal>

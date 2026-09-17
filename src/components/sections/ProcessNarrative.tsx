@@ -51,7 +51,7 @@ export function ProcessNarrative() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="section ground-ivory" aria-labelledby="process-heading">
+    <section data-section="Way of Working" className="section ground-char" aria-labelledby="process-heading">
       <div className="shell">
         <div className="head">
           <div>
@@ -61,13 +61,13 @@ export function ProcessNarrative() {
             <SplitText
               as="h2"
               text="A sequence, not a methodology."
-              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
+              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
               stagger={0.05}
             />
           </div>
           <div className="lg:pb-2">
             <Reveal delay={0.1}>
-              <p className="t-body head-note text-stone">
+              <p className="t-body head-note text-sage">
                 Every engagement is different. The order in which we think about one
                 rarely is.
               </p>
@@ -153,7 +153,7 @@ function HorizontalRail() {
               } surface-lift flex h-[clamp(22rem,54vh,34rem)] w-[clamp(20rem,26vw,28rem)] shrink-0 flex-col justify-between p-[clamp(1.5rem,2.2vw,2.25rem)]`}
             >
               <span className="flex items-baseline justify-between gap-4">
-                <span className="t-num text-[clamp(3.5rem,5.5vw,6.5rem)] text-gold-ink/25 transition-colors duration-700 group-hover:text-gold-ink/60">
+                <span className="t-num text-[clamp(3.5rem,5.5vw,6.5rem)] text-gold/55 transition-colors duration-700 group-hover:text-gold">
                   {s.k}
                 </span>
                 <span className="chip">
@@ -162,8 +162,8 @@ function HorizontalRail() {
               </span>
 
               <span className="block">
-                <h3 className="t-h3 text-ink">{s.title}</h3>
-                <p className="t-body mt-5 max-w-[34ch] text-stone">{s.body}</p>
+                <h3 className="t-h3 text-ivory">{s.title}</h3>
+                <p className="t-body mt-5 max-w-[34ch] text-sage">{s.body}</p>
               </span>
             </li>
           ))}
@@ -199,9 +199,9 @@ function Ledger() {
             aria-hidden
             className="absolute -left-[1.6rem] top-[0.4rem] block h-[0.4rem] w-[0.4rem] rounded-full bg-gold sm:-top-[0.2rem] sm:left-0"
           />
-          <span className="t-num block text-[0.82rem] text-gold-ink">{s.k}</span>
-          <h3 className="t-h4 mt-3.5 text-ink">{s.title}</h3>
-          <p className="t-small mt-3.5 max-w-[34ch] text-stone">{s.body}</p>
+          <span className="t-num block text-[0.82rem] text-gold">{s.k}</span>
+          <h3 className="t-h4 mt-3.5 text-ivory">{s.title}</h3>
+          <p className="t-small mt-3.5 max-w-[34ch] text-sage">{s.body}</p>
         </Reveal>
       ))}
     </ol>

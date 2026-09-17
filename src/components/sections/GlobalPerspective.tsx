@@ -34,7 +34,7 @@ export function GlobalPerspective({
 }) {
   if (variant === 'editorial') {
     return (
-      <section className="section ground-ivory" aria-labelledby="global-heading">
+      <section data-section="Global Perspective" className="section ground-char" aria-labelledby="global-heading">
         <div className="shell">
           <Reveal kind="label" className="kicker">
             <p className="t-label">Global Perspective</p>
@@ -42,13 +42,13 @@ export function GlobalPerspective({
 
           <h2
             id="global-heading"
-            className="t-display mt-[clamp(1.5rem,2.2vw,2rem)] max-w-[68.75rem] text-ink"
+            className="t-display mt-[clamp(1.5rem,2.2vw,2rem)] max-w-[68.75rem] text-ivory"
           >
             <MaskedLines lines={['One vantage point.', 'A global field of view.']} />
           </h2>
 
           <Reveal kind="body" delay={0.12}>
-            <p className="t-lead mt-[clamp(2rem,2.6vw,2.5rem)] max-w-[56.25rem] text-stone">
+            <p className="t-lead mt-[clamp(2rem,2.6vw,2.5rem)] max-w-[56.25rem] text-sage">
               {LEAD}
             </p>
           </Reveal>
@@ -62,8 +62,8 @@ export function GlobalPerspective({
                 delay={i * 0.09}
                 className="pt-[clamp(1.5rem,1.9vw,1.75rem)]"
               >
-                <dt className="t-label text-stone">{m.k}</dt>
-                <dd className="mt-4 font-display text-[clamp(1.5rem,2.6vw,2.35rem)] leading-[1.08] tracking-tighter text-ink">
+                <dt className="t-label text-sage">{m.k}</dt>
+                <dd className="mt-4 font-display text-[clamp(1.5rem,2.6vw,2.35rem)] leading-[1.08] tracking-tighter text-ivory">
                   {m.v}
                 </dd>
               </RowReveal>
@@ -71,7 +71,7 @@ export function GlobalPerspective({
           </dl>
 
           <Reveal kind="body" delay={0.1}>
-            <p className="t-small mt-[clamp(2rem,2.6vw,3rem)] max-w-[62ch] text-stone">{NOTE}</p>
+            <p className="t-small mt-[clamp(2rem,2.6vw,3rem)] max-w-[62ch] text-sage">{NOTE}</p>
           </Reveal>
 
           <ImageReveal delay={0.08} className="mt-[var(--pad-sm)]">
@@ -94,7 +94,8 @@ export function GlobalPerspective({
   /* ---------- The homepage band ---------- */
   return (
     <section
-      className="band veil-editorial relative w-full overflow-hidden bg-ink"
+      data-section="Global Perspective"
+      className="band veil-editorial grain relative w-full overflow-hidden bg-void"
       aria-labelledby="global-heading"
     >
       <Parallax className="absolute inset-0" strength={10}>
@@ -145,7 +146,7 @@ export function GlobalPerspective({
               key={m.k}
               kind="card"
               delay={i * 0.09}
-              className="surface-inv surface-lift bg-ink/45"
+              className="surface-glass surface-lift"
             >
               <dt className="t-label text-gold">{m.k}</dt>
               <dd className="mt-3.5 font-display text-[clamp(1.35rem,2.2vw,2.15rem)] leading-[1.1] tracking-tighter text-ivory">

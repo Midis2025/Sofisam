@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-screen-safe items-center overflow-hidden bg-ink text-ivory">
-      <div className="media media-flat veil-hero absolute inset-0">
+    <section className="relative flex min-h-screen-safe items-center overflow-hidden bg-void text-ivory">
+      <div className="media media-flat veil-hero grain absolute inset-0">
         <Picture
           name="towers-mono"
           alt=""
@@ -44,7 +44,7 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Suggested pages" className="mt-14 border-t border-ivory/15 pt-8">
-          <p className="t-label text-ivory/40">Elsewhere on the site</p>
+          <p className="t-label text-stone">Elsewhere on the site</p>
           <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
             {[
               { label: 'About', href: '/about' },

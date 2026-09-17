@@ -77,7 +77,7 @@ export function MobileMenu({
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 z-[110] flex flex-col bg-ink/[0.86] text-ivory backdrop-blur-3xl backdrop-saturate-150 lg:hidden"
+          className="fixed inset-0 z-[110] flex flex-col bg-void/[0.86] text-ivory backdrop-blur-3xl backdrop-saturate-150 lg:hidden"
           initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
           animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
           exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
@@ -161,7 +161,7 @@ export function MobileMenu({
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
             >
-              <div className="surface-inv">
+              <div className="surface">
                 <p className="t-label text-gold">Contact</p>
 
                 <div className="mt-5 flex flex-col items-start">
@@ -179,7 +179,7 @@ export function MobileMenu({
                   </a>
                 </div>
 
-                <address className="mt-6 text-[0.86rem] font-light not-italic leading-relaxed text-ivory/40">
+                <address className="mt-6 text-[0.86rem] font-light not-italic leading-relaxed text-stone">
                   {contact.address.line1}
                   <br />
                   {contact.address.line2}

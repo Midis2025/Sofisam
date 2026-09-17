@@ -255,6 +255,13 @@ export function SkylineScene({
       const SCROLL_Y = 1.6; // layer lift as the hero is scrolled away
       const CAM = { x: 0.12, y: 0.07, z: 2.6 }; // the camera's own travel
       const DOLLY = 0.55; // the slow push in and out, in world units
+
+      /* The opening move. The camera starts well back and travels forward
+         over five seconds on a long ease-out, so the first thing the page
+         does is approach the city rather than sit in front of it. It runs
+         once, and everything else — the drone, the pointer, the scroll —
+         is layered on top of it from the first frame. */
+      const INTRO = { z: 3.4, dur: 5 };
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 100);
       camera.position.set(0, 0, 0);
@@ -346,8 +353,9 @@ export function SkylineScene({
         const { w, h } = size();
         const aspect = w / h;
         for (const l of layers) {
-          // Worst case depth: the camera at the far end of its scroll push.
-          const dist = Math.abs(l.spec.z) + CAM.z;
+          // Worst case depth: the camera at the far end of its scroll push,
+          // or at the start of the opening move — whichever is further back.
+          const dist = Math.abs(l.spec.z) + Math.max(CAM.z, INTRO.z);
           const baseH = 2 * dist * Math.tan((FOV * Math.PI) / 360);
           const baseW = baseH * aspect;
 
@@ -447,8 +455,15 @@ export function SkylineScene({
           u.value += (target - u.value) * Math.min(1, dt * 0.85);
         }
 
+        // The opening move, on a quintic ease-out: almost all of the travel
+        // is spent in the first second and the last of it is imperceptible,
+        // which is what makes the camera feel like it is settling rather
+        // than stopping.
+        const t = Math.min(clock / INTRO.dur, 1);
+        const intro = INTRO.z * Math.pow(1 - t, 5);
+
         // Negative z moves the camera toward the layers: the push in.
-        camera.position.z = easedScroll * CAM.z - dolly;
+        camera.position.z = intro + easedScroll * CAM.z - dolly;
         camera.position.x = eased.x * CAM.x;
         camera.position.y = eased.y * CAM.y;
 

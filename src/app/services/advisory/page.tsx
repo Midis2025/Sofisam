@@ -46,6 +46,7 @@ export default function AdvisoryPage() {
     <>
       <PageHero
         eyebrow={service.hero.eyebrow}
+        sectionLabel={service.title}
         headline={['Counsel formed', 'in the room where', 'decisions are taken.']}
         headlineWide={['Counsel formed in the room', 'where decisions are taken.']}
         standfirst={service.hero.standfirst}
@@ -67,7 +68,7 @@ export default function AdvisoryPage() {
         heading={
           <h2
             id="adv-intro"
-            className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--ink)]"
+            className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
           >
             Executive decision-making, supported rather than substituted.
           </h2>
@@ -80,12 +81,12 @@ export default function AdvisoryPage() {
 
             <Reveal delay={0.08}>
               <blockquote>
-                <p className="t-display max-w-[20ch] text-[var(--ink)]">
+                <p className="t-display max-w-[20ch] text-ivory">
                   Built over decades of international business experience.
                 </p>
                 <footer className="mt-8 flex items-center gap-4">
-                  <span aria-hidden className="block h-px w-12 bg-[var(--gold)]" />
-                  <span className="t-label text-[var(--stone)]">SOFISAM FZCO</span>
+                  <span aria-hidden className="block h-px w-12 bg-gold" />
+                  <span className="t-label text-sage">SOFISAM FZCO</span>
                 </footer>
               </blockquote>
             </Reveal>
@@ -93,20 +94,20 @@ export default function AdvisoryPage() {
         }
       >
         <Reveal delay={0.06}>
-          <p className="t-lead text-[var(--ink)]">{service.intro.lead}</p>
+          <p className="t-lead text-ivory">{service.intro.lead}</p>
         </Reveal>
 
         <div className="intro-body">
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="t-body text-[var(--stone)]">{p}</p>
+              <p className="t-body text-sage">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
       {/* Governance — plate beside a precise ledger */}
-      <section className="section ground-ivory-2" aria-labelledby="adv-governance">
+      <section data-section="Corporate Governance" className="section ground-graphite" aria-labelledby="adv-governance">
         <div className="shell">
           <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
             <ImageReveal className="lg:col-span-5">
@@ -128,13 +129,13 @@ export default function AdvisoryPage() {
 
               <h2
                 id="adv-governance"
-                className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[15ch] text-[var(--ink)]"
+                className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[15ch] text-ivory"
               >
                 <MaskedLines lines={['Governance is a', 'working system,', 'not a document.']} />
               </h2>
 
               <Reveal delay={0.12}>
-                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-[var(--stone)]">
+                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-sage">
                   We consider how authority, oversight and accountability are
                   distributed, and whether that distribution matches the scale of
                   what is being decided.
@@ -145,8 +146,8 @@ export default function AdvisoryPage() {
                 {governanceNotes.map((g, i) => (
                   <Reveal key={g.t} delay={i * 0.06}>
                     <div className="row grid gap-2 py-[clamp(1.25rem,2vw,1.6rem)] last:border-b last:border-[var(--line)] sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-8">
-                      <dt className="t-label text-[var(--stone)] sm:pt-1">{g.t}</dt>
-                      <dd className="t-small max-w-[44ch] text-[var(--ink)]/80">{g.d}</dd>
+                      <dt className="t-label text-sage sm:pt-1">{g.t}</dt>
+                      <dd className="t-small max-w-[44ch] text-ivory/80">{g.d}</dd>
                     </div>
                   </Reveal>
                 ))}
@@ -160,7 +161,7 @@ export default function AdvisoryPage() {
       <AdvisoryThemes themes={service.themes} />
 
       {/* Experience statement */}
-      <section className="section ground-ivory" aria-labelledby="adv-experience">
+      <section data-section="Experience" className="section ground-char" aria-labelledby="adv-experience">
         <div className="shell">
           <div className="head">
             <div>
@@ -169,14 +170,14 @@ export default function AdvisoryPage() {
               </Reveal>
               <h2
                 id="adv-experience"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-[var(--ink)]"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
               >
                 <MaskedLines lines={['The view of', 'an owner, not', 'an observer.']} />
               </h2>
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="t-body head-note text-[var(--stone)]">
+                <p className="t-body head-note text-sage">
                   Our principals are highly successful business executives and
                   investors that bring unique perspectives to all of our mandates
                   and investments.
@@ -203,6 +204,7 @@ export default function AdvisoryPage() {
 
       <CTASection
         eyebrow="Advisory"
+        sectionLabel="Enquiries"
         lines={['Take counsel', 'in confidence.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
         image="lounge-dark"

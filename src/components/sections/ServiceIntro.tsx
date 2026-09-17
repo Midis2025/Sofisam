@@ -34,7 +34,7 @@ export function ServiceIntro({
   below,
 }: ServiceIntroProps) {
   return (
-    <section className="section ground-ivory" aria-labelledby={labelledBy}>
+    <section data-section={label} className="section ground-char" aria-labelledby={labelledBy}>
       <div className="shell">
         <div className="intro">
           <div>

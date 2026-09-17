@@ -52,7 +52,7 @@ export default function ServicesPage() {
       <ServiceSelector />
 
       {/* Who we advise */}
-      <section className="section ground-dark" aria-labelledby="who-we-advise">
+      <section data-section="Who We Advise" className="section ground-void" aria-labelledby="who-we-advise">
         <div className="shell">
           <div className="head">
             <div>
@@ -68,7 +68,7 @@ export default function ServicesPage() {
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="t-body head-note text-[var(--sage)]">
+                <p className="t-body head-note text-sage">
                   Engagements are taken on with the person accountable for the
                   outcome, not a layer removed from it.
                 </p>
@@ -80,10 +80,10 @@ export default function ServicesPage() {
             {whoWeAdvise.map((w, i) => (
               <Reveal as="li" key={w.t} kind="card" delay={i * 0.08} className="h-full">
                 <Tilt className="h-full">
-                  <div className="surface-inv surface-lift flex h-full flex-col">
-                    <span aria-hidden className="block h-px w-8 bg-[var(--gold)]" />
+                  <div className="surface surface-lift flex h-full flex-col">
+                    <span aria-hidden className="block h-px w-8 bg-gold" />
                     <h3 className="t-h4 mt-5 max-w-[20ch] text-ivory">{w.t}</h3>
-                    <p className="t-small mt-3 max-w-[38ch] text-[var(--sage)]">
+                    <p className="t-small mt-3 max-w-[38ch] text-sage">
                       {w.d}
                     </p>
                   </div>

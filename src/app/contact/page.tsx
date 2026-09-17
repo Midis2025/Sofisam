@@ -26,7 +26,7 @@ export default function ContactPage() {
     <>
       {/* The enquiry. Architecture carries the frame; the statement and the
           form sit over it on the site's obsidian ground. */}
-      <section className="ground-dark relative overflow-hidden" aria-labelledby="contact-heading">
+      <section data-section="Get in Touch" className="ground-void relative overflow-hidden" aria-labelledby="contact-heading">
         {/* Background plate — held to the right of the frame on a desktop so
             the form never sits on top of a busy image. */}
         <div aria-hidden className="absolute inset-0">
@@ -116,14 +116,14 @@ export default function ContactPage() {
             {/* The form */}
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal kind="card" delay={0.1}>
-                <div className="surface-dark px-[clamp(1.25rem,3vw,3rem)] py-[clamp(2rem,3.6vw,3.25rem)]">
+                <div className="surface-deep px-[clamp(1.25rem,3vw,3rem)] py-[clamp(2rem,3.6vw,3.25rem)]">
                   <h2 className="t-h3 text-ivory">Send a message</h2>
                   <p className="t-body mt-3 max-w-[42ch] text-sage">
                     Tell us briefly what you are working through and we will respond
                     directly.
                   </p>
 
-                  <span aria-hidden className="rule-inv my-[clamp(1.75rem,3vw,2.5rem)]" />
+                  <span aria-hidden className="rule my-[clamp(1.75rem,3vw,2.5rem)]" />
 
                   <ContactForm />
                 </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
       </section>
 
       {/* Location */}
-      <section className="section ground-ivory" aria-labelledby="location-heading">
+      <section data-section="Location" className="section ground-char" aria-labelledby="location-heading">
         <div className="shell">
           <div className="head">
             <div>
@@ -143,14 +143,14 @@ export default function ContactPage() {
               </Reveal>
               <h2
                 id="location-heading"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
+                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
               >
                 <MaskedLines lines={['World headquarters,', 'Jumeirah Lake Towers.']} />
               </h2>
             </div>
             <div className="lg:pb-2">
               <Reveal delay={0.1}>
-                <p className="t-body head-note text-stone">
+                <p className="t-body head-note text-sage">
                   {site.name} is based in the {contact.headquarters}. Visits are by
                   arrangement.
                 </p>
@@ -183,12 +183,12 @@ export default function ContactPage() {
                     { k: 'Telephone', v: contact.phone, href: `tel:${contact.phoneHref}` },
                   ].map((row) => (
                     <div key={row.k} className="row py-5 last:border-b last:border-[var(--line)]">
-                      <dt className="t-label text-stone">{row.k}</dt>
-                      <dd className="mt-3 whitespace-pre-line text-[0.98rem] font-light leading-relaxed text-ink/80">
+                      <dt className="t-label text-sage">{row.k}</dt>
+                      <dd className="mt-3 whitespace-pre-line text-[0.98rem] font-light leading-relaxed text-ivory/80">
                         {row.href ? (
                           <a
                             href={row.href}
-                            className="link-underline inline-block py-1.5 hover:text-gold-ink"
+                            className="link-underline inline-block py-1.5 hover:text-gold"
                           >
                             {row.v}
                           </a>
@@ -206,7 +206,7 @@ export default function ContactPage() {
                   href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="cta mt-6 text-stone hover:text-ink"
+                  className="cta mt-6 text-sage hover:text-ivory"
                 >
                   <span className="link-underline">Open in Google Maps</span>
                 </a>
@@ -225,7 +225,7 @@ export default function ContactPage() {
 function Badge({ children, static: isStatic }: { children: React.ReactNode; static?: boolean }) {
   return (
     <span
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-inv-line)] bg-[var(--g-inv-bg)] text-gold shadow-[0_2px_8px_-2px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-line)] bg-[var(--g-bg)] text-gold shadow-[0_2px_8px_-2px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md ${
         isStatic
           ? ''
           : 'transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink'

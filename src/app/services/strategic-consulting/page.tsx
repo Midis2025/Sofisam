@@ -74,6 +74,7 @@ export default function StrategicConsultingPage() {
     <>
       <PageHero
         eyebrow={service.hero.eyebrow}
+        sectionLabel={service.title}
         headline={['Judgement applied', 'to consequential', 'decisions.']}
         headlineWide={['Judgement applied to', 'consequential decisions.']}
         standfirst={service.hero.standfirst}
@@ -98,7 +99,7 @@ export default function StrategicConsultingPage() {
               Introduction to Strategic Consulting
             </h2>
             <Reveal delay={0.06}>
-              <p className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-[var(--ink)]">
+              <p className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory">
                 {service.intro.lead}
               </p>
             </Reveal>
@@ -106,20 +107,20 @@ export default function StrategicConsultingPage() {
         }
       >
         <Reveal>
-          <p className="t-label text-[var(--stone)]">Strategic perspective</p>
+          <p className="t-label text-sage">Strategic perspective</p>
         </Reveal>
 
         <div className="intro-body">
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="t-lead text-[var(--stone)]">{p}</p>
+              <p className="t-lead text-sage">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
       {/* Decision framework — numbered ledger on a warm dark ground */}
-      <section className="section ground-dark" aria-labelledby="sc-framework">
+      <section data-section="Decision Framework" className="section ground-void" aria-labelledby="sc-framework">
         <div className="shell">
           <Reveal kind="label" className="kicker">
             <p className="t-label">Decision Framework</p>
@@ -147,14 +148,14 @@ export default function StrategicConsultingPage() {
                 as="li"
                 key={f.n}
                 delay={i * 0.05}
-                className="row-inv row-inv-hover last:border-b last:border-[var(--line-inv)]"
+                className="row row-hover last:border-b last:border-[var(--line)]"
               >
                 <div className="ledger px-1 py-[clamp(1.75rem,3vw,2.5rem)]">
-                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-[var(--gold)]">
+                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-gold">
                     {f.n}
                   </span>
                   <h3 className="t-h3 max-w-[26ch] text-ivory">{f.q}</h3>
-                  <p className="t-small max-w-[42ch] text-[var(--sage)]">
+                  <p className="t-small max-w-[42ch] text-sage">
                     {f.a}
                   </p>
                 </div>
@@ -166,7 +167,8 @@ export default function StrategicConsultingPage() {
 
       {/* Global outlook — statement panel */}
       <section
-        className="section ground-dark on-dark relative overflow-hidden"
+        data-section="Global Outlook"
+        className="section ground-void grain relative overflow-hidden"
         aria-labelledby="sc-outlook"
       >
         <div className="media media-flat veil-editorial absolute inset-0">
@@ -206,7 +208,7 @@ export default function StrategicConsultingPage() {
       </section>
 
       {/* Themes — alternating editorial split */}
-      <section className="section ground-ivory-2" aria-labelledby="sc-themes">
+      <section data-section="How We Work" className="section ground-graphite" aria-labelledby="sc-themes">
         <div className="shell">
           <h2 id="sc-themes" className="sr-only">
             How we work in strategic consulting
@@ -229,9 +231,9 @@ export default function StrategicConsultingPage() {
                     }
                   >
                     <Reveal>
-                      <p className="t-label text-[var(--gold-ink)]">{t.label}</p>
-                      <h3 className="t-h3 mt-5 max-w-[18ch] text-[var(--ink)]">{t.title}</h3>
-                      <p className="t-body mt-5 max-w-[44ch] text-[var(--stone)]">{t.body}</p>
+                      <p className="t-label text-gold">{t.label}</p>
+                      <h3 className="t-h3 mt-5 max-w-[18ch] text-ivory">{t.title}</h3>
+                      <p className="t-body mt-5 max-w-[44ch] text-sage">{t.body}</p>
                     </Reveal>
                   </div>
 
@@ -263,6 +265,7 @@ export default function StrategicConsultingPage() {
 
       <CTASection
         eyebrow="Strategic Consulting"
+        sectionLabel="Enquiries"
         lines={['Bring us the', 'difficult one.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
         image="city-blue-night"

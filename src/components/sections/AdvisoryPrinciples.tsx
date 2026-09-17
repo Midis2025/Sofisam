@@ -55,7 +55,7 @@ export function AdvisoryPrinciples() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="section ground-ivory-2" aria-labelledby="principles-heading">
+    <section data-section="Advisory Principles" className="section ground-graphite" aria-labelledby="principles-heading">
       <div className="shell">
         <div className="head">
           <div>
@@ -66,14 +66,14 @@ export function AdvisoryPrinciples() {
             <SplitText
               as="h2"
               text="Five words that decide what we will and will not say."
-              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ink"
+              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
               stagger={0.04}
             />
           </div>
 
           <div className="lg:pb-2">
             <Reveal delay={0.1}>
-              <p className="t-body head-note text-stone">
+              <p className="t-body head-note text-sage">
                 The advice SOFISAM provides is described in its own terms:
                 confidential, unconflicted and strategic, built over decades of
                 international business experience.
@@ -107,7 +107,7 @@ function Deck({ reduce }: { reduce: boolean | null }) {
     return (
       <ol className="mt-[var(--pad-sm)] space-y-4">
         {principles.map((p, i) => (
-          <li key={p.word} className="surface surface-solid p-[clamp(1.5rem,3vw,3rem)]">
+          <li key={p.word} className="surface surface-deep p-[clamp(1.5rem,3vw,3rem)]">
             <Body word={p.word} note={p.note} index={i} total={principles.length} />
           </li>
         ))}
@@ -163,7 +163,7 @@ function Card({
     >
       <motion.div
         style={{ scale, opacity }}
-        className="surface surface-solid origin-top p-[clamp(1.5rem,3vw,3rem)]"
+        className="surface surface-deep origin-top p-[clamp(1.5rem,3vw,3rem)]"
       >
         <Body word={word} note={note} index={index} total={total} />
       </motion.div>
@@ -184,16 +184,16 @@ function Body({
 }) {
   return (
     <div className="grid items-baseline gap-x-[clamp(1.5rem,3vw,3.5rem)] gap-y-4 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.05fr)]">
-      <span className="t-num text-[0.9rem] text-gold-ink">
+      <span className="t-num text-[0.9rem] text-gold">
         {String(index + 1).padStart(2, '0')}
-        <span className="text-stone/40"> / {String(total).padStart(2, '0')}</span>
+        <span className="text-stone"> / {String(total).padStart(2, '0')}</span>
       </span>
 
-      <h3 className="font-display text-[clamp(2rem,4.2vw,3.75rem)] leading-[1.0] tracking-tighter text-ink">
+      <h3 className="font-display text-[clamp(2rem,4.2vw,3.75rem)] leading-[1.0] tracking-tighter text-ivory">
         {word}
       </h3>
 
-      <p className="t-body col-start-1 max-w-[48ch] text-stone md:col-start-3">{note}</p>
+      <p className="t-body col-start-1 max-w-[48ch] text-sage md:col-start-3">{note}</p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
+import { SectionProgress } from '@/components/layout/SectionProgress';
 import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
 import { Cursor } from '@/components/ui/Cursor';
 import { site, contact } from '@/data/site';
@@ -116,6 +117,7 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
         </PageTransition>
+        <SectionProgress />
       </body>
     </html>
   );

@@ -33,7 +33,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 
 export function Footer() {
   return (
-    <footer className="ground-dark on-dark relative overflow-hidden">
+    <footer className="ground-void relative overflow-hidden">
       <div className="shell relative z-10 pt-[var(--pad-sm)]">
         {/* Statement and contact */}
         <Reveal as="div">
@@ -44,7 +44,7 @@ export function Footer() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="surface-inv surface-lift h-full">
+              <div className="surface surface-lift h-full">
                 <ColumnHeading>{footerCopy.contactHeading}</ColumnHeading>
                 <address className="mt-5 not-italic">
                   <p className="t-small text-ivory/55">
@@ -72,7 +72,7 @@ export function Footer() {
           </div>
         </Reveal>
 
-        <span aria-hidden className="rule-inv my-[var(--pad-sm)]" />
+        <span aria-hidden className="rule my-[var(--pad-sm)]" />
 
         {/* Directory */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 lg:grid-cols-12 lg:gap-x-[clamp(1.5rem,2.6vw,3rem)]">
@@ -125,14 +125,14 @@ export function Footer() {
           </div>
         </div>
 
-        <span aria-hidden className="rule-inv mt-[var(--pad-sm)]" />
+        <span aria-hidden className="rule mt-[var(--pad-sm)]" />
 
         {/* Legal */}
-        <div className="t-meta flex flex-col gap-3 py-7 text-ivory/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="t-meta flex flex-col gap-3 py-7 text-stone sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {YEAR} {copyright}
           </p>
-          <p className="t-label text-ivory/35">{contact.headquarters}</p>
+          <p className="t-label text-stone">{contact.headquarters}</p>
         </div>
       </div>
 

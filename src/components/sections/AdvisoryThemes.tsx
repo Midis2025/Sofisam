@@ -12,7 +12,7 @@ type ServiceTheme = { label: string; title: string; body: string };
  */
 export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
   return (
-    <section className="section ground-dark" aria-labelledby="advisory-themes">
+    <section data-section="Advisory Perspective" className="section ground-void" aria-labelledby="advisory-themes">
       <div className="shell">
         <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
           {/* Standing media */}
@@ -31,7 +31,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
               </ImageReveal>
 
               <Reveal delay={0.12}>
-                <p className="t-meta mt-5 max-w-[36ch] text-ivory/40">
+                <p className="t-meta mt-5 max-w-[36ch] text-stone">
                   Imagery is illustrative. No photograph on this site depicts a
                   principal of the firm.
                 </p>
@@ -58,12 +58,12 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
                   as="li"
                   key={t.title}
                   delay={i * 0.06}
-                  className="row-inv last:border-b last:border-[var(--line-inv)]"
+                  className="row last:border-b last:border-[var(--line)]"
                 >
                   <div className="py-[clamp(1.5rem,2.6vw,2.25rem)]">
-                    <p className="t-label text-[var(--gold)]">{t.label}</p>
+                    <p className="t-label text-gold">{t.label}</p>
                     <h3 className="t-h3 mt-4 max-w-[24ch] text-ivory">{t.title}</h3>
-                    <p className="t-small mt-4 max-w-[54ch] text-[var(--sage)]">{t.body}</p>
+                    <p className="t-small mt-4 max-w-[54ch] text-sage">{t.body}</p>
                   </div>
                 </Reveal>
               ))}

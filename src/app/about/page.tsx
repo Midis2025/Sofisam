@@ -73,7 +73,7 @@ export default function AboutPage() {
       {/* 02 — The firm in its own words. The statement holds the container
              edge, its supporting columns sit beneath it on one rule, and the
              plate runs the full height of the text beside it. */}
-      <section className="section ground-ivory" aria-labelledby="about-intro">
+      <section data-section="Welcome" className="section ground-char" aria-labelledby="about-intro">
         <div className="shell">
           <Reveal kind="label" className="kicker">
             <p className="t-label">{welcomeCopy.eyebrow}</p>
@@ -81,24 +81,24 @@ export default function AboutPage() {
 
           <div className="mt-[clamp(1.5rem,2.2vw,2rem)] grid items-stretch gap-[clamp(2rem,4vw,4.5rem)] lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h2 id="about-intro" className="t-display max-w-[14ch] text-ink">
+              <h2 id="about-intro" className="t-display max-w-[14ch] text-ivory">
                 <MaskedLines lines={['The firm in', 'its own words']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="mt-[clamp(2.25rem,3vw,3rem)] max-w-[24ch] font-display text-[clamp(1.65rem,2.8vw,2.6rem)] leading-[1.12] tracking-tighter text-ink">
+                <p className="mt-[clamp(2.25rem,3vw,3rem)] max-w-[24ch] font-display text-[clamp(1.65rem,2.8vw,2.6rem)] leading-[1.12] tracking-tighter text-ivory">
                   {welcomeCopy.paragraphs[1]}
                 </p>
               </Reveal>
 
               <div className="mt-[clamp(2.75rem,3.6vw,3.75rem)] grid gap-x-[clamp(2.5rem,4vw,4.5rem)] gap-y-[clamp(1.5rem,2vw,2rem)] sm:grid-cols-2">
                 <RowReveal as="div" className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
-                  <p className="t-lead max-w-[30ch] text-ink">{welcomeCopy.positioning}</p>
+                  <p className="t-lead max-w-[30ch] text-ivory">{welcomeCopy.positioning}</p>
                 </RowReveal>
 
                 <RowReveal as="div" delay={0.1} className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
-                  <p className="t-body head-note text-stone">{welcomeCopy.paragraphs[0]}</p>
-                  <p className="t-body mt-5 max-w-[38ch] text-stone">
+                  <p className="t-body head-note text-sage">{welcomeCopy.paragraphs[0]}</p>
+                  <p className="t-body mt-5 max-w-[38ch] text-sage">
                     {welcomeCopy.paragraphs[2]}
                   </p>
                 </RowReveal>
@@ -123,7 +123,8 @@ export default function AboutPage() {
       {/* 03 — International perspective: a full-bleed passage with the
              statement set over the lower half of the frame. */}
       <section
-        className="band veil-bottom relative w-full overflow-hidden bg-ink"
+        data-section="International Perspective"
+        className="band veil-bottom grain relative w-full overflow-hidden bg-void"
         aria-labelledby="about-international"
       >
         <Parallax className="absolute inset-0" strength={8}>
@@ -164,7 +165,7 @@ export default function AboutPage() {
       {/* 04 — Corporate advisory: the page's dark passage. The statement and
              its plate share one row, the plate out of the height calculation
              so the two start and finish together. */}
-      <section className="section ground-dark on-dark" aria-labelledby="about-positioning">
+      <section data-section="Corporate Advisory" className="section ground-void" aria-labelledby="about-positioning">
         <div className="shell">
           <div className="grid items-stretch gap-[clamp(2rem,6vw,6.25rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)]">
             <div className="flex flex-col justify-center">
@@ -219,7 +220,7 @@ export default function AboutPage() {
              Every item shares the same internal structure so the numbers,
              titles, descriptions and rules all line up, and the six enter in
              order. The DOM order is 01–06, so a phone stacks them correctly. */}
-      <section className="section ground-ivory" aria-labelledby="about-principles">
+      <section data-section="Working Principles" className="section ground-char" aria-labelledby="about-principles">
         <div className="shell">
           <div className="head">
             <div>
@@ -229,14 +230,14 @@ export default function AboutPage() {
 
               <h2
                 id="about-principles"
-                className="t-display head-title mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[14ch] text-ink"
+                className="t-display head-title mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[14ch] text-ivory"
               >
                 <MaskedLines lines={['How the firm', 'actually operates.']} />
               </h2>
             </div>
 
             <Reveal kind="body" delay={0.1} className="lg:pb-2">
-              <p className="t-body head-note text-stone">
+              <p className="t-body head-note text-sage">
                 Six commitments that govern how an engagement is taken on and how it is
                 carried.
               </p>
@@ -251,13 +252,13 @@ export default function AboutPage() {
                 className="group pb-[clamp(2rem,2.6vw,2.5rem)] pt-[clamp(1.75rem,2.4vw,2.125rem)]"
               >
                 <div className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-3 sm:gap-x-4">
-                  <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold-ink">{p.k}</span>
+                  <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold">{p.k}</span>
 
                   <div>
-                    <h3 className="font-display text-[clamp(1.3rem,1.5vw,1.7rem)] leading-[1.14] tracking-tight text-ink transition-transform duration-500 ease-premium group-hover:translate-x-1">
+                    <h3 className="font-display text-[clamp(1.3rem,1.5vw,1.7rem)] leading-[1.14] tracking-tight text-ivory transition-transform duration-500 ease-premium group-hover:translate-x-1">
                       {p.t}
                     </h3>
-                    <p className="t-small mt-3 max-w-[46ch] text-stone">{p.d}</p>
+                    <p className="t-small mt-3 max-w-[46ch] text-sage">{p.d}</p>
                   </div>
                 </div>
               </RowReveal>
@@ -267,7 +268,7 @@ export default function AboutPage() {
       </section>
 
       {/* 07 — World headquarters: a cinematic plate against structured detail. */}
-      <section className="section ground-ivory-2" aria-labelledby="about-dmcc">
+      <section data-section="Dubai — DMCC" className="section ground-graphite" aria-labelledby="about-dmcc">
         <div className="shell">
           <div className="grid gap-[var(--gap)] lg:grid-cols-[minmax(0,1.25fr)_minmax(19rem,0.8fr)] lg:items-center lg:gap-[clamp(2rem,4vw,4.5rem)]">
             <ImageReveal>
@@ -287,12 +288,12 @@ export default function AboutPage() {
                 <p className="t-label">Dubai — DMCC</p>
               </Reveal>
 
-              <h2 id="about-dmcc" className="t-h2 mt-[clamp(1rem,2vw,1.5rem)] max-w-[12ch] text-ink">
+              <h2 id="about-dmcc" className="t-h2 mt-[clamp(1rem,2vw,1.5rem)] max-w-[12ch] text-ivory">
                 <MaskedLines lines={['World', 'headquarters.']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[44ch] text-stone">
+                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[44ch] text-sage">
                   SOFISAM FZCO is based in the {contact.headquarters}, a free zone in
                   Jumeirah Lake Towers that concentrates internationally oriented
                   businesses within a defined and well-understood framework.
@@ -300,9 +301,9 @@ export default function AboutPage() {
               </Reveal>
 
               <RowReveal as="div" delay={0.16} className="mt-[clamp(1.75rem,3vw,2.5rem)] pt-5">
-                <p className="t-label text-stone">Address</p>
+                <p className="t-label text-sage">Address</p>
                 <address className="mt-3 not-italic">
-                  <p className="t-h4 leading-relaxed text-ink">
+                  <p className="t-h4 leading-relaxed text-ivory">
                     {contact.address.line1}
                     <br />
                     {contact.address.line2}

@@ -55,9 +55,9 @@ export function ServiceShowcase() {
   };
 
   return (
-    <section
+    <section data-section="Services"
       id="expertise"
-      className="section ground-dark on-dark"
+      className="section ground-void"
       aria-labelledby="expertise-heading"
     >
       <div className="shell">
@@ -121,7 +121,7 @@ export function ServiceShowcase() {
                         />
                       </motion.span>
                     ))}
-                    <span className="absolute inset-0 bg-ink/20" />
+                    <span className="absolute inset-0 bg-void/20" />
                   </span>
                 </motion.span>
               )}
@@ -138,11 +138,11 @@ export function ServiceShowcase() {
                     }}
                     onFocus={() => setActive(i)}
                     onBlur={() => setActive(null)}
-                    className="group row-inv grid grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,20rem)_4rem] items-center gap-x-[clamp(1.5rem,3vw,3rem)] py-[clamp(2rem,3.4vw,3rem)] last:border-b last:border-[var(--line-inv)]"
+                    className="group row grid grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,20rem)_4rem] items-center gap-x-[clamp(1.5rem,3vw,3rem)] py-[clamp(2rem,3.4vw,3rem)] last:border-b last:border-[var(--line)]"
                   >
                     <span
                       className={`t-num text-[0.85rem] transition-colors duration-500 ${
-                        on ? 'text-gold' : 'text-ivory/30'
+                        on ? 'text-gold' : 'text-stone'
                       }`}
                     >
                       {s.index}
@@ -150,7 +150,7 @@ export function ServiceShowcase() {
 
                     <span
                       className={`block font-display text-[clamp(2.25rem,4vw,4rem)] leading-[1.02] tracking-tighter transition-all duration-[600ms] ease-premium ${
-                        on ? 'translate-x-2 text-ivory' : 'text-ivory/35'
+                        on ? 'translate-x-2 text-ivory' : 'text-stone'
                       }`}
                     >
                       {s.title}
@@ -158,7 +158,7 @@ export function ServiceShowcase() {
 
                     <span
                       className={`t-small max-w-[30ch] transition-colors duration-500 ${
-                        on ? 'text-sage' : 'text-ivory/25'
+                        on ? 'text-sage' : 'text-stone'
                       }`}
                     >
                       {s.navDescription}
@@ -168,8 +168,8 @@ export function ServiceShowcase() {
                       aria-hidden
                       className={`flex h-14 w-14 items-center justify-center justify-self-end rounded-full border transition-all duration-[600ms] ease-premium ${
                         on
-                          ? 'border-gold bg-gold text-ink'
-                          : 'border-ivory/20 text-ivory/40'
+                          ? 'border-gold bg-gold text-ivory'
+                          : 'border-ivory/20 text-stone'
                       }`}
                     >
                       <ArrowUpRight strokeWidth={1.3} className="h-5 w-5" />

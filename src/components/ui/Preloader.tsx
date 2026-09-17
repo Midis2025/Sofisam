@@ -52,7 +52,7 @@ export function Preloader() {
           key="preloader"
           aria-hidden
           data-preloader
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-ink"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-void"
           initial={false}
           exit={
             reduce
@@ -85,7 +85,7 @@ export function Preloader() {
             />
 
             <motion.p
-              className="t-label mt-6 text-center text-ivory/40"
+              className="t-label mt-6 text-center text-stone"
               initial={reduce ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.85 }}

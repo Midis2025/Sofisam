@@ -5,53 +5,67 @@
 /* ============================================================
    SOFISAM FZCO — DESIGN SYSTEM
    ------------------------------------------------------------
-   One system for the whole site: grounds, type, rhythm, media,
-   rules and motion. Everything the interface is built from is
-   defined here once; components compose these primitives rather
-   than re-specifying their own proportions.
+   One ground for the whole site: near-black, warmed a fraction
+   off neutral so the champagne accent sits with it rather than
+   against it. Depth is built from three tones of that ground
+   (void / charcoal / graphite), a hairline, and light — never
+   from a change of colour temperature.
 
-   The language is institutional but not austere: architectural
-   grids and a large editorial serif against a quiet sans, built
-   from generously rounded surfaces that layer over one another.
-   Depth comes from tone, a hairline and a wide low shadow — never
-   a hard edge. Colour is carried by two grounds (warm ivory and
-   obsidian) with a single accent.
+   The language is architectural: a large editorial serif over a
+   quiet sans, wide gutters, square media, hairline rules, and
+   radii small enough that a plate reads as a cut edge rather
+   than a card. Colour is carried by one accent and one text
+   colour; everything else is the ground at a different depth.
    ============================================================ */
 
 @layer base {
   :root {
-    /* ---------- Grounds ----------------------------------------
-       Two families. The ivory pair carries the reading surfaces;
-       the obsidian pair carries the cinematic passages. Both are
-       warmed slightly off neutral so the brand gold sits with
-       them rather than against them. */
-    --ivory: #f5f2ec;
-    --ivory-2: #eee9df;
+    /* ---------- Grounds -----------------------------------------
+       Three depths of one near-black. `void` is the page itself,
+       `char` a passage lifted off it, `graphite` the deepest
+       plate a surface can sit on. */
+    --void: #050505;
+    --char: #0b0b0d;
+    --graphite: #131316;
 
-    --obsidian: #0a0a0b;
-    --obsidian-2: #101012;
+    /* ---------- Text ---------------------------------------------
+       Warm ivory reads as paper rather than as white on a ground
+       this dark. Three steps: primary, secondary, meta. */
+    --ivory: #f2eee6;
+    --ivory-2: #ded8cc;
+    --sage: #979187; /* secondary — body copy, standfirsts */
+    /* Tertiary — meta, timestamps, legal, form labels. Held at the
+       lightest value that still clears WCAG AA (4.5:1) on graphite,
+       the lightest of the three grounds, so the quietest step on the
+       site is quiet by tone and never by legibility. */
+    --stone: #847e75;
 
-    /* ---------- Ink & secondary text --------------------------- */
-    --ink: #0a0a0b;
-    --stone: #67625a; /* secondary on ivory */
-    --sage: #a5a199; /* secondary on obsidian */
+    /* ---------- Accent -------------------------------------------
+       Warm champagne. It carries rules, marks, numerals and
+       labels, and it is the only hue on the site. */
+    --gold: #c9a97c;
+    --gold-hi: #e3cba4;
+    --gold-deep: #9e8154;
 
-    /* ---------- Accent -----------------------------------------
-       The brand gold is a display colour. At label size on a
-       near-white ground it falls below a usable contrast ratio,
-       so small accent text on ivory uses a deeper bronze from the
-       same family; the gold itself carries rules, marks and
-       everything set on a dark ground. */
-    --gold: #c5a47e;
-    --gold-deep: #a2865f;
-    --gold-ink: #7d6038;
+    /* Text that sits ON an ivory or champagne fill. */
+    --ink: #050505;
 
-    /* ---------- Hairlines --------------------------------------- */
-    --line: rgba(10, 10, 11, 0.14);
-    --line-inv: rgba(245, 242, 236, 0.18);
-    --line-inv-soft: rgba(245, 242, 236, 0.08);
+    /* ---------- Hairlines ----------------------------------------
+       One family, three weights. There is no dark hairline on
+       this site because there is no light ground. */
+    --line: rgba(242, 238, 230, 0.1);
+    --line-soft: rgba(242, 238, 230, 0.06);
+    --line-strong: rgba(242, 238, 230, 0.2);
+    --line-gold: rgba(201, 169, 124, 0.38);
 
-    /* ---------- Horizontal system -------------------------------
+    /* A hairline that is the whole of a control — the underline of a
+       field, the edge of an outline button. A divider may be as
+       quiet as the eye allows, but a line that tells you where to
+       type has to clear 3:1 on every ground, so it gets its own
+       weight rather than borrowing a divider's. */
+    --line-control: rgba(242, 238, 230, 0.38);
+
+    /* ---------- Horizontal system --------------------------------
        One container for the whole site. 1600px of content, opening
        to 1720px beyond 1920 so a large display is used rather than
        framed. Gutters run ~20px on the smallest phone, ~36px at
@@ -59,72 +73,49 @@
     --max: 100rem; /* 1600px */
     --gutter: clamp(1.25rem, 4.5vw, 6rem);
 
-    /* ---------- Vertical rhythm ---------------------------------
+    /* ---------- Vertical rhythm ----------------------------------
        Spacing is designed at the BOUNDARY between two sections.
        `--pad` is the full break a section carries; `--pad-edge` is
        the trimmed value used either side of a change of ground, so
-       a colour boundary never pays twice. Stepped rather than
-       fluid, so each breakpoint lands on a chosen number. */
+       a colour boundary never pays twice. */
     --pad: 3.5rem; /* 56px — phone */
     --pad-edge: 2.5rem; /* 40px */
     --pad-sm: clamp(2.25rem, 4vw, 4rem); /* heading → composition */
 
     --gap: clamp(1.75rem, 3.6vw, 4rem);
 
-    /* ---------- Form ---------------------------------------------
-       Generous, consistent rounding. A plate, a card and a control
-       are all the same family of object, so they share one radius
-       scale; only media that meets the edge of the page stays
-       square. Depth comes from tone and a hairline first, with a
-       wide, very low-opacity shadow doing the rest — never a
-       hard drop shadow. */
-    --r-sm: 0.5rem; /* 8px  — chips, marks         */
-    --r-md: 0.875rem; /* 14px — controls, small media */
-    --r-lg: clamp(1.125rem, 1.8vw, 1.75rem); /* 18 → 28px — cards, plates */
+    /* ---------- Form ----------------------------------------------
+       Architectural rather than soft. A plate is a cut edge; only
+       controls and chips carry enough radius to read as objects
+       you can press. Nothing on this site is a rounded card. */
+    --r-sm: 0.125rem; /* 2px  — chips, marks   */
+    --r-md: 0.25rem; /* 4px  — controls       */
+    --r-lg: 0.5rem; /* 8px  — plates, panels */
 
-    --lift: 0 1px 2px rgba(10, 10, 11, 0.04), 0 12px 32px -12px rgba(10, 10, 11, 0.12);
-    --lift-hover: 0 1px 2px rgba(10, 10, 11, 0.05),
-      0 26px 56px -20px rgba(10, 10, 11, 0.22);
-
-    /* ---------- Glass ---------------------------------------------
-       Every raised object on the site is one material: a pane of
-       glass held a measured distance off the ground. Two families,
-       because glass reads from what is behind it — `--g-*` is the
-       frosted-white pane used on ivory, `--g-inv-*` the smoked pane
-       used on obsidian. Depth is three stacked shadows: a contact
-       shadow at the edge, a mid shadow for the gap, and a wide, very
-       soft one for the room. The inset line on top is the light
-       catching the upper rim. */
-    --g-bg: rgba(255, 255, 255, 0.55);
-    --g-bg-hi: rgba(255, 255, 255, 0.76);
-    --g-line: rgba(10, 10, 11, 0.09);
-    --g-line-hi: rgba(10, 10, 11, 0.14);
-    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-
-    --g-inv-bg: rgba(255, 255, 255, 0.06);
-    --g-inv-bg-hi: rgba(255, 255, 255, 0.11);
-    --g-inv-line: rgba(255, 255, 255, 0.15);
-    --g-inv-line-hi: rgba(255, 255, 255, 0.3);
-    --g-inv-rim: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    /* ---------- Glass ----------------------------------------------
+       One material: a smoked pane held a measured distance off the
+       ground. Depth is a contact shadow at the edge, a mid shadow
+       for the gap, and a wide soft one for the room. The inset line
+       on top is light catching the upper rim. */
+    --g-bg: rgba(255, 255, 255, 0.04);
+    --g-bg-hi: rgba(255, 255, 255, 0.075);
+    --g-line: rgba(255, 255, 255, 0.1);
+    --g-line-hi: rgba(255, 255, 255, 0.22);
+    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
     --blur: 16px;
-    --blur-lg: 24px;
+    --blur-lg: 28px;
 
-    /* Depth. `--depth-2` is the same object, raised. */
-    --depth-1: 0 1px 1px rgba(10, 10, 11, 0.04), 0 6px 14px -6px rgba(10, 10, 11, 0.1),
-      0 20px 44px -20px rgba(10, 10, 11, 0.18);
-    --depth-2: 0 2px 2px rgba(10, 10, 11, 0.05), 0 12px 26px -10px rgba(10, 10, 11, 0.14),
-      0 34px 70px -24px rgba(10, 10, 11, 0.28);
+    --depth-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -12px rgba(0, 0, 0, 0.7),
+      0 28px 60px -28px rgba(0, 0, 0, 0.75);
+    --depth-2: 0 2px 4px rgba(0, 0, 0, 0.55), 0 18px 40px -16px rgba(0, 0, 0, 0.75),
+      0 44px 92px -34px rgba(0, 0, 0, 0.85);
 
-    --depth-inv-1: 0 2px 6px rgba(0, 0, 0, 0.28), 0 18px 44px -18px rgba(0, 0, 0, 0.5);
-    --depth-inv-2: 0 4px 12px rgba(0, 0, 0, 0.34), 0 30px 64px -22px rgba(0, 0, 0, 0.66);
-
-    /* ---------- Header safe area --------------------------------- */
+    /* ---------- Header safe area ----------------------------------- */
     --header-h: 4.5rem; /* 72px — mobile */
 
-    /* ---------- Motion -------------------------------------------- */
+    /* ---------- Motion ---------------------------------------------- */
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    /* Glass moves on its own curve: a long, flat settle with no overshoot. */
     --ease-glass: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -178,7 +169,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    background-color: var(--obsidian);
+    background-color: var(--void);
   }
 
   html,
@@ -187,8 +178,8 @@
   }
 
   body {
-    background-color: var(--ivory);
-    color: var(--ink);
+    background-color: var(--void);
+    color: var(--ivory);
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -230,11 +221,8 @@
     padding-inline: var(--gutter);
   }
 
-  /* A wider measure for image-led bands that should read broader
-     than the reading container. */
   .shell-wide {
     width: 100%;
-    max-width: calc(var(--max) + 10rem + 2 * var(--gutter));
     margin-inline: auto;
     padding-inline: var(--gutter);
   }
@@ -243,57 +231,51 @@
     padding-block: var(--pad);
   }
 
-  /* ---------- Grounds ---------- */
-  .ground-ivory {
-    background-color: var(--ivory);
+  /* ---------- Grounds ------------------------------------------
+     Three depths of the same near-black. Sections alternate
+     between them so a page has a tonal rhythm without ever
+     changing colour. */
+  .ground-void {
+    background-color: var(--void);
   }
 
-  .ground-ivory-2 {
-    background-color: var(--ivory-2);
+  .ground-char {
+    background-color: var(--char);
   }
 
-  .ground-dark {
-    background-color: var(--obsidian);
-    color: var(--ivory);
+  .ground-graphite {
+    background-color: var(--graphite);
   }
 
-  /* ---------- Boundaries --------------------------------------
-     Neighbours on the same ground read as one break: the first
-     carries it and the second starts flush, so two paddings never
-     add up into a viewport of dead space. Where the ground
-     changes, the edge itself does the separating, so both sides
-     are trimmed. */
-  .section.ground-ivory + .section.ground-ivory,
-  .section.ground-ivory-2 + .section.ground-ivory-2,
-  .section.ground-dark + .section.ground-dark {
+  /* Two sections on the same ground would otherwise pay the full
+     break twice at a boundary that is not visible. */
+  .section.ground-void + .section.ground-void,
+  .section.ground-char + .section.ground-char,
+  .section.ground-graphite + .section.ground-graphite {
     padding-top: 0;
   }
 
-  .section.ground-ivory + .section:not(.ground-ivory),
-  .section.ground-ivory-2 + .section:not(.ground-ivory-2),
-  .section.ground-dark + .section:not(.ground-dark) {
+  /* Either side of a change of ground, trim the break: the tonal
+     step is doing part of the separating. */
+  .section.ground-void + .section:not(.ground-void),
+  .section.ground-char + .section:not(.ground-char),
+  .section.ground-graphite + .section:not(.ground-graphite) {
     padding-top: var(--pad-edge);
   }
 
-  .section:not(.ground-ivory):has(+ .section.ground-ivory),
-  .section:not(.ground-ivory-2):has(+ .section.ground-ivory-2),
-  .section:not(.ground-dark):has(+ .section.ground-dark),
+  .section:not(.ground-void):has(+ .section.ground-void),
+  .section:not(.ground-char):has(+ .section.ground-char),
+  .section:not(.ground-graphite):has(+ .section.ground-graphite),
   .section:has(+ footer) {
     padding-bottom: var(--pad-edge);
   }
 
-  /* The footer is a sibling of <main>, so the rule above never
-     reaches a page's closing section. Where that section carries
-     the footer's own ground there is no seam to mark the
-     boundary, and untrimmed padding leaves a band of empty
-     ground. */
-  #main > .section.ground-dark:last-child {
-    padding-bottom: var(--pad-edge);
+  /* A full-bleed cinematic passage carries its own internal
+     padding, so the section before and after it trims. */
+  .band {
+    position: relative;
   }
 
-  /* A full-bleed cinematic passage. It sets its own height from the
-     photograph rather than from the section rhythm, but it is still a
-     change of ground — so it trims its neighbours exactly as one. */
   .section:has(+ .band) {
     padding-bottom: var(--pad-edge);
   }
@@ -302,157 +284,151 @@
     padding-top: var(--pad-edge);
   }
 
-  /* The first content section after an inner-page hero. The hero
-     is a dark section but not a `.section`, so it is matched here
-     and nowhere else. */
-  section.ground-dark:not(.section) + .section {
-    padding-top: clamp(2.5rem, 5vw, 6rem);
-  }
-
-  /* Content must never start above the fixed header. */
+  /* Clears the fixed header. */
   .below-header {
-    padding-top: calc(var(--header-h) + clamp(1.5rem, 4vh, 3rem));
+    padding-top: calc(var(--header-h) + var(--pad));
   }
 
   /* ============================================================
      TYPE
      ------------------------------------------------------------
-     A large editorial serif for statements, a quiet sans for
-     everything that has to be read at length. Every display size
-     is fluid; none of them wrap into a narrow column.
+     One scale for the site. The serif carries display sizes; the
+     sans carries everything that is read rather than seen.
      ============================================================ */
 
   .t-hero {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(2.75rem, 6vw, 7rem);
-    line-height: 0.95;
+    font-size: clamp(2.75rem, 9vw, 8.5rem);
+    line-height: 0.94;
     letter-spacing: -0.035em;
+    font-weight: 400;
   }
 
   .t-display {
     font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(2.25rem, 5.6vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
     font-weight: 400;
-    font-size: clamp(2.5rem, 5.4vw, 6.25rem);
-    line-height: 0.97;
-    letter-spacing: -0.032em;
   }
 
   .t-h2 {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(2rem, 3.9vw, 4.75rem);
-    line-height: 1.01;
+    font-size: clamp(1.9rem, 4vw, 3.75rem);
+    line-height: 1.02;
     letter-spacing: -0.028em;
+    font-weight: 400;
   }
 
   .t-h3 {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(1.45rem, 2.1vw, 2.5rem);
-    line-height: 1.12;
+    font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+    line-height: 1.1;
     letter-spacing: -0.02em;
+    font-weight: 400;
   }
 
   .t-h4 {
-    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+    line-height: 1.32;
+    letter-spacing: -0.012em;
     font-weight: 400;
-    font-size: clamp(1.15rem, 1.45vw, 1.55rem);
-    line-height: 1.22;
-    letter-spacing: -0.015em;
   }
 
   .t-lead {
-    font-size: clamp(1.0625rem, 1.5vw, 1.4rem);
-    line-height: 1.58;
+    font-size: clamp(1.02rem, 1.5vw, 1.32rem);
+    line-height: 1.6;
     font-weight: 300;
     letter-spacing: -0.006em;
   }
 
   .t-body {
-    font-size: clamp(1rem, 1.05vw, 1.125rem);
-    line-height: 1.74;
+    font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
+    line-height: 1.72;
     font-weight: 300;
   }
 
   .t-small {
     font-size: 0.9rem;
-    line-height: 1.66;
+    line-height: 1.68;
     font-weight: 300;
   }
 
   .t-meta {
-    font-size: 0.78rem;
-    line-height: 1.5;
+    font-size: 0.8rem;
+    line-height: 1.6;
     font-weight: 300;
     letter-spacing: 0.01em;
   }
 
   .t-label {
-    font-size: 0.72rem;
-    line-height: 1;
+    font-size: 0.7rem;
+    line-height: 1.4;
     font-weight: 500;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
   }
 
   @media (max-width: 399px) {
     .t-label {
-      font-size: 0.64rem;
-      letter-spacing: 0.16em;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
     }
   }
 
   .t-num {
-    font-family: var(--font-display), Georgia, serif;
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
-    line-height: 1;
+    font-weight: 400;
+    letter-spacing: 0.1em;
   }
 
-  /* A small label preceded by a short gold rule — the site's
-     single section marker. */
+  /* A label with the accent rule in front of it. */
   .kicker {
     display: flex;
     align-items: center;
     gap: 0.875rem;
-    color: var(--gold-ink);
+    color: var(--gold);
   }
 
   .kicker::before {
     content: '';
     display: block;
-    flex: none;
-    width: clamp(1.75rem, 3.2vw, 2.75rem);
     height: 1px;
-    background: currentColor;
+    width: clamp(1.75rem, 3.2vw, 2.75rem);
+    flex: none;
+    background: var(--gold);
   }
 
-  .ground-dark .kicker,
-  .on-dark .kicker {
-    color: var(--gold);
+  /* A vertical label, set along the edge of a frame. */
+  .t-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
   }
 
   /* ============================================================
      MEDIA
+     ------------------------------------------------------------
+     Media on this site is square-cut. Only a plate that sits on a
+     surface takes the small radius, so a photograph reads as a
+     window rather than as a card.
      ============================================================ */
 
   .media {
     position: relative;
     overflow: hidden;
+    background-color: var(--graphite);
     border-radius: var(--r-lg);
-    background-color: var(--obsidian-2);
+    isolation: isolate;
   }
 
-  /* Media that meets the edge of the page has no corners to round. */
   .media-flat {
     border-radius: 0;
   }
 
-  /* A plate nested inside a card sits one step tighter, so it reads
-     as held by the card rather than floating in it. */
+  /* Media nested inside a surface: the inner radius is the outer one
+     less the surface's own padding, so the two curves stay concentric. */
   .media-in {
-    border-radius: var(--r-md);
+    border-radius: calc(var(--r-lg) - 0.125rem);
   }
 
   .media > img,
@@ -464,139 +440,160 @@
   }
 
   .media-zoom > img {
-    transition: transform 1.2s var(--ease);
+    transform: scale(1.0001);
+    transition: transform 1.1s var(--ease);
     will-change: transform;
   }
 
   .group:hover .media-zoom > img,
   .group:focus-visible .media-zoom > img {
-    transform: scale(1.04);
+    transform: scale(1.055);
   }
 
-  /* Takes a little saturation out so photography sits with the
-     palette instead of competing with it. */
+  /* Architectural photography on a ground this dark needs its
+     highlights pulled back or it floats off the page. */
   .media-graded > img {
-    filter: saturate(0.86) contrast(1.02);
+    filter: saturate(0.82) contrast(1.06) brightness(0.88);
   }
 
-  /* ---------- Cinematic scrims --------------------------------
-     Each veil is tuned for what has to be read over it. */
+  /* ---------- Scrims -------------------------------------------
+     Every full-bleed photograph carries one. They differ by where
+     the type sits on the frame, but they are all built the way the
+     masthead's is: a directional gradient that is densest under the
+     type, over a vignette that closes the four corners. The
+     directional layer makes the copy legible; the vignette stops
+     the frame opening out at an edge, which is what makes a bright
+     corner of a photograph arrive under a line of type.
 
-  /* Full-screen hero: a weighted left-to-right scrim so the
-     headline always has a dark field behind it, plus a vertical
-     grade that seats the baseline row. */
-  .veil-hero::after {
+     The rule these encode: type only ever sits where the scrim is
+     0.8 or denser. The open part of the frame is the photograph,
+     and nothing is set on it. */
+  .veil-hero::after,
+  .veil-editorial::after,
+  .veil-bottom::after,
+  .veil-full::after {
     content: '';
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    /* The masthead's vignette, declared once. Every scrim carries
+       it as its bottom layer. Because each layer is the same black,
+       the layers composite to the same result in any order. */
+    --vignette: radial-gradient(
+      120% 85% at 50% 40%,
+      transparent 35%,
+      rgba(5, 5, 5, 0.55) 100%
+    );
+  }
+
+  /* Type through the middle of the frame. This is the masthead's
+     own scrim: heavy at the foot where the statement sits, almost
+     nothing through the upper two thirds, which is the city. */
+  .veil-hero::after {
+    background:
+      linear-gradient(
+        to top,
+        rgba(5, 5, 5, 0.95) 0%,
+        rgba(5, 5, 5, 0.82) 22%,
+        rgba(5, 5, 5, 0.36) 52%,
+        rgba(5, 5, 5, 0.12) 74%,
+        rgba(5, 5, 5, 0.55) 100%
+      ),
+      var(--vignette);
+  }
+
+  /* Type on the left of the frame. */
+  .veil-editorial::after {
     background:
       linear-gradient(
         90deg,
-        rgba(6, 6, 7, 0.86) 0%,
-        rgba(6, 6, 7, 0.66) 36%,
-        rgba(6, 6, 7, 0.32) 66%,
-        rgba(6, 6, 7, 0.14) 100%
+        rgba(5, 5, 5, 0.95) 0%,
+        rgba(5, 5, 5, 0.86) 38%,
+        rgba(5, 5, 5, 0.46) 70%,
+        rgba(5, 5, 5, 0.62) 100%
       ),
+      linear-gradient(to bottom, rgba(5, 5, 5, 0.6) 0%, transparent 28%),
+      var(--vignette);
+  }
+
+  /* On a phone the frame is too narrow to clear to the right, so
+     the copy side becomes the foot and the gradient turns with it. */
+  @media (max-width: 767px) {
+    .veil-editorial::after {
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(5, 5, 5, 0.82) 0%,
+          rgba(5, 5, 5, 0.7) 40%,
+          rgba(5, 5, 5, 0.92) 100%
+        ),
+        var(--vignette);
+    }
+  }
+
+  /* Type held to the foot of the frame. */
+  .veil-bottom::after {
+    background:
       linear-gradient(
         to top,
-        rgba(6, 6, 7, 0.82) 0%,
-        rgba(6, 6, 7, 0.2) 40%,
-        rgba(6, 6, 7, 0.1) 70%,
-        rgba(6, 6, 7, 0.55) 100%
-      );
+        rgba(5, 5, 5, 0.97) 0%,
+        rgba(5, 5, 5, 0.88) 26%,
+        rgba(5, 5, 5, 0.52) 58%,
+        rgba(5, 5, 5, 0.62) 100%
+      ),
+      var(--vignette);
+  }
+
+  /* A photograph used as texture rather than as subject. Flat,
+     because there is no open side to protect — but it still takes
+     the vignette so the texture falls away at the edges. */
+  .veil-full::after {
+    background:
+      linear-gradient(rgba(5, 5, 5, 0.78), rgba(5, 5, 5, 0.78)),
+      var(--vignette);
+  }
+
+  /* A thin fade at the top and bottom of a full-bleed passage, so
+     it dissolves into the ground instead of butting against it. */
+  .edge-fade::before,
+  .edge-fade::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: clamp(3rem, 8vh, 7rem);
     pointer-events: none;
+    z-index: 2;
   }
 
-  @media (max-width: 767px) {
-    /* Portrait crops put the text over more of the frame, so the
-       vertical grade does the work instead of the horizontal one. */
-    .veil-hero::after {
-      background: linear-gradient(
-        to top,
-        rgba(6, 6, 7, 0.94) 0%,
-        rgba(6, 6, 7, 0.82) 38%,
-        rgba(6, 6, 7, 0.62) 70%,
-        rgba(6, 6, 7, 0.6) 100%
-      );
-    }
+  .edge-fade::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--void), transparent);
   }
 
-  /* For full-bleed bands carrying a headline and body copy across
-     the frame. */
-  .veil-editorial::after {
+  .edge-fade::after {
+    bottom: 0;
+    background: linear-gradient(to top, var(--void), transparent);
+  }
+
+  /* A very fine film grain. It is what stops a large flat black
+     from banding on an 8-bit display — so it has to be able to sit
+     on the same element as a scrim, which is the passage that
+     bands worst. The scrims own `::after`, so grain takes
+     `::before` and the two compose. */
+  .grain::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(6, 6, 7, 0.95) 0%,
-      rgba(6, 6, 7, 0.84) 38%,
-      rgba(6, 6, 7, 0.72) 72%,
-      rgba(6, 6, 7, 0.78) 100%
-    );
     pointer-events: none;
-  }
-
-  /* For bands where copy sits at the bottom of the frame. The top stays
-     weighted too — the trail and the fixed header both sit up there. */
-  .veil-bottom::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(6, 6, 7, 0.94) 0%,
-      rgba(6, 6, 7, 0.66) 34%,
-      rgba(6, 6, 7, 0.34) 62%,
-      rgba(6, 6, 7, 0.66) 100%
-    );
-    pointer-events: none;
-  }
-
-  @media (max-width: 767px) {
-    /* A phone frame carries the same copy over far less image, so the
-       whole grade runs denser. */
-    .veil-bottom::after {
-      background: linear-gradient(
-        to top,
-        rgba(6, 6, 7, 0.95) 0%,
-        rgba(6, 6, 7, 0.78) 38%,
-        rgba(6, 6, 7, 0.52) 66%,
-        rgba(6, 6, 7, 0.74) 100%
-      );
-    }
-  }
-
-  /* A light scrim: the copy side reads as paper while the
-     architecture stays visible as it clears to the right. */
-  .veil-ivory {
-    background: linear-gradient(
-      90deg,
-      rgba(245, 242, 236, 0.96) 0%,
-      rgba(245, 242, 236, 0.9) 30%,
-      rgba(245, 242, 236, 0.72) 52%,
-      rgba(245, 242, 236, 0.56) 74%,
-      rgba(245, 242, 236, 0.48) 100%
-    );
-  }
-
-  @media (max-width: 767px) {
-    .veil-ivory {
-      background: linear-gradient(
-        180deg,
-        rgba(245, 242, 236, 0.96) 0%,
-        rgba(245, 242, 236, 0.91) 46%,
-        rgba(245, 242, 236, 0.76) 100%
-      );
-    }
+    z-index: 3;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* ============================================================
-     RULES, ROWS & SURFACES
-     ------------------------------------------------------------
-     The interface is divided by hairlines rather than boxed into
-     cards. A surface exists only where a block genuinely has to
-     be lifted off the ground.
+     RULES AND ROWS
      ============================================================ */
 
   .rule {
@@ -606,331 +603,214 @@
     background: var(--line);
   }
 
-  .rule-inv {
+  .rule-gold {
     display: block;
     height: 1px;
     width: 100%;
-    background: var(--line-inv);
+    background: var(--line-gold);
   }
 
+  /* A row in a ledger: a hairline above, nothing below except on
+     the last one, which the call site adds. */
   .row {
     border-top: 1px solid var(--line);
-    transition: background-color 0.55s var(--ease);
-  }
-
-  .row-inv {
-    border-top: 1px solid var(--line-inv);
-    transition: background-color 0.55s var(--ease);
+    transition: border-color 0.6s var(--ease);
   }
 
   .row-hover:hover {
-    background-color: rgba(10, 10, 11, 0.026);
+    border-color: var(--line-gold);
   }
 
-  .row-inv-hover:hover {
-    background-color: rgba(245, 242, 236, 0.04);
-  }
+  /* ============================================================
+     SURFACES
+     ------------------------------------------------------------
+     One material at four weights. `plate` is the default, `tint`
+     a shade lighter for alternation, `deep` a solid plate for
+     panels that must not let the photograph behind them through,
+     and `glass` the translucent pane used over media.
+     ============================================================ */
 
-  /* ---------- Surfaces ----------------------------------------
-     A block lifted off the ground — and on this site that block is
-     glass. Definition comes from four things at once: a translucent
-     pane, the ground blurred behind it, a rim of light along the top
-     edge, and layered shadow for the gap underneath. Never a hard
-     edge, never a flat fill.
-
-     `.surface` and `.surface-tint` are the frosted panes used on
-     ivory; `.surface-inv` and `.surface-dark` the smoked panes used
-     on obsidian. All four are the same object in different light. */
   .surface,
   .surface-tint,
-  .surface-inv,
-  .surface-dark {
+  .surface-deep,
+  .surface-glass {
     position: relative;
-    isolation: isolate;
     border-radius: var(--r-lg);
-    backdrop-filter: blur(var(--blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    padding: clamp(1.25rem, 2vw, 1.75rem);
     transition:
-      background-color 0.55s var(--ease-glass),
-      border-color 0.55s var(--ease-glass),
-      box-shadow 0.55s var(--ease-glass),
-      transform 0.55s var(--ease-glass);
+      transform 0.7s var(--ease-glass),
+      background-color 0.7s var(--ease-glass),
+      box-shadow 0.7s var(--ease-glass);
   }
 
-  /* The light streak. It lives in the pane's own box and is drawn by
-     moving a gradient's background-position, so nothing overflows and
-     nothing is clipped — the pane's own radius bounds it. Parked off
-     the right edge at rest; on hover it crosses to the left. */
   .surface::after,
   .surface-tint::after,
-  .surface-inv::after,
-  .surface-dark::after {
+  .surface-deep::after,
+  .surface-glass::after {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 1;
     border-radius: inherit;
+    border: 1px solid var(--g-line);
     pointer-events: none;
-    background-image: linear-gradient(
-      104deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.32) 50%,
-      transparent 60%
-    );
-    background-size: 280% 100%;
-    background-position: 190% 0;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition:
-      background-position 1.15s var(--ease-glass),
-      opacity 0.45s var(--ease-glass);
-  }
-
-  .surface-lift:hover::after,
-  .surface-lift:focus-visible::after,
-  .group:hover > .surface-lift::after {
-    background-position: -90% 0;
-    opacity: 1;
+    transition: border-color 0.7s var(--ease-glass);
   }
 
   .surface {
-    background-color: var(--g-bg);
-    border: 1px solid var(--g-line);
+    background: var(--g-bg);
     box-shadow: var(--depth-1), var(--g-rim);
   }
 
   .surface-tint {
-    background-color: rgba(238, 233, 223, 0.66);
-    border: 1px solid var(--g-line);
+    background: rgba(255, 255, 255, 0.025);
     box-shadow: var(--depth-1), var(--g-rim);
   }
 
-  .surface-inv {
-    background-color: var(--g-inv-bg);
-    border: 1px solid var(--g-inv-line);
-    box-shadow: var(--depth-inv-1), var(--g-inv-rim);
-    padding: clamp(1.1rem, 1.8vw, 1.6rem) clamp(1.25rem, 2vw, 1.9rem);
+  .surface-deep {
+    background: var(--graphite);
+    box-shadow: var(--depth-1), var(--g-rim);
   }
 
-  .surface-dark {
-    background-color: rgba(16, 16, 18, 0.62);
-    color: var(--ivory);
-    border: 1px solid var(--g-inv-line);
-    box-shadow: var(--depth-inv-1), var(--g-inv-rim);
+  .surface-glass {
+    background: rgba(5, 5, 5, 0.52);
+    backdrop-filter: blur(var(--blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    box-shadow: var(--depth-1), var(--g-rim);
   }
 
-  /* The lift is a shift of weight, not a jump: the pane rises a few
-     pixels, the gap beneath it opens, and the rim brightens. */
+  /* The lift. A plate rises and its rim catches more light. */
   .surface-lift:hover,
-  .group:hover > .surface-lift {
-    transform: translateY(-5px);
-  }
-
-  .surface.surface-lift:hover,
-  .group:hover > .surface.surface-lift {
-    background-color: var(--g-bg-hi);
-    border-color: var(--g-line-hi);
+  .surface-lift:focus-visible,
+  .group:hover > .surface-lift,
+  .group:focus-visible > .surface-lift {
+    transform: translate3d(0, -3px, 0);
     box-shadow: var(--depth-2), var(--g-rim);
+    background: var(--g-bg-hi);
   }
 
-  .surface-tint.surface-lift:hover,
-  .group:hover > .surface-tint.surface-lift {
-    background-color: rgba(238, 233, 223, 0.85);
+  .surface-lift:hover::after,
+  .surface-lift:focus-visible::after,
+  .group:hover > .surface-lift::after,
+  .group:focus-visible > .surface-lift::after {
     border-color: var(--g-line-hi);
-    box-shadow: var(--depth-2), var(--g-rim);
   }
 
-  .surface-inv.surface-lift:hover,
-  .surface-dark.surface-lift:hover,
-  .group:hover > .surface-inv.surface-lift,
-  .group:hover > .surface-dark.surface-lift {
-    background-color: var(--g-inv-bg-hi);
-    border-color: var(--g-inv-line-hi);
-    box-shadow: var(--depth-inv-2), var(--g-inv-rim);
+  .surface-deep.surface-lift:hover,
+  .group:hover > .surface-deep.surface-lift {
+    background: #191920;
   }
 
-  /* Where panes stack on top of one another — the principle deck — the
-     fill goes nearly opaque. Three sheets of 55% glass is not depth, it
-     is three pages of type read at once. */
-  .surface-solid {
-    background-color: rgba(253, 252, 250, 0.95);
+  .surface-glass.surface-lift:hover,
+  .group:hover > .surface-glass.surface-lift {
+    background: rgba(5, 5, 5, 0.62);
   }
 
-  .surface-solid.surface-lift:hover,
-  .group:hover > .surface-solid.surface-lift {
-    background-color: rgba(255, 255, 255, 0.98);
-  }
-
-  /* Glass is expensive to composite over a moving page. A phone gets
-     the same design with a thinner pane: less blur, shallower shadow,
-     more opaque fill so the contrast holds without it. */
+  /* On a phone the lift is noise: nothing hovers, and the shadow
+     costs a paint on every scroll. */
   @media (max-width: 767px) {
     .surface,
     .surface-tint,
-    .surface-inv,
-    .surface-dark {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+    .surface-deep,
+    .surface-glass {
+      box-shadow: none;
     }
 
-    .surface {
-      background-color: rgba(255, 255, 255, 0.78);
-    }
-
-    .surface-tint {
-      background-color: rgba(238, 233, 223, 0.88);
-    }
-
-    .surface,
-    .surface-tint {
-      box-shadow:
-        0 1px 1px rgba(10, 10, 11, 0.04),
-        0 14px 30px -14px rgba(10, 10, 11, 0.18),
-        var(--g-rim);
-    }
-
-    .surface-inv,
-    .surface-dark {
-      box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.55), var(--g-inv-rim);
-    }
-  }
-
-  /* No backdrop-filter — a translucent pane would leave the type on
-     the raw ground. Fall back to an opaque one. */
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .surface {
-      background-color: #fdfcfa;
-    }
-
-    .surface-tint {
-      background-color: var(--ivory-2);
-    }
-
-    .surface-inv {
-      background-color: rgba(245, 242, 236, 0.07);
-    }
-
-    .surface-dark {
-      background-color: var(--obsidian-2);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .surface-lift:hover,
-    .group:hover > .surface-lift {
+    .surface-lift:hover {
       transform: none;
+      box-shadow: none;
     }
-
-    .surface::after,
-    .surface-tint::after,
-    .surface-inv::after,
-    .surface-dark::after {
-      display: none;
-    }
-  }
-
-  /* ---------- Marks -------------------------------------------- */
-
-  /* A pill-shaped label. Used for categories and standing facts. */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--g-line);
-    border-radius: 999px;
-    padding: 0.6rem 1.05rem;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--stone);
-    background-color: var(--g-bg);
-    box-shadow: 0 1px 1px rgba(10, 10, 11, 0.03), var(--g-rim);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    transition:
-      border-color 0.5s var(--ease-glass),
-      color 0.5s var(--ease-glass),
-      box-shadow 0.5s var(--ease-glass),
-      background-color 0.5s var(--ease-glass);
-  }
-
-  .chip-inv {
-    border-color: var(--g-inv-line);
-    color: var(--sage);
-    background-color: var(--g-inv-bg);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), var(--g-inv-rim);
-  }
-
-  /* The circular action mark that closes a card or a row. */
-  .badge {
-    display: inline-flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border: 1px solid var(--g-line);
-    border-radius: 999px;
-    color: var(--stone);
-    background-color: var(--g-bg);
-    box-shadow: 0 2px 6px -2px rgba(10, 10, 11, 0.12), var(--g-rim);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    transition:
-      background-color 0.55s var(--ease-glass),
-      border-color 0.55s var(--ease-glass),
-      box-shadow 0.55s var(--ease-glass),
-      color 0.55s var(--ease-glass),
-      transform 0.55s var(--ease-glass);
-  }
-
-  .badge-inv {
-    border-color: var(--g-inv-line);
-    color: rgba(245, 242, 236, 0.5);
-    background-color: var(--g-inv-bg);
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.35), var(--g-inv-rim);
-  }
-
-  .badge-lg {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
-  .group:hover .badge,
-  .group:hover .badge-inv {
-    background-color: var(--gold);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: var(--ink);
-    transform: translateY(-2px);
-    box-shadow:
-      0 8px 20px -6px rgba(197, 164, 126, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .group:hover .badge,
-    .group:hover .badge-inv {
+    .surface,
+    .surface-tint,
+    .surface-deep,
+    .surface-glass,
+    .surface-lift:hover {
+      transition: none;
       transform: none;
     }
   }
 
   /* ============================================================
-     LINKS & ACTIONS
+     MARKS
+     ============================================================ */
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 1.9rem;
+    padding-inline: 0.75rem;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--sage);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition:
+      border-color 0.5s var(--ease),
+      color 0.5s var(--ease);
+  }
+
+  .chip-gold {
+    border-color: var(--line-gold);
+    color: var(--gold);
+  }
+
+  /* The circular arrow mark that closes a link or a card. */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    width: 2.75rem;
+    flex: none;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    color: var(--sage);
+    transition:
+      background-color 0.6s var(--ease),
+      border-color 0.6s var(--ease),
+      color 0.6s var(--ease),
+      transform 0.6s var(--ease);
+  }
+
+  .badge-lg {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+
+  .group:hover .badge,
+  .group:focus-visible .badge {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge {
+      transition: none;
+    }
+  }
+
+  /* ============================================================
+     LINKS
      ============================================================ */
 
   .link-underline {
     position: relative;
-    display: inline-block;
   }
 
   .link-underline::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -3px;
-    width: 100%;
+    bottom: -2px;
     height: 1px;
+    width: 100%;
     background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
@@ -938,7 +818,8 @@
   }
 
   .link-underline:hover::after,
-  .link-underline:focus-visible::after {
+  .link-underline:focus-visible::after,
+  .group:hover .link-underline::after {
     transform: scaleX(1);
     transform-origin: left;
   }
@@ -946,345 +827,293 @@
   .cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
-    min-height: 2.75rem;
+    gap: 0.625rem;
     font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    transition: color 0.45s var(--ease);
+    transition: color 0.5s var(--ease);
   }
 
   .arrow {
-    transition: transform 0.5s var(--ease);
+    transition: transform 0.55s var(--ease);
   }
 
   .group:hover .arrow {
-    transform: translate3d(4px, -4px, 0);
+    transform: translate(2px, -2px);
   }
 
   .group:hover .arrow-right {
-    transform: translate3d(4px, 0, 0);
+    transform: translateX(4px);
   }
 
+  /* ============================================================
+     BUTTONS
+     ------------------------------------------------------------
+     One object. A rectangle with a hairline and a light streak
+     that crosses its face on hover. `light` is the primary pair
+     (ivory fill / ivory hairline); `dark` is the recessive pair
+     used where an action sits over busy media.
+     ============================================================ */
 
-  /* ---------- Buttons ------------------------------------------
-     One object in four lights. A button is a pane of glass held a
-     little further off the ground than a card, with a rim of light
-     on its upper edge and a streak that crosses it on hover.
-
-     Nothing here chases the pointer. The whole interaction is a
-     lift, a hair of scale and the streak, on one long curve — a
-     heavy object being raised, not a control being nudged.
-
-       .btn-dark-*    on ivory        .btn-light-*   on obsidian
-       *-solid        the primary     *-outline      the secondary  */
   .btn {
     position: relative;
-    isolation: isolate;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    min-height: 3.25rem;
-    padding: 1rem 2rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
+    gap: 0.7rem;
+    height: 3.25rem;
+    padding-inline: clamp(1.25rem, 2.2vw, 1.85rem);
+    border-radius: var(--r-md);
+    border: 1px solid transparent;
+    font-size: 0.73rem;
     font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     white-space: nowrap;
-    backdrop-filter: blur(var(--blur)) saturate(150%);
-    -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
-    transform: translate3d(0, 0, 0);
+    overflow: hidden;
+    isolation: isolate;
     transition:
-      transform 0.5s var(--ease-glass),
-      box-shadow 0.5s var(--ease-glass),
-      background-color 0.5s var(--ease-glass),
-      border-color 0.5s var(--ease-glass),
-      color 0.5s var(--ease-glass);
+      transform 0.6s var(--ease-glass),
+      background-color 0.6s var(--ease-glass),
+      border-color 0.6s var(--ease-glass),
+      color 0.6s var(--ease-glass),
+      box-shadow 0.6s var(--ease-glass);
   }
 
   @media (min-width: 640px) {
     .btn {
-      padding: 1.1rem 2.5rem;
+      height: 3.5rem;
     }
   }
 
-  /* The streak. Same mechanism as the panes: a gradient parked off
-     the right edge, moved across by background-position, bounded by
-     the button's own radius. */
+  /* The streak. One pass, left to right, behind the label. */
   .btn::after {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: 1;
-    border-radius: inherit;
-    pointer-events: none;
-    background-image: linear-gradient(
-      104deg,
-      transparent 42%,
-      rgba(255, 255, 255, 0.45) 50%,
-      transparent 58%
+    inset-block: 0;
+    left: -60%;
+    width: 45%;
+    z-index: -1;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.16) 50%,
+      transparent 100%
     );
-    background-size: 280% 100%;
-    background-position: 190% 0;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition:
-      background-position 1.05s var(--ease-glass),
-      opacity 0.4s var(--ease-glass);
+    transform: skewX(-18deg);
+    transition: left 0.9s var(--ease-glass);
   }
 
   .btn:hover::after,
   .btn:focus-visible::after {
-    background-position: -90% 0;
-    opacity: 1;
+    left: 115%;
   }
 
   .btn > * {
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
 
-  /* The lift: three pixels up, three per cent out. */
   .btn:hover,
   .btn:focus-visible {
-    transform: translate3d(0, -3px, 0) scale(1.03);
+    transform: translate3d(0, -2px, 0);
   }
 
   .btn:active {
-    transform: translate3d(0, -1px, 0) scale(1.005);
-    transition-duration: 0.14s;
+    transform: translate3d(0, 0, 0);
   }
 
   .btn:disabled {
-    cursor: not-allowed;
     opacity: 0.55;
+    cursor: not-allowed;
   }
 
   .btn:disabled:hover {
     transform: none;
   }
 
-  /* Primary, on ivory — smoked glass. */
-  .btn-dark-solid {
-    color: var(--ivory);
-    background-color: rgba(10, 10, 11, 0.9);
-    background-image: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 55%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: var(--depth-1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  }
-
-  .btn-dark-solid:hover,
-  .btn-dark-solid:focus-visible {
-    background-color: rgba(10, 10, 11, 0.96);
-    border-color: rgba(197, 164, 126, 0.55);
-    box-shadow: var(--depth-2), inset 0 1px 0 rgba(255, 255, 255, 0.24);
-  }
-
-  /* Secondary, on ivory — a clear pane. */
-  .btn-dark-outline {
-    color: var(--ink);
-    background-color: var(--g-bg);
-    border: 1px solid var(--g-line-hi);
-    box-shadow: var(--depth-1), var(--g-rim);
-  }
-
-  .btn-dark-outline:hover,
-  .btn-dark-outline:focus-visible {
-    background-color: var(--g-bg-hi);
-    border-color: rgba(10, 10, 11, 0.2);
-    box-shadow: var(--depth-2), var(--g-rim);
-  }
-
-  /* Primary, on obsidian — a lit pane. */
+  /* Primary — an ivory plate. */
   .btn-light-solid {
+    background: var(--ivory);
     color: var(--ink);
-    background-color: rgba(255, 255, 255, 0.92);
-    background-image: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.5) 0%,
-      rgba(238, 233, 223, 0.35) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.3),
-      0 20px 50px -18px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 32px -16px rgba(0, 0, 0, 0.8);
   }
 
   .btn-light-solid:hover,
   .btn-light-solid:focus-visible {
-    background-color: rgba(255, 255, 255, 0.98);
-    border-color: rgba(255, 255, 255, 0.75);
-    box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.34),
-      0 30px 64px -20px rgba(0, 0, 0, 0.62),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
   }
 
-  /* Secondary, on obsidian — the clear glass of the brief. */
+  /* Secondary — a hairline over whatever is behind it. */
   .btn-light-outline {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--line-control);
     color: var(--ivory);
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: var(--depth-inv-1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    box-shadow: var(--g-rim);
   }
 
   .btn-light-outline:hover,
   .btn-light-outline:focus-visible {
-    background-color: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.42);
-    box-shadow: var(--depth-inv-2), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--gold);
+    color: var(--gold-hi);
   }
 
-  /* The header action: the same pane at control height. */
+  /* The accent action. Used once per page at most. */
+  .btn-dark-solid {
+    background: var(--gold);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 32px -16px rgba(0, 0, 0, 0.8);
+  }
+
+  .btn-dark-solid:hover,
+  .btn-dark-solid:focus-visible {
+    background: var(--gold-hi);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+  }
+
+  .btn-dark-outline {
+    background: rgba(5, 5, 5, 0.42);
+    border-color: var(--line-control);
+    color: var(--ivory-2);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+
+  .btn-dark-outline:hover,
+  .btn-dark-outline:focus-visible {
+    background: rgba(5, 5, 5, 0.62);
+    border-color: var(--line-gold);
+    color: var(--gold-hi);
+  }
+
   .btn-sm {
-    min-height: 2.75rem;
-    gap: 0.625rem;
-    padding: 0.75rem 1.75rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    height: 2.75rem;
+    padding-inline: 1.15rem;
+    font-size: 0.68rem;
   }
 
   @media (min-width: 640px) {
     .btn-sm {
-      padding: 0.8rem 1.9rem;
+      height: 2.9rem;
     }
   }
 
-  /* The arrow leads the lift. */
   .btn .btn-arrow {
-    transition: transform 0.5s var(--ease-glass);
+    transition: transform 0.55s var(--ease);
   }
 
   .btn:hover .btn-arrow,
   .btn:focus-visible .btn-arrow {
-    transform: translate3d(4px, 0, 0);
+    transform: translateX(4px);
   }
 
   .btn:hover .btn-arrow-up,
   .btn:focus-visible .btn-arrow-up {
-    transform: translate3d(3px, -3px, 0);
+    transform: translate(3px, -3px);
   }
 
-  /* On a phone the pane thins out and the lift goes: a tap has no
-     hover to lift out of, and a full-strength blur on a list of
-     controls is the most expensive thing on the page. */
+  /* A button is a target before it is an object. */
   @media (max-width: 767px) {
     .btn {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding-left: 1.6rem;
-      padding-right: 1.6rem;
-      letter-spacing: 0.16em;
+      width: 100%;
+      justify-content: space-between;
     }
 
-    .btn-dark-outline {
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-
-    .btn-light-outline {
-      background-color: rgba(255, 255, 255, 0.12);
-    }
-  }
-
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .btn-dark-outline {
-      background-color: #fdfcfa;
-    }
-
-    .btn-light-outline {
-      background-color: rgba(245, 242, 236, 0.12);
+    .btn.btn-sm {
+      width: auto;
+      justify-content: center;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn:hover,
-    .btn:focus-visible,
-    .btn:active {
-      transform: none;
+    .btn,
+    .btn::after,
+    .btn .btn-arrow {
+      transition: none;
     }
 
-    .btn::after {
-      display: none;
-    }
-
-    .btn:hover .btn-arrow,
-    .btn:focus-visible .btn-arrow,
-    .btn:hover .btn-arrow-up,
-    .btn:focus-visible .btn-arrow-up {
+    .btn:hover {
       transform: none;
     }
   }
 
   /* ============================================================
-     SHARED COMPOSITIONS
+     COMPOSITION
      ------------------------------------------------------------
-     Patterns that recur across pages are defined once so every
-     section that uses one lands on the same lines.
+     The recurring arrangements. Declared once so every section
+     that uses one is measured identically.
      ============================================================ */
 
-  /* "Statement left, supporting copy right." */
+  /* A section heading with a note held to the right of it. */
   .head {
     display: grid;
-    gap: clamp(2rem, 4vw, 4rem);
+    gap: clamp(1.25rem, 2.4vw, 2rem);
   }
 
   @media (min-width: 1024px) {
     .head {
-      grid-template-columns: minmax(0, 1.05fr) minmax(21.25rem, 0.95fr);
-      column-gap: clamp(3.5rem, 6vw, 7.5rem);
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
       align-items: end;
+      gap: clamp(2rem, 4vw, 5rem);
     }
   }
 
   .head-title {
-    max-width: 47.5rem;
-    text-wrap: balance;
+    max-width: 18ch;
   }
 
   .head-note {
-    max-width: 33.75rem;
+    max-width: 46ch;
   }
 
-  /* Where an intro sits above a ledger, it takes the ledger's own
-     columns so the supporting copy lands on the same line as the
-     row descriptions. */
+  @media (min-width: 1024px) {
+    .head-note {
+      justify-self: end;
+      text-align: left;
+    }
+  }
+
+  /* Number / title / description on one baseline. */
+  .ledger {
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .ledger {
+      grid-template-columns: 4.5rem minmax(0, 1.05fr) minmax(0, 1fr);
+      align-items: baseline;
+      gap: clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+
+  /* A head that stands over a ledger borrows the ledger's own
+     columns, so the note lands on the same line as the row
+     descriptions and the heading spans the index and title
+     tracks. Without this the head keeps its own two columns and
+     the boundary between head and rows reads as two grids. */
   @media (min-width: 1024px) {
     .head-ledger {
-      grid-template-columns: minmax(3rem, 4.5rem) minmax(17.5rem, 1.1fr) minmax(20rem, 0.9fr);
+      grid-template-columns: 4.5rem minmax(0, 1.05fr) minmax(0, 1fr);
       column-gap: clamp(1.5rem, 3vw, 3rem);
     }
 
     .head-ledger > :first-child {
       grid-column: 1 / 3;
     }
-  }
 
-  /* A numbered ledger row: index, title, description on fixed
-     lines. */
-  .ledger {
-    display: grid;
-    gap: 0.75rem 2rem;
-  }
-
-  @media (min-width: 768px) {
-    .ledger {
-      grid-template-columns: minmax(3rem, 4.5rem) minmax(17.5rem, 1.1fr) minmax(20rem, 0.9fr);
-      gap: 0 clamp(1.5rem, 3vw, 3rem);
-      align-items: baseline;
+    /* The note is aligned by the track, not pushed to its far end. */
+    .head-ledger .head-note {
+      justify-self: start;
     }
   }
 
-  /* The introduction that opens an inner page: one grid, one set
-     of measures, one rhythm, whatever each page puts inside it. */
+  /* The opening of a service page. */
   .intro {
     display: grid;
     gap: clamp(2rem, 4vw, 4rem);
@@ -1293,43 +1122,31 @@
   @media (min-width: 1024px) {
     .intro {
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      column-gap: clamp(3.5rem, 6vw, 6.875rem);
-      align-items: start;
+      gap: clamp(3rem, 6vw, 7rem);
     }
   }
 
   .intro-title {
     font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(1.55rem, 2.7vw, 2.75rem);
-    line-height: 1.12;
-    letter-spacing: -0.024em;
-    max-width: 24ch;
-    text-wrap: balance;
+    font-size: clamp(1.7rem, 3vw, 2.9rem);
+    line-height: 1.1;
+    letter-spacing: -0.026em;
+    max-width: 20ch;
   }
 
   .intro-copy > * + * {
-    margin-top: clamp(1.25rem, 1.6vw, 1.75rem);
-  }
-
-  .intro-copy .t-lead,
-  .intro-copy .t-body {
-    max-width: 62ch;
-  }
-
-  .intro-copy > .intro-body {
-    margin-top: clamp(2rem, 3vw, 2.75rem);
+    margin-top: clamp(1.25rem, 2vw, 1.75rem);
   }
 
   .intro-body > * + * {
-    margin-top: clamp(1.25rem, 1.6vw, 1.75rem);
+    margin-top: clamp(1.25rem, 2vw, 1.75rem);
   }
 
   /* ============================================================
-     FORM CONTROLS
+     FORM
      ------------------------------------------------------------
-     A field is a line, not a box: the rule under it thickens and
-     turns gold on focus, and the label lifts with it.
+     A field is a line, not a box. The label lifts out of it and
+     the rule draws gold from the left on focus.
      ============================================================ */
 
   .field {
@@ -1340,46 +1157,35 @@
   .field-input {
     display: block;
     width: 100%;
-    min-height: 3.25rem;
-    padding: 1.6rem 0 0.7rem;
-    border: 0;
-    border-bottom: 1px solid var(--line-inv);
-    border-radius: 0;
     background: transparent;
-    color: var(--ivory);
-    font-size: 1.0625rem;
+    border: 0;
+    border-radius: 0;
+    padding: 1.6rem 0 0.75rem;
+    font-size: 1rem;
     font-weight: 300;
-    letter-spacing: -0.004em;
-    transition: border-color 0.5s var(--ease);
+    line-height: 1.5;
+    color: var(--ivory);
+    outline: none;
+    transition: color 0.4s var(--ease);
   }
 
   .field-input:focus {
     outline: none;
-    border-color: var(--gold);
   }
 
   .field-input::placeholder {
     color: transparent;
   }
 
-  textarea.field-input {
-    resize: vertical;
-    min-height: 7rem;
-    line-height: 1.7;
-  }
-
-  /* The floating label. It rests on the baseline of an empty
-     field and lifts to label size once the field is focused or
-     filled. */
   .field-label {
     position: absolute;
     left: 0;
     top: 1.55rem;
-    transform-origin: left top;
     pointer-events: none;
-    color: rgba(245, 242, 236, 0.5);
-    font-size: 1.0625rem;
+    font-size: 0.95rem;
     font-weight: 300;
+    color: var(--stone);
+    transform-origin: left top;
     transition:
       transform 0.45s var(--ease),
       color 0.45s var(--ease);
@@ -1387,42 +1193,53 @@
 
   .field-input:focus ~ .field-label,
   .field-input:not(:placeholder-shown) ~ .field-label {
-    transform: translateY(-1.5rem) scale(0.68);
+    transform: translateY(-1.5rem) scale(0.74);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
   }
 
   .field-input:not(:focus):not(:placeholder-shown) ~ .field-label {
-    color: var(--sage);
+    color: var(--stone);
   }
 
-  /* The gold underline that draws in from the left on focus. */
   .field-line {
     position: absolute;
     left: 0;
+    right: 0;
     bottom: 0;
     height: 1px;
-    width: 100%;
+    background: var(--line-control);
+  }
+
+  .field-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: var(--gold);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.6s var(--ease);
-    pointer-events: none;
   }
 
-  .field-input:focus ~ .field-line {
+  .field-input:focus ~ .field-line::after {
     transform: scaleX(1);
   }
 
-  .field-input[aria-invalid='true'] {
-    border-color: var(--gold-deep);
+  .field-input[aria-invalid='true'] ~ .field-line {
+    background: #b4715b;
   }
 }
 
 @layer utilities {
   .balance {
     text-wrap: balance;
+  }
+
+  /* A section the page index can link to stops clear of the fixed header
+     rather than underneath it. */
+  [data-section] {
+    scroll-margin-top: calc(var(--header-h) + 0.5rem);
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -1438,63 +1255,51 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Full viewport height that behaves on mobile browsers. */
   .h-screen-safe {
     height: 100svh;
-    min-height: 34rem;
   }
 
   .min-h-screen-safe {
     min-height: 100svh;
   }
-
 }
 
 /* ============================================================
    PRELOADER
    ------------------------------------------------------------
    The curtain is painted by the document itself so there is no
-   flash of unstyled page before React hydrates. `data-loaded` is
-   set on <html> once the reveal has run, and the same attribute
-   is set immediately by an inline script on any subsequent
-   navigation within the session.
+   frame of unveiled page before hydration.
    ============================================================ */
+
 html[data-preload='pending'] body {
   overflow: hidden;
 }
 
-/* Failsafe. If the bundle never hydrates, the inline script clears the
-   attribute after four seconds and this removes the curtain outright, so a
-   script failure can never leave the page behind a black screen. */
+html[data-preload='pending'] [data-preloader] {
+  opacity: 1;
+}
+
 html.preload-timeout [data-preloader] {
-  display: none !important;
+  display: none;
 }
 
 /* ============================================================
    CUSTOM CURSOR
    ------------------------------------------------------------
-   Only ever attached on a device with a fine pointer that is not
-   asking for reduced motion; the component itself enforces that.
    The native cursor is hidden only while the custom one is live.
    ============================================================ */
+
 @media (hover: hover) and (pointer: fine) {
   html[data-cursor='on'],
   html[data-cursor='on'] * {
     cursor: none !important;
-  }
-
-  /* A text field still needs a caret. The longer selector wins on
-     specificity, so these keep the native cursor. */
-  html[data-cursor='on'] input,
-  html[data-cursor='on'] textarea,
-  html[data-cursor='on'] select {
-    cursor: text !important;
   }
 }
 
 /* ============================================================
    REDUCED MOTION
    ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

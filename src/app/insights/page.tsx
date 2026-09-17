@@ -30,6 +30,7 @@ export default function InsightsPage() {
     <>
       <PageHero
         eyebrow={insightsIntro.eyebrow}
+        sectionLabel="Insights"
         headline={[insightsIntro.heading]}
         standfirst={insightsIntro.standfirst}
         image="city-blue-night"
@@ -39,7 +40,7 @@ export default function InsightsPage() {
       />
 
       {/* Featured */}
-      <section className="section ground-ivory" aria-labelledby="featured-heading">
+      <section data-section="Featured Insight" className="section ground-char" aria-labelledby="featured-heading">
         <div className="shell">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
             <Reveal kind="label" className="kicker">
@@ -88,19 +89,19 @@ export default function InsightsPage() {
 
                   <h2
                     id="featured-heading"
-                    className="t-display mt-5 max-w-[16ch] text-ink transition-colors duration-500 group-hover:text-gold-ink"
+                    className="t-display mt-5 max-w-[16ch] text-ivory transition-colors duration-500 group-hover:text-gold"
                   >
                     {featuredInsight.title}
                   </h2>
                 </div>
 
                 <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-end lg:pb-1">
-                  <p className="t-lead max-w-[44ch] text-stone">{featuredInsight.summary}</p>
+                  <p className="t-lead max-w-[44ch] text-sage">{featuredInsight.summary}</p>
                   <span className="mt-7 flex items-center gap-4">
                     <span aria-hidden className="badge badge-lg">
                       <ArrowUpRight strokeWidth={1.3} className="h-5 w-5" />
                     </span>
-                    <span className="cta text-ink group-hover:text-gold-ink">
+                    <span className="cta text-ivory group-hover:text-gold">
                       <span className="link-underline">Read the piece</span>
                     </span>
                   </span>
@@ -112,7 +113,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Latest — a catalogue of surfaces */}
-      <section className="section ground-ivory-2" aria-labelledby="latest-heading">
+      <section data-section="Latest" className="section ground-graphite" aria-labelledby="latest-heading">
         <div className="shell">
           <Reveal kind="label" className="kicker">
             <h2 id="latest-heading" className="t-label">
@@ -145,12 +146,12 @@ export default function InsightsPage() {
                       isoDate={item.isoDate}
                       readingTime={item.readingTime}
                     />
-                    <span className="t-h3 mt-4 block max-w-[22ch] text-ink transition-colors duration-500 group-hover:text-gold-ink">
+                    <span className="t-h3 mt-4 block max-w-[22ch] text-ivory transition-colors duration-500 group-hover:text-gold">
                       {item.title}
                     </span>
                   </span>
 
-                  <span className="t-small max-w-[46ch] text-stone sm:col-span-2 lg:col-span-1">
+                  <span className="t-small max-w-[46ch] text-sage sm:col-span-2 lg:col-span-1">
                     {item.summary}
                   </span>
 
@@ -194,13 +195,13 @@ function Meta({
 }) {
   return (
     <span className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-      <span className="t-label text-gold-ink">{category}</span>
+      <span className="t-label text-gold">{category}</span>
       <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <time dateTime={isoDate} className="t-meta text-stone">
+      <time dateTime={isoDate} className="t-meta text-sage">
         {date}
       </time>
       <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <span className="t-meta text-stone">{readingTime}</span>
+      <span className="t-meta text-sage">{readingTime}</span>
     </span>
   );
 }

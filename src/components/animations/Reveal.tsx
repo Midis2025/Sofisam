@@ -135,18 +135,17 @@ export function RowReveal({
   children,
   className = '',
   delay = 0,
-  tone = 'dark',
   as = 'li',
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  tone?: 'dark' | 'light';
   as?: 'li' | 'div';
 }) {
   const reduce = useReducedMotion();
   const Comp = (as === 'li' ? motion.li : motion.div) as typeof motion.div;
-  const line = tone === 'dark' ? 'bg-[var(--line)]' : 'bg-[var(--line-inv)]';
+  // One ground, so one hairline. There is no light counterpart to pick.
+  const line = 'bg-[var(--line)]';
 
   if (reduce) {
     const Static = as as 'div';

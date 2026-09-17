@@ -75,6 +75,7 @@ export default async function InsightPage({
 
       <PageHero
         eyebrow={insight.category}
+        sectionLabel="Insight"
         headline={[insight.title]}
         standfirst={insight.standfirst}
         image={insight.image}
@@ -101,29 +102,29 @@ export default async function InsightPage({
       </PageHero>
 
       {/* Article body */}
-      <article className="section ground-ivory">
+      <article data-section="Article" className="section ground-char">
         <div className="shell">
           <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
             {/* Side rail */}
             <aside className="lg:col-span-3">
               <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
-                <p className="t-label text-[var(--gold-ink)]">In this piece</p>
+                <p className="t-label text-gold">In this piece</p>
                 <ol className="mt-6">
                   {insight.body
                     .filter((b) => b.heading)
                     .map((b, i) => (
                       <li key={b.heading} className="row flex gap-4 py-3.5">
-                        <span className="t-num shrink-0 pt-[0.2rem] text-[0.66rem] text-[var(--stone)]">
+                        <span className="t-num shrink-0 pt-[0.2rem] text-[0.66rem] text-sage">
                           {String(i + 1).padStart(2, '0')}
                         </span>
-                        <span className="t-small text-[var(--stone)]">{b.heading}</span>
+                        <span className="t-small text-sage">{b.heading}</span>
                       </li>
                     ))}
                 </ol>
 
                 <Link
                   href="/insights"
-                  className="group cta mt-7 text-[var(--stone)] hover:text-[var(--ink)]"
+                  className="group cta mt-7 text-sage hover:text-ivory"
                 >
                   <span className="link-underline">All insights</span>
                   <ArrowUpRight aria-hidden strokeWidth={1.5} className="arrow h-3.5 w-3.5" />
@@ -137,7 +138,7 @@ export default async function InsightPage({
                 <section key={block.heading ?? `block-${bi}`} className={bi > 0 ? 'mt-12' : ''}>
                   {block.heading && (
                     <Reveal>
-                      <h2 className="t-h3 mb-6 max-w-[22ch] text-[var(--ink)]">
+                      <h2 className="t-h3 mb-6 max-w-[22ch] text-ivory">
                         {block.heading}
                       </h2>
                     </Reveal>
@@ -148,8 +149,8 @@ export default async function InsightPage({
                         <p
                           className={
                             bi === 0 && pi === 0
-                              ? 't-lead max-w-[58ch] text-[var(--ink)]'
-                              : 't-body max-w-[62ch] text-[var(--stone)]'
+                              ? 't-lead max-w-[58ch] text-ivory'
+                              : 't-body max-w-[62ch] text-sage'
                           }
                         >
                           {p}
@@ -161,8 +162,8 @@ export default async function InsightPage({
                   {/* Pull quote inserted after the second block */}
                   {insight.pullQuote && bi === 1 && (
                     <Reveal delay={0.1}>
-                      <blockquote className="my-12 border-l border-[var(--gold)] py-2 pl-6 sm:pl-9">
-                        <p className="max-w-[28ch] font-display text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.14] tracking-tighter text-[var(--ink)]">
+                      <blockquote className="my-12 border-l border-gold py-2 pl-6 sm:pl-9">
+                        <p className="max-w-[28ch] font-display text-[clamp(1.5rem,3vw,2.4rem)] leading-[1.14] tracking-tighter text-ivory">
                           {insight.pullQuote}
                         </p>
                       </blockquote>
@@ -174,7 +175,7 @@ export default async function InsightPage({
               <span aria-hidden className="rule mt-14 block" />
 
               <Reveal>
-                <p className="t-meta mt-7 max-w-[58ch] text-[var(--stone)]">
+                <p className="t-meta mt-7 max-w-[58ch] text-sage">
                   This piece is general commentary and does not constitute
                   investment, legal or tax advice, or an offer of any service.
                   Nothing in it describes a specific engagement of SOFISAM FZCO.
@@ -186,7 +187,7 @@ export default async function InsightPage({
       </article>
 
       {/* More insights */}
-      <section className="section ground-ivory-2" aria-labelledby="related-heading">
+      <section data-section="More Insights" className="section ground-graphite" aria-labelledby="related-heading">
         <div className="shell">
           <Reveal kind="label" className="kicker">
             <h2 id="related-heading" className="t-label">
@@ -209,19 +210,19 @@ export default async function InsightPage({
                   </div>
                   <div className="mt-6 flex items-start justify-between gap-5">
                     <div className="min-w-0">
-                      <span className="t-label text-[var(--gold-ink)]">{item.category}</span>
-                      <h3 className="t-h3 mt-4 max-w-[22ch] text-[var(--ink)] transition-colors duration-500 group-hover:text-[var(--gold-deep)]">
+                      <span className="t-label text-gold">{item.category}</span>
+                      <h3 className="t-h3 mt-4 max-w-[22ch] text-ivory transition-colors duration-500 group-hover:text-gold-hi">
                         {item.title}
                       </h3>
                     </div>
                     <span
                       aria-hidden
-                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line)] text-[var(--stone)] transition-colors duration-500 ease-premium group-hover:border-[var(--gold)] group-hover:bg-[var(--gold)] group-hover:text-[var(--ink)] sm:flex"
+                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line)] text-sage transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ivory sm:flex"
                     >
                       <ArrowUpRight strokeWidth={1.4} className="arrow h-4 w-4" />
                     </span>
                   </div>
-                  <div className="t-meta mt-4 flex items-center gap-5 text-[var(--stone)]">
+                  <div className="t-meta mt-4 flex items-center gap-5 text-sage">
                     <time dateTime={item.isoDate}>{item.date}</time>
                     <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
                     <span>{item.readingTime}</span>

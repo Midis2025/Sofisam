@@ -14,6 +14,12 @@ const VIEWPORT = { once: true, margin: '-12% 0px -12% 0px' } as const;
 
 interface CTASectionProps {
   eyebrow?: string;
+  /**
+   * The name this band takes in the page index. It defaults to the eyebrow,
+   * which is usually the same thing; the service pages set their eyebrow to
+   * the service they close, and give the index the band's own name instead.
+   */
+  sectionLabel?: string;
   lines?: string[];
   body?: string;
   /** Name of an existing asset in the image manifest. */
@@ -24,13 +30,15 @@ interface CTASectionProps {
 /**
  * Enquiries — the closing band on every page that carries this section.
  *
- * The page's own architectural photograph is the ground, under a scrim of the
- * site's own warm ivory. The statement holds the left of the measure and the
+ * The page's own architectural photograph is the ground, under the editorial
+ * scrim — densest on the copy side, clearing to the right so the glazing
+ * stays visible behind the actions. The statement holds the left and the
  * two actions sit as a column on the right, level with the copy, so the band
  * reads across its full width instead of massing on one side.
  */
 export function CTASection({
   eyebrow = 'Enquiries',
+  sectionLabel,
   lines = ['Start a', 'conversation.'],
   body = 'Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence.',
   image = 'gold-lattice',
@@ -39,7 +47,11 @@ export function CTASection({
   const reduce = useReducedMotion();
 
   return (
-    <section className="ground-ivory relative w-full overflow-hidden" aria-labelledby="cta-heading">
+    <section
+      data-section={sectionLabel ?? eyebrow}
+      className="ground-char grain relative w-full overflow-hidden"
+      aria-labelledby="cta-heading"
+    >
       {/* The photograph settles once on entry and is never animated after. */}
       <motion.div
         className="media media-flat media-graded absolute inset-0"
@@ -60,7 +72,7 @@ export function CTASection({
 
       <motion.div
         aria-hidden
-        className="veil-ivory absolute inset-0"
+        className="veil-editorial absolute inset-0"
         initial={reduce ? false : { opacity: 0.8 }}
         whileInView={{ opacity: 1 }}
         viewport={VIEWPORT}
@@ -82,7 +94,7 @@ export function CTASection({
                 transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
               />
               <motion.p
-                className="t-label text-gold-ink"
+                className="t-label text-gold"
                 initial={reduce ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={VIEWPORT}
@@ -94,13 +106,13 @@ export function CTASection({
 
             <h2
               id="cta-heading"
-              className="t-display mt-[clamp(1.25rem,1.9vw,1.75rem)] max-w-[9ch] text-ink"
+              className="t-display mt-[clamp(1.25rem,1.9vw,1.75rem)] max-w-[9ch] text-ivory"
             >
               <MaskedLines lines={lines} delay={0.46} stagger={0.08} />
             </h2>
 
             <motion.p
-              className="t-body mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[36rem] text-stone"
+              className="t-body mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[36rem] text-sage"
               initial={reduce ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}

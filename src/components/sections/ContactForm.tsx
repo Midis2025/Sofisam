@@ -232,7 +232,7 @@ export function ContactForm() {
         </AnimatePresence>
       </div>
 
-      <p className="mt-2 text-[0.78rem] font-light leading-relaxed text-ivory/35">
+      <p className="mt-2 text-[0.78rem] font-light leading-relaxed text-stone">
         Enquiries are handled in confidence. You can also write directly to{' '}
         <a href={`mailto:${contact.email}`} className="link-underline text-ivory/55">
           {contact.email}

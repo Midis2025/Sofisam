@@ -11,7 +11,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
   const next = services[(i + 1) % services.length];
 
   return (
-    <nav aria-label="Other services" className="ground-ivory">
+    <nav aria-label="Other services" className="ground-char">
       <div className="shell">
         <ul className="grid sm:grid-cols-2">
           {[
@@ -34,7 +34,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   <ArrowLeft
                     aria-hidden
                     strokeWidth={1.4}
-                    className="h-5 w-5 shrink-0 text-[var(--stone)] transition-all duration-500 ease-premium group-hover:-translate-x-1 group-hover:text-[var(--gold-ink)]"
+                    className="h-5 w-5 shrink-0 text-sage transition-all duration-500 ease-premium group-hover:-translate-x-1 group-hover:text-gold"
                   />
                 )}
 
@@ -53,8 +53,8 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                     />
                   </span>
                   <span className="min-w-0">
-                    <span className="t-label block text-[var(--gold-ink)]">{dir}</span>
-                    <span className="t-h3 mt-2.5 block truncate text-[var(--ink)] transition-colors duration-500 group-hover:text-[var(--gold-deep)]">
+                    <span className="t-label block text-gold">{dir}</span>
+                    <span className="t-h3 mt-2.5 block truncate text-ivory transition-colors duration-500 group-hover:text-gold-hi">
                       {s.title}
                     </span>
                   </span>
@@ -64,7 +64,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   <ArrowRight
                     aria-hidden
                     strokeWidth={1.4}
-                    className="h-5 w-5 shrink-0 text-[var(--stone)] transition-all duration-500 ease-premium group-hover:translate-x-1 group-hover:text-[var(--gold-ink)]"
+                    className="h-5 w-5 shrink-0 text-sage transition-all duration-500 ease-premium group-hover:translate-x-1 group-hover:text-gold"
                   />
                 )}
               </Link>

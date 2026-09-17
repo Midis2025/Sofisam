@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown } from 'lucide-react';
 
 import { heroCopy, contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
@@ -65,15 +66,19 @@ function useWantsScene() {
 }
 
 /**
- * The opening frame.
+ * The masthead.
  *
- * A centred cinematic composition: the label at the top of the frame, the
- * statement through its middle, the actions at the foot, and a photographic
- * night skyline moving in depth behind all of it. The type sits in front of
- * the scene with its own scrim, so the city frames the headline rather than
- * competing with it.
+ * An architectural environment the statement is set into rather than placed
+ * beside. The city occupies the whole frame and the type is held to the foot
+ * of it — a masthead composition, so the architecture stays the dominant
+ * thing on the page and the copy reads as a caption to it.
  *
- * Where the scene is not appropriate — a phone, reduced motion, a slow
+ * The opening runs as one move: the curtain lifts, the city arrives out of
+ * black with the camera already travelling forward, the statement assembles
+ * line by line, the rule draws across the foot of the frame, and the
+ * supporting row settles under it. Nothing in it is fast.
+ *
+ * Where the WebGL scene is not appropriate — a phone, reduced motion, a slow
  * connection, no WebGL — the same composition runs over the same photograph,
  * held still. The layout, the copy, the timing and the subject are identical
  * either way; only the depth behind them is lost.
@@ -93,8 +98,8 @@ export function Hero() {
     offset: ['start start', 'end start'],
   });
 
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '26%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
 
   const showScene = wantsScene && !sceneFailed;
 
@@ -119,10 +124,14 @@ export function Hero() {
     return () => window.removeEventListener('pointermove', onMove);
   }, [showScene]);
 
+  // The index names this frame for the firm rather than 'Introduction', which
+  // would sit directly above the statement welcoming the reader and read as
+  // the same entry twice.
   return (
     <section
+      data-section="SOFISAM"
       ref={ref}
-      className="relative min-h-[100svh] w-full overflow-hidden bg-ink"
+      className="grain relative min-h-[100svh] w-full overflow-hidden bg-void"
       aria-label="Introduction"
     >
       {/* ---------- Ground ---------- */}
@@ -149,23 +158,16 @@ export function Hero() {
           </div>
 
           <SkylineScene
-            className={`absolute inset-0 h-full w-full transition-opacity duration-[2000ms] ease-premium ${
+            className={`absolute inset-0 h-full w-full transition-opacity duration-[2200ms] ease-premium ${
               sceneReady ? 'opacity-100' : 'opacity-0'
             }`}
             handleRef={scene}
             onReady={() => setSceneReady(true)}
             onFail={() => setSceneFailed(true)}
           />
-
-          {/* A soft vignette seats the city in the frame and keeps the
-              baseline row off the brightest part of it. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(82%_70%_at_50%_45%,transparent_0%,rgba(6,6,7,0.28)_78%,rgba(6,6,7,0.8)_100%)]"
-          />
         </>
       ) : (
-        <div className="media media-flat veil-hero absolute inset-0">
+        <div className="media media-flat absolute inset-0">
           <Picture
             name="city-blue-night"
             alt="Aerial view of an international financial district lit at night"
@@ -177,68 +179,77 @@ export function Hero() {
         </div>
       )}
 
+      {/* The scrim. Heavy at the foot, where the statement sits; almost
+          nothing through the upper two thirds, which is the city. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(5,5,5,0.95)_0%,rgba(5,5,5,0.82)_22%,rgba(5,5,5,0.36)_52%,rgba(5,5,5,0.12)_74%,rgba(5,5,5,0.55)_100%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(120%_85%_at_50%_40%,transparent_35%,rgba(5,5,5,0.55)_100%)]"
+      />
+
+      {/* The side rail that used to be pinned here — 01 / Introduction / 09 —
+          is now `SectionProgress`, mounted once in the root layout. It is the
+          same object, but it reads the page rather than being told about it,
+          so it follows the reader past the masthead instead of scrolling away
+          with it, and every page has one. */}
+
       {/* ---------- Statement ---------- */}
       <motion.div
-        className="shell relative z-10 flex min-h-[100svh] flex-col pb-[clamp(1.75rem,5vh,3rem)] pt-[calc(var(--header-h)+clamp(1.5rem,5vh,3rem))]"
+        className="shell relative z-10 flex min-h-[100svh] flex-col pb-[clamp(1.5rem,4vh,2.75rem)] pt-[calc(var(--header-h)+clamp(1.25rem,4vh,2.5rem))]"
         style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
       >
-        {/* Top — the label, centred in the frame */}
+        {/* The frame is left open through its middle: that is the city. */}
+        <div className="flex-1" />
+
+        {/* Eyebrow */}
         <motion.div
-          className="flex items-center justify-center gap-4"
+          className="kicker"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, ease: EASE, delay: d }}
+          transition={{ duration: 0.8, ease: EASE, delay: d + 0.15 }}
         >
-          <motion.span
-            aria-hidden
-            className="hidden h-px w-10 shrink-0 origin-right bg-gold/60 sm:block sm:w-16"
-            initial={reduce ? false : { scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1, ease: EASE, delay: d + 0.05 }}
-          />
-          <p className="t-label text-center text-gold">{heroCopy.eyebrow}</p>
-          <motion.span
-            aria-hidden
-            className="hidden h-px w-10 shrink-0 origin-left bg-gold/60 sm:block sm:w-16"
-            initial={reduce ? false : { scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1, ease: EASE, delay: d + 0.05 }}
-          />
+          <p className="t-label">{heroCopy.eyebrow}</p>
         </motion.div>
 
-        {/* Centre — the statement, through the middle of the sphere */}
-        <div className="relative flex flex-1 flex-col items-center justify-center py-[clamp(1.5rem,4vh,3rem)] text-center">
-          {/* Its own scrim, so the headline never has to fight the lattice
-              behind it. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-[-14%] inset-y-[-20%] bg-[radial-gradient(50%_42%_at_50%_48%,rgba(6,6,7,0.58)_0%,rgba(6,6,7,0.24)_60%,transparent_100%)]"
-          />
+        {/* The statement, held to the foot of the frame */}
+        <h1 className="t-hero mt-[clamp(0.875rem,1.8vw,1.5rem)] max-w-[15ch] text-ivory">
+          <span className="sr-only">{FULL_HEADLINE}</span>
+          <span aria-hidden className="block sm:hidden">
+            <Lines lines={MOBILE_LINES} reduce={reduce} delay={d + 0.3} />
+          </span>
+          <span aria-hidden className="hidden sm:block">
+            <Lines lines={DESKTOP_LINES} reduce={reduce} delay={d + 0.3} />
+          </span>
+        </h1>
 
-          <h1 className="t-hero relative max-w-[18ch] text-ivory">
-            <span className="sr-only">{FULL_HEADLINE}</span>
-            <span aria-hidden className="block sm:hidden">
-              <Lines lines={MOBILE_LINES} reduce={reduce} delay={d + 0.07} />
-            </span>
-            <span aria-hidden className="hidden sm:block">
-              <Lines lines={DESKTOP_LINES} reduce={reduce} delay={d + 0.07} />
-            </span>
-          </h1>
+        {/* The rule draws across the whole measure, then the row below it
+            settles — the moment the composition closes. */}
+        <motion.span
+          aria-hidden
+          className="mt-[clamp(1.75rem,3.5vw,3rem)] block h-px w-full origin-left bg-[var(--line-strong)]"
+          initial={reduce ? false : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.4, ease: EASE, delay: d + 0.75 }}
+        />
 
+        <div className="mt-[clamp(1.5rem,2.6vw,2.25rem)] grid gap-[clamp(1.5rem,3vw,3rem)] lg:grid-cols-12 lg:items-start">
           <motion.p
-            className="t-lead relative mt-[clamp(1.25rem,2.4vw,2rem)] max-w-[46ch] text-ivory/75"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
+            className="t-lead max-w-[46ch] text-ivory/72 lg:col-span-5"
+            initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: EASE, delay: d + 0.42 }}
+            transition={{ duration: 0.85, ease: EASE, delay: d + 0.85 }}
           >
             {heroCopy.statement}
           </motion.p>
 
           <motion.div
-            className="relative mt-[clamp(1.75rem,3.2vw,2.75rem)] flex flex-wrap items-center justify-center gap-3"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
+            className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:col-span-4 lg:col-start-7"
+            initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: EASE, delay: d + 0.56 }}
+            transition={{ duration: 0.85, ease: EASE, delay: d + 1 }}
           >
             <ButtonLink href={heroCopy.primaryCta.href} tone="light" variant="solid">
               {heroCopy.primaryCta.label}
@@ -247,28 +258,39 @@ export function Hero() {
               {heroCopy.secondaryCta.label}
             </ButtonLink>
           </motion.div>
+
+          <motion.div
+            className="hidden lg:col-span-2 lg:col-start-11 lg:block lg:text-right"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: EASE, delay: d + 1.1 }}
+          >
+            <p className="t-label text-stone">Headquarters</p>
+            <p className="t-small mt-3 text-ivory/55">{contact.headquarters}</p>
+          </motion.div>
         </div>
 
-        {/* Foot — the firm's stated location and the scroll cue */}
+        {/* Foot — the location on a phone, and the scroll cue on every size */}
         <motion.div
-          className="flex items-center justify-between gap-6 border-t border-ivory/12 pt-4"
+          className="mt-[clamp(1.5rem,3vh,2.5rem)] flex items-end justify-between gap-6"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: EASE, delay: d + 0.8 }}
+          transition={{ duration: 1, ease: EASE, delay: d + 1.15 }}
         >
-          <p className="t-label text-ivory/40">{contact.headquarters}</p>
+          <p className="t-label max-w-[18ch] text-stone lg:invisible">
+            {contact.headquarters}
+          </p>
 
           <a
             href="#welcome"
-            className="group flex items-center gap-3 py-1 text-ivory/40 transition-colors duration-500 hover:text-gold"
+            className="group flex shrink-0 items-center gap-3 py-1 text-stone transition-colors duration-500 hover:text-gold"
           >
             <span className="t-label hidden sm:block">Scroll</span>
-            <span className="relative block h-9 w-px overflow-hidden bg-ivory/20">
-              <motion.span
+            <span className="badge h-10 w-10 group-hover:border-gold group-hover:bg-gold group-hover:text-ink">
+              <ArrowDown
                 aria-hidden
-                className="absolute inset-x-0 top-0 block h-3 bg-gold"
-                animate={reduce ? undefined : { y: ['-100%', '300%'] }}
-                transition={{ duration: 2.6, ease: 'easeInOut', repeat: Infinity }}
+                strokeWidth={1.4}
+                className="h-4 w-4 transition-transform duration-500 ease-premium group-hover:translate-y-0.5"
               />
             </span>
           </a>
@@ -295,7 +317,7 @@ function Lines({
             className="block"
             initial={reduce ? false : { y: '112%' }}
             animate={{ y: '0%' }}
-            transition={{ duration: 1.05, ease: EASE, delay: delay + i * 0.1 }}
+            transition={{ duration: 1.15, ease: EASE, delay: delay + i * 0.12 }}
           >
             {line}
           </motion.span>

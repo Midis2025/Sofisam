@@ -22,7 +22,7 @@ import { SplitText } from '@/components/animations/SplitText';
  */
 export function InsightsEditorial() {
   return (
-    <section id="insights" className="section ground-ivory-2" aria-labelledby="insights-heading">
+    <section data-section="Insights" id="insights" className="section ground-graphite" aria-labelledby="insights-heading">
       <div className="shell">
         <div className="head">
           <div>
@@ -32,17 +32,17 @@ export function InsightsEditorial() {
             <SplitText
               as="h2"
               text={insightsIntro.heading}
-              className="t-display head-title mt-[clamp(1.25rem,2.6vw,2.25rem)] text-ink"
+              className="t-display head-title mt-[clamp(1.25rem,2.6vw,2.25rem)] text-ivory"
               stagger={0.06}
             />
           </div>
 
           <div className="lg:pb-2">
             <Reveal delay={0.1}>
-              <p className="t-body head-note text-stone">{insightsIntro.standfirst}</p>
+              <p className="t-body head-note text-sage">{insightsIntro.standfirst}</p>
             </Reveal>
             <Reveal delay={0.16}>
-              <Link href="/insights" className="group cta mt-6 text-ink hover:text-gold-ink">
+              <Link href="/insights" className="group cta mt-6 text-ivory hover:text-gold">
                 <span className="link-underline">All insights</span>
                 <ArrowUpRight aria-hidden strokeWidth={1.5} className="arrow h-3.5 w-3.5" />
               </Link>
@@ -66,7 +66,7 @@ export function InsightsEditorial() {
                   className="h-full w-full"
                 />
                 <span className="absolute left-5 top-5 z-10">
-                  <span className="chip chip-inv border-ivory/20 bg-ink/70 text-ivory backdrop-blur-xl">
+                  <span className="chip chip-gold bg-void/70 backdrop-blur-xl">
                     Featured
                   </span>
                 </span>
@@ -81,18 +81,18 @@ export function InsightsEditorial() {
                   isoDate={featuredInsight.isoDate}
                   readingTime={featuredInsight.readingTime}
                 />
-                <h3 className="t-h2 mt-5 max-w-[18ch] text-ink transition-colors duration-500 group-hover:text-gold-ink">
+                <h3 className="t-h2 mt-5 max-w-[18ch] text-ivory transition-colors duration-500 group-hover:text-gold">
                   {featuredInsight.title}
                 </h3>
               </div>
 
               <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-end lg:pb-1">
-                <p className="t-body max-w-[46ch] text-stone">{featuredInsight.summary}</p>
+                <p className="t-body max-w-[46ch] text-sage">{featuredInsight.summary}</p>
                 <span className="mt-7 flex items-center gap-4">
                   <span aria-hidden className="badge badge-lg">
                     <ArrowUpRight strokeWidth={1.3} className="h-5 w-5" />
                   </span>
-                  <span className="cta text-ink group-hover:text-gold-ink">
+                  <span className="cta text-ivory group-hover:text-gold">
                     <span className="link-underline">Read the piece</span>
                   </span>
                 </span>
@@ -127,12 +127,12 @@ export function InsightsEditorial() {
                     isoDate={item.isoDate}
                     readingTime={item.readingTime}
                   />
-                  <span className="t-h3 mt-3.5 block max-w-[22ch] text-ink transition-colors duration-500 group-hover:text-gold-ink">
+                  <span className="t-h3 mt-3.5 block max-w-[22ch] text-ivory transition-colors duration-500 group-hover:text-gold">
                     {item.title}
                   </span>
                 </span>
 
-                <span className="t-small max-w-[46ch] text-stone sm:col-span-2 lg:col-span-1">
+                <span className="t-small max-w-[46ch] text-sage sm:col-span-2 lg:col-span-1">
                   {item.summary}
                 </span>
 
@@ -162,13 +162,13 @@ function Meta({
 }) {
   return (
     <span className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-      <span className="t-label text-gold-ink">{category}</span>
+      <span className="t-label text-gold">{category}</span>
       <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <time dateTime={isoDate} className="t-meta text-stone">
+      <time dateTime={isoDate} className="t-meta text-sage">
         {date}
       </time>
       <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <span className="t-meta text-stone">{readingTime}</span>
+      <span className="t-meta text-sage">{readingTime}</span>
     </span>
   );
 }

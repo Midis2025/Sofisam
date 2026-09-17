@@ -21,7 +21,7 @@ import { Marquee } from '@/components/animations/Marquee';
  */
 export function BrandStatement() {
   return (
-    <section id="welcome" className="ground-ivory" aria-labelledby="welcome-heading">
+    <section data-section="Welcome" id="welcome" className="ground-char" aria-labelledby="welcome-heading">
       {/* 1 — The statement */}
       <div className="shell pb-[var(--pad-sm)] pt-[var(--pad)]">
         <Reveal kind="label" className="kicker">
@@ -32,7 +32,7 @@ export function BrandStatement() {
         <SplitText
           as="h2"
           text={welcomeCopy.positioning}
-          className="t-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[17ch] text-ink md:max-w-[26ch] lg:max-w-[88%]"
+          className="t-display mt-[clamp(1.5rem,3vw,2.75rem)] max-w-[17ch] text-ivory md:max-w-[26ch] lg:max-w-[88%]"
           stagger={0.045}
         />
       </div>
@@ -42,7 +42,7 @@ export function BrandStatement() {
         <Marquee speed={2.5}>
           {['Strategic Consulting', 'Advisory', 'Structuring'].map((word) => (
             <span key={word} className="flex items-center">
-              <span className="px-[clamp(1.5rem,3vw,3rem)] font-display text-[clamp(1.75rem,3.4vw,3.25rem)] leading-none tracking-tighter text-ink/75">
+              <span className="px-[clamp(1.5rem,3vw,3rem)] font-display text-[clamp(1.75rem,3.4vw,3.25rem)] leading-none tracking-tighter text-ivory/75">
                 {word}
               </span>
               <span
@@ -85,8 +85,8 @@ export function BrandStatement() {
                   className="mt-[0.6rem] block h-px w-6 shrink-0 bg-gold sm:w-9"
                 />
                 <div>
-                  <p className="t-label text-gold-ink">World headquarters</p>
-                  <p className="t-small mt-3 max-w-[32ch] text-stone">
+                  <p className="t-label text-gold">World headquarters</p>
+                  <p className="t-small mt-3 max-w-[32ch] text-sage">
                     {contact.headquarters}, Jumeirah Lake Towers, Dubai.
                   </p>
                 </div>
@@ -103,15 +103,15 @@ export function BrandStatement() {
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
               <Reveal>
-                <p className="t-h3 max-w-[16ch] text-ink">
+                <p className="t-h3 max-w-[16ch] text-ivory">
                   A platform, and the relationships behind it.
                 </p>
               </Reveal>
 
               <Reveal delay={0.1}>
                 <div className="surface-tint surface-lift mt-8 p-[clamp(1.1rem,1.8vw,1.5rem)]">
-                  <p className="t-label text-gold-ink">Positioning</p>
-                  <p className="t-small mt-3 max-w-[30ch] text-stone">
+                  <p className="t-label text-gold">Positioning</p>
+                  <p className="t-small mt-3 max-w-[30ch] text-sage">
                     {welcomeCopy.positioning}
                   </p>
                 </div>
@@ -122,7 +122,7 @@ export function BrandStatement() {
           {/* The paragraphs, on their own rules */}
           <div className="lg:col-span-7 lg:col-start-6">
             <FocusIn>
-              <p className="t-lead max-w-[52ch] text-ink">{welcomeCopy.paragraphs[0]}</p>
+              <p className="t-lead max-w-[52ch] text-ivory">{welcomeCopy.paragraphs[0]}</p>
             </FocusIn>
 
             <Reveal delay={0.08}>
@@ -132,7 +132,7 @@ export function BrandStatement() {
             <SplitText
               as="p"
               text={welcomeCopy.paragraphs[1]}
-              className="max-w-[24ch] font-display text-[clamp(1.6rem,2.6vw,2.6rem)] leading-[1.12] tracking-tighter text-ink"
+              className="max-w-[24ch] font-display text-[clamp(1.6rem,2.6vw,2.6rem)] leading-[1.12] tracking-tighter text-ivory"
               delay={0.05}
               stagger={0.03}
             />
@@ -142,7 +142,7 @@ export function BrandStatement() {
             </Reveal>
 
             <FocusIn delay={0.1}>
-              <p className="t-body max-w-[56ch] text-stone">{welcomeCopy.paragraphs[2]}</p>
+              <p className="t-body max-w-[56ch] text-sage">{welcomeCopy.paragraphs[2]}</p>
             </FocusIn>
           </div>
         </div>
