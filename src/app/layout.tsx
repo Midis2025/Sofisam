@@ -8,7 +8,6 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { SectionProgress } from '@/components/layout/SectionProgress';
 import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
-import { Cursor } from '@/components/ui/Cursor';
 import { site, contact } from '@/data/site';
 
 const sans = Inter({
@@ -110,7 +109,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationSchema) }}
         />
         <Preloader />
-        <Cursor />
         <ScrollProgress />
         <Header />
         <PageTransition>

@@ -1284,19 +1284,6 @@ html.preload-timeout [data-preloader] {
 }
 
 /* ============================================================
-   CUSTOM CURSOR
-   ------------------------------------------------------------
-   The native cursor is hidden only while the custom one is live.
-   ============================================================ */
-
-@media (hover: hover) and (pointer: fine) {
-  html[data-cursor='on'],
-  html[data-cursor='on'] * {
-    cursor: none !important;
-  }
-}
-
-/* ============================================================
    REDUCED MOTION
    ============================================================ */
 
