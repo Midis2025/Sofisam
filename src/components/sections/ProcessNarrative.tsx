@@ -184,7 +184,7 @@ function StepCard({
 
   return (
     <div
-      className={`group relative isolate flex shrink-0 flex-col overflow-hidden rounded-[var(--r-lg)] border transition-[transform,border-color,box-shadow] duration-700 ease-premium ${className} ${
+      className={`tone-dark group relative isolate flex shrink-0 flex-col overflow-hidden rounded-[var(--r-lg)] border transition-[transform,border-color,box-shadow] duration-700 ease-premium ${className} ${
         active
           ? 'border-gold/40 shadow-[var(--depth-2),0_0_0_1px_rgba(201,169,124,0.12)]'
           : 'border-ivory/10 shadow-[var(--depth-1)]'

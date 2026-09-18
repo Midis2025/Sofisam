@@ -8,6 +8,7 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { SectionProgress } from '@/components/layout/SectionProgress';
 import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
+import { themeInitScript } from '@/lib/theme-script';
 import { site, contact } from '@/data/site';
 
 const sans = Inter({
@@ -26,7 +27,11 @@ const display = Instrument_Serif({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#0B0B0C',
+  // Rewritten by the theme script to match the theme actually in force.
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F5F1EA' },
+    { media: '(prefers-color-scheme: dark)', color: '#0B0B0C' },
+  ],
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -95,8 +100,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    // The theme script sets `data-theme` and `color-scheme` on this element
+    // before hydration, which is the point of it.
+    <html
+      lang="en"
+      className={`${sans.variable} ${display.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        {/* Sets the theme before first paint, so the page never shows the
+            wrong one first. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {/* Decides before first paint whether the opening sequence runs, so
             the curtain is never painted over a page the visitor has already
             seen this session. */}

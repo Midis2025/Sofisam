@@ -30,7 +30,7 @@ export default function ContactPage() {
         {/* Background plate — held to the right of the frame on a desktop so
             the form never sits on top of a busy image. */}
         <div aria-hidden className="absolute inset-0">
-          <div className="media media-flat absolute inset-0 lg:left-[38%]">
+          <div className="contact-photo media media-flat absolute inset-0 lg:left-[38%]">
             <Picture
               name="difc-gate"
               alt=""
@@ -45,7 +45,7 @@ export default function ContactPage() {
               vertical and heavy. From lg it turns horizontal: the statement
               side reads as solid ground and the architecture clears to the
               right, behind the form. */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,10,11,0.96)_0%,rgba(10,10,11,0.88)_45%,rgba(10,10,11,0.82)_100%)] lg:bg-[linear-gradient(90deg,rgb(10,10,11)_0%,rgb(10,10,11)_34%,rgba(10,10,11,0.88)_52%,rgba(10,10,11,0.45)_100%)]" />
+          <div className="contact-scrim absolute inset-0" />
         </div>
 
         <div className="shell relative z-10 pb-[var(--pad)] pt-[calc(var(--header-h)+clamp(2.5rem,7vh,5rem))]">
@@ -225,7 +225,7 @@ export default function ContactPage() {
 function Badge({ children, static: isStatic }: { children: React.ReactNode; static?: boolean }) {
   return (
     <span
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-line)] bg-[var(--g-bg)] text-gold shadow-[0_2px_8px_-2px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-line)] bg-[var(--g-bg)] text-gold shadow-[var(--control-shadow)] backdrop-blur-md ${
         isStatic
           ? ''
           : 'transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink'

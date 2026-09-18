@@ -182,7 +182,7 @@ export function DubaiSection() {
                   a caption hung off the corner. */}
               <figure
                 ref={frame}
-                className="group/frame relative aspect-[4/3] w-full lg:aspect-auto lg:h-[clamp(26rem,62vh,44rem)]"
+                className="tone-dark group/frame relative aspect-[4/3] w-full lg:aspect-auto lg:h-[clamp(26rem,62vh,44rem)]"
               >
                 <div className="media media-graded absolute inset-0 shadow-[var(--depth-2)]">
                   <motion.div
@@ -236,7 +236,7 @@ export function DubaiSection() {
                     lower-left corner above that. */}
                 <motion.figcaption
                   variants={reduce ? undefined : captionV}
-                  className="absolute bottom-[clamp(0.875rem,2vw,1.5rem)] left-[clamp(0.875rem,2vw,1.5rem)] z-20 max-w-[min(20rem,78%)] rounded-[var(--r-md)] border border-[var(--line-gold)] bg-[rgba(6,6,8,0.62)] px-[clamp(0.9rem,1.3vw,1.15rem)] py-[clamp(0.7rem,1vw,0.9rem)] shadow-[0_18px_44px_-20px_rgba(0,0,0,0.95)] backdrop-blur-[18px] backdrop-saturate-150 transition-transform duration-700 ease-premium group-hover/frame:-translate-y-1 lg:bottom-[calc(clamp(1rem,2.2vw,2.25rem)*-1)] lg:left-[calc(clamp(1rem,2.2vw,2.5rem)*-1)]"
+                  className="absolute bottom-[clamp(0.875rem,2vw,1.5rem)] left-[clamp(0.875rem,2vw,1.5rem)] z-20 max-w-[min(20rem,78%)] rounded-[var(--r-md)] border border-[var(--line-gold)] bg-[rgba(6,6,8,0.62)] px-[clamp(0.9rem,1.3vw,1.15rem)] py-[clamp(0.7rem,1vw,0.9rem)] shadow-[var(--shadow-caption)] backdrop-blur-[18px] backdrop-saturate-150 transition-transform duration-700 ease-premium group-hover/frame:-translate-y-1 lg:bottom-[calc(clamp(1rem,2.2vw,2.25rem)*-1)] lg:left-[calc(clamp(1rem,2.2vw,2.5rem)*-1)]"
                 >
                   <span className="t-label block text-gold">World headquarters</span>
                   <span className="t-h4 mt-2 block text-ivory">Jumeirah Lake Towers, Dubai.</span>

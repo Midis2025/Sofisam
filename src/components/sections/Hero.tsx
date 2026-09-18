@@ -131,7 +131,7 @@ export function Hero() {
     <section
       data-section="SOFISAM"
       ref={ref}
-      className="grain relative min-h-[100svh] w-full overflow-hidden bg-void"
+      className="tone-dark grain relative min-h-[100svh] w-full overflow-hidden bg-void"
       aria-label="Introduction"
     >
       {/* ---------- Ground ---------- */}

@@ -10,6 +10,8 @@ import {
   useSpring,
 } from 'framer-motion';
 
+import { useDarkUnder } from '@/lib/theme';
+
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface Section {
@@ -199,6 +201,18 @@ export function SectionProgress() {
     return () => io.disconnect();
   }, [pathname]);
 
+  /* ---------- Tone ----------
+     The rail has no ground of its own. Over a masthead photograph it reads
+     light in either theme; over the page it takes the page's palette. */
+
+  const rail = useRef<HTMLElement>(null);
+  const overDark = useDarkUnder(
+    rail,
+    (box) => ({ x: box.left + box.width / 2, y: box.top + box.height / 2 }),
+    false,
+    [sections.length, pathname],
+  );
+
   // Nothing is rendered on the server or before the first scan, so there is no
   // markup to mismatch on hydration.
   if (sections.length < 2) return null;
@@ -212,8 +226,10 @@ export function SectionProgress() {
     <>
       {/* ---------------- The rail, from 768 up ---------------- */}
       <nav
+        ref={rail}
         aria-label="Page sections"
-        className={`fixed right-[max(0.75rem,calc(var(--gutter)-1.75rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex ${
+        data-tone-ignore
+        className={`${overDark ? 'tone-dark ' : ''}fixed right-[max(0.75rem,calc(var(--gutter)-1.75rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex ${
           reduce ? '' : 'transition-opacity duration-500 ease-premium'
         } ${atFoot ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
       >
@@ -302,7 +318,7 @@ export function SectionProgress() {
           reduce ? '' : 'transition-opacity duration-500 ease-premium'
         } ${idle || atFoot ? 'opacity-0' : 'opacity-100'}`}
       >
-        <div className="flex max-w-full items-center gap-2.5 rounded-[var(--r-md)] border border-ivory/10 bg-[rgba(6,6,8,0.72)] px-3 py-2 shadow-[0_10px_30px_-14px_rgba(0,0,0,0.9)] backdrop-blur-md">
+        <div className="flex max-w-full items-center gap-2.5 rounded-[var(--r-md)] border border-ivory/10 bg-void/[0.78] px-3 py-2 shadow-[var(--shadow-pill)] backdrop-blur-md">
           <span className="t-num text-[0.66rem] text-gold">{pad(active + 1)}</span>
           <span className="t-num text-[0.66rem] text-stone">/ {pad(sections.length)}</span>
           <span className="block h-px w-4 shrink-0 bg-[var(--line-strong)]" />

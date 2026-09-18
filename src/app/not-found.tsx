@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-screen-safe items-center overflow-hidden bg-void text-ivory">
+    <section className="tone-dark relative flex min-h-screen-safe items-center overflow-hidden bg-void text-ivory">
       <div className="media media-flat veil-hero grain absolute inset-0">
         <Picture
           name="towers-mono"

@@ -16,43 +16,70 @@
    radii small enough that a plate reads as a cut edge rather
    than a card. Colour is carried by one accent and one text
    colour; everything else is the ground at a different depth.
+
+   The site is drawn dark and has a light counterpart: the same
+   names, redefined under [data-theme="light"], run from ivory to
+   parchment with charcoal type and a bronze accent. Passages whose
+   type is set over photography are .tone-dark and keep the dark
+   palette in either theme. See PALETTE below and THEME at the end.
    ============================================================ */
 
 @layer base {
-  :root {
+  /* ============================================================
+     PALETTE
+     ------------------------------------------------------------
+     The site is designed dark, and the dark palette is declared
+     on the root and on any `.tone-dark` region. A tone-dark region
+     is a passage whose type is set over photography — the
+     mastheads, the image plates, the labelled frames — so it keeps
+     the dark palette whichever theme the page is in: a caption
+     over a photograph is readable because of the scrim under it,
+     not because of the page around it.
+
+     The light theme redefines the same names. The names describe
+     the dark theme: in the light one `void` is the ivory page and
+     `ivory` the charcoal type on it. Every colour is also exposed
+     as bare channels (`--x-rgb`) so Tailwind's opacity modifiers
+     follow the theme.
+     ============================================================ */
+
+  :root,
+  .tone-dark {
     /* ---------- Grounds -----------------------------------------
        Three depths of one near-black. `void` is the page itself,
        `char` a passage lifted off it, `graphite` the deepest
        plate a surface can sit on. */
-    --void: #050505;
-    --char: #0b0b0d;
-    --graphite: #131316;
+    --void-rgb: 5 5 5;
+    --char-rgb: 11 11 13;
+    --graphite-rgb: 19 19 22;
 
     /* ---------- Text ---------------------------------------------
        Warm ivory reads as paper rather than as white on a ground
        this dark. Three steps: primary, secondary, meta. */
-    --ivory: #f2eee6;
-    --ivory-2: #ded8cc;
-    --sage: #979187; /* secondary — body copy, standfirsts */
+    --ivory-rgb: 242 238 230;
+    --ivory-2-rgb: 222 216 204;
+    --sage-rgb: 151 145 135; /* secondary — body copy, standfirsts */
     /* Tertiary — meta, timestamps, legal, form labels. Held at the
        lightest value that still clears WCAG AA (4.5:1) on graphite,
        the lightest of the three grounds, so the quietest step on the
        site is quiet by tone and never by legibility. */
-    --stone: #847e75;
+    --stone-rgb: 132 126 117;
 
     /* ---------- Accent -------------------------------------------
        Warm champagne. It carries rules, marks, numerals and
        labels, and it is the only hue on the site. */
-    --gold: #c9a97c;
-    --gold-hi: #e3cba4;
-    --gold-deep: #9e8154;
+    --gold-rgb: 201 169 124;
+    --gold-hi-rgb: 227 203 164;
+    --gold-deep-rgb: 158 129 84;
 
     /* Text that sits ON an ivory or champagne fill. */
-    --ink: #050505;
+    --ink-rgb: 5 5 5;
+    /* Text that is light in both themes — type on a champagne fill,
+       which has to stay light when the champagne deepens. */
+    --paper-rgb: 242 238 230;
 
     /* ---------- Hairlines ----------------------------------------
-       One family, three weights. There is no dark hairline on
-       this site because there is no light ground. */
+       One family, three weights. */
     --line: rgba(242, 238, 230, 0.1);
     --line-soft: rgba(242, 238, 230, 0.06);
     --line-strong: rgba(242, 238, 230, 0.2);
@@ -65,6 +92,170 @@
        weight rather than borrowing a divider's. */
     --line-control: rgba(242, 238, 230, 0.38);
 
+    /* ---------- Glass ----------------------------------------------
+       One material: a smoked pane held a measured distance off the
+       ground. Depth is a contact shadow at the edge, a mid shadow
+       for the gap, and a wide soft one for the room. The inset line
+       on top is light catching the upper rim. */
+    --g-bg: rgba(255, 255, 255, 0.04);
+    --g-bg-hi: rgba(255, 255, 255, 0.075);
+    --g-bg-tint: rgba(255, 255, 255, 0.025);
+    --g-line: rgba(255, 255, 255, 0.1);
+    --g-line-hi: rgba(255, 255, 255, 0.22);
+    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    /* The pane over a photograph, and the solid plate's lift. */
+    --g-smoke: rgba(5, 5, 5, 0.52);
+    --g-smoke-hi: rgba(5, 5, 5, 0.62);
+    --deep-hi: #191920;
+    --chip-bg: rgba(255, 255, 255, 0.03);
+    /* A round control's rim and drop. */
+    --control-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+
+    /* ---------- Scrims ---------------------------------------------
+       What a photograph is veiled with where type is set on it. In
+       the dark theme it is the ground; in the light theme it is the
+       ivory page, so the same veil lifts the frame instead. */
+    --scrim-rgb: 5 5 5;
+    /* The vignette a drawn (not photographed) passage closes with. */
+    --vignette-edge: rgba(5, 5, 5, 0.5);
+    --media-grade: saturate(0.82) contrast(1.06) brightness(0.88);
+
+    /* ---------- Controls ------------------------------------------ */
+    --btn-solid-hover: #ffffff;
+    --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 32px -16px rgba(0, 0, 0, 0.8);
+    --btn-shadow-hi: 0 2px 4px rgba(0, 0, 0, 0.45), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+    --btn-ghost: rgba(255, 255, 255, 0.04);
+    --btn-ghost-hi: rgba(255, 255, 255, 0.09);
+    --btn-smoke: rgba(5, 5, 5, 0.42);
+    --btn-smoke-hi: rgba(5, 5, 5, 0.62);
+    --streak: rgba(255, 255, 255, 0.16);
+    --field-error: #b4715b;
+
+    /* Which wordmark shows: the light-lettered mark on a dark tone,
+       the dark-lettered one on a light tone. */
+    --on-dark: 1;
+    --on-light: 0;
+
+    color-scheme: dark;
+  }
+
+  /* ---------- Shadows ------------------------------------------
+     A shadow falls on the page, not on the passage that casts it,
+     so these follow the theme even inside a tone-dark region. */
+  :root {
+    --depth-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -12px rgba(0, 0, 0, 0.7),
+      0 28px 60px -28px rgba(0, 0, 0, 0.75);
+    --depth-2: 0 2px 4px rgba(0, 0, 0, 0.55), 0 18px 40px -16px rgba(0, 0, 0, 0.75),
+      0 44px 92px -34px rgba(0, 0, 0, 0.85);
+    --shadow-rgb: 0 0 0;
+    --shadow-header: 0 18px 44px -24px rgba(0, 0, 0, 0.75);
+    --shadow-panel: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+    --shadow-pill: 0 10px 30px -14px rgba(0, 0, 0, 0.9);
+    --shadow-plate: 0 30px 70px -24px rgba(0, 0, 0, 0.75);
+    --shadow-caption: 0 18px 44px -20px rgba(0, 0, 0, 0.95);
+  }
+
+  :root[data-theme='light'] {
+    --shadow-header: 0 18px 44px -24px rgba(60, 44, 20, 0.2);
+    --shadow-panel: 0 40px 80px -40px rgba(60, 44, 20, 0.22);
+    --shadow-pill: 0 10px 30px -14px rgba(60, 44, 20, 0.28);
+    --shadow-plate: 0 30px 70px -24px rgba(60, 44, 20, 0.34);
+    --shadow-caption: 0 18px 44px -20px rgba(60, 44, 20, 0.4);
+  }
+
+  /* ---------- The light theme ------------------------------------
+     Warm ivory rather than white, charcoal rather than black, and
+     the champagne taken down to a bronze that holds 4.5:1 as text
+     on every ground. Depth comes from the same three grounds —
+     page, lifted passage, deepest plate — now running from ivory
+     to parchment, and from shadows that are warm and far softer. */
+  :root[data-theme='light'] {
+    --void-rgb: 245 241 234;
+    --char-rgb: 239 234 225;
+    --graphite-rgb: 231 225 213;
+
+    --ivory-rgb: 27 25 21;
+    --ivory-2-rgb: 58 53 45;
+    --sage-rgb: 88 82 74;
+    --stone-rgb: 106 99 88;
+
+    --gold-rgb: 122 92 50;
+    --gold-hi-rgb: 94 69 36;
+    --gold-deep-rgb: 107 80 48;
+
+    --ink-rgb: 247 243 236;
+    --paper-rgb: 247 243 236;
+
+    --line: rgba(27, 25, 21, 0.11);
+    --line-soft: rgba(27, 25, 21, 0.07);
+    --line-strong: rgba(27, 25, 21, 0.2);
+    --line-gold: rgba(122, 92, 50, 0.42);
+    --line-control: rgba(27, 25, 21, 0.42);
+
+    --g-bg: rgba(255, 255, 255, 0.65);
+    --g-bg-hi: rgba(255, 255, 255, 0.82);
+    --g-bg-tint: rgba(255, 255, 255, 0.45);
+    --g-line: rgba(27, 25, 21, 0.1);
+    --g-line-hi: rgba(27, 25, 21, 0.2);
+    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --g-smoke: rgba(250, 247, 241, 0.66);
+    --g-smoke-hi: rgba(250, 247, 241, 0.8);
+    --deep-hi: #ded7c9;
+    --chip-bg: rgba(255, 255, 255, 0.5);
+    --control-shadow: 0 2px 8px rgba(60, 44, 20, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+    --depth-1: 0 1px 2px rgba(60, 44, 20, 0.06), 0 10px 26px -12px rgba(60, 44, 20, 0.12),
+      0 28px 60px -28px rgba(60, 44, 20, 0.14);
+    --depth-2: 0 2px 4px rgba(60, 44, 20, 0.07), 0 18px 40px -16px rgba(60, 44, 20, 0.16),
+      0 44px 92px -34px rgba(60, 44, 20, 0.2);
+    --shadow-rgb: 60 44 20;
+
+    --scrim-rgb: 245 241 234;
+    --vignette-edge: rgba(120, 96, 60, 0.07);
+    --media-grade: saturate(0.86) contrast(1.04) brightness(0.97);
+
+    --btn-solid-hover: #34302a;
+    --btn-shadow: 0 1px 2px rgba(60, 44, 20, 0.12), 0 14px 32px -16px rgba(60, 44, 20, 0.3);
+    --btn-shadow-hi: 0 2px 4px rgba(60, 44, 20, 0.14), 0 24px 50px -20px rgba(60, 44, 20, 0.36);
+    --btn-ghost: rgba(255, 255, 255, 0.3);
+    --btn-ghost-hi: rgba(255, 255, 255, 0.7);
+    --btn-smoke: rgba(250, 247, 241, 0.6);
+    --btn-smoke-hi: rgba(250, 247, 241, 0.82);
+    --streak: rgba(255, 255, 255, 0.22);
+    --field-error: #9a4f38;
+
+    --on-dark: 0;
+    --on-light: 1;
+
+    color-scheme: light;
+  }
+
+  /* Derived from whichever channels are in force. Declared on every
+     palette scope, because a custom property inherits as its computed
+     value — a tone-dark region has to derive its own. */
+  :root,
+  .tone-dark {
+    --void: rgb(var(--void-rgb));
+    --char: rgb(var(--char-rgb));
+    --graphite: rgb(var(--graphite-rgb));
+    --ivory: rgb(var(--ivory-rgb));
+    --ivory-2: rgb(var(--ivory-2-rgb));
+    --sage: rgb(var(--sage-rgb));
+    --stone: rgb(var(--stone-rgb));
+    --gold: rgb(var(--gold-rgb));
+    --gold-hi: rgb(var(--gold-hi-rgb));
+    --gold-deep: rgb(var(--gold-deep-rgb));
+    --ink: rgb(var(--ink-rgb));
+  }
+
+  /* A tone-dark region sets its own type colour, so text that
+     inherits rather than naming a colour is light inside it. */
+  .tone-dark {
+    color: var(--ivory);
+  }
+
+  :root {
     /* ---------- Horizontal system --------------------------------
        One container for the whole site. 1600px of content, opening
        to 1720px beyond 1920 so a large display is used rather than
@@ -92,24 +283,8 @@
     --r-md: 0.25rem; /* 4px  — controls       */
     --r-lg: 0.5rem; /* 8px  — plates, panels */
 
-    /* ---------- Glass ----------------------------------------------
-       One material: a smoked pane held a measured distance off the
-       ground. Depth is a contact shadow at the edge, a mid shadow
-       for the gap, and a wide soft one for the room. The inset line
-       on top is light catching the upper rim. */
-    --g-bg: rgba(255, 255, 255, 0.04);
-    --g-bg-hi: rgba(255, 255, 255, 0.075);
-    --g-line: rgba(255, 255, 255, 0.1);
-    --g-line-hi: rgba(255, 255, 255, 0.22);
-    --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
     --blur: 16px;
     --blur-lg: 28px;
-
-    --depth-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px -12px rgba(0, 0, 0, 0.7),
-      0 28px 60px -28px rgba(0, 0, 0, 0.75);
-    --depth-2: 0 2px 4px rgba(0, 0, 0, 0.55), 0 18px 40px -16px rgba(0, 0, 0, 0.75),
-      0 44px 92px -34px rgba(0, 0, 0, 0.85);
 
     /* ---------- Header safe area ----------------------------------- */
     --header-h: 4.5rem; /* 72px — mobile */
@@ -453,7 +628,7 @@
   /* Architectural photography on a ground this dark needs its
      highlights pulled back or it floats off the page. */
   .media-graded > img {
-    filter: saturate(0.82) contrast(1.06) brightness(0.88);
+    filter: var(--media-grade);
   }
 
   /* ---------- Scrims -------------------------------------------
@@ -484,7 +659,7 @@
     --vignette: radial-gradient(
       120% 85% at 50% 40%,
       transparent 35%,
-      rgba(5, 5, 5, 0.55) 100%
+      rgb(var(--scrim-rgb) / 0.55) 100%
     );
   }
 
@@ -495,11 +670,11 @@
     background:
       linear-gradient(
         to top,
-        rgba(5, 5, 5, 0.95) 0%,
-        rgba(5, 5, 5, 0.82) 22%,
-        rgba(5, 5, 5, 0.36) 52%,
-        rgba(5, 5, 5, 0.12) 74%,
-        rgba(5, 5, 5, 0.55) 100%
+        rgb(var(--scrim-rgb) / 0.95) 0%,
+        rgb(var(--scrim-rgb) / 0.82) 22%,
+        rgb(var(--scrim-rgb) / 0.36) 52%,
+        rgb(var(--scrim-rgb) / 0.12) 74%,
+        rgb(var(--scrim-rgb) / 0.55) 100%
       ),
       var(--vignette);
   }
@@ -509,12 +684,12 @@
     background:
       linear-gradient(
         90deg,
-        rgba(5, 5, 5, 0.95) 0%,
-        rgba(5, 5, 5, 0.86) 38%,
-        rgba(5, 5, 5, 0.46) 70%,
-        rgba(5, 5, 5, 0.62) 100%
+        rgb(var(--scrim-rgb) / 0.95) 0%,
+        rgb(var(--scrim-rgb) / 0.86) 38%,
+        rgb(var(--scrim-rgb) / 0.46) 70%,
+        rgb(var(--scrim-rgb) / 0.62) 100%
       ),
-      linear-gradient(to bottom, rgba(5, 5, 5, 0.6) 0%, transparent 28%),
+      linear-gradient(to bottom, rgb(var(--scrim-rgb) / 0.6) 0%, transparent 28%),
       var(--vignette);
   }
 
@@ -525,9 +700,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(5, 5, 5, 0.82) 0%,
-          rgba(5, 5, 5, 0.7) 40%,
-          rgba(5, 5, 5, 0.92) 100%
+          rgb(var(--scrim-rgb) / 0.82) 0%,
+          rgb(var(--scrim-rgb) / 0.7) 40%,
+          rgb(var(--scrim-rgb) / 0.92) 100%
         ),
         var(--vignette);
     }
@@ -538,10 +713,10 @@
     background:
       linear-gradient(
         to top,
-        rgba(5, 5, 5, 0.97) 0%,
-        rgba(5, 5, 5, 0.88) 26%,
-        rgba(5, 5, 5, 0.52) 58%,
-        rgba(5, 5, 5, 0.62) 100%
+        rgb(var(--scrim-rgb) / 0.97) 0%,
+        rgb(var(--scrim-rgb) / 0.88) 26%,
+        rgb(var(--scrim-rgb) / 0.52) 58%,
+        rgb(var(--scrim-rgb) / 0.62) 100%
       ),
       var(--vignette);
   }
@@ -551,7 +726,7 @@
      the vignette so the texture falls away at the edges. */
   .veil-full::after {
     background:
-      linear-gradient(rgba(5, 5, 5, 0.78), rgba(5, 5, 5, 0.78)),
+      linear-gradient(rgb(var(--scrim-rgb) / 0.78), rgb(var(--scrim-rgb) / 0.78)),
       var(--vignette);
   }
 
@@ -662,7 +837,7 @@
   }
 
   .surface-tint {
-    background: rgba(255, 255, 255, 0.025);
+    background: var(--g-bg-tint);
     box-shadow: var(--depth-1), var(--g-rim);
   }
 
@@ -672,7 +847,7 @@
   }
 
   .surface-glass {
-    background: rgba(5, 5, 5, 0.52);
+    background: var(--g-smoke);
     backdrop-filter: blur(var(--blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
     box-shadow: var(--depth-1), var(--g-rim);
@@ -697,12 +872,12 @@
 
   .surface-deep.surface-lift:hover,
   .group:hover > .surface-deep.surface-lift {
-    background: #191920;
+    background: var(--deep-hi);
   }
 
   .surface-glass.surface-lift:hover,
   .group:hover > .surface-glass.surface-lift {
-    background: rgba(5, 5, 5, 0.62);
+    background: var(--g-smoke-hi);
   }
 
   /* On a phone the lift is noise: nothing hovers, and the shadow
@@ -743,7 +918,7 @@
     padding-inline: 0.75rem;
     border-radius: var(--r-sm);
     border: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--chip-bg);
     color: var(--sage);
     font-size: 0.68rem;
     font-weight: 500;
@@ -898,7 +1073,7 @@
     background: linear-gradient(
       100deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.16) 50%,
+      var(--streak) 50%,
       transparent 100%
     );
     transform: skewX(-18deg);
@@ -937,18 +1112,18 @@
   .btn-light-solid {
     background: var(--ivory);
     color: var(--ink);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 32px -16px rgba(0, 0, 0, 0.8);
+    box-shadow: var(--btn-shadow);
   }
 
   .btn-light-solid:hover,
   .btn-light-solid:focus-visible {
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+    background: var(--btn-solid-hover);
+    box-shadow: var(--btn-shadow-hi);
   }
 
   /* Secondary — a hairline over whatever is behind it. */
   .btn-light-outline {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--btn-ghost);
     border-color: var(--line-control);
     color: var(--ivory);
     backdrop-filter: blur(var(--blur));
@@ -958,7 +1133,7 @@
 
   .btn-light-outline:hover,
   .btn-light-outline:focus-visible {
-    background: rgba(255, 255, 255, 0.09);
+    background: var(--btn-ghost-hi);
     border-color: var(--gold);
     color: var(--gold-hi);
   }
@@ -967,17 +1142,17 @@
   .btn-dark-solid {
     background: var(--gold);
     color: var(--ink);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 32px -16px rgba(0, 0, 0, 0.8);
+    box-shadow: var(--btn-shadow);
   }
 
   .btn-dark-solid:hover,
   .btn-dark-solid:focus-visible {
     background: var(--gold-hi);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+    box-shadow: var(--btn-shadow-hi);
   }
 
   .btn-dark-outline {
-    background: rgba(5, 5, 5, 0.42);
+    background: var(--btn-smoke);
     border-color: var(--line-control);
     color: var(--ivory-2);
     backdrop-filter: blur(var(--blur));
@@ -986,7 +1161,7 @@
 
   .btn-dark-outline:hover,
   .btn-dark-outline:focus-visible {
-    background: rgba(5, 5, 5, 0.62);
+    background: var(--btn-smoke-hi);
     border-color: var(--line-gold);
     color: var(--gold-hi);
   }
@@ -1227,7 +1402,7 @@
   }
 
   .field-input[aria-invalid='true'] ~ .field-line {
-    background: #b4715b;
+    background: var(--field-error);
   }
 }
 
@@ -1281,6 +1456,263 @@ html[data-preload='pending'] [data-preloader] {
 
 html.preload-timeout [data-preloader] {
   display: none;
+}
+
+/* ============================================================
+   THEME
+   ------------------------------------------------------------
+   The palette itself lives in the base layer. What follows is
+   the behaviour around it: the change of theme, the wordmark,
+   the switch, and the few frames whose veil is drawn per theme
+   rather than from the shared scrim.
+   ============================================================ */
+
+/* The change of theme. Held on the document only for the length
+   of the switch, so the colour eases across and nothing else on
+   the site has its own transitions overridden the rest of the
+   time. Transforms and opacity are left out: nothing moves. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition-property: background-color, color, border-color, box-shadow, fill, stroke,
+    outline-color, text-decoration-color !important;
+  transition-duration: 450ms !important;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+  transition-delay: 0s !important;
+}
+
+/* The wordmark. Both marks are laid out and the pair crossfades,
+   so the swap reflows nothing. The light-lettered mark sets the
+   box; the dark-lettered one is laid over it. */
+.logo-swap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.logo-swap > img {
+  transition: opacity 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.logo-swap > .logo-for-dark {
+  opacity: var(--on-dark);
+}
+
+.logo-swap > .logo-for-light {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  opacity: var(--on-light);
+}
+
+/* ---------- The switch -------------------------------------------
+   A pill of the site's glass with a sun and a moon at its ends
+   and a champagne ring that rests under the active one. The ring
+   is placed by the document's theme rather than by the switch's
+   own surroundings, so it reads the same over a photograph as
+   over the page. */
+.theme-toggle {
+  --tt-h: 2.125rem;
+  --tt-w: 4.25rem;
+  --tt-pad: 3px;
+  --tt-knob: calc(var(--tt-h) - 2px - 2 * var(--tt-pad));
+
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: var(--tt-h);
+  width: var(--tt-w);
+  border-radius: 9999px;
+  border: 1px solid var(--line-strong);
+  background: var(--g-bg);
+  box-shadow: var(--g-rim);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition:
+    border-color 0.5s var(--ease-glass),
+    background-color 0.5s var(--ease-glass);
+}
+
+.theme-toggle:hover {
+  border-color: var(--line-gold);
+  background: var(--g-bg-hi);
+}
+
+/* A 44px target around a 34px object. */
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -5px -2px;
+}
+
+.theme-toggle__knob {
+  position: absolute;
+  top: var(--tt-pad);
+  left: var(--tt-pad);
+  height: var(--tt-knob);
+  width: var(--tt-knob);
+  border-radius: 9999px;
+  border: 1px solid var(--line-gold);
+  background: rgb(var(--gold-rgb) / 0.14);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  transform: translate3d(calc(var(--tt-w) - 2px - 2 * var(--tt-pad) - var(--tt-knob)), 0, 0);
+  transition: transform 0.55s var(--ease-glass);
+}
+
+:root[data-theme='light'] .theme-toggle__knob {
+  transform: translate3d(0, 0, 0);
+}
+
+.theme-toggle__icon {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--stone);
+  transition: color 0.5s var(--ease-glass);
+}
+
+.theme-toggle__icon svg {
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+.theme-toggle:hover .theme-toggle__icon {
+  color: var(--sage);
+}
+
+:root:not([data-theme='light']) .theme-toggle .theme-toggle__moon,
+:root[data-theme='light'] .theme-toggle .theme-toggle__sun {
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__knob {
+    transition: none;
+  }
+}
+
+/* ---------- Frames with a per-theme veil -------------------------
+   The footer and the contact masthead set their type over a
+   photograph across the whole frame, so each carries a veil
+   drawn for the theme: the city under a dark scrim in the dark
+   theme, and under an ivory one — lifted, quieter, still there —
+   in the light. */
+.footer-photo {
+  filter: saturate(0.8) contrast(1.04) brightness(0.92);
+}
+
+.footer-scrim-v {
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 5, 0.7) 0%,
+    rgba(5, 5, 5, 0.46) 12%,
+    rgba(5, 5, 5, 0.32) 28%,
+    rgba(5, 5, 5, 0.38) 46%,
+    rgba(5, 5, 5, 0.44) 62%,
+    rgba(5, 5, 5, 0.5) 82%,
+    rgba(5, 5, 5, 0.56) 100%
+  );
+}
+
+.footer-scrim-h {
+  background: linear-gradient(to right, rgba(5, 5, 5, 0.5) 0%, rgba(5, 5, 5, 0.2) 38%, transparent 68%);
+}
+
+.footer-scrim-r {
+  background: radial-gradient(130% 90% at 50% 45%, transparent 46%, rgba(5, 5, 5, 0.3) 100%);
+}
+
+.footer-directory {
+  background: rgba(8, 8, 10, 0.22);
+}
+
+.contact-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 11, 0.96) 0%,
+    rgba(10, 10, 11, 0.88) 45%,
+    rgba(10, 10, 11, 0.82) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  .contact-scrim {
+    background: linear-gradient(
+      90deg,
+      rgb(10, 10, 11) 0%,
+      rgb(10, 10, 11) 34%,
+      rgba(10, 10, 11, 0.88) 52%,
+      rgba(10, 10, 11, 0.45) 100%
+    );
+  }
+}
+
+:root[data-theme='light'] .footer-photo {
+  filter: saturate(0.6) contrast(0.94) brightness(1.06);
+}
+
+:root[data-theme='light'] .footer-scrim-v {
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 241, 234, 0.92) 0%,
+    rgba(245, 241, 234, 0.84) 14%,
+    rgba(245, 241, 234, 0.76) 30%,
+    rgba(245, 241, 234, 0.8) 48%,
+    rgba(245, 241, 234, 0.86) 64%,
+    rgba(245, 241, 234, 0.9) 82%,
+    rgba(245, 241, 234, 0.93) 100%
+  );
+}
+
+:root[data-theme='light'] .footer-scrim-h {
+  background: linear-gradient(
+    to right,
+    rgba(245, 241, 234, 0.5) 0%,
+    rgba(245, 241, 234, 0.18) 38%,
+    transparent 68%
+  );
+}
+
+:root[data-theme='light'] .footer-scrim-r {
+  background: radial-gradient(130% 90% at 50% 45%, transparent 46%, rgba(231, 225, 213, 0.5) 100%);
+}
+
+:root[data-theme='light'] .footer-directory {
+  background: rgba(250, 247, 241, 0.55);
+}
+
+/* A night photograph under an ivory veil turns grey, so in the light
+   theme the plate is lifted first and the veil only has to settle it. */
+:root[data-theme='light'] .contact-photo {
+  filter: brightness(1.35) contrast(0.9) saturate(0.75);
+}
+
+:root[data-theme='light'] .contact-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 234, 0.96) 0%,
+    rgba(245, 241, 234, 0.9) 45%,
+    rgba(245, 241, 234, 0.86) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  :root[data-theme='light'] .contact-scrim {
+    background: linear-gradient(
+      90deg,
+      rgb(245, 241, 234) 0%,
+      rgb(245, 241, 234) 40%,
+      rgba(245, 241, 234, 0.9) 52%,
+      rgba(245, 241, 234, 0.68) 70%,
+      rgba(245, 241, 234, 0.55) 100%
+    );
+  }
 }
 
 /* ============================================================

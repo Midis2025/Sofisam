@@ -217,7 +217,7 @@ export default async function InsightPage({
                     </div>
                     <span
                       aria-hidden
-                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line)] text-sage transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ivory sm:flex"
+                      className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line)] text-sage transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-paper sm:flex"
                     >
                       <ArrowUpRight strokeWidth={1.4} className="arrow h-4 w-4" />
                     </span>

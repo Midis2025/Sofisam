@@ -3,12 +3,14 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
+import { Logo } from '@/components/ui/Logo';
+
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * The opening sequence.
  *
- * An obsidian curtain carrying the wordmark, a gold rule that draws itself
+ * A curtain in the theme's own ground carrying the wordmark, a gold rule that draws itself
  * across beneath it, and then a lift to reveal the page. It plays once per
  * browser session: an inline script in the document head sets
  * `data-preload="pending"` on <html> before first paint, and this component
@@ -52,6 +54,7 @@ export function Preloader() {
           key="preloader"
           aria-hidden
           data-preloader
+          data-tone-ignore
           className="fixed inset-0 z-[200] flex items-center justify-center bg-void"
           initial={false}
           exit={
@@ -65,16 +68,14 @@ export function Preloader() {
         >
           <div className="flex flex-col items-center px-8">
             {/* Wordmark */}
-            <motion.img
-              src="/logo.png"
-              alt=""
-              width={834}
-              height={209}
-              className="h-[2.1rem] w-auto sm:h-[2.6rem]"
+            <motion.span
+              className="block"
               initial={reduce ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
-            />
+            >
+              <Logo alt="" className="h-[2.1rem] w-auto sm:h-[2.6rem]" />
+            </motion.span>
 
             {/* The rule draws across, then the label settles under it. */}
             <motion.span

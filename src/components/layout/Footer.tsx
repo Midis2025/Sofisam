@@ -7,6 +7,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 
 import { contact, copyright, footerCopy, site } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Logo } from '@/components/ui/Logo';
 import { Reveal } from '@/components/animations/Reveal';
 
 const YEAR = new Date().getFullYear();
@@ -83,6 +84,11 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
  * enough at 0.22 that the towers are still visible through it, which is the
  * difference between separating the type from the city and covering it.
  *
+ * In the light theme the same frame is lifted rather than darkened: the scrims
+ * are drawn in ivory (`.footer-scrim-*` in `globals.css`) and heavy enough
+ * that the charcoal type holds everywhere, and the city is left as a pale
+ * print behind it.
+ *
  * It moves twice: a settle out of 1.03 on arrival, and about fourteen pixels
  * of travel against the page scroll. Nothing moves while the reader is still.
  */
@@ -108,7 +114,7 @@ export function Footer() {
         viewport={{ once: true, margin: '-6% 0px -6% 0px' }}
         transition={{ duration: 1.5, ease: EASE }}
       >
-        <div className="h-full w-full [filter:saturate(0.8)_contrast(1.04)_brightness(0.92)]">
+        <div className="footer-photo h-full w-full">
           <Picture
             name="hero-dubai"
             alt=""
@@ -125,15 +131,15 @@ export function Footer() {
           actually read, and nothing is set on it. */}
       <span
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(5,5,5,0.7)_0%,rgba(5,5,5,0.46)_12%,rgba(5,5,5,0.32)_28%,rgba(5,5,5,0.38)_46%,rgba(5,5,5,0.44)_62%,rgba(5,5,5,0.5)_82%,rgba(5,5,5,0.56)_100%)]"
+        className="footer-scrim-v absolute inset-0 -z-10"
       />
       <span
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(5,5,5,0.5)_0%,rgba(5,5,5,0.2)_38%,transparent_68%)]"
+        className="footer-scrim-h absolute inset-0 -z-10"
       />
       <span
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(130%_90%_at_50%_45%,transparent_46%,rgba(5,5,5,0.3)_100%)]"
+        className="footer-scrim-r absolute inset-0 -z-10"
       />
       <span aria-hidden className="grain absolute inset-0" />
 
@@ -162,7 +168,7 @@ export function Footer() {
             <Reveal delay={0.32}>
               <Link
                 href="/contact"
-                className="group/b btn mt-[clamp(1.75rem,3vw,2.5rem)] border-[var(--line-gold)] bg-[rgba(5,5,5,0.35)] text-ivory backdrop-blur-[10px] hover:border-gold hover:bg-gold hover:text-ink focus-visible:border-gold focus-visible:bg-gold focus-visible:text-ink"
+                className="group/b btn mt-[clamp(1.75rem,3vw,2.5rem)] border-[var(--line-gold)] bg-[rgb(var(--scrim-rgb)/0.35)] text-ivory backdrop-blur-[10px] hover:border-gold hover:bg-gold hover:text-ink focus-visible:border-gold focus-visible:bg-gold focus-visible:text-ink"
               >
                 <span>Get in Touch</span>
                 <ArrowRight
@@ -194,7 +200,7 @@ export function Footer() {
       {/* ==================== The directory ====================
           A veil rather than a panel: at 0.3 over a blur the towers are still
           visible through it, and its only edge is the hairline at the top. */}
-      <div className="relative z-[4] border-t border-ivory/12 bg-[rgba(8,8,10,0.22)] backdrop-blur-[8px]">
+      <div className="relative z-[4] border-t border-ivory/12 footer-directory backdrop-blur-[8px]">
         {/* No oversized wordmark ghosted behind the directory. The city is
             the only thing in this half of the frame; a second mark spread
             across it was competing with the photograph rather than signing
@@ -206,14 +212,7 @@ export function Footer() {
               as="div"
               className="border-b border-ivory/10 py-[clamp(2rem,3.2vw,2.75rem)] pr-[clamp(1.5rem,3vw,3rem)] sm:border-b-0"
             >
-              <img
-                src="/logo.png"
-                alt={site.shortName}
-                width={834}
-                height={209}
-                loading="lazy"
-                className="h-[2.2rem] w-auto lg:h-[2.6rem]"
-              />
+              <Logo alt={site.shortName} loading="lazy" className="h-[2.2rem] w-auto lg:h-[2.6rem]" />
               <p className="t-body mt-[clamp(1.25rem,2vw,1.75rem)] max-w-[28ch] text-ivory/70">
                 {footerCopy.statement}
               </p>
@@ -264,17 +263,17 @@ export function Footer() {
                   <br />
                   {contact.address.line2}
                 </p>
-                <p className="t-small mt-3 max-w-[28ch] text-ivory/55">{contact.headquarters}</p>
+                <p className="t-small mt-3 max-w-[28ch] text-stone">{contact.headquarters}</p>
               </Reveal>
             </address>
           </div>
 
           {/* ---------- Legal. The same ground, one hairline above it. ------- */}
-          <div className="t-meta flex flex-col gap-2 border-t border-ivory/10 py-6 text-ivory/55 sm:flex-row sm:items-center sm:justify-between">
+          <div className="t-meta flex flex-col gap-2 border-t border-ivory/10 py-6 text-stone sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {YEAR} {copyright}
             </p>
-            <p className="t-label text-ivory/55">{contact.address.countryName}</p>
+            <p className="t-label text-stone">{contact.address.countryName}</p>
           </div>
         </div>
       </div>

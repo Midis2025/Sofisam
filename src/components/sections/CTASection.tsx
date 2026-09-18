@@ -156,7 +156,7 @@ export function CTASection({
       />
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_45%,transparent_46%,rgba(5,5,5,0.5)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_45%,transparent_46%,var(--vignette-edge)_100%)]"
       />
 
       {/* The drawing, held to the lower right and faded out before it reaches
@@ -233,10 +233,10 @@ export function CTASection({
             viewport={VIEWPORT}
             transition={{ duration: 0.8, ease: EASE, delay: 0.9 }}
           >
-            <div className="overflow-hidden rounded-[var(--r-lg)] border border-ivory/[0.14] bg-white/[0.04] shadow-[var(--depth-1)] backdrop-blur-[12px] transition-colors duration-700 ease-premium group-hover/pane:border-ivory/25">
+            <div className="overflow-hidden rounded-[var(--r-lg)] border border-ivory/[0.14] bg-[var(--g-bg)] shadow-[var(--depth-1)] backdrop-blur-[12px] transition-colors duration-700 ease-premium group-hover/pane:border-ivory/25">
               <Link
                 href="/contact"
-                className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-white/[0.055] focus-visible:bg-white/[0.055]"
+                className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-[var(--g-bg-hi)] focus-visible:bg-[var(--g-bg-hi)]"
               >
                 <span className="t-h4 text-ivory transition-colors duration-500 ease-premium group-hover/r:text-gold-hi">
                   Get in Touch
@@ -254,7 +254,7 @@ export function CTASection({
 
               <a
                 href={`mailto:${contact.email}`}
-                className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-white/[0.055] focus-visible:bg-white/[0.055]"
+                className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-[var(--g-bg-hi)] focus-visible:bg-[var(--g-bg-hi)]"
               >
                 <span className="t-label break-all text-ivory/80 transition-colors duration-500 ease-premium group-hover/r:text-gold-hi">
                   {contact.email}
@@ -286,7 +286,7 @@ export function CTASection({
       </div>
       <div
         aria-hidden
-        className="h-[clamp(2.5rem,5vw,4.5rem)] w-full bg-[linear-gradient(to_bottom,transparent_0%,rgba(5,5,5,0.55)_58%,var(--void)_100%)]"
+        className="h-[clamp(2.5rem,5vw,4.5rem)] w-full bg-[linear-gradient(to_bottom,transparent_0%,rgb(var(--scrim-rgb)/0.55)_58%,var(--void)_100%)]"
       />
     </section>
   );

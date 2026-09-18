@@ -96,13 +96,13 @@ export function ServiceShowcase() {
                   key="plate"
                   aria-hidden
                   style={{ x, y }}
-                  className="pointer-events-none absolute left-0 top-0 z-10 -ml-[13rem] -mt-[8.5rem] block h-[17rem] w-[26rem] xl:-ml-[15rem] xl:-mt-[9.5rem] xl:h-[19rem] xl:w-[30rem]"
+                  className="tone-dark pointer-events-none absolute left-0 top-0 z-10 -ml-[13rem] -mt-[8.5rem] block h-[17rem] w-[26rem] xl:-ml-[15rem] xl:-mt-[9.5rem] xl:h-[19rem] xl:w-[30rem]"
                   initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.45, ease: EASE }}
                 >
-                  <span className="media block h-full w-full shadow-[0_30px_70px_-24px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-ivory/15">
+                  <span className="media block h-full w-full shadow-[var(--shadow-plate)] ring-1 ring-inset ring-ivory/15">
                     {services.map((s, i) => (
                       <motion.span
                         key={s.slug}
@@ -168,7 +168,7 @@ export function ServiceShowcase() {
                       aria-hidden
                       className={`flex h-14 w-14 items-center justify-center justify-self-end rounded-full border transition-all duration-[600ms] ease-premium ${
                         on
-                          ? 'border-gold bg-gold text-ivory'
+                          ? 'border-gold bg-gold text-paper'
                           : 'border-ivory/20 text-stone'
                       }`}
                     >

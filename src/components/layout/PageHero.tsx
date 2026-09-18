@@ -49,6 +49,9 @@ interface PageHeroProps {
  * viewport height, and it never falls into the image-beside-text arrangement
  * the content sections use.
  *
+ * The frame is tone-dark: its type is set over the photograph, so it keeps
+ * the dark palette and scrim in the light theme as well.
+ *
  * The photograph settles out of a slight scale on entry; the headline arrives
  * from behind its own mask, line by line.
  */
@@ -73,7 +76,7 @@ export function PageHero({
   return (
     <section
       data-section={sectionLabel ?? eyebrow}
-      className="ground-void veil-bottom grain relative w-full overflow-hidden"
+      className="tone-dark ground-void veil-bottom grain relative w-full overflow-hidden"
       aria-label={`${headline.join(' ')} — introduction`}
     >
       <motion.div

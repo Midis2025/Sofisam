@@ -5,10 +5,15 @@ import type { Config } from 'tailwindcss';
  * utilities are used for composition and state; the design tokens themselves
  * live in one place so a colour is never defined twice.
  *
- * The site has one ground — near-black at three depths — so there is no light
- * counterpart to any of these. `ink` exists only for type set on an ivory or
- * champagne fill.
+ * Every colour resolves through a channel variable (`--ivory-rgb` and so on)
+ * so that the light theme can redefine the palette in one place and every
+ * utility — opacity modifiers included — follows it. The names describe the
+ * dark theme, which is the site's own: in the light theme `void` is the ivory
+ * page and `ivory` is the charcoal type set on it. `ink` is type set on an
+ * `ivory` or champagne fill; `paper` is type that is light in both themes.
  */
+const c = (name: string) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
+
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
@@ -31,21 +36,22 @@ const config: Config = {
         400: '400ms',
       },
       colors: {
-        void: '#050505',
-        char: '#0B0B0D',
-        graphite: '#131316',
-        ink: '#050505',
+        void: c('void'),
+        char: c('char'),
+        graphite: c('graphite'),
+        ink: c('ink'),
+        paper: c('paper'),
         ivory: {
-          DEFAULT: '#F2EEE6',
-          2: '#DED8CC',
+          DEFAULT: c('ivory'),
+          2: c('ivory-2'),
         },
         gold: {
-          DEFAULT: '#C9A97C',
-          hi: '#E3CBA4',
-          deep: '#9E8154',
+          DEFAULT: c('gold'),
+          hi: c('gold-hi'),
+          deep: c('gold-deep'),
         },
-        sage: '#979187',
-        stone: '#847E75',
+        sage: c('sage'),
+        stone: c('stone'),
       },
       fontFamily: {
         display: ['var(--font-display)', 'Georgia', 'Times New Roman', 'serif'],

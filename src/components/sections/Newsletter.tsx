@@ -103,7 +103,7 @@ export function Newsletter() {
                     type="submit"
                     disabled={state === 'loading'}
                     aria-label={newsletterCopy.submitLabel}
-                    className="group/sub mb-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-500 ease-premium hover:border-gold hover:bg-gold hover:text-ivory disabled:opacity-60"
+                    className="group/sub mb-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/25 text-ivory transition-colors duration-500 ease-premium hover:border-gold hover:bg-gold hover:text-paper disabled:opacity-60"
                   >
                     <AnimatePresence mode="wait" initial={false}>
                       {state === 'loading' ? (

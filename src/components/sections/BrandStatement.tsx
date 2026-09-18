@@ -130,7 +130,7 @@ export function BrandStatement() {
           {/* ==================== Centre — the plate ==================== */}
           <motion.div
             ref={plate}
-            className="group/p relative isolate min-h-[clamp(22rem,58vh,34rem)] overflow-hidden rounded-[var(--r-lg)] border border-ivory/10 shadow-[var(--depth-2)] lg:min-h-0"
+            className="tone-dark group/p relative isolate min-h-[clamp(22rem,58vh,34rem)] overflow-hidden rounded-[var(--r-lg)] border border-ivory/10 shadow-[var(--depth-2)] lg:min-h-0"
             initial={reduce ? false : { clipPath: 'inset(0% 0% 100% 0%)' }}
             whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
             viewport={{ once: true, margin: '-10% 0px -10% 0px' }}

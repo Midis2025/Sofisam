@@ -10,15 +10,20 @@ import { navItems } from './nav-data';
 import { MobileMenu } from './MobileMenu';
 import { services } from '@/data/services';
 import { Picture } from '@/components/ui/Picture';
+import { Logo } from '@/components/ui/Logo';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { useDarkUnder } from '@/lib/theme';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * Site header.
  *
- * Transparent over the hero, and on scroll it settles into dark glass — the
- * ground never turns light, so the wordmark, the navigation and the action
- * keep one treatment from the top of the page to the bottom of it.
+ * Transparent over the hero, and on scroll it settles into the theme's glass.
+ * While it is transparent it has no ground of its own, so it takes the tone
+ * of what it is over: across a masthead photograph it reads light in either
+ * theme, and it only turns to the light theme's charcoal once it has glass
+ * of its own behind it.
  *
  * The services item opens a full-width panel carrying the three disciplines
  * with their imagery. Hovering a discipline brings its plate forward.
@@ -32,6 +37,17 @@ export function Header() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [hovered, setHovered] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const bar = useRef<HTMLElement>(null);
+
+  // Every page but Contact opens on a photographic masthead, which is what the
+  // server renders against; the sample corrects it before the first paint on
+  // the client.
+  const overDark = useDarkUnder(
+    bar,
+    (box) => ({ x: box.left + 8, y: box.top + box.height / 2 }),
+    pathname !== '/contact',
+    [pathname],
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -68,6 +84,7 @@ export function Header() {
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   const glass = scrolled || megaOpen;
+  const tone = !glass && overDark ? 'tone-dark' : '';
 
   return (
     <>
@@ -79,9 +96,10 @@ export function Header() {
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${
+        ref={bar}
+        className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${tone} ${
           glass
-            ? 'border-b border-ivory/10 bg-void/[0.72] shadow-[0_18px_44px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl backdrop-saturate-150'
+            ? 'border-b border-ivory/10 bg-void/[0.72] shadow-[var(--shadow-header)] backdrop-blur-2xl backdrop-saturate-150'
             : 'border-b border-transparent bg-transparent'
         }`}
         onMouseLeave={scheduleCloseMega}
@@ -95,15 +113,9 @@ export function Header() {
           <Link
             href="/"
             aria-label="SOFISAM FZCO — home"
-            className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2"
+            className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2 transition-opacity duration-500 ease-premium hover:opacity-80"
           >
-            <img
-              src="/logo.png"
-              alt="SOFISAM FZCO"
-              width={834}
-              height={209}
-              className="h-[1.85rem] w-auto transition-opacity duration-500 ease-premium hover:opacity-80 sm:h-[2.15rem] lg:h-[2.45rem]"
-            />
+            <Logo alt="SOFISAM FZCO" className="h-[1.85rem] w-auto sm:h-[2.15rem] lg:h-[2.45rem]" />
           </Link>
 
           {/* Navigation — centred */}
@@ -128,7 +140,7 @@ export function Header() {
                       aria-expanded={hasChildren ? megaOpen : undefined}
                       onFocus={hasChildren ? openMega : undefined}
                       className={`group relative block py-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition-colors duration-400 ${
-                        active ? 'text-ivory' : 'text-ivory/60 hover:text-ivory'
+                        active ? 'text-ivory' : 'text-sage hover:text-ivory'
                       }`}
                     >
                       {item.label}
@@ -146,8 +158,9 @@ export function Header() {
               })}
           </nav>
 
-          {/* Action */}
-          <div className="hidden lg:block">
+          {/* Theme and action */}
+          <div className="hidden items-center gap-4 lg:flex">
+            <ThemeToggle />
             <Link href="/contact" className="btn btn-light-outline btn-sm">
               <span>Get in Touch</span>
               <ArrowUpRight
@@ -158,20 +171,23 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile trigger */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            className="group relative z-10 -mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] lg:hidden"
-          >
-            <span className="flex w-[1.15rem] flex-col items-end gap-[6px]">
-              <span className="block h-px w-full bg-ivory transition-all duration-500 ease-premium" />
-              <span className="block h-px w-2/3 bg-ivory transition-all duration-500 ease-premium group-hover:w-full" />
-            </span>
-          </button>
+          {/* Theme and mobile trigger */}
+          <div className="relative z-10 flex items-center gap-3 lg:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="group relative -mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13]"
+            >
+              <span className="flex w-[1.15rem] flex-col items-end gap-[6px]">
+                <span className="block h-px w-full bg-ivory transition-all duration-500 ease-premium" />
+                <span className="block h-px w-2/3 bg-ivory transition-all duration-500 ease-premium group-hover:w-full" />
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Expertise panel */}
@@ -183,7 +199,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-void/[0.78] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
+              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-void/[0.78] shadow-[var(--shadow-panel)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
               onMouseEnter={openMega}
               onMouseLeave={scheduleCloseMega}
             >
@@ -199,7 +215,7 @@ export function Header() {
 
                   <Link
                     href="/services"
-                    className="link-underline mt-10 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ivory/60 hover:text-ivory"
+                    className="link-underline mt-10 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-sage hover:text-ivory"
                   >
                     All services
                     <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />

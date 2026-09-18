@@ -8,6 +8,8 @@ import { X } from 'lucide-react';
 
 import { navItems } from './nav-data';
 import { contact } from '@/data/site';
+import { Logo } from '@/components/ui/Logo';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -21,6 +23,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * The panel is the site's glass, at full height: the page stays visible
  * through it, heavily blurred and darkened. It is fixed to the frame and
  * nothing in it follows the pointer — a menu is a place, not an object.
+ *
+ * It is set entirely in the theme's own palette, and the switch sits beside
+ * the close button, so a change of theme made here repaints the menu in place.
  */
 export function MobileMenu({
   open,
@@ -77,6 +82,7 @@ export function MobileMenu({
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
+          data-tone-ignore
           className="fixed inset-0 z-[110] flex flex-col bg-void/[0.86] text-ivory backdrop-blur-3xl backdrop-saturate-150 lg:hidden"
           initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
           animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
@@ -85,22 +91,19 @@ export function MobileMenu({
         >
           <div className="shell flex h-[4.5rem] shrink-0 items-center justify-between">
             <Link href="/" onClick={onClose} aria-label="SOFISAM FZCO — home">
-              <img
-                src="/logo.png"
-                alt="SOFISAM FZCO"
-                width={834}
-                height={209}
-                className="h-[1.85rem] w-auto"
-              />
+              <Logo alt="SOFISAM FZCO" className="h-[1.85rem] w-auto" />
             </Link>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close menu"
-              className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] text-ivory/70 shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.16)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] hover:text-gold"
-            >
-              <X strokeWidth={1.25} className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close menu"
+                className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] text-ivory/70 shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] hover:text-gold"
+              >
+                <X strokeWidth={1.25} className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <nav
