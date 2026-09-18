@@ -4,8 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
-import { Newsletter } from '@/components/sections/Newsletter';
-import { CTASection } from '@/components/sections/CTASection';
+import { ClosingSection } from '@/components/sections/ClosingSection';
 import { Reveal, ImageReveal } from '@/components/animations/Reveal';
 import { insights, featuredInsight, secondaryInsights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
@@ -168,10 +167,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <Newsletter />
-
-      <CTASection
-        eyebrow="Enquiries"
+      <ClosingSection
         lines={['Continue the', 'conversation.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
       />

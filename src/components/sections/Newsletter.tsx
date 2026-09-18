@@ -11,13 +11,11 @@ import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 type State = 'idle' | 'loading' | 'success' | 'error';
 
 /**
- * Newsletter.
- *
- * A statement on the left, a single field on the right. The field is a line
- * rather than a box: its label lifts and its rule draws gold on focus.
- * Submission behaviour, validation and every string are unchanged.
+ * The subscription itself — validation, submission and the message shown
+ * after it — shared by this section and the closing section, so the two
+ * forms can never behave differently.
  */
-export function Newsletter() {
+export function useNewsletter() {
   const id = useId();
   const [email, setEmail] = useState('');
   const [state, setState] = useState<State>('idle');
@@ -48,6 +46,27 @@ export function Newsletter() {
       setMessage(result.message);
     }
   }
+
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
+    if (state !== 'idle') {
+      setState('idle');
+      setMessage('');
+    }
+  }
+
+  return { id, email, state, message, invalid, onSubmit, onChange };
+}
+
+/**
+ * Newsletter.
+ *
+ * A statement on the left, a single field on the right. The field is a line
+ * rather than a box: its label lifts and its rule draws gold on focus.
+ * Submission behaviour, validation and every string are unchanged.
+ */
+export function Newsletter() {
+  const { id, email, state, message, invalid, onSubmit, onChange } = useNewsletter();
 
   return (
     <section data-section="Newsletter" className="section ground-void" aria-labelledby="newsletter-heading">
@@ -80,13 +99,7 @@ export function Newsletter() {
                       autoComplete="email"
                       required
                       value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (state !== 'idle') {
-                          setState('idle');
-                          setMessage('');
-                        }
-                      }}
+                      onChange={onChange}
                       aria-invalid={invalid}
                       aria-describedby={message ? `${id}-msg` : undefined}
                       disabled={state === 'loading'}

@@ -187,17 +187,24 @@ export function SectionProgress() {
 
   const [atFoot, setAtFoot] = useState(false);
 
+  // The closing band (`data-rail-end`) is not one of the sections either: it
+  // is where the page stops being read and starts being answered, so the rail
+  // stands down over it as it does over the footer.
   useEffect(() => {
-    const footer = document.querySelector('footer');
-    if (!footer) return;
+    const ends = Array.from(document.querySelectorAll('footer, [data-rail-end]'));
+    if (ends.length === 0) return;
 
+    const inView = new Set<Element>();
     const io = new IntersectionObserver(
-      ([e]) => setAtFoot(e.isIntersecting),
-      // Fires once the footer has taken the lower half of the viewport, which
+      (entries) => {
+        entries.forEach((e) => (e.isIntersecting ? inView.add(e.target) : inView.delete(e.target)));
+        setAtFoot(inView.size > 0);
+      },
+      // Fires once the element has taken the lower half of the viewport, which
       // is the point at which the last section stops being what is on screen.
       { rootMargin: '-50% 0px 0px 0px', threshold: 0 },
     );
-    io.observe(footer);
+    ends.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [pathname]);
 

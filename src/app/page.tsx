@@ -9,8 +9,7 @@ import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
 import { DubaiSection } from '@/components/sections/DubaiSection';
 import { ProcessNarrative } from '@/components/sections/ProcessNarrative';
 import { InsightsEditorial } from '@/components/sections/InsightsEditorial';
-import { Newsletter } from '@/components/sections/Newsletter';
-import { CTASection } from '@/components/sections/CTASection';
+import { ClosingSection } from '@/components/sections/ClosingSection';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
@@ -28,7 +27,8 @@ export const metadata: Metadata = {
  * The homepage is a sequence rather than a stack of sections: a cinematic
  * opening, a statement on ivory, the disciplines on obsidian, the firm's
  * vantage point, two full-bleed passages carrying the city, the way it works,
- * the research index, and the closing band. Grounds alternate and no two
+ * the research index, and the closing band — the newsletter and the enquiry
+ * as one composition. Grounds alternate and no two
  * consecutive sections share a composition.
  */
 export default function HomePage() {
@@ -43,8 +43,7 @@ export default function HomePage() {
       <DubaiSection />
       <ProcessNarrative />
       <InsightsEditorial />
-      <Newsletter />
-      <CTASection />
+      <ClosingSection />
     </>
   );
 }
