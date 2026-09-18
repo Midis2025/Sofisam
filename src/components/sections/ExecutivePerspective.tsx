@@ -83,22 +83,15 @@ export function ExecutivePerspective() {
           </CurtainReveal>
         </div>
 
-        {/* Attributes — four standing cards. The second sits on the deeper plate so the
-            row has a centre of gravity rather than reading as a flat set. */}
+        {/* Attributes — four standing cards, all on the same plate. */}
         <dl className="mt-[clamp(2.5rem,4vw,4.5rem)] grid gap-[clamp(0.75rem,1.2vw,1.1rem)] sm:grid-cols-2 lg:grid-cols-4">
           {markers.map((item, i) => {
-            const deep = i === 1;
             return (
               <Reveal key={item.t} kind="card" delay={i * 0.06} className="h-full">
                 <Tilt className="h-full">
                   <div
-                    className={`group ${
-                      deep ? 'surface-deep' : 'surface'
-                    } surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]`}
+                    className="group surface surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]"
                   >
-                    {/* The plate changes, the type does not: there is one
-                        ground on this site, so both depths take the same
-                        three text colours. */}
                     <span aria-hidden className="t-num text-[0.78rem] text-gold">
                       {String(i + 1).padStart(2, '0')}
                     </span>
