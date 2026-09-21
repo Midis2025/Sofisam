@@ -157,7 +157,19 @@ export function Hero() {
            16:9 and the frame is whatever the viewport is, so the crop is the
            centre of the city in both directions. Muted, looping and inline,
            which is what autoplay costs; out of the tab order and out of the
-           accessibility tree, because it is the ground rather than content. */
+           accessibility tree, because it is the ground rather than content.
+
+           The scale is not a flourish. The generator left its mark in the
+           lower right of the source — a translucent four-pointed star at
+           roughly 89% across and 82% down — and the honest way to be rid of it
+           is to frame it out rather than to paint over it. Anchoring the
+           enlargement at the top left takes the whole of the crop off the
+           right and the bottom: the mark goes with about two and a half per
+           cent of the frame to spare at 16:9, the worst case, and further to
+           spare at every other ratio, since anything narrower has already
+           cropped that edge away. The top is untouched, which is what keeps
+           the tower's spire in frame, and the bottom that is lost is the
+           interchange under the heaviest part of the scrim. */
         <video
           ref={film}
           aria-hidden
@@ -169,7 +181,7 @@ export function Hero() {
           preload="metadata"
           onCanPlay={() => setFilmReady(true)}
           onError={() => setFilmFailed(true)}
-          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1400ms] ease-premium ${
+          className={`absolute inset-0 h-full w-full object-cover object-center [transform-origin:0_0] [transform:scale(1.16)] transition-opacity duration-[1400ms] ease-premium ${
             filmReady ? 'opacity-100' : 'opacity-0'
           }`}
         >
