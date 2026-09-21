@@ -105,6 +105,24 @@ function posKeys(): [number[], number[]] {
 const recede = (d: number) => Math.min(Math.abs(d), 1);
 
 /**
+ * A plate's distance from the standing position, taken the short way round.
+ *
+ * The strip is a ring rather than a line, so the fourth plate stands to the
+ * left of the first and the first to the right of the fourth: at either end of
+ * the sequence the frame has a neighbour on both sides and is composed rather
+ * than half empty. The two are only ever a preview of each other — the words,
+ * the rule and the order of the section are all still 01 → 04.
+ *
+ * A plate changes sides when it is exactly half the ring away, which at four
+ * plates is two slots out. That is far enough off the edge of the frame at
+ * every width that the swap is never on screen.
+ */
+function wrap(d: number) {
+  const m = ((d % N) + N) % N;
+  return m > N / 2 ? m - N : m;
+}
+
+/**
  * The same value, kept on Motion's own frame loop.
  *
  * A value interpolated linearly from `useScroll` carries an `accelerate`
@@ -382,7 +400,9 @@ function Slide({
   lean: { x: MotionValue<number>; y: MotionValue<number>; lift: MotionValue<number> };
   measureRef?: React.RefObject<HTMLDivElement | null>;
 }) {
-  const d = useTransform(pos, (v) => i - v);
+  // Taken the short way round the ring, so the ends of the sequence have a
+  // neighbour on both sides. See `wrap`.
+  const d = useTransform(pos, (v) => wrap(i - v));
 
   const x = useTransform(d, (v) => v * pitch);
   const scale = useTransform(d, (v) => 1 - recede(v) * 0.09);
