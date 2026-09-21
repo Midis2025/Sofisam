@@ -646,7 +646,8 @@
   .veil-hero::after,
   .veil-editorial::after,
   .veil-bottom::after,
-  .veil-full::after {
+  .veil-full::after,
+  .veil-stage::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -727,6 +728,47 @@
   .veil-full::after {
     background:
       linear-gradient(rgb(var(--scrim-rgb) / 0.78), rgb(var(--scrim-rgb) / 0.78)),
+      var(--vignette);
+  }
+
+  /* Type held to the foot AND the left of a full-height frame, with
+     the right edge quieted so a rail can be read off it. The frame
+     it veils is a sticky one whose scrim moves against the
+     photograph, so this is the one scrim in the set that is worn by
+     an element of its own rather than by the frame: the element is
+     inflated past the frame top and bottom and translated, and the
+     ::after fills it. Everything else about it is the others — one
+     directional layer per side that carries type, over the same
+     vignette. */
+  .veil-stage::after {
+    background:
+      linear-gradient(
+        to top,
+        rgb(var(--scrim-rgb) / 0.95) 0%,
+        rgb(var(--scrim-rgb) / 0.88) 20%,
+        rgb(var(--scrim-rgb) / 0.6) 37%,
+        rgb(var(--scrim-rgb) / 0.26) 54%,
+        rgb(var(--scrim-rgb) / 0.06) 72%,
+        transparent 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(var(--scrim-rgb) / 0.55) 0%,
+        rgb(var(--scrim-rgb) / 0.22) 34%,
+        transparent 58%
+      ),
+      linear-gradient(
+        270deg,
+        rgb(var(--scrim-rgb) / 0.5) 0%,
+        rgb(var(--scrim-rgb) / 0.14) 13%,
+        transparent 27%
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--scrim-rgb) / 0.66) 0%,
+        rgb(var(--scrim-rgb) / 0.26) 15%,
+        transparent 34%
+      ),
       var(--vignette);
   }
 
