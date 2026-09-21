@@ -50,7 +50,11 @@ export function ServiceSelector() {
 
   return (
     <section data-section="Three Disciplines" className="section ground-char" aria-labelledby="disciplines-heading">
-      <div className="shell">
+      {/* The section indicator is fixed in the right gutter from 768 up, so the
+          whole section reserves that much again on its right edge: every row
+          here — the heading, the two columns and the themes — stops on one line
+          clear of the rail rather than running under it. */}
+      <div className="shell md:pr-[calc(var(--gutter)+2rem)]">
         <div className="head">
           <div>
             <Reveal kind="label" className="kicker">
@@ -231,18 +235,24 @@ export function ServiceSelector() {
         </div>
 
         {/* The four themes the chosen discipline's own page carries, given the
-            full width so the two columns above stay in balance. */}
-        <dl className="mt-[clamp(2.5rem,4.5vw,4rem)] grid gap-x-[clamp(1.5rem,2.6vw,3rem)] sm:grid-cols-2 lg:grid-cols-4">
+            full width so the two columns above stay in balance.
+
+            One grid of equal columns with the same gap on both axes, and the
+            plate stretched to the row through every wrapper: a title that runs
+            to two lines sets the height for all four rather than dropping its
+            own card below the others. */}
+        <dl className="mt-[clamp(2.25rem,3.6vw,3.25rem)] grid gap-[clamp(1.5rem,2.6vw,3rem)] sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4">
           {current.themes.map((t, ti) => (
             <motion.div
               key={`${current.slug}-${t.title}`}
+              className="h-full"
               style={{ transformPerspective: 1400 }}
               initial={reduce ? false : { opacity: 0, y: 24, rotateX: 8 }}
               animate={{ opacity: 1, y: 0, rotateX: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: ti * 0.06 }}
             >
-              <Tilt>
-                <div className="group surface surface-lift p-[clamp(1.25rem,2vw,1.75rem)]">
+              <Tilt className="h-full">
+                <div className="group surface surface-lift flex h-full flex-col p-[clamp(1.25rem,2vw,1.75rem)]">
                   <dt className="t-label text-gold">{t.label}</dt>
                   <dd className="t-h4 mt-3.5 max-w-[22ch] text-ivory">{t.title}</dd>
                 </div>
