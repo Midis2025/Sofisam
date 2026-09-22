@@ -134,10 +134,10 @@ export default function StructuringPage() {
             <ImageReveal className="lg:col-span-5">
               <div className="media aspect-[4/5] w-full">
                 <Picture
-                  name="structure-grid"
-                  alt="Dark modular facade of precisely repeating panels, read as a structural grid"
+                  name="lattice-white"
+                  alt="The facade of a modern building, its balconies set in a regular grid"
                   sizes="(min-width:1024px) 42vw, 100vw"
-                  focal="50% 50%"
+                  focal="50% 48%"
                   className="h-full w-full"
                 />
               </div>
@@ -249,7 +249,7 @@ export default function StructuringPage() {
               <div className="media aspect-[16/11] w-full">
                 <Picture
                   name="spiral-dark"
-                  alt="Dark spiral stair seen from below, forming a precise geometric spiral"
+                  alt="A spiral staircase seen down its own well, turning in on itself"
                   sizes="(min-width:1024px) 56vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full"

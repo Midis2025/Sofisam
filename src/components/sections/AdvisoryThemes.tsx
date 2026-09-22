@@ -22,7 +22,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
                 <div className="media aspect-[4/5] w-full">
                   <Picture
                     name="lounge-dark"
-                    alt="Darkened executive lounge with slatted timber screens and low, considered lighting"
+                    alt="A spacious meeting room with a long table, columns and a wide city view"
                     sizes="(min-width:1024px) 42vw, 100vw"
                     focal="50% 50%"
                     className="h-full w-full"

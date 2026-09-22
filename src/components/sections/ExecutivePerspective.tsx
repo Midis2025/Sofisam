@@ -19,8 +19,8 @@ import { SplitText } from '@/components/animations/SplitText';
  * Stat-free credibility markers, drawn only from stated facts.
  *
  * Each one carries a plate. The four are four different kinds of building at
- * four different times of day — a district in morning haze, a facade at dusk,
- * two towers at night, a structural screen in flat daylight — which matters
+ * four different times of day — a headquarters at night, a facade at dusk,
+ * lit floors after hours, a gridded facade in flat daylight — which matters
  * more here than it did before: the strip shows three of them at once, so the
  * set has to read as four places rather than four crops of one.
  */
@@ -28,20 +28,19 @@ const markers = [
   {
     t: 'Decades of experience',
     d: 'International business experience is the foundation of the advice.',
-    /* An established waterfront district in the morning: the settled,
-       long-standing environment the experience was gathered in. */
-    image: 'business-bay',
-    alt: 'An established waterfront business district in morning haze, its towers standing along the water',
-    focal: '50% 40%',
+    /* A corporate headquarters lit against the night: an institution that
+       was already there, which is what decades look like. */
+    image: 'difc-gate',
+    alt: 'A modern corporate headquarters building lit against the night',
+    focal: '50% 46%',
   },
   {
     t: 'Executives and investors',
     d: 'Principals who have operated as both, not one or the other.',
-    /* A curtain wall at dusk with one floor open to view, the table laid and
-       the room empty — the position itself, with nobody standing in for the
-       people who have held it. */
+    /* A curtain wall at dusk, every floor behind it lit and working — the
+       position itself, with nobody standing in for the people who hold it. */
     image: 'tower-dusk',
-    alt: 'A corporate facade at dusk, one lit floor visible behind the glass with its meeting table set out',
+    alt: 'A tower’s glass facade at dusk, every floor behind it lit warm from within',
     focal: '50% 52%',
   },
   {
@@ -56,10 +55,10 @@ const markers = [
   {
     t: 'Unconflicted by design',
     d: 'Independence is a structural condition, not a stated intention.',
-    /* A structural screen, straight on: independence as something built into
-       the thing rather than stated about it. */
+    /* A facade on a strict grid, straight on: independence as something
+       built into the thing rather than stated about it. */
     image: 'lattice-white',
-    alt: 'A pale concrete lattice screen on an institutional facade, seen straight on',
+    alt: 'The facade of a modern building, its balconies set in a regular grid',
     focal: '50% 48%',
   },
 ];

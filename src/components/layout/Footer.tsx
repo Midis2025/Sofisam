@@ -116,11 +116,11 @@ export function Footer() {
       >
         <div className="footer-photo h-full w-full">
           <Picture
-            name="hero-dubai"
+            name="abstract-dark"
             alt=""
             decorative
-            sizes="100vw"
-            className="h-full w-full object-cover object-[50%_44%] lg:object-[50%_32%]"
+            sizes="(max-width: 767px) 190vw, 100vw"
+            className="h-full w-full object-cover object-[50%_48%] lg:object-[50%_42%]"
           />
         </div>
       </motion.div>

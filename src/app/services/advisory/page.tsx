@@ -114,7 +114,7 @@ export default function AdvisoryPage() {
               <div className="media aspect-[4/5] w-full">
                 <Picture
                   name="lattice-white"
-                  alt="Pale architectural screen forming a precise repeating lattice"
+                  alt="The facade of a modern building, its balconies set in a regular grid"
                   sizes="(min-width:1024px) 42vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full"
@@ -190,7 +190,7 @@ export default function AdvisoryPage() {
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[21/9]">
               <Picture
                 name="tower-dusk"
-                alt="Corporate tower facade at dusk with warmly lit interiors behind a vertical fin curtain wall"
+                alt="A tower’s glass facade at dusk, every floor behind it lit warm from within"
                 sizes="100vw"
                 focal="50% 45%"
                 className="h-full w-full"

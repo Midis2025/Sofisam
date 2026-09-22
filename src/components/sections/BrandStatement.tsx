@@ -152,7 +152,7 @@ export function BrandStatement() {
                   <Picture
                     name="business-bay"
                     alt="Dubai's Business Bay towers standing in soft morning haze above the water"
-                    sizes="(min-width: 1024px) 30vw, 92vw"
+                    sizes="(min-width: 1024px) 75vw, 240vw"
                     focal="50% 45%"
                     className="h-full w-full object-cover"
                   />

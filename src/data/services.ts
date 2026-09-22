@@ -97,10 +97,10 @@ export const services: Service[] = [
       headline: 'Counsel formed in the room where decisions are taken.',
       standfirst:
         'Leveraging decades of international business experience to guide executive decision-making and corporate governance.',
-      image: 'tower-dusk',
+      image: 'towers-mono',
       imageAlt:
-        'Corporate tower facade at dusk with warmly lit interiors visible behind a vertical fin curtain wall',
-      focal: '50% 45%',
+        'Aerial view of a lit financial district at dusk, in near-monochrome',
+      focal: '50% 40%',
     },
     intro: {
       lead: 'Experience is only useful when it has been earned in comparable conditions. Our principals are highly successful business executives and investors, and the advisory work reflects that vantage point.',
@@ -149,7 +149,7 @@ export const services: Service[] = [
         'Expert structuring for mandates and investments, built on successful executive perspectives and proven frameworks.',
       image: 'structure-grid',
       imageAlt:
-        'Dark modular architectural facade composed of a precise repeating grid of panels',
+        'Detail of a concrete facade, its panels set in a precise repeating grid',
       focal: '50% 50%',
     },
     intro: {

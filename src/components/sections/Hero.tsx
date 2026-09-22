@@ -145,7 +145,7 @@ export function Hero() {
           name="city-blue-night"
           alt={showFilm ? '' : 'Aerial view of an international financial district lit at night'}
           decorative={showFilm}
-          sizes="100vw"
+          sizes="(max-width: 767px) 190vw, 100vw"
           priority
           focal="50% 50%"
           className="h-full w-full"

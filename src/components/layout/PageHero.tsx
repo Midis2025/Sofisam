@@ -88,7 +88,7 @@ export function PageHero({
         <Picture
           name={image}
           alt={imageAlt}
-          sizes="100vw"
+          sizes="(max-width: 767px) 190vw, 100vw"
           priority
           focal={focal}
           className="h-full w-full object-cover"

@@ -52,9 +52,10 @@ const steps = [
     k: '02',
     title: 'Evaluate',
     body: 'The position tested from the outside. What has to be true, what it costs if it is not, and which parts become difficult to reverse.',
-    /* The gate of a financial district — a threshold, read from outside it. */
-    image: 'difc-gate',
-    focal: '50% 46%',
+    /* A district read from across the water in flat morning light — the
+       position seen from outside it, which is what evaluating one is. */
+    image: 'business-bay',
+    focal: '50% 42%',
   },
   {
     k: '03',
@@ -379,7 +380,7 @@ function HorizontalRail() {
                 active={i === active}
                 reduce={false}
                 className="h-full w-full"
-                sizes="(min-width: 1600px) 28rem, 25vw"
+                sizes="58rem"
               />
             </li>
           ))}
@@ -443,7 +444,7 @@ function Carousel() {
               active={i === active}
               reduce={false}
               className="h-full w-full"
-              sizes="(min-width: 640px) 25rem, 86vw"
+              sizes="54rem"
             />
           </li>
         ))}
@@ -476,7 +477,7 @@ function Stack() {
             active
             reduce
             className="h-full w-full"
-            sizes="(min-width: 640px) 28rem, 90vw"
+            sizes="54rem"
           />
         </li>
       ))}

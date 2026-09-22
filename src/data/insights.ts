@@ -39,7 +39,7 @@ export const insights: Insight[] = [
     readingTime: '6 min read',
     image: 'city-mono',
     imageAlt:
-      'Monochrome aerial view of a dense metropolitan skyline seen from directly above',
+      'Monochrome view of a dense metropolitan skyline, its towers layered into the distance',
     focal: '50% 40%',
     standfirst:
       'An analysis of emerging economic trends and adapting to the changing global landscape.',
@@ -93,7 +93,7 @@ export const insights: Insight[] = [
     readingTime: '7 min read',
     image: 'lattice-white',
     imageAlt:
-      'Detail of a pale architectural lattice screen forming a precise repeating geometric pattern',
+      'The facade of a modern building, its balconies set in a regular grid',
     focal: '50% 50%',
     standfirst:
       'Best practices for governance, wealth preservation, and generational transfer.',
@@ -145,10 +145,10 @@ export const insights: Insight[] = [
     isoDate: '2025-11-28',
     category: 'Perspective',
     readingTime: '5 min read',
-    image: 'difc-gate',
+    image: 'towers-converge',
     imageAlt:
-      "Dubai's financial district gate building illuminated at dusk, framed by surrounding towers",
-    focal: '50% 45%',
+      'Skyscrapers seen from below, converging on the open sky between them',
+    focal: '50% 50%',
     standfirst:
       'Why Dubai represents a pivotal hub for international strategic consulting.',
     pullQuote:

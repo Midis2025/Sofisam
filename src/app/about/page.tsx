@@ -109,7 +109,7 @@ export default function AboutPage() {
               <div className="media aspect-[4/5] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
                 <Picture
                   name="facade-pale"
-                  alt="Slender pale tower rising beside a sheer reflective glass facade"
+                  alt="Close view of a pale building facade, its windows set deep into the wall"
                   sizes="(min-width:1024px) 40vw, 100vw"
                   focal="62% 40%"
                   className="h-full w-full"
@@ -202,7 +202,7 @@ export default function AboutPage() {
               <div className="media aspect-[4/3] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
                 <Picture
                   name="lounge-dark"
-                  alt="Darkened executive lounge with slatted screens and low, considered lighting"
+                  alt="A spacious meeting room with a long table, columns and a wide city view"
                   sizes="(min-width:1024px) 44vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full"
@@ -275,7 +275,7 @@ export default function AboutPage() {
               <div className="media aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[5/4]">
                 <Picture
                   name="dubai-haze"
-                  alt="Dubai skyline seen across the water in warm morning haze"
+                  alt="The Dubai skyline at golden hour, its towers standing in warm haze"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   focal="50% 55%"
                   className="h-full w-full"

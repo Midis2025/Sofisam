@@ -80,7 +80,7 @@ export function GlobalPerspective({
                 name="city-mono"
                 alt=""
                 decorative
-                sizes="100vw"
+                sizes="(max-width: 767px) 190vw, 100vw"
                 focal="50% 45%"
                 className="h-full w-full"
               />
@@ -103,7 +103,7 @@ export function GlobalPerspective({
           name="city-mono"
           alt=""
           decorative
-          sizes="100vw"
+          sizes="(max-width: 767px) 190vw, 100vw"
           focal="50% 45%"
           className="h-full w-full object-cover"
         />
