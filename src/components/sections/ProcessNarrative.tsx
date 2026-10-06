@@ -21,12 +21,15 @@ import { SplitText } from '@/components/animations/SplitText';
  * does not claim any service, permission or capability beyond what SOFISAM
  * states about strategic consulting, advisory and structuring.
  *
- * Each step carries a photograph chosen for what the step actually is, and
- * every one of the five is an architectural frame already held in the site's
- * own library: the city read from above, the gate of a financial district, a
- * structure seen as pure geometry, a considered interior, and a tower still
- * lit at night. None of them is used elsewhere on this page, so the sequence
- * reads as five distinct places rather than as one photograph repeated.
+ * Each step carries a photograph of the step itself rather than of the city:
+ * a brief read closely at the table, the numbers tested, terms committed to
+ * paper, counsel given across a desk, and a call taken after hours. They are
+ * photographs of the work, so the sequence reads as what happens at each
+ * stage, and none of them is used anywhere else on the site.
+ *
+ * The cards are portrait and all but one of the photographs are landscape,
+ * so each focal point holds its picture's subject — the documents, the
+ * chart, the pen, the advisor, the call — in view in the narrowest crop.
  *
  * On a desktop the five are a horizontal sequence: the frame pins and the rail
  * travels sideways as the page scrolls, so the reader moves through the order
@@ -41,45 +44,45 @@ const steps = [
     k: '01',
     title: 'Understand',
     body: 'What is actually being decided, who carries it, and what the constraints really are — as opposed to how they were described.',
-    /* The city read whole, from above: the position as it actually is rather
-       than as it was described. An aerial also happens to be the one frame in
-       the library with detail everywhere, so the tall crop a card takes lands
-       on something wherever it falls. */
-    image: 'hero-dubai',
-    focal: '50% 52%',
+    /* Two principals reading a brief line by line at the table: what is
+       actually being decided, as opposed to how it was described. */
+    image: 'process-understand',
+    focal: '58% 50%',
   },
   {
     k: '02',
     title: 'Evaluate',
     body: 'The position tested from the outside. What has to be true, what it costs if it is not, and which parts become difficult to reverse.',
-    /* A district read from across the water in flat morning light — the
-       position seen from outside it, which is what evaluating one is. */
-    image: 'business-bay',
-    focal: '50% 42%',
+    /* A position tested against the numbers — the chart read, marked and
+       questioned rather than accepted. */
+    image: 'process-evaluate',
+    focal: '50% 32%',
   },
   {
     k: '03',
     title: 'Structure',
     body: 'Intent expressed in a form that behaves predictably: authority, accountability and terms that remain legible at the edges.',
-    /* A structure as pure geometry: the form, with nothing else in the frame. */
-    image: 'spiral-dark',
-    focal: '50% 50%',
+    /* A pen on a document: intent set down in a form that will hold. */
+    image: 'process-structure',
+    focal: '42% 50%',
   },
   {
     k: '04',
     title: 'Advise',
     body: 'A clear recommendation with the reasoning attached, given confidentially and without a competing interest behind it.',
-    /* A considered interior, lit low. Where counsel is actually given. */
-    image: 'lounge-dark',
-    focal: '52% 48%',
+    /* A recommendation given across a desk, with the reasoning laid out
+       between advisor and client. */
+    image: 'process-advise',
+    focal: '55% 45%',
   },
   {
     k: '05',
     title: 'Support',
     body: 'Remaining available while the decision is carried out, because the difficult questions rarely arrive on the day it is made.',
-    /* Floors still lit after hours: the work that continues after the advice. */
-    image: 'tower-detail',
-    focal: '50% 50%',
+    /* A call taken late in an office still lit: available after the day the
+       decision was made. */
+    image: 'process-support',
+    focal: '50% 40%',
   },
 ];
 

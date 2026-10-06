@@ -18,48 +18,54 @@ import { SplitText } from '@/components/animations/SplitText';
 /**
  * Stat-free credibility markers, drawn only from stated facts.
  *
- * Each one carries a plate. The four are four different kinds of building at
- * four different times of day — a headquarters at night, a facade at dusk,
- * lit floors after hours, a gridded facade in flat daylight — which matters
- * more here than it did before: the strip shows three of them at once, so the
- * set has to read as four places rather than four crops of one.
+ * Each one carries a plate, all four set at the same hour — dusk into
+ * evening, the city lit behind glass — so the strip reads as one evening in
+ * four rooms of the same world rather than four unrelated photographs. The
+ * strip shows three of them at once, so each is a different kind of place:
+ * an entrance, a boardroom in session, a table after it, a courtyard.
+ *
+ * The plates are landscape and the frame is portrait on a phone, so each
+ * focal point holds the subject of its picture — the people, the open
+ * laptop, the doorway, the bridge — inside the narrowest crop.
  */
 const markers = [
   {
     t: 'Decades of experience',
     d: 'International business experience is the foundation of the advice.',
-    /* A corporate headquarters lit against the night: an institution that
-       was already there, which is what decades look like. */
-    image: 'difc-gate',
-    alt: 'A modern corporate headquarters building lit against the night',
-    focal: '50% 46%',
+    /* The lit entrance of an established headquarters with the towers behind
+       it: an institution that was already there, which is what decades look
+       like. */
+    image: 'exec-plaza-twilight',
+    alt: 'The glass entrance of a corporate headquarters at twilight, a reflecting pool before it and towers beyond',
+    focal: '42% 55%',
   },
   {
     t: 'Executives and investors',
     d: 'Principals who have operated as both, not one or the other.',
-    /* A curtain wall at dusk, every floor behind it lit and working — the
-       position itself, with nobody standing in for the people who hold it. */
-    image: 'tower-dusk',
-    alt: 'A tower’s glass facade at dusk, every floor behind it lit warm from within',
-    focal: '50% 52%',
+    /* Principals at the table with the city at sunset behind them — the
+       position itself, held by the people who hold it. */
+    image: 'exec-boardroom-sunset',
+    alt: 'Executives in discussion around a boardroom table, the Dubai skyline at sunset through the windows behind them',
+    focal: '30% 55%',
   },
   {
     t: 'Mandates and investments',
     d: 'The same perspective is applied across every engagement.',
-    /* Two towers of floors still lit after hours: every engagement carried at
-       once, and all of them the same way. */
-    image: 'tower-detail',
-    alt: 'Two corporate towers at night, their floors still lit across the whole of both facades',
-    focal: '50% 50%',
+    /* A boardroom table after hours, papers and an open laptop laid out
+       against the lit city: the work of an engagement, in progress. */
+    image: 'exec-boardroom-twilight',
+    alt: 'A boardroom table at twilight with papers and an open laptop showing a market chart, the city lit beyond the glass',
+    focal: '62% 60%',
   },
   {
     t: 'Unconflicted by design',
     d: 'Independence is a structural condition, not a stated intention.',
-    /* A facade on a strict grid, straight on: independence as something
-       built into the thing rather than stated about it. */
-    image: 'lattice-white',
-    alt: 'The facade of a modern building, its balconies set in a regular grid',
-    focal: '50% 48%',
+    /* Two buildings joined by a glass bridge over a still courtyard:
+       independence as something built into the structure rather than stated
+       about it. */
+    image: 'exec-courtyard-dusk',
+    alt: 'A courtyard between two office buildings at dusk, joined overhead by a glass bridge and lit warm from within',
+    focal: '62% 50%',
   },
 ];
 
