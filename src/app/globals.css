@@ -1853,7 +1853,7 @@ html.theme-switching *::after {
   }
 }
 
-.hero-drift > img {
+.hero-drift img {
   animation: hero-drift 32s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate both;
   will-change: transform;
 }

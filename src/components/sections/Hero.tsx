@@ -1,25 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 
 import { heroCopy, contact } from '@/data/site';
-import { Picture } from '@/components/ui/Picture';
 import { ButtonLink } from '@/components/ui/Button';
 import { useIntroDelay } from '@/lib/intro';
+import { HeroFilm } from './HeroFilm';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-/**
- * The masthead's film.
- *
- * The supplied file, untouched — not renamed, re-encoded or replaced. Its name
- * carries an ellipsis, so the path is percent-encoded at the reference site
- * and `/public` never appears in the URL, the same way the clip before it was
- * referenced.
- */
-const FILM = '/videos/Dubai_skyline_day-to-night_timel%E2%80%A6_1080p_20260921170851.mp4';
 
 /**
  * The headline is broken differently on phones so no line ever has to wrap
@@ -29,40 +19,6 @@ const FILM = '/videos/Dubai_skyline_day-to-night_timel%E2%80%A6_1080p_2026092117
 const DESKTOP_LINES = heroCopy.headline; // ['A Global Corporate', 'Advisory Platform']
 const MOBILE_LINES = ['A Global', 'Corporate', 'Advisory', 'Platform'] as const;
 const FULL_HEADLINE = heroCopy.headline.join(' ');
-
-/**
- * Decides whether this device gets the film.
- *
- * Width is deliberately not a condition: a phone gets the city moving behind
- * the statement the same as a desktop does, because that is the masthead. What
- * does disqualify it is anything the browser tells us about the connection or
- * the reader — reduced motion, data-saver, a metered-feeling 2g or 3g link —
- * since thirteen megabytes of timelapse on a constrained connection is not a
- * background, it is a download. Those all fall back to the photograph, which
- * is the same subject held still, and so does a file that fails to load.
- *
- * The decision is made on the client, after mount: the server has no way to
- * know any of it, and the photograph is what both render until it is made.
- */
-function useWantsFilm() {
-  const [wants, setWants] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const conn = (
-      navigator as Navigator & {
-        connection?: { saveData?: boolean; effectiveType?: string };
-      }
-    ).connection;
-    if (conn?.saveData) return;
-    if (conn?.effectiveType && /(^|-)(2g|3g)$/.test(conn.effectiveType)) return;
-
-    setWants(true);
-  }, []);
-
-  return wants;
-}
 
 /**
  * The masthead.
@@ -77,21 +33,16 @@ function useWantsFilm() {
  * line by line, the rule draws across the foot of the frame, and the
  * supporting row settles under it. Nothing in it is fast.
  *
- * The ground is the supplied film of the city, running behind the statement.
- * Where it is not appropriate — reduced motion, data-saver, a slow connection,
- * a file that will not load — the same composition runs over the same subject
- * as a photograph, held still. The layout, the copy and the timing are
- * identical either way; only the movement behind them is lost.
+ * The ground is a skyline timelapse, from night into day and back (HeroFilm).
+ * Where film is not appropriate — reduced motion, data-saver, a slow
+ * connection, a file that will not load — the same composition runs over a
+ * still frame. The layout, the copy and the timing are identical either way;
+ * only the movement behind them is lost.
  */
 export function Hero() {
   const reduce = useReducedMotion();
   const d = useIntroDelay();
-  const wantsFilm = useWantsFilm();
-  const [filmFailed, setFilmFailed] = useState(false);
-  const [filmReady, setFilmReady] = useState(false);
-
   const ref = useRef<HTMLElement>(null);
-  const film = useRef<HTMLVideoElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -108,28 +59,6 @@ export function Hero() {
   const groundY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
   const groundScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
 
-  const showFilm = wantsFilm && !filmFailed;
-
-  /* Nothing decodes while the masthead is off screen. The reader is past it
-     for the whole of the rest of the page, and a 1080p timelapse running
-     behind nine sections is a frame budget spent on nobody. */
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !showFilm) return;
-
-    const io = new IntersectionObserver(
-      ([e]) => {
-        const v = film.current;
-        if (!v) return;
-        if (e.isIntersecting) void v.play().catch(() => {});
-        else v.pause();
-      },
-      { threshold: 0 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [showFilm]);
-
   // The index names this frame for the firm rather than 'Introduction', which
   // would sit directly above the statement welcoming the reader and read as
   // the same entry twice.
@@ -141,79 +70,22 @@ export function Hero() {
       aria-label="Introduction"
     >
       {/* ---------- Ground ----------
-          The photograph is always laid down first. It is the frame the film
-          fades up out of, so there is no black flash on a reload and nothing
-          to catch while the first seconds arrive, and it is the whole ground
-          wherever the film is not run. It carries the accessible description
-          only in that case; under the film it is decoration, because the film
-          above it is the subject and is itself decorative. */}
+          The skyline timelapse (see HeroFilm). It moves with the
+          scroll at a depth behind the statement. */}
       <motion.div
         className="absolute inset-0 will-change-transform"
         style={reduce ? undefined : { y: groundY, scale: groundScale }}
       >
-        {/* The still frame is never quite still: it drifts forward over half a
-            minute and back, slowly enough that it reads as the air moving over
-            the city rather than as an animation. The film needs none of it. */}
-        <div className={`media media-flat absolute inset-0${reduce || showFilm ? '' : ' hero-drift'}`}>
-          <Picture
-            name="city-blue-night"
-            alt={showFilm ? '' : 'Aerial view of an international financial district lit at night'}
-            decorative={showFilm}
-            sizes="(max-width: 767px) 190vw, 100vw"
-            priority
-            focal="50% 50%"
-            className="h-full w-full"
-          />
-        </div>
-
-        {showFilm && (
-          /* Cover at every ratio, from a tall phone to an ultrawide: the file is
-             16:9 and the frame is whatever the viewport is, so the crop is the
-             centre of the city in both directions. Muted, looping and inline,
-             which is what autoplay costs; out of the tab order and out of the
-             accessibility tree, because it is the ground rather than content.
-
-             The scale is not a flourish. The generator left its mark in the
-             lower right of the source — a translucent four-pointed star at
-             roughly 89% across and 82% down — and the honest way to be rid of it
-             is to frame it out rather than to paint over it. Anchoring the
-             enlargement at the top left takes the whole of the crop off the
-             right and the bottom: the mark goes with about two and a half per
-             cent of the frame to spare at 16:9, the worst case, and further to
-             spare at every other ratio, since anything narrower has already
-             cropped that edge away. The top is untouched, which is what keeps
-             the tower's spire in frame, and the bottom that is lost is the
-             interchange under the heaviest part of the scrim. */
-          <video
-            ref={film}
-            aria-hidden
-            tabIndex={-1}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            onCanPlay={() => setFilmReady(true)}
-            className={`absolute inset-0 h-full w-full object-cover object-center [transform-origin:0_0] [transform:scale(1.16)] transition-opacity duration-[1400ms] ease-premium ${
-              filmReady ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            {/* A media element whose sources fail reports it on the source, not
-                on itself, so this is where the fallback to the photograph is
-                caught. */}
-            <source src={FILM} type="video/mp4" onError={() => setFilmFailed(true)} />
-          </video>
-        )}
+        <HeroFilm />
       </motion.div>
 
       {/* The scrim. Heavy at the foot, where the statement sits; almost
           nothing through the upper two thirds, which is the city.
 
-          Carried a little heavier through the lower half than the photograph
-          needed. The film passes through dusk into a lit interchange, so the
-          brightest thing in the frame arrives underneath the copy rather than
-          above it, and on a tall phone the 16:9 crop puts more of it there.
-          The upper frame is untouched: that is still the city. */}
+          Carried a little heavier through the lower half than a photograph
+          needs. The film's lit windows and streets sit low in the frame, so
+          the brightest part of it arrives underneath the copy rather than
+          above it. The upper frame is untouched: that is still the city. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(5,5,5,0.96)_0%,rgba(5,5,5,0.88)_22%,rgba(5,5,5,0.52)_52%,rgba(5,5,5,0.18)_74%,rgba(5,5,5,0.55)_100%)]"
