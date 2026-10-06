@@ -212,7 +212,7 @@ export function Footer() {
               as="div"
               className="border-b border-ivory/10 py-[clamp(2rem,3.2vw,2.75rem)] pr-[clamp(1.5rem,3vw,3rem)] sm:border-b-0"
             >
-              <Logo alt={site.shortName} loading="lazy" className="h-[2.75rem] w-auto lg:h-[3.25rem]" />
+              <Logo alt={site.shortName} loading="lazy" className="h-[3.25rem] w-auto lg:h-[3.125rem] xl:h-[3.75rem]" />
               <p className="t-body mt-[clamp(1.25rem,2vw,1.75rem)] max-w-[28ch] text-ivory/70">
                 {footerCopy.statement}
               </p>
