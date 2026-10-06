@@ -101,6 +101,13 @@ export function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '26%']);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
 
+  // The city falls away more slowly than the statement over it, and draws a
+  // fraction closer as it goes — two depths, read as a camera easing back
+  // rather than as a page scrolling. The gap this opens at the top of the
+  // frame is always above the viewport by the time it exists.
+  const groundY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const groundScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+
   const showFilm = wantsFilm && !filmFailed;
 
   /* Nothing decodes while the masthead is off screen. The reader is past it
@@ -140,54 +147,64 @@ export function Hero() {
           wherever the film is not run. It carries the accessible description
           only in that case; under the film it is decoration, because the film
           above it is the subject and is itself decorative. */}
-      <div className="media media-flat absolute inset-0">
-        <Picture
-          name="city-blue-night"
-          alt={showFilm ? '' : 'Aerial view of an international financial district lit at night'}
-          decorative={showFilm}
-          sizes="(max-width: 767px) 190vw, 100vw"
-          priority
-          focal="50% 50%"
-          className="h-full w-full"
-        />
-      </div>
+      <motion.div
+        className="absolute inset-0 will-change-transform"
+        style={reduce ? undefined : { y: groundY, scale: groundScale }}
+      >
+        {/* The still frame is never quite still: it drifts forward over half a
+            minute and back, slowly enough that it reads as the air moving over
+            the city rather than as an animation. The film needs none of it. */}
+        <div className={`media media-flat absolute inset-0${reduce || showFilm ? '' : ' hero-drift'}`}>
+          <Picture
+            name="city-blue-night"
+            alt={showFilm ? '' : 'Aerial view of an international financial district lit at night'}
+            decorative={showFilm}
+            sizes="(max-width: 767px) 190vw, 100vw"
+            priority
+            focal="50% 50%"
+            className="h-full w-full"
+          />
+        </div>
 
-      {showFilm && (
-        /* Cover at every ratio, from a tall phone to an ultrawide: the file is
-           16:9 and the frame is whatever the viewport is, so the crop is the
-           centre of the city in both directions. Muted, looping and inline,
-           which is what autoplay costs; out of the tab order and out of the
-           accessibility tree, because it is the ground rather than content.
+        {showFilm && (
+          /* Cover at every ratio, from a tall phone to an ultrawide: the file is
+             16:9 and the frame is whatever the viewport is, so the crop is the
+             centre of the city in both directions. Muted, looping and inline,
+             which is what autoplay costs; out of the tab order and out of the
+             accessibility tree, because it is the ground rather than content.
 
-           The scale is not a flourish. The generator left its mark in the
-           lower right of the source — a translucent four-pointed star at
-           roughly 89% across and 82% down — and the honest way to be rid of it
-           is to frame it out rather than to paint over it. Anchoring the
-           enlargement at the top left takes the whole of the crop off the
-           right and the bottom: the mark goes with about two and a half per
-           cent of the frame to spare at 16:9, the worst case, and further to
-           spare at every other ratio, since anything narrower has already
-           cropped that edge away. The top is untouched, which is what keeps
-           the tower's spire in frame, and the bottom that is lost is the
-           interchange under the heaviest part of the scrim. */
-        <video
-          ref={film}
-          aria-hidden
-          tabIndex={-1}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onCanPlay={() => setFilmReady(true)}
-          onError={() => setFilmFailed(true)}
-          className={`absolute inset-0 h-full w-full object-cover object-center [transform-origin:0_0] [transform:scale(1.16)] transition-opacity duration-[1400ms] ease-premium ${
-            filmReady ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <source src={FILM} type="video/mp4" />
-        </video>
-      )}
+             The scale is not a flourish. The generator left its mark in the
+             lower right of the source — a translucent four-pointed star at
+             roughly 89% across and 82% down — and the honest way to be rid of it
+             is to frame it out rather than to paint over it. Anchoring the
+             enlargement at the top left takes the whole of the crop off the
+             right and the bottom: the mark goes with about two and a half per
+             cent of the frame to spare at 16:9, the worst case, and further to
+             spare at every other ratio, since anything narrower has already
+             cropped that edge away. The top is untouched, which is what keeps
+             the tower's spire in frame, and the bottom that is lost is the
+             interchange under the heaviest part of the scrim. */
+          <video
+            ref={film}
+            aria-hidden
+            tabIndex={-1}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onCanPlay={() => setFilmReady(true)}
+            className={`absolute inset-0 h-full w-full object-cover object-center [transform-origin:0_0] [transform:scale(1.16)] transition-opacity duration-[1400ms] ease-premium ${
+              filmReady ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {/* A media element whose sources fail reports it on the source, not
+                on itself, so this is where the fallback to the photograph is
+                caught. */}
+            <source src={FILM} type="video/mp4" onError={() => setFilmFailed(true)} />
+          </video>
+        )}
+      </motion.div>
 
       {/* The scrim. Heavy at the foot, where the statement sits; almost
           nothing through the upper two thirds, which is the city.

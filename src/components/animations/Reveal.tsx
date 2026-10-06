@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import type { ReactNode } from 'react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
 
 /** One easing for the whole site. */
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -180,7 +180,15 @@ export function RowReveal({
   );
 }
 
-/** Image that uncovers itself with a clip-path wipe and a slight settle. */
+/**
+ * Image that uncovers itself with a clip-path wipe and a slight settle.
+ *
+ * The settle is the photograph inside the frame, not the frame: the frame's
+ * edges are uncovered where they will stay, and the image within them eases
+ * down from a fraction over size as the wipe runs (`.img-reveal` in
+ * globals.css), so the picture arrives with a little depth and the layout
+ * never moves.
+ */
 export function ImageReveal({
   children,
   className = '',
@@ -191,16 +199,20 @@ export function ImageReveal({
   delay?: number;
 }) {
   const reduce = useReducedMotion();
+  const [shown, setShown] = useState(false);
 
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
-      className={className}
+      className={`img-reveal ${className}`}
+      data-shown={shown || undefined}
+      style={{ '--reveal-delay': `${delay}s` } as CSSProperties}
       initial={{ clipPath: 'inset(0% 0% 100% 0%)', opacity: 0 }}
       whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
+      onViewportEnter={() => setShown(true)}
       viewport={{ once: true, margin: '-6% 0px -8% 0px' }}
-      transition={{ duration: 0.9, ease: EASE, delay }}
+      transition={{ duration: 1.05, ease: EASE, delay }}
     >
       {children}
     </motion.div>

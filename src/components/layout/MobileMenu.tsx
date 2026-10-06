@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -62,13 +62,50 @@ export function MobileMenu({
     };
   }, [open]);
 
+  /* Focus. Opening the menu takes focus into it, Tab and Shift-Tab travel
+     round the menu rather than out onto the page hidden behind it, and
+     closing it hands focus back to whatever opened it — so a keyboard or
+     screen-reader user is never left on an element they cannot see. */
+  const panel = useRef<HTMLDivElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
+    const raf = requestAnimationFrame(() => closeButton.current?.focus({ preventScroll: true }));
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab' || !panel.current) return;
+      const items = Array.from(
+        panel.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      );
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const at = document.activeElement;
+      if (e.shiftKey && (at === first || !panel.current.contains(at))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (at === last || !panel.current.contains(at))) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('keydown', onKey);
+      // Only hand focus back if it is still inside the menu; a link that
+      // navigated away has already moved it somewhere meaningful.
+      if (opener && (!document.activeElement || document.activeElement === document.body || panel.current?.contains(document.activeElement))) {
+        opener.focus({ preventScroll: true });
+      }
+    };
   }, [open, onClose]);
 
   const isActive = (href: string) =>
@@ -78,6 +115,7 @@ export function MobileMenu({
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={panel}
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
@@ -91,11 +129,12 @@ export function MobileMenu({
         >
           <div className="shell flex h-[4.5rem] shrink-0 items-center justify-between">
             <Link href="/" onClick={onClose} aria-label="SOFISAM FZCO — home">
-              <Logo alt="SOFISAM FZCO" className="h-[1.85rem] w-auto" />
+              <Logo alt="SOFISAM FZCO" className="h-[2.5rem] w-auto" />
             </Link>
             <div className="flex items-center gap-3">
               <ThemeToggle />
               <button
+                ref={closeButton}
                 type="button"
                 onClick={onClose}
                 aria-label="Close menu"
@@ -122,6 +161,7 @@ export function MobileMenu({
                   <Link
                     href={item.href}
                     onClick={onClose}
+                    aria-current={pathname === item.href ? 'page' : isActive(item.href) ? 'true' : undefined}
                     className="flex items-center py-[1.15rem]"
                   >
                     <span
@@ -140,6 +180,7 @@ export function MobileMenu({
                           <Link
                             href={child.href}
                             onClick={onClose}
+                            aria-current={pathname === child.href ? 'page' : undefined}
                             className="flex min-h-[2.75rem] items-center gap-3 py-1.5"
                           >
                             <span

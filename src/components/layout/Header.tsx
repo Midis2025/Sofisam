@@ -115,7 +115,7 @@ export function Header() {
             aria-label="SOFISAM FZCO — home"
             className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2 transition-opacity duration-500 ease-premium hover:opacity-80"
           >
-            <Logo alt="SOFISAM FZCO" className="h-[1.85rem] w-auto sm:h-[2.15rem] lg:h-[2.45rem]" />
+            <Logo alt="SOFISAM FZCO" className="h-[2.5rem] w-auto sm:h-[2.85rem] lg:h-[3.25rem]" />
           </Link>
 
           {/* Navigation — centred */}
@@ -136,6 +136,7 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
+                      aria-current={pathname === item.href ? 'page' : active ? 'true' : undefined}
                       aria-haspopup={hasChildren || undefined}
                       aria-expanded={hasChildren ? megaOpen : undefined}
                       onFocus={hasChildren ? openMega : undefined}
@@ -149,7 +150,7 @@ export function Header() {
                         className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-gold transition-transform duration-500 ease-premium ${
                           active || (hasChildren && megaOpen)
                             ? 'scale-x-100'
-                            : 'scale-x-0 group-hover:scale-x-100'
+                            : 'scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100'
                         }`}
                       />
                     </Link>

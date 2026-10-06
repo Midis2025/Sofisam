@@ -20,8 +20,13 @@ export function useNewsletter() {
   const [email, setEmail] = useState('');
   const [state, setState] = useState<State>('idle');
   const [message, setMessage] = useState('');
+  // Whether the error is the address itself, rather than the submission. Only
+  // the first marks the field invalid: an address that was fine but could not
+  // be sent has nothing wrong with it to point at.
+  const [badAddress, setBadAddress] = useState(false);
 
-  const invalid = state === 'error';
+  const invalid = state === 'error' && badAddress;
+  const failed = state === 'error';
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,11 +34,13 @@ export function useNewsletter() {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
       setState('error');
+      setBadAddress(true);
       setMessage('Enter a valid email address.');
       return;
     }
 
     setState('loading');
+    setBadAddress(false);
     setMessage('');
     const result = await subscribeToNewsletter({ email: value });
 
@@ -51,11 +58,12 @@ export function useNewsletter() {
     setEmail(e.target.value);
     if (state !== 'idle') {
       setState('idle');
+      setBadAddress(false);
       setMessage('');
     }
   }
 
-  return { id, email, state, message, invalid, onSubmit, onChange };
+  return { id, email, state, message, invalid, failed, onSubmit, onChange };
 }
 
 /**
@@ -66,7 +74,7 @@ export function useNewsletter() {
  * Submission behaviour, validation and every string are unchanged.
  */
 export function Newsletter() {
-  const { id, email, state, message, invalid, onSubmit, onChange } = useNewsletter();
+  const { id, email, state, message, invalid, failed, onSubmit, onChange } = useNewsletter();
 
   return (
     <section data-section="Newsletter" className="section ground-void" aria-labelledby="newsletter-heading">
@@ -98,6 +106,7 @@ export function Newsletter() {
                       inputMode="email"
                       autoComplete="email"
                       required
+                      aria-required="true"
                       value={email}
                       onChange={onChange}
                       aria-invalid={invalid}
@@ -161,12 +170,12 @@ export function Newsletter() {
                       <motion.p
                         key={message}
                         id={`${id}-msg`}
-                        role={invalid ? 'alert' : 'status'}
+                        role={failed ? 'alert' : 'status'}
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className={`t-small ${invalid ? 'text-gold' : 'text-ivory/70'}`}
+                        className={`t-small ${failed ? 'text-gold' : 'text-ivory/70'}`}
                       >
                         {message}
                       </motion.p>

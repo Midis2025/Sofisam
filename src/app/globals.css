@@ -614,6 +614,18 @@
     object-fit: cover;
   }
 
+  /* The settle under an ImageReveal wipe: the photograph eases down from a
+     fraction over size inside a frame that does not move. Declared before
+     the zoom so a frame that has both keeps the zoom's own timing on hover;
+     once revealed nothing here applies, and the zoom owns the transform. */
+  .img-reveal img {
+    transition: transform 1.6s var(--ease) var(--reveal-delay, 0s);
+  }
+
+  .img-reveal:not([data-shown]) img {
+    transform: scale(1.08);
+  }
+
   .media-zoom > img {
     transform: scale(1.0001);
     transition: transform 1.1s var(--ease);
@@ -1052,15 +1064,33 @@
     transition: color 0.5s var(--ease);
   }
 
+  /* A text action is set at label size, which is far smaller than a
+     fingertip. On a touch screen its target is widened past the type by an
+     invisible margin, so it can be hit without being redrawn any larger. */
+  @media (pointer: coarse) {
+    .cta {
+      position: relative;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: -0.875rem -0.5rem;
+    }
+  }
+
   .arrow {
     transition: transform 0.55s var(--ease);
   }
 
-  .group:hover .arrow {
+  /* A keyboard focus moves the arrow exactly as a hover does. */
+  .group:hover .arrow,
+  .group:focus-visible .arrow {
     transform: translate(2px, -2px);
   }
 
-  .group:hover .arrow-right {
+  .group:hover .arrow-right,
+  .group:focus-visible .arrow-right {
     transform: translateX(4px);
   }
 
@@ -1244,6 +1274,35 @@
     .btn.btn-sm {
       width: auto;
       justify-content: center;
+    }
+  }
+
+  /* On a touch screen a hover is a tap that never ends: the button would
+     stay lifted, streaked and lit after the finger has gone. There the lift
+     and the streak are left out, and a press answers with a slight give
+     instead, which is what a finger expects of something it touches. */
+  @media (hover: none) {
+    .btn:hover {
+      transform: none;
+    }
+
+    .btn:hover::after {
+      left: -60%;
+    }
+
+    .btn:hover .btn-arrow,
+    .btn:hover .btn-arrow-up {
+      transform: none;
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+      transition-duration: 0.15s;
+    }
+
+    .surface-lift:hover,
+    .group:hover > .surface-lift {
+      transform: none;
     }
   }
 
@@ -1774,4 +1833,27 @@ html.theme-switching *::after {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ============================================================
+   MASTHEAD DRIFT
+   ------------------------------------------------------------
+   The still frame behind the masthead, where the film is not run,
+   moves forward by a few per cent over half a minute and back. It
+   is only ever transform, so it costs a composite and nothing more,
+   and it is removed with every other movement under reduced motion.
+   ============================================================ */
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.09) translate3d(-1.2%, -0.8%, 0);
+  }
+}
+
+.hero-drift > img {
+  animation: hero-drift 32s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate both;
+  will-change: transform;
 }

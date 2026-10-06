@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from 'react';
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -18,6 +19,11 @@ import {
  * read as the light moving across a solid object, not as the object tipping.
  * Past about four degrees the perspective becomes visible and the whole thing
  * looks like a toy.
+ *
+ * The same pointer carries a reflection across the face of the pane: a wide,
+ * faint highlight where the light would catch it, which fades out when the
+ * pointer leaves. It is laid over the card and takes no pointer events, so it
+ * never changes what the card is or what it does.
  *
  * The rotation lives on a wrapper rather than on the card itself, so the
  * card keeps its own hover lift (`.surface-lift`) and the two compose instead
@@ -49,6 +55,13 @@ export function Tilt({
   const rotateY = useTransform(sx, [-0.5, 0.5], [-max, max]);
   const rotateX = useTransform(sy, [-0.5, 0.5], [max, -max]);
 
+  // The reflection: where it sits, and whether it is there at all.
+  const lit = useMotionValue(0);
+  const glow = useSpring(lit, { stiffness: 120, damping: 24 });
+  const gx = useTransform(sx, [-0.5, 0.5], ['0%', '100%']);
+  const gy = useTransform(sy, [-0.5, 0.5], ['0%', '100%']);
+  const sheen = useMotionTemplate`radial-gradient(60% 70% at ${gx} ${gy}, var(--streak), transparent 70%)`;
+
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
@@ -62,14 +75,24 @@ export function Tilt({
         if (!rect) return;
         mx.set((e.clientX - rect.left) / rect.width - 0.5);
         my.set((e.clientY - rect.top) / rect.height - 0.5);
+        lit.set(0.5);
       }}
       onPointerLeave={() => {
         mx.set(0);
         my.set(0);
+        lit.set(0);
       }}
     >
-      <motion.div className="h-full" style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}>
+      <motion.div
+        className="relative h-full"
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      >
         {children}
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[var(--r-lg)]"
+          style={{ backgroundImage: sheen, opacity: glow }}
+        />
       </motion.div>
     </div>
   );

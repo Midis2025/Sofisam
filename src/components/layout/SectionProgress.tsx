@@ -236,7 +236,7 @@ export function SectionProgress() {
         ref={rail}
         aria-label="Page sections"
         data-tone-ignore
-        className={`${overDark ? 'tone-dark ' : ''}fixed right-[max(0.75rem,calc(var(--gutter)-1.75rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex ${
+        className={`${overDark ? 'tone-dark ' : ''}fixed right-[max(0.5rem,calc(var(--gutter)-2rem))] top-1/2 z-[90] hidden -translate-y-1/2 flex-col items-center gap-[clamp(0.75rem,1.4vw,1.15rem)] md:flex ${
           reduce ? '' : 'transition-opacity duration-500 ease-premium'
         } ${atFoot ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
       >

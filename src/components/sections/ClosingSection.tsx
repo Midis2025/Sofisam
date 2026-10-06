@@ -202,12 +202,12 @@ export function ClosingSection({
                       <motion.p
                         key={nl.message}
                         id={`${nl.id}-msg`}
-                        role={nl.invalid ? 'alert' : 'status'}
+                        role={nl.failed ? 'alert' : 'status'}
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className={`t-small max-w-[30rem] ${nl.invalid ? 'text-gold' : 'text-ivory/70'}`}
+                        className={`t-small max-w-[30rem] ${nl.failed ? 'text-gold' : 'text-ivory/70'}`}
                       >
                         {nl.message}
                       </motion.p>

@@ -111,6 +111,7 @@ export function ContactForm() {
             onChange={set('name')}
             onBlur={blur('name')}
             disabled={busy}
+            aria-required="true"
             aria-invalid={showError('name')}
             aria-describedby={showError('name') ? `${id}-name-err` : undefined}
             placeholder=" "
@@ -134,6 +135,7 @@ export function ContactForm() {
             onChange={set('email')}
             onBlur={blur('email')}
             disabled={busy}
+            aria-required="true"
             aria-invalid={showError('email')}
             aria-describedby={showError('email') ? `${id}-email-err` : undefined}
             placeholder=" "
@@ -170,6 +172,7 @@ export function ContactForm() {
             onChange={set('message')}
             onBlur={blur('message')}
             disabled={busy}
+            aria-required="true"
             aria-invalid={showError('message')}
             aria-describedby={showError('message') ? `${id}-message-err` : undefined}
             placeholder=" "
@@ -289,7 +292,7 @@ function Field({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-2.5 text-[0.8rem] font-light text-gold"
+            className="mt-2.5 text-[0.8rem] font-light text-[var(--field-error)]"
           >
             {error}
           </motion.p>
