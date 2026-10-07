@@ -249,11 +249,29 @@ export function BrandStatement() {
       </div>
 
       {/* A band of the firm's own disciplines, travelling with the scroll. */}
-      <div className="border-y border-[var(--line)] py-[clamp(1rem,1.8vw,1.75rem)]">
+      {/* Instrument Serif carries an ascent of 0.99em over a descent of
+          0.31em, so its own content area is 1.3em tall. A 1em line box —
+          `leading-none` — is therefore shorter than the letters it holds, and
+          the overflow the loop needs would cut the tail off the g and the y.
+          The line box is given the full 1.3em plus a tenth for air, and the
+          band's padding hands back the half of that gain which falls on each
+          side, so the strip keeps the height and the baseline it had and only
+          the clipping goes. */}
+      <div
+        className="border-y border-[var(--line)] py-[var(--band-pad)]"
+        style={
+          {
+            '--band-type': 'clamp(1.75rem, 3.4vw, 3.25rem)',
+            '--band-lead': '1.4',
+            '--band-pad':
+              'calc(clamp(1rem, 1.8vw, 1.75rem) - (var(--band-lead) - 1) * var(--band-type) / 2)',
+          } as React.CSSProperties
+        }
+      >
         <Marquee speed={2.5}>
           {['Strategic Consulting', 'Advisory', 'Structuring'].map((word) => (
             <span key={word} className="flex items-center">
-              <span className="px-[clamp(1.5rem,3vw,3rem)] font-display text-[clamp(1.75rem,3.4vw,3.25rem)] leading-none tracking-tighter text-ivory/75">
+              <span className="px-[clamp(1.5rem,3vw,3rem)] font-display text-[length:var(--band-type)] leading-[var(--band-lead)] tracking-tighter text-ivory/75">
                 {word}
               </span>
               <span

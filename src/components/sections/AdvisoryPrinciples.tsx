@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -92,16 +93,89 @@ export function AdvisoryPrinciples() {
  * The deck.
  *
  * One scroll reading drives the whole stack. A card only begins to recede once
- * the deck has scrolled past its own share of the track — which is what makes
- * the recede coincide with the next card arriving over it, rather than
- * starting the moment the card enters the viewport.
+ * the card after it has started to come over it, and is fully receded by the
+ * time that card has come to rest — so the recede is the covering, rather than
+ * a fade that happens to run alongside it.
+ *
+ * The track is the gathering itself, and it has to be measured rather than
+ * assumed. `useScroll` bounded by the list's own box cannot express it: that
+ * reading is spent by the time the list has outgrown the viewport, which here
+ * is a few dozen pixels and hundreds short of the distance the cards take to
+ * stack. Its progress would therefore stand at 1 for the whole of the
+ * gathering and every card would be frozen at the far end of its recede —
+ * including the last, which nothing covers.
+ *
+ * So the marks are taken off the cards as they are actually laid out: a card
+ * comes to rest when the list has travelled its own offset within the list,
+ * less the sticky top it rests at. The first card's mark opens the track and
+ * the last card's closes it. Nothing here is a figure — the offsets follow the
+ * type scale and the sticky tops at every width — and the marks are retaken
+ * whenever the layout moves under them.
  */
 function Deck({ reduce }: { reduce: boolean | null }) {
   const ref = useRef<HTMLOListElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  });
+  const { scrollY } = useScroll();
+
+  /* The track, in document coordinates: where it opens, and how long it runs.
+     Motion values rather than state — the deck is driven every frame and must
+     never re-render to do it. */
+  const open = useMotionValue(0);
+  const span = useMotionValue(1);
+
+  useEffect(() => {
+    const ol = ref.current;
+    if (!ol) return;
+
+    const measure = () => {
+      const cards = Array.from(ol.children) as HTMLElement[];
+      if (cards.length < 2) return;
+
+      const top = ol.getBoundingClientRect().top + window.scrollY;
+
+      /* The list is walked rather than measured in place: a card that is
+         already stuck reports where it is pinned, not where it sits in the
+         list, so the flow offsets are accumulated from the boxes themselves.
+         Neither `offsetHeight` nor the computed `top` is affected by the
+         sticky placement or by the scale on the card inside. */
+      let flow = 0;
+      const rest: number[] = [];
+      for (const li of cards) {
+        const cs = getComputedStyle(li);
+        rest.push(top + flow - parseFloat(cs.top));
+        flow += li.offsetHeight + parseFloat(cs.marginBottom);
+      }
+
+      open.set(rest[0]);
+      span.set(Math.max(1, rest[rest.length - 1] - rest[0]));
+    };
+
+    measure();
+
+    /* The list's own box moves with the type scale and the fonts; the page
+       above it moves as its images arrive. Both change where the track sits. */
+    const ro = new ResizeObserver(measure);
+    ro.observe(ol);
+    ro.observe(document.body);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, [open, span]);
+
+  /* Read as a function of the scroll rather than as a keyframed range. A
+     linearly interpolated scroll value is handed to a native scroll-timeline
+     animation for any accelerated property — opacity among them — and on a
+     sticky card that timeline measures the card's own passage rather than the
+     deck's, which is what leaves the fade stuck at one end. A transform of a
+     transform cannot be expressed as keyframes, so it is never handed off. */
+  const progress = useTransform<number, number>(
+    [scrollY, open, span],
+    ([y, o, s]) => {
+      const t = (y - o) / s;
+      return t < 0 ? 0 : t > 1 ? 1 : t;
+    },
+  );
 
   if (reduce) {
     return (
@@ -122,7 +196,7 @@ function Deck({ reduce }: { reduce: boolean | null }) {
           key={p.word}
           index={i}
           total={principles.length}
-          progress={scrollYProgress}
+          progress={progress}
           {...p}
         />
       ))}
@@ -143,12 +217,21 @@ function Card({
   total: number;
   progress: MotionValue<number>;
 }) {
-  // The window during which this card is covered by the one after it.
-  const from = index / total;
-  const to = (index + 1) / total;
+  /* The window during which this card is covered by the one after it: it
+     opens as this card comes to rest and closes as the next one does, so the
+     five cards divide the track into its four hand-overs.
 
-  const scale = useTransform(progress, [from, to], [1, 0.9]);
-  const opacity = useTransform(progress, [from, to], [1, 0.35]);
+     The last card is never covered — there is nothing after it — so it is
+     given no recede at all. That is what leaves the deck with a card at full
+     size and full light on top of it, rather than a shrunken translucent one
+     through which the card beneath can still be read. */
+  const last = index === total - 1;
+  const steps = Math.max(1, total - 1);
+  const from = index / steps;
+  const to = from + 1 / steps;
+
+  const scale = useTransform(progress, [from, to], [1, last ? 1 : 0.9]);
+  const opacity = useTransform(progress, [from, to], [1, last ? 1 : 0.35]);
 
   return (
     <li
