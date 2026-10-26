@@ -113,10 +113,10 @@ export default function AdvisoryPage() {
             <ImageReveal className="lg:col-span-5">
               <div className="media aspect-[4/5] w-full">
                 <Picture
-                  name="lattice-white"
-                  alt="The facade of a modern building, its balconies set in a regular grid"
+                  name="process-structure"
+                  alt="A hand setting a signature to a document"
                   sizes="(min-width:1024px) 42vw, 100vw"
-                  focal="50% 50%"
+                  focal="44% 50%"
                   className="h-full w-full"
                 />
               </div>
@@ -147,7 +147,7 @@ export default function AdvisoryPage() {
                   <Reveal key={g.t} delay={i * 0.06}>
                     <div className="row grid gap-2 py-[clamp(1.25rem,2vw,1.6rem)] last:border-b last:border-[var(--line)] sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-8">
                       <dt className="t-label text-sage sm:pt-1">{g.t}</dt>
-                      <dd className="t-small max-w-[44ch] text-ivory/80">{g.d}</dd>
+                      <dd className="t-small max-w-[44ch] text-ivory-2">{g.d}</dd>
                     </div>
                   </Reveal>
                 ))}
@@ -189,8 +189,8 @@ export default function AdvisoryPage() {
           <ImageReveal className="mt-[var(--pad-sm)]">
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[21/9]">
               <Picture
-                name="tower-dusk"
-                alt="A tower’s glass facade at dusk, every floor behind it lit warm from within"
+                name="tower-detail"
+                alt="Office floors lit at night across the facade of a tower"
                 sizes="100vw"
                 focal="50% 45%"
                 className="h-full w-full"

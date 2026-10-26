@@ -13,7 +13,6 @@
  */
 
 import { services } from './services';
-import { welcomeCopy } from './site';
 
 export interface WorkScene {
   /** Display number. Also the scene's key. */
@@ -40,78 +39,66 @@ export interface WorkScene {
   cta?: string;
 }
 
-const [consulting, advisory, structuring] = services;
+const [, advisory, structuring] = services;
 
 /*
- * The plates are the firm's own photography, and no two scenes share one:
- * each of the five is a photograph that appears nowhere else on the page the
- * section sits on. Two of them — the pale facade and the lattice — are also
- * carried by the About and Structuring pages, which is as far apart as a
- * library of nineteen images allows. Anything genuinely new means new files
- * in /public/images, with the responsive variants generated alongside them.
+ * MANDATES & INVESTMENTS — four frames.
+ *
+ * Every line below is copy the site already carries on the Advisory and
+ * Structuring pages, which is the whole of what SOFISAM says about its
+ * mandates and investments. No client, transaction, asset, figure or result is
+ * named, because the source site names none.
+ *
+ * Each frame has a photograph that appears nowhere else on the homepage:
+ * institutional architecture, the table where terms are set, the room where a
+ * principal decides, and a structural lattice for the frameworks.
  */
+const ownerView = advisory.themes.find((t) => t.title === 'The view of an owner') ?? advisory.themes[3];
+const [, mandates, investments, frameworks] = structuring.themes;
 
 export const workScenes: WorkScene[] = [
   {
     k: '01',
-    // The label and title the Dubai passage already carries.
-    category: 'Dubai — DMCC',
-    title: 'A base chosen for its reach.',
-    body: welcomeCopy.paragraphs[0],
-    /* The city itself, from above: the one image on the site that shows the
-       place the firm actually works from. */
-    image: 'hero-video-poster',
-    focal: '48% 54%',
-    href: '/about',
-    cta: 'Explore the firm',
+    category: ownerView.label,
+    title: ownerView.title + '.',
+    body: ownerView.body,
+    /* A colonnade: capital as an institution rather than as a chart. */
+    image: 'capital-columns',
+    focal: '50% 50%',
+    href: '/services/advisory',
+    cta: 'Explore Advisory',
   },
   {
     k: '02',
-    category: consulting.title,
-    title: consulting.hero.headline,
-    body: consulting.sourceSummary,
-    /* Looking up between four towers to the point where they converge: a
-       vantage point, which is what reading a market is. */
-    image: 'towers-converge',
-    focal: '50% 50%',
-    href: `/services/${consulting.slug}`,
-    cta: `Explore ${consulting.title}`,
+    category: mandates.label,
+    title: mandates.title + '.',
+    body: mandates.body,
+    /* The table before the meeting: folders set, terms waiting. */
+    image: 'boardroom-folders',
+    focal: '50% 62%',
+    href: `/services/${structuring.slug}`,
+    cta: 'Explore Structuring',
   },
   {
     k: '03',
-    category: advisory.title,
-    title: advisory.hero.headline,
-    body: advisory.sourceSummary,
-    /* A pale facade in late light, the floors behind it occupied — the room
-       where a decision is actually taken. */
-    image: 'facade-pale',
-    focal: '50% 46%',
-    href: `/services/${advisory.slug}`,
-    cta: `Explore ${advisory.title}`,
+    category: investments.label,
+    title: investments.title + '.',
+    body: investments.body,
+    /* An empty boardroom, low and close: where a principal decides. */
+    image: 'boardroom-leather',
+    focal: '40% 55%',
+    href: `/services/${structuring.slug}`,
+    cta: 'Explore Structuring',
   },
   {
     k: '04',
-    category: structuring.title,
-    title: structuring.hero.headline,
-    body: structuring.sourceSummary,
-    /* A structural lattice: form deciding what the building can carry, which
-       is the whole of the discipline. */
+    category: frameworks.label,
+    title: frameworks.title + '.',
+    body: frameworks.body,
+    /* A structural lattice: form deciding what the building can carry. */
     image: 'gold-lattice',
     focal: '52% 50%',
     href: `/services/${structuring.slug}`,
-    cta: `Explore ${structuring.title}`,
-  },
-  {
-    k: '05',
-    // The firm's own phrase for what the principals are brought into, and the
-    // title the executive perspective passage already carries.
-    category: 'Mandates and Investments',
-    title: 'Advice given by people who have held the position.',
-    body: welcomeCopy.paragraphs[2],
-    /* An institutional form, lit low: weight carried rather than displayed. */
-    image: 'abstract-dark',
-    focal: '50% 50%',
-    href: '/about',
-    cta: 'Explore the firm',
+    cta: 'Explore Structuring',
   },
 ];

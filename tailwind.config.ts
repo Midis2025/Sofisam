@@ -8,8 +8,9 @@ import type { Config } from 'tailwindcss';
  * Every colour resolves through a channel variable (`--ivory-rgb` and so on)
  * so that the light theme can redefine the palette in one place and every
  * utility — opacity modifiers included — follows it. The names describe the
- * dark theme, which is the site's own: in the light theme `void` is the ivory
- * page and `ivory` is the charcoal type set on it. `ink` is type set on an
+ * dark theme, for historical reasons: in the light theme — the site's own —
+ * `void` is the ivory page and `ivory` is the charcoal type set on it.
+ * `brass` is the decorative champagne, never used for text. `ink` is type set on an
  * `ivory` or champagne fill; `paper` is type that is light in both themes.
  */
 const c = (name: string) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
@@ -50,6 +51,7 @@ const config: Config = {
           hi: c('gold-hi'),
           deep: c('gold-deep'),
         },
+        brass: c('brass'),
         sage: c('sage'),
         stone: c('stone'),
       },
@@ -58,7 +60,7 @@ const config: Config = {
         sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       letterSpacing: {
-        tighter: '-0.03em',
+        tighter: '-0.022em',
       },
       transitionTimingFunction: {
         premium: 'cubic-bezier(0.16, 1, 0.3, 1)',

@@ -256,7 +256,7 @@ export function CTASection({
                 href={`mailto:${contact.email}`}
                 className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-[var(--g-bg-hi)] focus-visible:bg-[var(--g-bg-hi)]"
               >
-                <span className="t-label break-all text-ivory/80 transition-colors duration-500 ease-premium group-hover/r:text-gold-hi">
+                <span className="t-label break-all text-ivory-2 transition-colors duration-500 ease-premium group-hover/r:text-gold-hi">
                   {contact.email}
                 </span>
                 <ArrowUpRight

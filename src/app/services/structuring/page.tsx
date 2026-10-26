@@ -286,7 +286,7 @@ export default function StructuringPage() {
       </section>
 
       {/* Proven frameworks — statement panel */}
-      <section data-section="Proven Frameworks" className="section ground-void grain relative overflow-hidden" aria-labelledby="st-precision">
+      <section data-section="Proven Frameworks" className="section tone-dark ground-void grain relative overflow-hidden" aria-labelledby="st-precision">
         {/* The lattice is texture here, not a subject, so it takes the flat
             wash rather than a directional scrim. */}
         <div className="media media-flat veil-full absolute inset-0">
@@ -317,7 +317,7 @@ export default function StructuringPage() {
             </span>
           </h2>
           <Reveal delay={0.14}>
-            <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-ivory/70">
+            <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-sage">
               Established frameworks carry the weight of everything that has
               already been tested against them. We fit them to the situation
               rather than fitting the situation to them.

@@ -2,173 +2,184 @@
 
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 
-import { featuredInsight, secondaryInsights } from '@/data/insights';
+import { insights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, ImageReveal } from '@/components/animations/Reveal';
-import { SplitText } from '@/components/animations/SplitText';
 
-/**
- * Insights.
- *
- * An institutional research index rather than a row of cards: one dominant
- * piece carried on a wide plate, then the remainder set as an open catalogue
- * with a plate, a meta line and a title on each row. Hover brings the image
- * forward and pulls the row toward the rule.
- *
- * Titles, categories, dates, reading times and summaries are the source site's,
- * unchanged.
- */
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 export function InsightsEditorial() {
-  return (
-    <section data-section="Insights" id="insights" className="section ground-graphite" aria-labelledby="insights-heading">
-      <div className="shell">
-        <div className="head">
-          <div>
-            <Reveal kind="label" className="kicker">
-              <p className="t-label">{insightsIntro.eyebrow}</p>
-            </Reveal>
-            <SplitText
-              as="h2"
-              text={insightsIntro.heading}
-              className="t-display head-title mt-[clamp(1.25rem,2.6vw,2.25rem)] text-ivory"
-              stagger={0.06}
-            />
-          </div>
+  const reduce = useReducedMotion();
+  const featured = insights[0];
+  const secondary = insights.slice(1, 3);
 
-          <div className="lg:pb-2">
-            <Reveal delay={0.1}>
-              <p className="t-body head-note text-sage">{insightsIntro.standfirst}</p>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <Link href="/insights" className="group cta mt-6 text-ivory hover:text-gold">
-                <span className="link-underline">All insights</span>
-                <ArrowUpRight aria-hidden strokeWidth={1.5} className="arrow h-3.5 w-3.5" />
-              </Link>
-            </Reveal>
+  return (
+    <section
+      data-section="Insights"
+      id="insights"
+      className="relative bg-[var(--char)] py-20 lg:py-28 border-b border-[var(--line-soft)]"
+      aria-labelledby="insights-heading"
+    >
+      <div className="shell">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+                {insightsIntro.eyebrow}
+              </p>
+            </div>
+            <h2
+              id="insights-heading"
+              className="mt-4 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+            >
+              {insightsIntro.heading}
+            </h2>
+          </div>
+          <div className="flex items-center gap-6">
+            <p className="max-w-[40ch] text-sm leading-relaxed text-[var(--sage)] hidden sm:block">
+              {insightsIntro.standfirst}
+            </p>
+            <Link
+              href="/insights"
+              className="group inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors whitespace-nowrap"
+            >
+              <span>All Insights</span>
+              <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
           </div>
         </div>
 
-        {/* The featured piece, on a raised surface */}
-        <article className="mt-[var(--pad-sm)]">
-          <Link
-            href={`/insights/${featuredInsight.slug}`}
-            className="group surface surface-lift block p-[clamp(0.875rem,1.4vw,1.25rem)]"
-          >
-            <ImageReveal>
-              <div className="media media-in media-zoom relative aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9]">
+        {/* Editorial Layout: Featured Insight (Left 7 Cols) + 2 Secondary Insights (Right 5 Cols) */}
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Featured Article */}
+          {featured && (
+            <motion.article
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10% 0px' }}
+              transition={{ duration: 0.75, ease: EASE }}
+              className="lg:col-span-7 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group"
+            >
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-[var(--graphite)]">
                 <Picture
-                  name={featuredInsight.image}
-                  alt={featuredInsight.imageAlt}
-                  sizes="100vw"
-                  focal={featuredInsight.focal}
-                  className="h-full w-full"
+                  name={featured.image}
+                  alt={featured.imageAlt}
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  focal={featured.focal}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <span className="absolute left-5 top-5 z-10">
-                  <span className="chip chip-gold bg-void/70 backdrop-blur-xl">
-                    Featured
-                  </span>
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
+                />
+                <span className="absolute top-4 left-4 text-xs font-semibold uppercase tracking-wider text-white/90 bg-black/40 backdrop-blur-md px-3 py-1 rounded-[var(--r-sm)]">
+                  Featured Perspective
                 </span>
               </div>
-            </ImageReveal>
 
-            <div className="grid gap-[clamp(1.5rem,3vw,4rem)] p-[clamp(1rem,1.8vw,1.75rem)] pt-[clamp(1.5rem,2.4vw,2rem)] lg:grid-cols-12">
-              <div className="lg:col-span-7">
-                <Meta
-                  category={featuredInsight.category}
-                  date={featuredInsight.date}
-                  isoDate={featuredInsight.isoDate}
-                  readingTime={featuredInsight.readingTime}
-                />
-                <h3 className="t-h2 mt-5 max-w-[18ch] text-ivory transition-colors duration-500 group-hover:text-gold">
-                  {featuredInsight.title}
-                </h3>
+              <div className="flex flex-1 flex-col justify-between p-8 sm:p-10">
+                <div>
+                  <div className="flex items-center gap-3 text-xs">
+                    <span className="font-semibold uppercase tracking-wider text-[var(--gold)]">
+                      {featured.category}
+                    </span>
+                    <span className="text-[var(--line-strong)]">·</span>
+                    <time dateTime={featured.isoDate} className="text-[var(--stone)]">
+                      {featured.date}
+                    </time>
+                    <span className="text-[var(--line-strong)]">·</span>
+                    <span className="text-[var(--stone)]">{featured.readingTime}</span>
+                  </div>
+
+                  <h3 className="mt-4 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                    <Link href={`/insights/${featured.slug}`}>
+                      {featured.title}
+                    </Link>
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-relaxed text-[var(--sage)]">
+                    {featured.summary}
+                  </p>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center justify-between">
+                  <span className="text-xs text-[var(--stone)]">Strategic Advisory Analysis</span>
+                  <Link
+                    href={`/insights/${featured.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                  >
+                    <span>Read Article</span>
+                    <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
               </div>
+            </motion.article>
+          )}
 
-              <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-end lg:pb-1">
-                <p className="t-body max-w-[46ch] text-sage">{featuredInsight.summary}</p>
-                <span className="mt-7 flex items-center gap-4">
-                  <span aria-hidden className="badge badge-lg">
-                    <ArrowUpRight strokeWidth={1.3} className="h-5 w-5" />
-                  </span>
-                  <span className="cta text-ivory group-hover:text-gold">
-                    <span className="link-underline">Read the piece</span>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </Link>
-        </article>
-
-        {/* The remainder, as a catalogue of surfaces */}
-        <ul className="mt-[clamp(1rem,1.6vw,1.5rem)] grid gap-[clamp(0.75rem,1.2vw,1.1rem)]">
-          {secondaryInsights.map((item, i) => (
-            <Reveal as="li" key={item.slug} kind="card" delay={i * 0.07}>
-              <Link
-                href={`/insights/${item.slug}`}
-                className="group surface surface-lift grid items-center gap-x-[clamp(1.25rem,2.6vw,3rem)] gap-y-4 p-[clamp(0.875rem,1.4vw,1.25rem)] sm:grid-cols-[minmax(0,10rem)_minmax(0,1fr)] lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,0.85fr)_auto]"
+          {/* Secondary Articles Column */}
+          <div className="lg:col-span-5 flex flex-col gap-8">
+            {secondary.map((item, i) => (
+              <motion.article
+                key={item.slug}
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.75, ease: EASE, delay: 0.15 + i * 0.1 }}
+                className="flex flex-col sm:flex-row lg:flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all hover:border-[var(--line-strong)]"
               >
-                <span className="media media-in media-zoom block aspect-[16/10] w-full sm:aspect-[4/3]">
+                <div className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/8] sm:w-2/5 lg:w-full overflow-hidden bg-[var(--graphite)]">
                   <Picture
                     name={item.image}
-                    alt=""
-                    decorative
-                    sizes="(min-width:1024px) 15rem, (min-width:640px) 10rem, 100vw"
+                    alt={item.imageAlt}
+                    sizes="(min-width: 1024px) 42vw, 100vw"
                     focal={item.focal}
-                    className="h-full w-full"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                </span>
+                </div>
 
-                <span className="min-w-0 py-2">
-                  <Meta
-                    category={item.category}
-                    date={item.date}
-                    isoDate={item.isoDate}
-                    readingTime={item.readingTime}
-                  />
-                  <span className="t-h3 mt-3.5 block max-w-[22ch] text-ivory transition-colors duration-500 group-hover:text-gold">
-                    {item.title}
-                  </span>
-                </span>
+                <div className="flex flex-1 flex-col justify-between p-6 sm:p-7">
+                  <div>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="font-semibold uppercase tracking-wider text-[var(--gold)]">
+                        {item.category}
+                      </span>
+                      <span className="text-[var(--line-strong)]">·</span>
+                      <time dateTime={item.isoDate} className="text-[var(--stone)]">
+                        {item.date}
+                      </time>
+                    </div>
 
-                <span className="t-small max-w-[46ch] text-sage sm:col-span-2 lg:col-span-1">
-                  {item.summary}
-                </span>
+                    <h3 className="mt-3 font-display text-xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                      <Link href={`/insights/${item.slug}`}>
+                        {item.title}
+                      </Link>
+                    </h3>
 
-                <span aria-hidden className="badge mr-2 hidden justify-self-end lg:inline-flex">
-                  <ArrowUpRight strokeWidth={1.3} className="h-4 w-4" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
+                    <p className="mt-2 text-xs leading-relaxed text-[var(--sage)] line-clamp-2">
+                      {item.summary}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-[var(--line)] flex items-center justify-between">
+                    <span className="text-xs text-[var(--stone)]">{item.readingTime}</span>
+                    <Link
+                      href={`/insights/${item.slug}`}
+                      className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                    >
+                      <span>Read</span>
+                      <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-/** Category / date / reading time, on one hairline-separated line. */
-function Meta({
-  category,
-  date,
-  isoDate,
-  readingTime,
-}: {
-  category: string;
-  date: string;
-  isoDate: string;
-  readingTime: string;
-}) {
-  return (
-    <span className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-      <span className="t-label text-gold">{category}</span>
-      <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <time dateTime={isoDate} className="t-meta text-sage">
-        {date}
-      </time>
-      <span aria-hidden className="h-px w-5 bg-[var(--line)]" />
-      <span className="t-meta text-sage">{readingTime}</span>
-    </span>
   );
 }

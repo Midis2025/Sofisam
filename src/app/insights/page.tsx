@@ -32,9 +32,9 @@ export default function InsightsPage() {
         sectionLabel="Insights"
         headline={[insightsIntro.heading]}
         standfirst={insightsIntro.standfirst}
-        image="city-blue-night"
-        imageAlt="Aerial view of a dense international city at night, its financial district lit against the dark"
-        focal="50% 55%"
+        image="abstract-dark"
+        imageAlt="The curved glass fins of a contemporary facade against a pale sky"
+        focal="60% 45%"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Insights' }]}
       />
 

@@ -74,7 +74,9 @@ function useWantsFilm() {
   return wants;
 }
 
-export function HeroFilm() {
+/** `position` is the object-position for both the still and the film — the
+ *  part of the frame kept when the window is wider than the cut. */
+export function HeroFilm({ position = '50% 50%' }: { position?: string }) {
   const reduce = useReducedMotion();
   const wants = useWantsFilm();
   const cut = useFilmCut();
@@ -132,7 +134,8 @@ export function HeroFilm() {
             loading="eager"
             fetchPriority="high"
             decoding="async"
-            className="block h-full w-full object-cover object-center"
+            className="block h-full w-full object-cover"
+            style={{ objectPosition: position }}
           />
         </picture>
       </div>
@@ -157,7 +160,8 @@ export function HeroFilm() {
           poster={posterSrc(cut)}
           onLoadedData={() => setReady(true)}
           onError={() => setFailed(true)}
-          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1400ms] ease-premium ${
+          style={{ objectPosition: position }}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-premium ${
             ready ? 'opacity-100' : 'opacity-0'
           }`}
         />

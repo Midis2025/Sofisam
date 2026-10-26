@@ -1,242 +1,233 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 import { services } from '@/data/services';
 import { servicesIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
-import { Reveal } from '@/components/animations/Reveal';
-import { SplitText } from '@/components/animations/SplitText';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/**
- * Our Expertise.
- *
- * Not three cards. On a desktop the disciplines are three full-width rows and
- * the imagery is not in a column at all — a plate follows the pointer across
- * the list, carrying the photograph of whichever discipline is under it. The
- * section is therefore browsed rather than scanned, and the type keeps the
- * whole measure to itself.
- *
- * On a phone the same content unfolds in sequence, each discipline with its
- * own plate — an intentional layout rather than the desktop one compressed.
- *
- * Every string is the source site's own: the titles, the summaries, the
- * navigation descriptions and the section standfirst.
- */
 export function ServiceShowcase() {
+  const [active, setActive] = useState(0);
+  const [mobileExpanded, setMobileExpanded] = useState<number | null>(0);
   const reduce = useReducedMotion();
-  const list = useRef<HTMLUListElement>(null);
-  const [active, setActive] = useState<number | null>(null);
-
-  // The plate trails the pointer rather than pinning to it — a spring gives it
-  // the weight of an object being carried rather than a cursor decoration.
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const x = useSpring(px, { stiffness: 140, damping: 20, mass: 0.6 });
-  const y = useSpring(py, { stiffness: 140, damping: 20, mass: 0.6 });
-
-  const track = (e: React.PointerEvent) => {
-    if (e.pointerType !== 'mouse' || reduce) return;
-    const rect = list.current?.getBoundingClientRect();
-    if (!rect) return;
-    px.set(e.clientX - rect.left);
-    py.set(e.clientY - rect.top);
-  };
 
   return (
-    <section data-section="Services"
+    <section
+      data-section="Services"
       id="expertise"
-      className="section ground-void"
+      className="relative bg-[var(--void)] py-16 sm:py-20 lg:py-24 border-b border-[var(--line-soft)]"
       aria-labelledby="expertise-heading"
     >
       <div className="shell">
-        {/* Header */}
-        <div className="head">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
           <div>
-            <Reveal kind="label" className="kicker">
-              <p className="t-label">{servicesIntro.eyebrow}</p>
-            </Reveal>
-            <SplitText
-              as="h2"
-              text={servicesIntro.heading}
-              className="t-display head-title mt-[clamp(1.25rem,2.4vw,2rem)] text-ivory"
-              stagger={0.06}
-            />
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+                {servicesIntro.eyebrow}
+              </p>
+            </div>
+            <h2
+              id="expertise-heading"
+              className="mt-3 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+            >
+              {servicesIntro.heading}
+            </h2>
           </div>
-
-          <Reveal kind="body" delay={0.1} className="lg:pb-3">
-            <p className="t-body head-note text-sage">{servicesIntro.standfirst}</p>
-          </Reveal>
+          <p className="max-w-[42ch] text-sm leading-relaxed text-[var(--sage)]">
+            {servicesIntro.standfirst}
+          </p>
         </div>
 
-        {/* ---------- Desktop: full-width rows under a travelling plate ---------- */}
-        <div className="mt-[var(--pad-sm)] hidden lg:block">
-          <ul
-            ref={list}
-            className="relative"
-            onPointerMove={track}
-            onPointerLeave={() => setActive(null)}
-          >
-            {/* The plate. It sits above the rows but never takes the pointer,
-                so the whole list stays clickable through it. */}
-            <AnimatePresence>
-              {active !== null && !reduce && (
-                <motion.span
-                  key="plate"
-                  aria-hidden
-                  style={{ x, y }}
-                  className="tone-dark pointer-events-none absolute left-0 top-0 z-10 -ml-[13rem] -mt-[8.5rem] block h-[17rem] w-[26rem] xl:-ml-[15rem] xl:-mt-[9.5rem] xl:h-[19rem] xl:w-[30rem]"
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.45, ease: EASE }}
+        {/* Desktop Interactive Layout (lg+) */}
+        <div className="mt-10 hidden lg:grid lg:grid-cols-12 lg:gap-12 items-stretch">
+          {/* Services List Column */}
+          <div className="lg:col-span-7 flex flex-col justify-between divide-y divide-[var(--line)]">
+            {services.map((s, i) => {
+              const isActive = active === i;
+              return (
+                <div
+                  key={s.slug}
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onClick={() => setActive(i)}
+                  className={`group relative p-7 transition-all duration-300 cursor-pointer rounded-[var(--r-md)] ${
+                    isActive
+                      ? 'bg-[var(--plate)] shadow-[var(--shadow-pill)]'
+                      : 'hover:bg-[var(--plate)]/40'
+                  }`}
                 >
-                  <span className="media block h-full w-full shadow-[var(--shadow-plate)] ring-1 ring-inset ring-ivory/15">
-                    {services.map((s, i) => (
-                      <motion.span
-                        key={s.slug}
-                        className="absolute inset-0 block"
-                        initial={false}
-                        animate={{ opacity: active === i ? 1 : 0 }}
-                        transition={{ duration: 0.5, ease: EASE }}
+                  {/* Subtle Gold Indicator Line */}
+                  <span
+                    aria-hidden
+                    className={`absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--brass)] transition-all duration-300 ${
+                      isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-50'
+                    }`}
+                  />
+
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-mono text-xs font-semibold text-[var(--brass)]">
+                        {s.index}
+                      </span>
+                      <h3
+                        className={`font-display text-2xl tracking-tight transition-colors duration-300 ${
+                          isActive
+                            ? 'font-normal text-[var(--ivory)]'
+                            : 'font-light text-[var(--sage)] group-hover:text-[var(--ivory)]'
+                        }`}
                       >
+                        {s.title}
+                      </h3>
+                    </div>
+
+                    <Link
+                      href={`/services/${s.slug}`}
+                      aria-label={`Explore ${s.title}`}
+                      className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                        isActive
+                          ? 'text-[var(--gold)] translate-x-0'
+                          : 'text-[var(--stone)] group-hover:text-[var(--ivory)] -translate-x-1 opacity-70 group-hover:opacity-100'
+                      }`}
+                    >
+                      <span>Explore</span>
+                      <ArrowUpRight
+                        aria-hidden
+                        strokeWidth={1.5}
+                        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
+                    </Link>
+                  </div>
+
+                  <p
+                    className={`mt-3.5 text-sm leading-relaxed transition-colors duration-300 max-w-[54ch] ${
+                      isActive ? 'text-[var(--ivory-2)]' : 'text-[var(--sage)]'
+                    }`}
+                  >
+                    {s.sourceSummary}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Smoothly Crossfading Plate with Slight Scale */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div className="relative h-full min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)]">
+              {services.map((s, i) => {
+                const isSelected = active === i;
+                return (
+                  <div
+                    key={s.slug}
+                    aria-hidden={!isSelected}
+                    className={`absolute inset-0 transition-all duration-500 ease-out ${
+                      isSelected
+                        ? 'opacity-100 scale-100 z-10'
+                        : 'opacity-0 scale-[1.02] z-0 pointer-events-none'
+                    }`}
+                  >
+                    <Picture
+                      name={s.hero.image}
+                      alt={s.hero.imageAlt}
+                      sizes="40vw"
+                      focal={s.hero.focal}
+                      className="h-full w-full object-cover"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+                      <p className="text-xs uppercase tracking-widest text-[#e8c89b] font-medium">
+                        Service {s.index} · Practice Area
+                      </p>
+                      <h4 className="mt-1 font-display text-2xl text-white font-light">
+                        {s.title}
+                      </h4>
+                      <p className="mt-2 text-xs text-white/80 line-clamp-2 leading-relaxed">
+                        {s.navDescription}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile / Tablet Accordion (< lg) */}
+        <div className="mt-8 space-y-4 lg:hidden">
+          {services.map((s, i) => {
+            const isExpanded = mobileExpanded === i;
+            return (
+              <div
+                key={s.slug}
+                className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)]"
+              >
+                <button
+                  type="button"
+                  onClick={() => setMobileExpanded(isExpanded ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left focus:outline-none"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs font-semibold text-[var(--brass)]">
+                      {s.index}
+                    </span>
+                    <h3 className="font-display text-lg text-[var(--ivory)] font-medium">
+                      {s.title}
+                    </h3>
+                  </div>
+                  <ChevronDown
+                    aria-hidden
+                    className={`h-4 w-4 text-[var(--stone)] transition-transform duration-300 ${
+                      isExpanded ? 'rotate-180 text-[var(--brass)]' : ''
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: EASE }}
+                      className="overflow-hidden border-t border-[var(--line)]"
+                    >
+                      <div className="relative aspect-[16/9] w-full bg-[var(--graphite)]">
                         <Picture
                           name={s.hero.image}
-                          alt=""
-                          decorative
-                          sizes="30rem"
+                          alt={s.hero.imageAlt}
+                          sizes="100vw"
                           focal={s.hero.focal}
                           className="h-full w-full object-cover"
                         />
-                      </motion.span>
-                    ))}
-                    <span className="absolute inset-0 bg-void/20" />
-                  </span>
-                </motion.span>
-              )}
-            </AnimatePresence>
-
-            {services.map((s, i) => {
-              const on = active === i;
-              return (
-                <li key={s.slug}>
-                  <Link
-                    href={`/services/${s.slug}`}
-                    onPointerEnter={(e) => {
-                      if (e.pointerType === 'mouse') setActive(i);
-                    }}
-                    onFocus={() => setActive(i)}
-                    onBlur={() => setActive(null)}
-                    className="group row grid grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,20rem)_4rem] items-center gap-x-[clamp(1.5rem,3vw,3rem)] py-[clamp(2rem,3.4vw,3rem)] last:border-b last:border-[var(--line)]"
-                  >
-                    <span
-                      className={`t-num text-[0.85rem] transition-colors duration-500 ${
-                        on ? 'text-gold' : 'text-stone'
-                      }`}
-                    >
-                      {s.index}
-                    </span>
-
-                    <span
-                      className={`block font-display text-[clamp(2.25rem,4vw,4rem)] leading-[1.02] tracking-tighter transition-all duration-[600ms] ease-premium ${
-                        on ? 'translate-x-2 text-ivory' : 'text-stone'
-                      }`}
-                    >
-                      {s.title}
-                    </span>
-
-                    <span
-                      className={`t-small max-w-[30ch] transition-colors duration-500 ${
-                        on ? 'text-sage' : 'text-stone'
-                      }`}
-                    >
-                      {s.navDescription}
-                    </span>
-
-                    <span
-                      aria-hidden
-                      className={`flex h-14 w-14 items-center justify-center justify-self-end rounded-full border transition-all duration-[600ms] ease-premium ${
-                        on
-                          ? 'border-gold bg-gold text-paper'
-                          : 'border-ivory/20 text-stone'
-                      }`}
-                    >
-                      <ArrowUpRight strokeWidth={1.3} className="h-5 w-5" />
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* The firm's own summary for whichever discipline is under the
-              pointer, held on one line below the list. */}
-          <div className="mt-[clamp(1.75rem,3vw,2.5rem)] min-h-[3.5rem]">
-            <AnimatePresence mode="wait">
-              {active !== null && (
-                <motion.p
-                  key={services[active].slug}
-                  className="t-lead max-w-[60ch] text-ivory/80"
-                  initial={reduce ? false : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
-                  transition={{ duration: 0.4, ease: EASE }}
-                >
-                  {services[active].sourceSummary}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
+                      </div>
+                      <div className="p-5">
+                        <p className="text-xs leading-relaxed text-[var(--sage)]">
+                          {s.sourceSummary}
+                        </p>
+                        <Link
+                          href={`/services/${s.slug}`}
+                          className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:underline"
+                        >
+                          <span>Explore {s.title}</span>
+                          <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
-
-        {/* ---------- Phone and tablet: one discipline at a time ---------- */}
-        <ol className="mt-[var(--pad-sm)] lg:hidden">
-          {services.map((s, i) => (
-            <Reveal
-              as="li"
-              key={s.slug}
-              delay={i * 0.06}
-              className="pb-[clamp(2.5rem,6vw,3.5rem)]"
-            >
-              <Link href={`/services/${s.slug}`} className="group block">
-                <div className="media media-zoom aspect-[16/11] w-full sm:aspect-[16/9]">
-                  <Picture
-                    name={s.hero.image}
-                    alt={s.hero.imageAlt}
-                    sizes="100vw"
-                    focal={s.hero.focal}
-                    className="h-full w-full"
-                  />
-                </div>
-
-                <div className="mt-6 flex items-baseline gap-4">
-                  <span className="t-num text-[0.78rem] text-gold">{s.index}</span>
-                  <h3 className="font-display text-[clamp(1.9rem,7vw,2.75rem)] leading-[1.03] tracking-tighter text-ivory">
-                    {s.title}
-                  </h3>
-                </div>
-
-                <p className="t-body mt-4 max-w-[46ch] text-sage">{s.sourceSummary}</p>
-
-                <span className="cta mt-6 text-ivory">
-                  <span className="link-underline">Explore {s.title}</span>
-                  <ArrowUpRight aria-hidden strokeWidth={1.5} className="arrow h-3.5 w-3.5" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </ol>
       </div>
     </section>
   );

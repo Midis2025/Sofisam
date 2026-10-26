@@ -1,36 +1,39 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Instrument_Serif } from 'next/font/google';
+import { Inter, Newsreader } from 'next/font/google';
 
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
-import { SectionProgress } from '@/components/layout/SectionProgress';
 import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
 import { themeInitScript } from '@/lib/theme-script';
 import { site, contact } from '@/data/site';
 
+/* Inter for everything that is read; Newsreader for everything that is
+   seen. Newsreader is a contemporary text serif with an optical-size axis, so
+   one family is refined at headline size and sturdy at a card title — the
+   register of a financial house rather than a magazine. Both are variable
+   and self-hosted at build time. */
 const sans = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
-  weight: ['300', '400', '500', '600'],
 });
 
-const display = Instrument_Serif({
+const display = Newsreader({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  weight: '400',
+  axes: ['opsz'],
   style: ['normal', 'italic'],
 });
 
 export const viewport: Viewport = {
   // Rewritten by the theme script to match the theme actually in force.
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F5F1EA' },
-    { media: '(prefers-color-scheme: dark)', color: '#0B0B0C' },
+    { media: '(prefers-color-scheme: light)', color: '#F8F6F1' },
+    { media: '(prefers-color-scheme: dark)', color: '#F8F6F1' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -129,7 +132,6 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
         </PageTransition>
-        <SectionProgress />
       </body>
     </html>
   );

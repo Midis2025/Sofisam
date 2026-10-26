@@ -25,7 +25,9 @@ export function SplitText({
   duration = 0.9,
   once = true,
   as: Tag = 'span',
+  id,
 }: {
+  id?: string;
   text: string;
   className?: string;
   wordClassName?: string;
@@ -37,12 +39,17 @@ export function SplitText({
 }) {
   const reduce = useReducedMotion();
 
-  if (reduce) return <Tag className={className}>{text}</Tag>;
+  if (reduce)
+    return (
+      <Tag id={id} className={className}>
+        {text}
+      </Tag>
+    );
 
   const words = text.split(' ');
 
   return (
-    <Tag className={className}>
+    <Tag id={id} className={className}>
       <span className="sr-only">{text}</span>
       <motion.span
         aria-hidden
@@ -54,8 +61,10 @@ export function SplitText({
         {words.map((word, i) => (
           <span
             key={`${word}-${i}`}
-            // `clip` rather than `hidden` so a descender is not sliced off.
-            className="inline-block overflow-hidden pb-[0.12em] align-bottom"
+            // The mask is padded below the baseline so a descender is not
+            // sliced off, and the margin hands the padding back so the line
+            // box keeps the leading the type was set at.
+            className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom"
           >
             <motion.span
               className={`inline-block ${wordClassName}`}

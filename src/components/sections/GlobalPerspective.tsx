@@ -1,15 +1,14 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
-import { Parallax } from '@/components/animations/Parallax';
 import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
+import { GlobalNetwork } from './GlobalNetwork';
 
 /**
  * Global perspective.
  *
  * Two compositions of the same content. `band` (the homepage) sets it as a
- * full-bleed cinematic passage — the city behind the statement rather than
- * beside it — while `editorial` (the About page) opens it out into a
+ * network map from the Dubai headquarters (see GlobalNetwork), while `editorial` (the About page) opens it out into a
  * statement, three data columns and a wide lower plate, so the two pages never
  * read as the same section twice.
  *
@@ -91,71 +90,7 @@ export function GlobalPerspective({
     );
   }
 
-  /* ---------- The homepage band ---------- */
-  return (
-    <section
-      data-section="Global Perspective"
-      className="band veil-editorial grain relative w-full overflow-hidden bg-void"
-      aria-labelledby="global-heading"
-    >
-      <Parallax className="absolute inset-0" strength={10}>
-        <Picture
-          name="city-mono"
-          alt=""
-          decorative
-          sizes="(max-width: 767px) 190vw, 100vw"
-          focal="50% 45%"
-          className="h-full w-full object-cover"
-        />
-      </Parallax>
-
-      <div className="shell relative z-10 py-[clamp(4rem,10vw,9rem)]">
-        <div className="max-w-[54rem]">
-          <Reveal kind="label" className="kicker">
-            <p className="t-label text-gold">Global Perspective</p>
-          </Reveal>
-
-          <h2
-            id="global-heading"
-            className="t-display mt-[clamp(1.25rem,2.2vw,2rem)] text-ivory"
-          >
-            <span className="sr-only">One vantage point. A global field of view.</span>
-            <span aria-hidden className="block lg:hidden">
-              <MaskedLines lines={['One vantage point.', 'A global field', 'of view.']} />
-            </span>
-            <span aria-hidden className="hidden lg:block">
-              <MaskedLines lines={['One vantage point.', 'A global field of view.']} />
-            </span>
-          </h2>
-
-          <Reveal kind="body" delay={0.1}>
-            <p className="t-lead mt-[clamp(1.5rem,2.4vw,2.25rem)] max-w-[48ch] text-ivory/80">
-              {LEAD}
-            </p>
-          </Reveal>
-
-          <Reveal kind="body" delay={0.16}>
-            <p className="t-small mt-5 max-w-[54ch] text-ivory/65">{NOTE}</p>
-          </Reveal>
-        </div>
-
-        {/* Markers, in place of any map or globe */}
-        <dl className="mt-[clamp(2.75rem,5vw,4.5rem)] grid gap-[clamp(0.75rem,1.2vw,1.1rem)] sm:grid-cols-3">
-          {markers.map((m, i) => (
-            <Reveal
-              key={m.k}
-              kind="card"
-              delay={i * 0.09}
-              className="surface-glass surface-lift"
-            >
-              <dt className="t-label text-gold">{m.k}</dt>
-              <dd className="mt-3.5 font-display text-[clamp(1.35rem,2.2vw,2.15rem)] leading-[1.1] tracking-tighter text-ivory">
-                {m.v}
-              </dd>
-            </Reveal>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
+  // The homepage sets the same content as a network map: Dubai and the reach
+  // from it, rather than a photograph of a city that is not Dubai.
+  return <GlobalNetwork lead={LEAD} note={NOTE} />;
 }

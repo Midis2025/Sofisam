@@ -168,16 +168,16 @@ export default function StrategicConsultingPage() {
       {/* Global outlook — statement panel */}
       <section
         data-section="Global Outlook"
-        className="section ground-void grain relative overflow-hidden"
+        className="section tone-dark ground-void grain relative overflow-hidden"
         aria-labelledby="sc-outlook"
       >
         <div className="media media-flat veil-editorial absolute inset-0">
           <Picture
-            name="city-mono"
+            name="hero-video-poster"
             alt=""
             decorative
             sizes="100vw"
-            focal="50% 40%"
+            focal="50% 55%"
             className="h-full w-full"
           />
         </div>
@@ -199,7 +199,7 @@ export default function StrategicConsultingPage() {
             </span>
           </h2>
           <Reveal delay={0.14}>
-            <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-ivory/70">
+            <p className="t-lead mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[45rem] text-sage">
               The conditions that sustain a market are rarely in the same documents as
               the numbers describing it. That is where the work has to go.
             </p>

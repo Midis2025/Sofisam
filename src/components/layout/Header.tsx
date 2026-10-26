@@ -99,14 +99,14 @@ export function Header() {
         ref={bar}
         className={`fixed inset-x-0 top-0 z-[100] transition-[background-color,backdrop-filter,border-color] duration-700 ease-premium ${tone} ${
           glass
-            ? 'border-b border-ivory/10 bg-void/[0.72] shadow-[var(--shadow-header)] backdrop-blur-2xl backdrop-saturate-150'
+            ? 'border-b border-[var(--line)] bg-void/[0.86] shadow-[var(--shadow-header)] backdrop-blur-xl backdrop-saturate-150'
             : 'border-b border-transparent bg-transparent'
         }`}
         onMouseLeave={scheduleCloseMega}
       >
         <div
           className={`shell-wide relative flex items-center justify-between gap-6 transition-[height] duration-700 ease-premium ${
-            glass ? 'h-[4rem] lg:h-[4.75rem]' : 'h-[4.5rem] lg:h-[5.5rem]'
+            glass ? 'h-[4rem] lg:h-[4.5rem]' : 'h-[4.5rem] lg:h-[5.5rem]'
           }`}
         >
           {/* Wordmark */}
@@ -115,59 +115,52 @@ export function Header() {
             aria-label="SOFISAM FZCO — home"
             className="relative z-10 -my-2 flex min-h-[2.75rem] shrink-0 items-center py-2 transition-opacity duration-500 ease-premium hover:opacity-80"
           >
-            <Logo alt="SOFISAM FZCO" className="h-[2.5rem] w-auto sm:h-[2.85rem] lg:h-[3.25rem]" />
+            <Logo alt="SOFISAM FZCO" className="h-[2.35rem] w-auto sm:h-[2.6rem] lg:h-[2.85rem]" />
           </Link>
 
           {/* Navigation — centred */}
           <nav
             aria-label="Primary"
-            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 lg:flex xl:gap-12"
+            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex xl:gap-10"
           >
-            {navItems
-              .filter((n) => n.label !== 'Contact')
-              .map((item) => {
-                const active = isActive(item.href);
-                const hasChildren = Boolean(item.children);
+            {navItems.map((item) => {
+              const active = isActive(item.href);
 
-                return (
-                  <div
-                    key={item.href}
-                    onMouseEnter={hasChildren ? openMega : scheduleCloseMega}
+              return (
+                <div key={item.href} className="relative">
+                  <Link
+                    href={item.href}
+                    aria-current={pathname === item.href ? 'page' : active ? 'true' : undefined}
+                    className={`group relative block py-2 text-[0.9375rem] font-medium tracking-tight transition-colors duration-300 ${
+                      active ? 'text-ivory' : 'text-sage hover:text-ivory'
+                    }`}
                   >
-                    <Link
-                      href={item.href}
-                      aria-current={pathname === item.href ? 'page' : active ? 'true' : undefined}
-                      aria-haspopup={hasChildren || undefined}
-                      aria-expanded={hasChildren ? megaOpen : undefined}
-                      onFocus={hasChildren ? openMega : undefined}
-                      className={`group relative block py-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition-colors duration-400 ${
-                        active ? 'text-ivory' : 'text-sage hover:text-ivory'
+                    {item.label}
+                    <span
+                      aria-hidden
+                      className={`absolute -bottom-0.5 left-0 h-[2px] w-full origin-left bg-brass transition-transform duration-300 ease-out ${
+                        active
+                          ? 'scale-x-100'
+                          : 'scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100'
                       }`}
-                    >
-                      {item.label}
-                      <span
-                        aria-hidden
-                        className={`absolute -bottom-0.5 left-0 h-px w-full origin-left bg-gold transition-transform duration-500 ease-premium ${
-                          active || (hasChildren && megaOpen)
-                            ? 'scale-x-100'
-                            : 'scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100'
-                        }`}
-                      />
-                    </Link>
-                  </div>
-                );
-              })}
+                    />
+                  </Link>
+                </div>
+              );
+            })}
           </nav>
 
-          {/* Theme and action */}
-          <div className="hidden items-center gap-4 lg:flex">
-            <ThemeToggle />
-            <Link href="/contact" className="btn btn-light-outline btn-sm">
+          {/* Action */}
+          <div className="hidden items-center gap-5 lg:flex">
+            <Link
+              href="/contact"
+              className="group inline-flex items-center justify-center gap-2 rounded-none border border-[var(--line-strong)] bg-ivory px-6 py-2.5 text-[0.875rem] font-medium tracking-wide text-ink transition-all duration-300 hover:border-brass hover:bg-brass hover:text-white"
+            >
               <span>Get in Touch</span>
               <ArrowUpRight
                 aria-hidden
                 strokeWidth={1.5}
-                className="btn-arrow btn-arrow-up h-[0.85rem] w-[0.85rem]"
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
             </Link>
           </div>
@@ -190,102 +183,6 @@ export function Header() {
             </button>
           </div>
         </div>
-
-        {/* Expertise panel */}
-        <AnimatePresence>
-          {megaOpen && (
-            <motion.div
-              key="mega"
-              initial={reduce ? false : { opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-b border-ivory/10 bg-void/[0.78] shadow-[var(--shadow-panel)] backdrop-blur-2xl backdrop-saturate-150 lg:block"
-              onMouseEnter={openMega}
-              onMouseLeave={scheduleCloseMega}
-            >
-              <div className="shell-wide grid grid-cols-12 gap-12 py-14 xl:py-16">
-                {/* Standing statement and the plate for the hovered discipline */}
-                <div className="col-span-4 flex flex-col justify-between">
-                  <div>
-                    <p className="t-label text-gold">Our Expertise</p>
-                    <p className="mt-6 max-w-[20ch] font-display text-[1.9rem] leading-[1.1] tracking-tighter text-ivory">
-                      Three disciplines, one standard of judgement.
-                    </p>
-                  </div>
-
-                  <Link
-                    href="/services"
-                    className="link-underline mt-10 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-sage hover:text-ivory"
-                  >
-                    All services
-                    <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-
-                {/* The disciplines */}
-                <ul className="col-span-5 self-center">
-                  {services.map((s, i) => (
-                    <li key={s.slug}>
-                      <Link
-                        href={`/services/${s.slug}`}
-                        onMouseEnter={() => setHovered(i)}
-                        onFocus={() => setHovered(i)}
-                        className="group/mm row block py-6 last:border-b last:border-[var(--line)]"
-                      >
-                        <span className="flex items-center justify-between gap-6">
-                          <span
-                            className={`font-display text-[clamp(1.5rem,2vw,2.1rem)] leading-tight tracking-tight transition-colors duration-500 ${
-                              hovered === i ? 'text-gold' : 'text-ivory'
-                            }`}
-                          >
-                            {s.title}
-                          </span>
-                          <ArrowUpRight
-                            aria-hidden
-                            strokeWidth={1.4}
-                            className={`h-5 w-5 shrink-0 transition-all duration-500 ease-premium ${
-                              hovered === i
-                                ? 'translate-x-0 text-gold opacity-100'
-                                : '-translate-x-2 text-ivory/40 opacity-0'
-                            }`}
-                          />
-                        </span>
-                        <span className="mt-2 block max-w-[38ch] text-[0.86rem] font-light leading-relaxed text-stone">
-                          {s.navDescription}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Crossfading plate */}
-                <div className="col-span-3 col-start-10">
-                  <div className="media relative aspect-[3/4] w-full">
-                    {services.map((s, i) => (
-                      <span
-                        key={s.slug}
-                        aria-hidden
-                        className={`absolute inset-0 transition-opacity duration-700 ease-premium ${
-                          hovered === i ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      >
-                        <Picture
-                          name={s.hero.image}
-                          alt=""
-                          decorative
-                          sizes="20vw"
-                          focal={s.hero.focal}
-                          className="h-full w-full object-cover"
-                        />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />

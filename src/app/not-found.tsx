@@ -29,7 +29,7 @@ export default function NotFound() {
 
         <h1 className="t-display mt-7 max-w-[14ch] text-ivory">Page not found.</h1>
 
-        <p className="t-lead mt-7 max-w-[46ch] text-ivory/60">
+        <p className="t-lead mt-7 max-w-[46ch] text-stone">
           The page you were looking for is not here. It may have moved, or the
           address may be incomplete.
         </p>
@@ -55,7 +55,7 @@ export default function NotFound() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="link-underline text-[0.95rem] font-light text-ivory/70 hover:text-ivory"
+                  className="link-underline text-[0.95rem] font-light text-sage hover:text-ivory"
                 >
                   {l.label}
                 </Link>

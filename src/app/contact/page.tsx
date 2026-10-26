@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
-import { Picture } from '@/components/ui/Picture';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
@@ -24,30 +23,9 @@ const mapQuery = encodeURIComponent(`${contact.address.line1}, ${contact.address
 export default function ContactPage() {
   return (
     <>
-      {/* The enquiry. Architecture carries the frame; the statement and the
-          form sit over it on the site's obsidian ground. */}
+      {/* The enquiry. The statement and the direct lines on the ivory page,
+          the form on a white sheet beside them — nothing behind either. */}
       <section data-section="Get in Touch" className="ground-void relative overflow-hidden" aria-labelledby="contact-heading">
-        {/* Background plate — held to the right of the frame on a desktop so
-            the form never sits on top of a busy image. */}
-        <div aria-hidden className="absolute inset-0">
-          <div className="contact-photo media media-flat absolute inset-0 lg:left-[38%]">
-            <Picture
-              name="difc-gate"
-              alt=""
-              decorative
-              sizes="(min-width:1024px) 56vw, 100vw"
-              focal="50% 45%"
-              className="h-full w-full"
-            />
-          </div>
-
-          {/* On a phone the copy runs over the whole frame, so the scrim is
-              vertical and heavy. From lg it turns horizontal: the statement
-              side reads as solid ground and the architecture clears to the
-              right, behind the form. */}
-          <div className="contact-scrim absolute inset-0" />
-        </div>
-
         <div className="shell relative z-10 pb-[var(--pad)] pt-[calc(var(--header-h)+clamp(2.5rem,7vh,5rem))]">
           <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(3rem,5vw,6rem)]">
             {/* Statement and details */}
@@ -64,7 +42,7 @@ export default function ContactPage() {
               </h1>
 
               <Reveal delay={0.14}>
-                <p className="t-lead mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[42ch] text-ivory/70">
+                <p className="t-lead mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[42ch] text-sage">
                   {contactCopy.standfirst}
                 </p>
               </Reveal>
@@ -79,7 +57,7 @@ export default function ContactPage() {
                         <Badge>
                           <Mail aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
                         </Badge>
-                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory/85">
+                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory-2">
                           {contact.email}
                         </span>
                       </a>
@@ -90,7 +68,7 @@ export default function ContactPage() {
                         <Badge>
                           <Phone aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
                         </Badge>
-                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory/85">
+                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory-2">
                           {contact.phone}
                         </span>
                       </a>
@@ -101,7 +79,7 @@ export default function ContactPage() {
                         <MapPin aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
                       </Badge>
                       <address className="not-italic">
-                        <p className="text-[1.0625rem] font-light leading-relaxed tracking-wide text-ivory/85">
+                        <p className="text-[1.0625rem] font-light leading-relaxed tracking-wide text-ivory-2">
                           {contact.address.line1}
                           <br />
                           {contact.address.line2}
@@ -162,12 +140,21 @@ export default function ContactPage() {
             {/* Map */}
             <Reveal className="lg:col-span-8">
               <div className="media aspect-[16/10] w-full border border-[var(--line)] lg:aspect-[16/9]">
+                {/* What shows until the map arrives — or instead of it, where a
+                    browser or network blocks the embed. */}
+                <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-graphite p-6 text-center">
+                  <span className="h-2.5 w-2.5 rounded-full bg-brass shadow-[0_0_0_6px_rgb(var(--brass-rgb)/0.18)]" />
+                  <p className="t-label text-gold">{contact.headquarters}</p>
+                  <p className="t-small max-w-[34ch] text-sage">
+                    {contact.address.line1}, {contact.address.line2}
+                  </p>
+                </div>
                 <iframe
                   title={`Map showing ${contact.address.line1}, ${contact.address.line2}`}
                   src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="h-full w-full border-0 grayscale-[0.4] contrast-[1.05]"
+                  className="relative h-full w-full border-0 grayscale-[0.4] contrast-[1.05]"
                 />
               </div>
             </Reveal>
@@ -184,7 +171,7 @@ export default function ContactPage() {
                   ].map((row) => (
                     <div key={row.k} className="row py-5 last:border-b last:border-[var(--line)]">
                       <dt className="t-label text-sage">{row.k}</dt>
-                      <dd className="mt-3 whitespace-pre-line text-[0.98rem] font-light leading-relaxed text-ivory/80">
+                      <dd className="mt-3 whitespace-pre-line text-[0.98rem] leading-relaxed text-ivory-2">
                         {row.href ? (
                           <a
                             href={row.href}

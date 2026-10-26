@@ -10,7 +10,7 @@ export type Theme = 'light' | 'dark';
 type ThemeApi = { apply: (t: Theme, ease: boolean) => void; key: string };
 
 function readTheme(): Theme {
-  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 }
 
 function subscribe(onChange: () => void) {
@@ -21,12 +21,12 @@ function subscribe(onChange: () => void) {
 
 /**
  * The theme in force. The server has no way to know it, so it renders the
- * dark default and the client settles on the real value straight after
+ * light default and the client settles on the real value straight after
  * hydration — without a mismatch, because the snapshot differs rather than
  * the markup React is reconciling.
  */
 export function useTheme(): Theme {
-  return useSyncExternalStore(subscribe, readTheme, () => 'dark');
+  return useSyncExternalStore(subscribe, readTheme, () => 'light');
 }
 
 /** A choice made by the visitor. It is remembered and outranks the system. */

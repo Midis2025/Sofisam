@@ -18,7 +18,7 @@ const KIND = {
   label: { y: 12, duration: 0.46, rotateX: 0 },
   heading: { y: 24, duration: 0.64, rotateX: 0 },
   body: { y: 18, duration: 0.58, rotateX: 0 },
-  card: { y: 40, duration: 0.8, rotateX: 8 },
+  card: { y: 28, duration: 0.85, rotateX: 0 },
 } as const;
 
 export type RevealKind = keyof typeof KIND;

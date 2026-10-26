@@ -195,7 +195,7 @@ export function ContactForm() {
       </div>
 
       {/* Status region */}
-      <div aria-live="polite" className="mt-7 min-h-[3rem]">
+      <div role="status" aria-live="polite" className="mt-7 min-h-[3rem]">
         <AnimatePresence mode="wait">
           {status === 'success' && (
             <StatusNote key="ok" tone="ok">
@@ -310,7 +310,7 @@ function StatusNote({ children, tone }: { children: ReactNode; tone: 'ok' | 'war
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
       className={`flex gap-3 border-l-2 py-1 pl-4 text-[0.9rem] font-light leading-relaxed ${
-        tone === 'ok' ? 'border-gold text-ivory/80' : 'border-gold/70 text-ivory/70'
+        tone === 'ok' ? 'border-gold text-ivory-2' : 'border-gold/70 text-sage'
       }`}
     >
       {children}

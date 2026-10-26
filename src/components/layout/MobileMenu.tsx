@@ -121,7 +121,7 @@ export function MobileMenu({
           aria-modal="true"
           aria-label="Site menu"
           data-tone-ignore
-          className="fixed inset-0 z-[110] flex flex-col bg-void/[0.86] text-ivory backdrop-blur-3xl backdrop-saturate-150 lg:hidden"
+          className="fixed inset-0 z-[110] flex flex-col bg-void/[0.97] text-ivory backdrop-blur-xl backdrop-saturate-150 lg:hidden"
           initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
           animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
           exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0% 0% 100% 0%)' }}
@@ -138,7 +138,7 @@ export function MobileMenu({
                 type="button"
                 onClick={onClose}
                 aria-label="Close menu"
-                className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] text-ivory/70 shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] hover:text-gold"
+                className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full border border-ivory/20 bg-ivory/[0.07] text-sage shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-500 ease-premium hover:border-ivory/35 hover:bg-ivory/[0.13] hover:text-gold"
               >
                 <X strokeWidth={1.25} className="h-5 w-5" />
               </button>
@@ -187,7 +187,7 @@ export function MobileMenu({
                               aria-hidden
                               className="block h-px w-5 shrink-0 bg-gold/70"
                             />
-                            <span className="text-[1.0625rem] font-light tracking-tight text-ivory/70">
+                            <span className="text-[1.0625rem] font-light tracking-tight text-sage">
                               {child.label}
                             </span>
                           </Link>
@@ -211,13 +211,13 @@ export function MobileMenu({
                 <div className="mt-5 flex flex-col items-start">
                   <a
                     href={`mailto:${contact.email}`}
-                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
+                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory-2"
                   >
                     {contact.email}
                   </a>
                   <a
                     href={`tel:${contact.phoneHref}`}
-                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory/85"
+                    className="link-underline py-[0.6rem] text-[1.0625rem] font-light text-ivory-2"
                   >
                     {contact.phone}
                   </a>

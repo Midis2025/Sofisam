@@ -175,7 +175,7 @@ export function Newsletter() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className={`t-small ${failed ? 'text-gold' : 'text-ivory/70'}`}
+                        className={`t-small ${failed ? 'text-gold' : 'text-sage'}`}
                       >
                         {message}
                       </motion.p>

@@ -25,25 +25,25 @@ export const metadata: Metadata = {
 };
 
 /**
- * The homepage is a sequence rather than a stack of sections: a cinematic
- * opening, a statement on ivory, the work as a sequence of frames, the
- * disciplines on obsidian, the firm's vantage point, two full-bleed passages
- * carrying the city, the way it works, the research index, and the closing
- * band — the newsletter and the enquiry as one composition. Grounds alternate
- * and no two consecutive sections share a composition.
+ * The homepage reads as one argument, in the order a principal would want it
+ * made: who the firm is, what it does, where it stands, who gives the advice,
+ * how the work proceeds, what it is brought into, how far it reaches, the
+ * terms it holds itself to, what it is thinking about, and how to begin.
+ * Grounds alternate between the three ivory tones, with one dark cinematic
+ * chapter (Mandates & Investments), and no two neighbours share a composition.
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
       <BrandStatement />
-      <OurWork />
       <ServiceShowcase />
+      <DubaiSection />
       <ExecutivePerspective />
+      <ProcessNarrative />
+      <OurWork />
       <GlobalPerspective />
       <AdvisoryPrinciples />
-      <DubaiSection />
-      <ProcessNarrative />
       <InsightsEditorial />
       <ClosingSection />
     </>

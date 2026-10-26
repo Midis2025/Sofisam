@@ -43,9 +43,9 @@ export default function ServicesPage() {
         eyebrow={servicesIntro.eyebrow}
         headline={[servicesIntro.heading]}
         standfirst={servicesIntro.standfirst}
-        image="structure-grid"
-        imageAlt="Dark modular architectural facade composed of a precise repeating grid of panels"
-        focal="50% 50%"
+        image="hero-dubai"
+        imageAlt="Dubai's skyline at night, its towers reflected in the water"
+        focal="50% 55%"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
       />
 

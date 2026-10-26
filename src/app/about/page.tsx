@@ -124,7 +124,7 @@ export default function AboutPage() {
              statement set over the lower half of the frame. */}
       <section
         data-section="International Perspective"
-        className="band veil-bottom grain relative w-full overflow-hidden bg-void"
+        className="band tone-dark veil-bottom grain relative w-full overflow-hidden bg-void"
         aria-labelledby="about-international"
       >
         <Parallax className="absolute inset-0" strength={8}>
@@ -152,7 +152,7 @@ export default function AboutPage() {
             </h2>
 
             <Reveal delay={0.12}>
-              <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[56ch] text-ivory/75">
+              <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[56ch] text-sage">
                 From our world headquarters in the {contact.headquarters}, we work with
                 counterparties whose assumptions were formed elsewhere — and read each
                 position on its own terms rather than by regional average.
@@ -181,7 +181,7 @@ export default function AboutPage() {
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="t-body mt-[clamp(2rem,2.8vw,2.75rem)] max-w-[54ch] text-ivory/75">
+                <p className="t-body mt-[clamp(2rem,2.8vw,2.75rem)] max-w-[54ch] text-sage">
                   The matters we are brought into tend to sit above the level at which
                   an organisation can resolve them internally: what a leadership team
                   should do next, how a board should hold a position, whether a

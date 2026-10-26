@@ -89,14 +89,14 @@ export default async function InsightPage({
         <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ivory/15 pt-6">
           <time
             dateTime={insight.isoDate}
-            className="t-label tnum text-ivory/50"
+            className="t-label tnum text-stone"
           >
             {insight.date}
           </time>
           <span aria-hidden className="h-px w-6 bg-ivory/20" />
-          <span className="t-label text-ivory/50">{insight.readingTime}</span>
+          <span className="t-label text-stone">{insight.readingTime}</span>
           <span aria-hidden className="h-px w-6 bg-ivory/20" />
-          <span className="t-label text-ivory/50">{site.shortName}</span>
+          <span className="t-label text-stone">{site.shortName}</span>
         </div>
       </PageHero>
 
