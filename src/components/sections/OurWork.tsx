@@ -137,9 +137,6 @@ export function OurWork() {
                   aria-hidden
                   className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
                 />
-                <span className="absolute top-3.5 left-3.5 font-mono text-xs font-semibold uppercase tracking-wider text-white/90 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-[var(--r-sm)]">
-                  {item.index}
-                </span>
               </div>
 
               {/* Text content */}
@@ -200,9 +197,6 @@ export function OurWork() {
                   aria-hidden
                   className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
                 />
-                <span className="absolute top-3.5 left-3.5 font-mono text-xs font-semibold uppercase tracking-wider text-white/90 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-[var(--r-sm)]">
-                  {item.index}
-                </span>
               </div>
 
               <div className="flex flex-1 flex-col justify-between p-6">

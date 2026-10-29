@@ -251,9 +251,7 @@ export default function AboutPage() {
                 delay={i * 0.08}
                 className="group pb-[clamp(2rem,2.6vw,2.5rem)] pt-[clamp(1.75rem,2.4vw,2.125rem)]"
               >
-                <div className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-3 sm:gap-x-4">
-                  <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold">{p.k}</span>
-
+                <div>
                   <div>
                     <h3 className="t-card text-ivory transition-transform duration-500 ease-premium group-hover:translate-x-1">
                       {p.t}

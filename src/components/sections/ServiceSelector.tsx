@@ -126,14 +126,6 @@ export function ServiceSelector() {
 
                   <span className="flex items-baseline gap-[clamp(1rem,2vw,2rem)]">
                     <span
-                      className={`t-num shrink-0 text-[0.85rem] transition-colors duration-500 ${
-                        on ? 'text-gold' : 'text-stone'
-                      }`}
-                    >
-                      {s.index}
-                    </span>
-
-                    <span
                       className={`block font-display text-[clamp(1.9rem,3.4vw,3.25rem)] leading-[1.04] tracking-tighter transition-colors duration-[600ms] ease-premium ${
                         on ? 'text-ivory' : 'text-stone group-hover:text-ivory-2'
                       }`}

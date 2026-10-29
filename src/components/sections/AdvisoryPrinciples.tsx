@@ -81,15 +81,7 @@ export function AdvisoryPrinciples() {
               />
 
               <div>
-                {/* Numeral and visual indicator */}
-                <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-                  <span className="font-mono text-xs font-semibold text-[var(--brass)]">
-                    {p.num}
-                  </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--brass)] transition-transform duration-300 group-hover:scale-125" />
-                </div>
-
-                <h3 className="mt-4 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                <h3 className="t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                   {p.word}
                 </h3>
                 <p className="mt-2.5 t-small text-[var(--sage)]">
@@ -99,7 +91,7 @@ export function AdvisoryPrinciples() {
 
               <div className="mt-6 pt-3 border-t border-[var(--line-soft)] flex items-center justify-between text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">
                 <span>Core Pillar</span>
-                <span className="text-[var(--brass)] font-mono">{p.num}</span>
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--brass)] transition-transform duration-300 group-hover:scale-125" />
               </div>
             </motion.div>
           ))}

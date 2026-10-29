@@ -105,10 +105,7 @@ export function ExecutivePerspective() {
                 />
 
                 <div>
-                  <span className="font-mono text-xs font-semibold text-[var(--brass)]">
-                    {m.k}
-                  </span>
-                  <h3 className="mt-2.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     {m.title}
                   </h3>
                   <p className="mt-2 t-small text-[var(--sage)]">

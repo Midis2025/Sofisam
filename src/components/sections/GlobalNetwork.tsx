@@ -184,12 +184,7 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
 
           {/* The centres */}
           <div className="flex flex-col border-t border-[var(--line)] p-5 sm:p-8 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-10">
-            <div className="flex items-center justify-between">
-              <p className="t-label text-gold">
-                Financial Centres
-              </p>
-              <span className="font-mono text-xs text-[var(--stone)]">{String(hubs.length).padStart(2, '0')}</span>
-            </div>
+            <p className="t-label text-gold">Financial Centres</p>
 
             <button
               type="button"
@@ -212,7 +207,7 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
             </button>
 
             <ul className="mt-1 grid grid-cols-2 gap-x-5 lg:grid-cols-1">
-              {centres.map((c, i) => {
+              {centres.map((c) => {
                 const on = active === c.key;
                 return (
                   <li key={c.key} className="border-b border-[var(--line-soft)]">
@@ -228,9 +223,6 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
                           on ? 'scale-y-100' : 'scale-y-0'
                         }`}
                       />
-                      <span className="hidden font-mono text-[0.6875rem] text-[var(--brass)] sm:inline">
-                        {String(i + 2).padStart(2, '0')}
-                      </span>
                       <span className="min-w-0">
                         <span
                           className={`block text-sm font-medium transition-colors duration-300 ${

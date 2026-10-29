@@ -151,9 +151,6 @@ export default function StrategicConsultingPage() {
                 className="row row-hover last:border-b last:border-[var(--line)]"
               >
                 <div className="ledger px-1 py-[clamp(1.75rem,3vw,2.5rem)]">
-                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-gold">
-                    {f.n}
-                  </span>
                   <h3 className="t-h3 max-w-[26ch] text-ivory">{f.q}</h3>
                   <p className="t-small max-w-[42ch] text-sage">
                     {f.a}

@@ -43,7 +43,7 @@ export const services: Service[] = [
       'Providing confidential, unconflicted strategic advice to navigate complex global markets and make critical business decisions.',
     navDescription: 'Confidential, unconflicted advice on critical decisions',
     hero: {
-      eyebrow: 'Service 01',
+      eyebrow: 'Strategic Consulting',
       headline: 'Judgement applied to consequential decisions.',
       standfirst:
         'Providing confidential, unconflicted strategic advice to navigate complex global markets and make critical business decisions.',
@@ -93,7 +93,7 @@ export const services: Service[] = [
       'Leveraging decades of international business experience to guide executive decision-making and corporate governance.',
     navDescription: 'Executive decision-making and corporate governance',
     hero: {
-      eyebrow: 'Service 02',
+      eyebrow: 'Advisory',
       headline: 'Counsel formed in the room where decisions are taken.',
       standfirst:
         'Leveraging decades of international business experience to guide executive decision-making and corporate governance.',
@@ -143,7 +143,7 @@ export const services: Service[] = [
       'Expert structuring for mandates and investments, built on successful executive perspectives and proven frameworks.',
     navDescription: 'Frameworks for mandates and investments',
     hero: {
-      eyebrow: 'Service 03',
+      eyebrow: 'Structuring',
       headline: 'Form determines what a structure can withstand.',
       standfirst:
         'Expert structuring for mandates and investments, built on successful executive perspectives and proven frameworks.',

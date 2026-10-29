@@ -91,14 +91,7 @@ export function ProcessNarrative() {
                   isCurrent ? 'bg-[var(--plate)] shadow-[var(--shadow-pill)]' : 'hover:bg-[var(--plate)]/40'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className={`font-mono text-xs font-semibold transition-colors duration-300 ${
-                      isCurrent ? 'text-[var(--brass)]' : 'text-[var(--stone)]'
-                    }`}
-                  >
-                    {s.step}
-                  </span>
+                <div className="flex items-center">
                   <span
                     className={`h-[2px] flex-1 transition-all duration-300 ${
                       isCurrent ? 'bg-[var(--brass)]' : 'bg-[var(--line)] group-hover:bg-[var(--line-strong)]'
@@ -123,10 +116,7 @@ export function ProcessNarrative() {
         <div className="mt-8 hidden lg:grid lg:grid-cols-12 gap-10 items-stretch">
           <div className="lg:col-span-5 flex flex-col justify-between p-8 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
             <div>
-              <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--brass)]">
-                  Phase {steps[active].step} of 05
-                </span>
+              <div className="border-b border-[var(--line)] pb-3">
                 <span className="text-xs text-[var(--stone)]">Advisory Progression</span>
               </div>
               <h3 className="mt-5 t-h3 text-[var(--ivory)]">
@@ -169,7 +159,7 @@ export function ProcessNarrative() {
                     />
                     <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                       <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-medium">
-                        Stage {s.step} — {s.title}
+                        {s.title}
                       </span>
                     </div>
                   </div>
@@ -195,10 +185,7 @@ export function ProcessNarrative() {
                 />
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs font-semibold text-[var(--brass)]">
-                  {s.step}
-                </span>
-                <span className="h-px w-5 bg-[var(--brass)]" />
+                <span aria-hidden className="h-px w-5 bg-[var(--brass)]" />
                 <h3 className="t-card text-[var(--ivory)] font-medium">
                   {s.title}
                 </h3>

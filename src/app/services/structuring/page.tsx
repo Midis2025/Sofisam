@@ -162,12 +162,9 @@ export default function StructuringPage() {
                     delay={i * 0.06}
                     className="row last:border-b last:border-[var(--line)]"
                   >
-                    <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline gap-x-4 py-[clamp(1.1rem,1.8vw,1.5rem)] sm:grid-cols-[2.5rem_minmax(0,1fr)_minmax(0,1fr)] sm:gap-x-6">
-                      <span className="t-num text-[0.85rem] text-gold">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                    <div className="grid items-baseline py-[clamp(1.1rem,1.8vw,1.5rem)] sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:gap-x-6">
                       <span className="t-h4 text-ivory">{l.t}</span>
-                      <span className="t-small col-start-2 mt-2 max-w-[26ch] text-sage sm:col-start-3 sm:mt-0">
+                      <span className="t-small mt-2 max-w-[26ch] text-sage sm:mt-0">
                         {l.d}
                       </span>
                     </div>
@@ -227,9 +224,6 @@ export default function StructuringPage() {
                 className="row row-hover last:border-b last:border-[var(--line)]"
               >
                 <div className="ledger px-1 py-[clamp(1.75rem,3vw,2.4rem)]">
-                  <span className="t-num text-[clamp(1.1rem,2vw,1.6rem)] text-gold">
-                    {t.n}
-                  </span>
                   <h3 className="t-h3 max-w-[26ch] text-ivory">{t.t}</h3>
                   <p className="t-small max-w-[44ch] text-sage">
                     {t.d}

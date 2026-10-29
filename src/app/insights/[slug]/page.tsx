@@ -111,11 +111,8 @@ export default async function InsightPage({
                 <ol className="mt-6">
                   {insight.body
                     .filter((b) => b.heading)
-                    .map((b, i) => (
-                      <li key={b.heading} className="row flex gap-4 py-3.5">
-                        <span className="t-num shrink-0 pt-[0.2rem] text-[0.66rem] text-sage">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
+                    .map((b) => (
+                      <li key={b.heading} className="row py-3.5">
                         <span className="t-small text-sage">{b.heading}</span>
                       </li>
                     ))}

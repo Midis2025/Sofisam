@@ -72,9 +72,6 @@ export function ServiceShowcase() {
 
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-baseline gap-4">
-                      <span className="font-mono text-xs font-semibold text-[var(--brass)]">
-                        {s.index}
-                      </span>
                       <h3
                         className={`t-card tracking-tight transition-colors duration-300 ${
                           isActive
@@ -144,7 +141,7 @@ export function ServiceShowcase() {
                     />
                     <div className="absolute inset-x-0 bottom-0 p-7 text-white">
                       <p className="text-xs uppercase tracking-widest text-[#e8c89b] font-medium">
-                        Service {s.index} · Practice Area
+                        Practice Area
                       </p>
                       <h4 className="mt-1 t-card text-white font-light">
                         {s.title}
@@ -175,9 +172,6 @@ export function ServiceShowcase() {
                   className="w-full flex items-center justify-between p-5 text-left focus:outline-none"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-semibold text-[var(--brass)]">
-                      {s.index}
-                    </span>
                     <h3 className="t-card text-[var(--ivory)] font-medium">
                       {s.title}
                     </h3>

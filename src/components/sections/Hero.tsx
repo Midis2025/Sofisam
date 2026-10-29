@@ -156,10 +156,7 @@ export function Hero() {
                 className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[var(--brass)] transition-transform duration-300 ease-out group-hover:scale-x-100"
               />
 
-              <span className="font-mono text-xs font-semibold tracking-wider text-[var(--brass)]">
-                {c.idx}
-              </span>
-              <h3 className="mt-1.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+              <h3 className="t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                 {c.title}
               </h3>
               <p className="mt-1.5 t-small text-[var(--sage)]">

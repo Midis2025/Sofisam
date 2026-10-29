@@ -1393,7 +1393,7 @@
     }
   }
 
-  /* Number / title / description on one baseline. */
+  /* Title / description on one baseline. */
   .ledger {
     display: grid;
     gap: 0.875rem;
@@ -1401,7 +1401,7 @@
 
   @media (min-width: 768px) {
     .ledger {
-      grid-template-columns: 4.5rem minmax(0, 1.05fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
       align-items: baseline;
       gap: clamp(1.5rem, 3vw, 3rem);
     }
@@ -1409,17 +1409,13 @@
 
   /* A head that stands over a ledger borrows the ledger's own
      columns, so the note lands on the same line as the row
-     descriptions and the heading spans the index and title
-     tracks. Without this the head keeps its own two columns and
-     the boundary between head and rows reads as two grids. */
+     descriptions and the heading sits over the titles. Without
+     this the head keeps its own two columns and the boundary
+     between head and rows reads as two grids. */
   @media (min-width: 1024px) {
     .head-ledger {
-      grid-template-columns: 4.5rem minmax(0, 1.05fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
       column-gap: clamp(1.5rem, 3vw, 3rem);
-    }
-
-    .head-ledger > :first-child {
-      grid-column: 1 / 3;
     }
 
     /* The note is aligned by the track, not pushed to its far end. */
