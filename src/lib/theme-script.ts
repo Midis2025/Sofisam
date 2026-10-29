@@ -12,10 +12,12 @@ const CHROME = { dark: '#0B0B0C', light: '#F6F2EA' } as const;
  * Runs before first paint, inlined into the document head, so the page is
  * never painted in the wrong theme and never flashes into the right one.
  *
- * Light is the site's own theme and the default for every visitor. Dark is
- * an optional reading mode: a choice made with the switch is kept in
- * localStorage and wins from then on. The operating system's preference is
- * deliberately not followed — the light presentation is the brand.
+ * Light is the site's own theme and every visit opens in it. Dark is an
+ * optional reading mode: a choice made with the switch is kept in
+ * sessionStorage, so it holds while the visitor is on the site and is gone
+ * on their next visit. The operating system's preference is deliberately not
+ * followed — the light presentation is the brand. A choice an earlier
+ * version kept in localStorage is cleared, so it cannot pin anyone to dark.
  *
  * It also installs the one function that changes the theme, so a change from
  * the switch and a change from the system take the same path: the colour
@@ -24,7 +26,8 @@ const CHROME = { dark: '#0B0B0C', light: '#F6F2EA' } as const;
  */
 export const themeInitScript = `(function(){
 var d=document.documentElement,k='${STORAGE_KEY}',c=${JSON.stringify(CHROME)},t=0;
-function stored(){try{var v=localStorage.getItem(k);return v==='light'||v==='dark'?v:null;}catch(e){return null;}}
+try{localStorage.removeItem(k);}catch(e){}
+function stored(){try{var v=sessionStorage.getItem(k);return v==='light'||v==='dark'?v:null;}catch(e){return null;}}
 function apply(v,ease){
 if(ease&&d.dataset.theme&&d.dataset.theme!==v&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
 d.classList.add('theme-switching');void d.offsetWidth;clearTimeout(t);

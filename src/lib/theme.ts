@@ -29,10 +29,13 @@ export function useTheme(): Theme {
   return useSyncExternalStore(subscribe, readTheme, () => 'light');
 }
 
-/** A choice made by the visitor. It is remembered and outranks the system. */
+/**
+ * A choice made by the visitor. It holds for the rest of this visit only:
+ * every new visit opens in light, the site's own theme.
+ */
 export function setTheme(theme: Theme) {
   try {
-    localStorage.setItem(STORAGE_KEY, theme);
+    sessionStorage.setItem(STORAGE_KEY, theme);
   } catch {
     /* Private browsing — the choice holds for this page view. */
   }

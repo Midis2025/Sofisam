@@ -17,6 +17,9 @@ const c = (name: string) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
+  // `dark:` follows the site's own theme, never the operating system's: the
+  // site opens in light whatever the device is set to.
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     screens: {
       xs: '400px',
