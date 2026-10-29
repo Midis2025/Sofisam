@@ -61,7 +61,7 @@ export default function ServicesPage() {
               </Reveal>
               <h2
                 id="who-we-advise"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+                className="t-h2 head-title mt-eyebrow text-ivory"
               >
                 <MaskedLines lines={['The people who', 'carry the decision.']} />
               </h2>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
                 <Tilt className="h-full">
                   <div className="surface surface-lift flex h-full flex-col">
                     <span aria-hidden className="block h-px w-8 bg-gold" />
-                    <h3 className="t-h4 mt-5 max-w-[20ch] text-ivory">{w.t}</h3>
+                    <h3 className="t-card mt-5 max-w-[20ch] text-ivory">{w.t}</h3>
                     <p className="t-small mt-3 max-w-[38ch] text-sage">
                       {w.d}
                     </p>

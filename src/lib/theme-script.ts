@@ -6,7 +6,7 @@
 export const STORAGE_KEY = 'sofisam:theme';
 
 /** The browser's own bar colour for each theme — the header's glass. */
-const CHROME = { dark: '#0B0B0C', light: '#F8F6F1' } as const;
+const CHROME = { dark: '#0B0B0C', light: '#F6F2EA' } as const;
 
 /**
  * Runs before first paint, inlined into the document head, so the page is

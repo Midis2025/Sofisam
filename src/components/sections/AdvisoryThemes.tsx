@@ -47,7 +47,7 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
 
             <h2
               id="advisory-themes"
-              className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[16ch] text-ivory"
+              className="t-h2 mt-eyebrow max-w-[16ch] text-ivory"
             >
               <MaskedLines lines={['What the counsel', 'actually covers.']} />
             </h2>

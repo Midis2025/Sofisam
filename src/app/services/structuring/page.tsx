@@ -114,7 +114,7 @@ export default function StructuringPage() {
               </Reveal>
               <h2
                 id="st-framework"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+                className="t-h2 head-title mt-eyebrow text-ivory"
               >
                 <MaskedLines lines={['Intent before', 'instrument.']} />
               </h2>
@@ -197,7 +197,7 @@ export default function StructuringPage() {
               </Reveal>
               <h2
                 id="st-tests"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+                className="t-h2 head-title mt-eyebrow text-ivory"
               >
                 <span className="sr-only">Five tests a structure has to survive.</span>
                 <span aria-hidden className="block lg:hidden">
@@ -306,7 +306,7 @@ export default function StructuringPage() {
           </Reveal>
           <h2
             id="st-precision"
-            className="t-h2 head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
+            className="t-h2 head-title mt-eyebrow text-ivory"
           >
             <span className="sr-only">Novelty is rarely a virtue in a structure.</span>
             <span aria-hidden className="block lg:hidden">

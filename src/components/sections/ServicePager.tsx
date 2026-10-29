@@ -54,7 +54,7 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   </span>
                   <span className="min-w-0">
                     <span className="t-label block text-gold">{dir}</span>
-                    <span className="t-h3 mt-2.5 block truncate text-ivory transition-colors duration-500 group-hover:text-gold-hi">
+                    <span className="t-h3 mt-2.5 block text-balance text-ivory transition-colors duration-500 group-hover:text-gold-hi">
                       {s.title}
                     </span>
                   </span>

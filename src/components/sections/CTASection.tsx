@@ -206,7 +206,7 @@ export function CTASection({
 
             <h2
               id="cta-heading"
-              className="t-display mt-[clamp(1.25rem,1.9vw,1.75rem)] max-w-[9ch] text-ivory"
+              className="t-h2 mt-eyebrow max-w-[9ch] text-ivory"
             >
               <MaskedLines lines={lines} delay={0.46} stagger={0.08} />
             </h2>

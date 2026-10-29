@@ -121,7 +121,7 @@ export function PageHero({
               <p className="t-label text-gold">{eyebrow}</p>
             </motion.div>
 
-            <h1 className="t-display mt-[clamp(1rem,2vw,1.5rem)] max-w-[18ch] text-ivory lg:max-w-[20ch]">
+            <h1 className="t-display mt-eyebrow max-w-[18ch] text-ivory lg:max-w-[20ch]">
               {headlineWide ? (
                 <>
                   <span className="sr-only">{full}</span>

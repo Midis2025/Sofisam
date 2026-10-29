@@ -36,7 +36,7 @@ export default function ContactPage() {
 
               <h1
                 id="contact-heading"
-                className="t-display mt-[clamp(1.25rem,2.6vw,2rem)] max-w-[11ch] text-ivory"
+                className="t-display mt-eyebrow max-w-[11ch] text-ivory"
               >
                 <MaskedLines lines={['Start a', 'conversation.']} />
               </h1>
@@ -121,7 +121,7 @@ export default function ContactPage() {
               </Reveal>
               <h2
                 id="location-heading"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+                className="t-h2 head-title mt-eyebrow text-ivory"
               >
                 <MaskedLines lines={['World headquarters,', 'Jumeirah Lake Towers.']} />
               </h2>

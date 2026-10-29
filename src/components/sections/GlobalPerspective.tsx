@@ -41,7 +41,7 @@ export function GlobalPerspective({
 
           <h2
             id="global-heading"
-            className="t-display mt-[clamp(1.5rem,2.2vw,2rem)] max-w-[68.75rem] text-ivory"
+            className="t-h2 mt-eyebrow max-w-[68.75rem] text-ivory"
           >
             <MaskedLines lines={['One vantage point.', 'A global field of view.']} />
           </h2>

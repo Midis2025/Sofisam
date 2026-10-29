@@ -60,20 +60,19 @@ export function ProcessNarrative() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 Way of Working
               </p>
             </div>
             <h2
               id="process-heading"
-              className="mt-3 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)]"
             >
               A disciplined sequence, not a methodology.
             </h2>
           </div>
-          <p className="max-w-[42ch] text-sm leading-relaxed text-[var(--sage)]">
+          <p className="max-w-[42ch] t-body text-[var(--sage)]">
             Every corporate engagement is unique. The structured order in which we evaluate and execute on one rarely is.
           </p>
         </div>
@@ -130,10 +129,10 @@ export function ProcessNarrative() {
                 </span>
                 <span className="text-xs text-[var(--stone)]">Advisory Progression</span>
               </div>
-              <h3 className="mt-5 font-display text-3xl font-light text-[var(--ivory)]">
+              <h3 className="mt-5 t-h3 text-[var(--ivory)]">
                 {steps[active].title}
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--sage)]">
+              <p className="mt-4 t-body text-[var(--sage)]">
                 {steps[active].desc}
               </p>
             </div>
@@ -181,17 +180,17 @@ export function ProcessNarrative() {
         </div>
 
         {/* Mobile / Tablet Vertical Progression (< lg) */}
-        <div className="mt-8 space-y-5 lg:hidden">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:hidden">
           {steps.map((s) => (
             <div
               key={s.step}
-              className="p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)]"
+              className="group p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] sm:last:odd:col-span-2"
             >
-              <div className="relative aspect-[16/9] w-full mb-4 overflow-hidden rounded-[var(--r-md)]">
+              <div className="relative aspect-[16/9] w-full mb-4 overflow-hidden rounded-[var(--r-md)] sm:group-last:group-odd:aspect-[21/9]">
                 <Picture
                   name={s.image}
                   alt={s.imageAlt}
-                  sizes="100vw"
+                  sizes="(min-width: 640px) 50vw, 100vw"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -200,11 +199,11 @@ export function ProcessNarrative() {
                   {s.step}
                 </span>
                 <span className="h-px w-5 bg-[var(--brass)]" />
-                <h3 className="font-display text-xl text-[var(--ivory)] font-medium">
+                <h3 className="t-card text-[var(--ivory)] font-medium">
                   {s.title}
                 </h3>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+              <p className="mt-2 t-small text-[var(--sage)]">
                 {s.desc}
               </p>
             </div>

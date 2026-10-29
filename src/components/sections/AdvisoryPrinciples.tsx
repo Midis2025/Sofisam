@@ -45,21 +45,20 @@ export function AdvisoryPrinciples() {
       <div className="shell">
         {/* Section Header */}
         <div className="max-w-[48rem]">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+          <div className="kicker">
+            <p className="t-label">
               Advisory Principles
             </p>
           </div>
 
           <h2
             id="principles-heading"
-            className="mt-3 font-display text-[clamp(2.1rem,3.4vw,3.25rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+            className="mt-eyebrow t-h2 text-[var(--ivory)]"
           >
             Five principles that decide what we will and will not say.
           </h2>
 
-          <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-[var(--sage)]">
+          <p className="mt-3.5 t-body text-[var(--sage)]">
             The advice SOFISAM provides is described in its own terms: confidential, unconflicted, and strategic, built over decades of international business experience.
           </p>
         </div>
@@ -90,10 +89,10 @@ export function AdvisoryPrinciples() {
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--brass)] transition-transform duration-300 group-hover:scale-125" />
                 </div>
 
-                <h3 className="mt-4 font-display text-2xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                <h3 className="mt-4 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                   {p.word}
                 </h3>
-                <p className="mt-2.5 text-xs leading-relaxed text-[var(--sage)]">
+                <p className="mt-2.5 t-small text-[var(--sage)]">
                   {p.note}
                 </p>
               </div>

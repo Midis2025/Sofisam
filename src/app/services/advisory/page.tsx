@@ -68,7 +68,7 @@ export default function AdvisoryPage() {
         heading={
           <h2
             id="adv-intro"
-            className="intro-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
+            className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
           >
             Executive decision-making, supported rather than substituted.
           </h2>
@@ -129,7 +129,7 @@ export default function AdvisoryPage() {
 
               <h2
                 id="adv-governance"
-                className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] max-w-[15ch] text-ivory"
+                className="t-h2 mt-eyebrow max-w-[15ch] text-ivory"
               >
                 <MaskedLines lines={['Governance is a', 'working system,', 'not a document.']} />
               </h2>
@@ -170,7 +170,7 @@ export default function AdvisoryPage() {
               </Reveal>
               <h2
                 id="adv-experience"
-                className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+                className="t-h2 head-title mt-eyebrow text-ivory"
               >
                 <MaskedLines lines={['The view of', 'an owner, not', 'an observer.']} />
               </h2>

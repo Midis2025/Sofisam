@@ -26,14 +26,14 @@ const display = Newsreader({
   display: 'swap',
   variable: '--font-display',
   axes: ['opsz'],
-  style: ['normal', 'italic'],
+  style: ['normal'],
 });
 
 export const viewport: Viewport = {
   // Rewritten by the theme script to match the theme actually in force.
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F8F6F1' },
-    { media: '(prefers-color-scheme: dark)', color: '#F8F6F1' },
+    { media: '(prefers-color-scheme: light)', color: '#F6F2EA' },
+    { media: '(prefers-color-scheme: dark)', color: '#F6F2EA' },
   ],
   width: 'device-width',
   initialScale: 1,

@@ -91,20 +91,19 @@ export function OurWork() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 Our Work
               </p>
             </div>
             <h2
               id="core-areas-heading"
-              className="mt-3 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)]"
             >
               Core Areas &amp; Capabilities
             </h2>
           </div>
-          <p className="max-w-[44ch] text-sm leading-relaxed text-[var(--sage)]">
+          <p className="max-w-[44ch] t-body text-[var(--sage)]">
             Five core foundations and disciplines through which SOFISAM advises boards, principals, and international corporate clients.
           </p>
         </div>
@@ -146,13 +145,13 @@ export function OurWork() {
               {/* Text content */}
               <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-[var(--gold)] font-medium">
+                  <p className="t-label text-gold">
                     {item.category}
                   </p>
-                  <h3 className="mt-2 font-display text-2xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="mt-2 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="mt-2.5 text-xs leading-relaxed text-[var(--sage)]">
+                  <p className="mt-2.5 t-small text-[var(--sage)]">
                     {item.description}
                   </p>
                 </div>
@@ -208,13 +207,13 @@ export function OurWork() {
 
               <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-[var(--gold)] font-medium">
+                  <p className="t-label text-gold">
                     {item.category}
                   </p>
-                  <h3 className="mt-2 font-display text-2xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="mt-2 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="mt-2.5 text-xs leading-relaxed text-[var(--sage)] max-w-[65ch]">
+                  <p className="mt-2.5 t-small text-[var(--sage)] max-w-[65ch]">
                     {item.description}
                   </p>
                 </div>

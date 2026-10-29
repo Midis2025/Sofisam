@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
-import { contact, copyright, footerCopy, site } from '@/data/site';
+import { contact, copyright } from '@/data/site';
 import { services } from '@/data/services';
-import { Logo } from '@/components/ui/Logo';
+import { Reveal } from '@/components/animations/Reveal';
+import { BackToTop } from './BackToTop';
 
 const YEAR = new Date().getFullYear();
 
@@ -15,126 +16,168 @@ const pages = [
   { label: 'Contact', href: '/contact' },
 ];
 
-/** A column's name. Nothing in front of it — the grid is the structure. */
-function ColumnHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="t-label text-gold">{children}</h2>;
+const reach = ['Middle East', 'Europe', 'Asia', 'Americas'];
+
+const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${contact.address.line1}, ${contact.address.line2}`,
+)}`;
+
+/**
+ * A column. Every column opens with the same heading and the same gap
+ * beneath it, so the four headings share one baseline and so do the first
+ * lines under them — alignment is a property of the grid, not of margins
+ * tuned per column.
+ */
+function Column({
+  title,
+  children,
+  delay = 0,
+  className = '',
+}: {
+  title: string;
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <Reveal as="div" kind="body" delay={delay} className={className}>
+      <h2 className="t-label text-gold">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </Reveal>
+  );
 }
 
+/** A directory link: one line of body type, its underline drawn on hover. */
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="link-underline inline-flex py-[0.4rem] text-[0.9375rem] text-ivory-2 transition-colors duration-500 ease-premium hover:text-ivory"
+      className="group inline-flex min-h-[2.75rem] items-center text-[0.9375rem] text-ivory-2 transition-colors duration-500 ease-premium hover:text-ivory md:min-h-0 md:py-[0.3125rem]"
     >
-      {children}
+      <span className="link-underline">{children}</span>
     </Link>
   );
 }
 
+/** A small caption over a value — Telephone, Email. */
+function Caption({ children }: { children: React.ReactNode }) {
+  return <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-stone">{children}</p>;
+}
+
 /**
- * The footer — the last page of the report.
+ * The footer.
  *
- * Set on the lifted ivory ground with a hairline above it, and nothing behind
- * it: no photograph, no numbering, nothing that moves. The firm and its
- * description, the site's directory, the three disciplines, and how to reach
- * the Dubai headquarters, each in its own column; under them the wordmark
- * set very large and very faint, as a printed report closes on its colophon;
- * then the legal line.
+ * A directory set on the lifted ivory ground, read left to right: the site,
+ * the three disciplines, how to reach the firm and where it is. One grid
+ * carries all four columns — four across on a desktop, two on a tablet, one
+ * on a phone — inside the same container as every section above it, so
+ * the footer's edges are the page's edges.
  *
- * It is a server component: it has no state, and nothing in it animates.
+ * Beneath it, between two hairlines, the firm's reach as a single line of
+ * small capitals; then the legal line on one baseline.
  */
 export function Footer() {
   return (
-    <footer className="relative border-t border-[var(--line)] bg-[var(--char)] text-[var(--ivory)] transition-colors duration-300">
-      <div className="shell py-16 lg:py-20">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Brand Column */}
-          <div className="sm:col-span-2 lg:col-span-4">
-            <Link href="/" aria-label={`${site.shortName} — home`} className="inline-block transition-opacity hover:opacity-80">
-              <Logo alt={site.shortName} className="h-8 w-auto sm:h-9" />
-            </Link>
-            <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-[var(--sage)]">
-              {site.positioning}
-            </p>
-            <div className="mt-6 flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--brass)]" />
-              <p className="text-xs tracking-wider uppercase text-[var(--stone)]">
-                {contact.headquarters}
-              </p>
+    <footer className="border-t border-[var(--line)] bg-[var(--char)] text-[var(--ivory)]">
+      <div className="shell pt-12 md:pt-16 lg:pt-[5.25rem]">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr] lg:gap-x-10">
+          <Column title="Explore">
+            <nav aria-label="Footer">
+              <ul>
+                {pages.map((p) => (
+                  <li key={p.href}>
+                    <FooterLink href={p.href}>{p.label}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Column>
+
+          <Column title="Services" delay={0.05}>
+            <nav aria-label="Services">
+              <ul>
+                {services.map((s) => (
+                  <li key={s.slug}>
+                    <FooterLink href={`/services/${s.slug}`}>{s.title}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Column>
+
+          <Column title="Connect" delay={0.1}>
+            <div className="space-y-5">
+              <div>
+                <Caption>Telephone</Caption>
+                <a
+                  href={`tel:${contact.phoneHref}`}
+                  className="mt-1 inline-flex min-h-[2.75rem] items-center text-base font-medium text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
+                >
+                  <span className="link-underline">{contact.phone}</span>
+                </a>
+              </div>
+              <div>
+                <Caption>Email</Caption>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="mt-1 inline-flex min-h-[2.75rem] items-center text-base font-medium text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
+                >
+                  <span className="link-underline">{contact.email}</span>
+                </a>
+              </div>
             </div>
-          </div>
+          </Column>
 
-          {/* Navigation Column */}
-          <nav aria-label="Footer navigation" className="lg:col-span-2 lg:col-start-6">
-            <ColumnHeading>Navigation</ColumnHeading>
-            <ul className="mt-4 space-y-2.5">
-              {pages.map((p) => (
-                <li key={p.href}>
-                  <FooterLink href={p.href}>{p.label}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Services Column */}
-          <nav aria-label="Services" className="lg:col-span-3">
-            <ColumnHeading>Services</ColumnHeading>
-            <ul className="mt-4 space-y-2.5">
-              {services.map((s) => (
-                <li key={s.slug}>
-                  <FooterLink href={`/services/${s.slug}`}>{s.title}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Contact & Headquarters Column */}
-          <div className="lg:col-span-3">
-            <ColumnHeading>Contact &amp; Headquarters</ColumnHeading>
-            <div className="mt-4 flex flex-col space-y-2">
-              <a
-                href={`tel:${contact.phoneHref}`}
-                className="text-sm font-medium text-[var(--ivory)] transition-colors hover:text-[var(--gold)]"
-              >
-                {contact.phone}
-              </a>
-              <a
-                href={`mailto:${contact.email}`}
-                className="text-sm text-[var(--sage)] transition-colors hover:text-[var(--gold)]"
-              >
-                {contact.email}
-              </a>
-            </div>
-
-            <address className="mt-6 border-t border-[var(--line)] pt-5 not-italic">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--brass)]">
-                Headquarters
-              </p>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+          <Column title="World Headquarters" delay={0.15}>
+            <address className="not-italic">
+              <p className="text-[0.9375rem] font-semibold uppercase leading-[1.6] tracking-[0.12em] text-ivory">
                 Dubai
-                <br />
+              </p>
+              <p className="mt-1 text-[0.9375rem] leading-[1.7] text-ivory-2">
                 DMCC Business Centre
                 <br />
-                Jumeirah Lake Towers, Dubai
+                Jumeirah Lake Towers
                 <br />
-                United Arab Emirates
+                Dubai, United Arab Emirates
               </p>
             </address>
-          </div>
+            <a
+              href={mapHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-4 inline-flex min-h-[2.75rem] items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
+            >
+              <span className="link-underline">View location</span>
+              <ArrowRight aria-hidden strokeWidth={1.5} className="arrow-right h-3.5 w-3.5 text-[var(--brass)]" />
+              <span className="sr-only">(opens Google Maps in a new tab)</span>
+            </a>
+          </Column>
         </div>
 
-        {/* Legal Sub-footer */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[var(--line)] pt-8 text-xs text-[var(--stone)] sm:flex-row">
-          <p>© {YEAR} {copyright}</p>
-          <div className="flex items-center gap-6">
+        {/* Reach */}
+        <div className="mt-12 border-y border-[var(--line)] py-4 md:mt-14 lg:mt-16">
+          <ul
+            aria-label="Global presence"
+            className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-stone"
+          >
+            <li className="text-gold">Dubai</li>
+            {reach.map((r) => (
+              <li key={r} className="flex items-center gap-x-3">
+                <span aria-hidden className="h-[3px] w-[3px] rounded-full bg-[var(--brass)] opacity-80" />
+                {r}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Legal */}
+        <div className="flex flex-col gap-2 py-6 text-[0.8125rem] text-stone md:flex-row md:items-center md:justify-between md:gap-6">
+          <p>
+            © {YEAR} {copyright}
+          </p>
+          <div className="flex items-center justify-between gap-8 md:justify-end">
             <span>Dubai, UAE</span>
-            <a
-              href="#main"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--ivory)]"
-            >
-              Back to top
-              <ArrowUp aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
-            </a>
+            <BackToTop className="min-h-[2.75rem] text-ivory-2 transition-colors duration-500 hover:text-ivory md:min-h-0" />
           </div>
         </div>
       </div>

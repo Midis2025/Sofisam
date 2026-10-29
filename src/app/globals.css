@@ -74,6 +74,7 @@
     --gold-deep-rgb: 158 129 84;
     /* The decorative accent — rules, markers, fills. Never text. */
     --brass-rgb: 201 169 124;
+    --gold-soft-rgb: 227 203 164;
 
     /* Text that sits ON an ivory or champagne fill. */
     --ink-rgb: 5 5 5;
@@ -178,48 +179,61 @@
      white. The champagne itself (`brass`, #B99662) does not, so it
      is kept to rules, markers and fills, and the accent that is read
      is a deeper bronze. Shadows are warm and almost not there. */
+  /* The palette is the logo's: warm ivory grounds, charcoal type and its
+     champagne gold, held to light tones throughout.
+
+       #F6F2EA  page            #171717  primary text
+       #EEE8DC  lifted passage  #625F59  secondary text
+       #FBF9F5  surface         #C7A46A  SOFISAM gold (decorative)
+       #DED7CA  border          #D8BE92  soft gold
+                                #A88959  muted accent
+
+     Gold that is READ — eyebrows, links, numerals — is set a few steps
+     deeper in the same family (#7A5D33), because the champagne itself
+     holds only about 2:1 on ivory and an eyebrow has to be legible. */
   :root {
-    --void-rgb: 248 246 241; /* #F8F6F1 — page */
-    --char-rgb: 243 239 231; /* #F3EFE7 — lifted passage */
-    --graphite-rgb: 235 230 219; /* #EBE6DB — deepest plate */
+    --void-rgb: 246 242 234; /* #F6F2EA — page */
+    --char-rgb: 238 232 220; /* #EEE8DC — lifted passage */
+    --graphite-rgb: 231 224 210; /* #E7E0D2 — deepest plate */
 
     --ivory-rgb: 23 23 23; /* #171717 — primary text */
     --ivory-2-rgb: 44 42 38;
-    --sage-rgb: 102 97 90; /* #66615A — secondary */
-    --stone-rgb: 106 100 92; /* tertiary — meta, legal */
+    --sage-rgb: 98 95 89; /* #625F59 — secondary */
+    --stone-rgb: 102 98 91; /* #66625B — tertiary: meta, legal */
 
-    --gold-rgb: 122 93 51; /* bronze — accent that is read */
+    --gold-rgb: 122 93 51; /* #7A5D33 — the gold that is read */
     --gold-hi-rgb: 96 72 38;
-    --gold-deep-rgb: 107 80 48;
-    --brass-rgb: 185 150 98; /* #B99662 — decorative accent */
+    --gold-deep-rgb: 168 137 89; /* #A88959 — muted accent */
+    --brass-rgb: 199 164 106; /* #C7A46A — SOFISAM gold, decorative */
+    --gold-soft-rgb: 216 190 146; /* #D8BE92 — soft gold */
 
-    --ink-rgb: 248 246 241;
-    --paper-rgb: 248 246 241;
+    --ink-rgb: 246 242 234;
+    --paper-rgb: 246 242 234;
 
-    --line: rgba(23, 23, 23, 0.1);
-    --line-soft: rgba(23, 23, 23, 0.06);
-    --line-strong: rgba(23, 23, 23, 0.18);
-    --line-gold: rgba(185, 150, 98, 0.6);
+    --line: #ded7ca;
+    --line-soft: rgba(222, 215, 202, 0.6);
+    --line-strong: #cdc4b3;
+    --line-gold: rgba(199, 164, 106, 0.6);
     --line-control: rgba(23, 23, 23, 0.4);
 
-    --g-bg: rgba(255, 255, 255, 0.78);
-    --g-bg-hi: #ffffff;
-    --g-bg-tint: rgba(255, 255, 255, 0.5);
-    --g-line: rgba(23, 23, 23, 0.08);
-    --g-line-hi: rgba(23, 23, 23, 0.16);
+    --g-bg: rgba(251, 249, 245, 0.8);
+    --g-bg-hi: #fdfcf9;
+    --g-bg-tint: rgba(251, 249, 245, 0.55);
+    --g-line: #e6dfd2;
+    --g-line-hi: #d4cbba;
     --g-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    --g-smoke: rgba(250, 248, 244, 0.82);
-    --g-smoke-hi: rgba(250, 248, 244, 0.94);
+    --g-smoke: rgba(251, 249, 245, 0.82);
+    --g-smoke-hi: rgba(251, 249, 245, 0.94);
     --deep-hi: #fdfcf9;
-    --plate: #ffffff;
-    --chip-bg: rgba(255, 255, 255, 0.6);
+    --plate: #fbf9f5;
+    --chip-bg: rgba(251, 249, 245, 0.6);
     --control-shadow: 0 1px 2px rgba(40, 30, 15, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 
     --depth-1: 0 1px 2px rgba(40, 30, 15, 0.04), 0 10px 30px -18px rgba(40, 30, 15, 0.12);
     --depth-2: 0 2px 4px rgba(40, 30, 15, 0.05), 0 22px 48px -24px rgba(40, 30, 15, 0.2);
     --shadow-rgb: 40 30 15;
 
-    --scrim-rgb: 248 246 241;
+    --scrim-rgb: 246 242 234;
     --vignette-edge: rgba(120, 96, 60, 0.06);
     --media-grade: saturate(0.94) contrast(1.03);
 
@@ -228,8 +242,8 @@
     --btn-shadow-hi: 0 2px 4px rgba(40, 30, 15, 0.1), 0 14px 30px -16px rgba(40, 30, 15, 0.35);
     --btn-ghost: transparent;
     --btn-ghost-hi: rgba(255, 255, 255, 0.7);
-    --btn-smoke: rgba(250, 248, 244, 0.7);
-    --btn-smoke-hi: rgba(250, 248, 244, 0.9);
+    --btn-smoke: rgba(251, 249, 245, 0.7);
+    --btn-smoke-hi: rgba(251, 249, 245, 0.9);
     --streak: rgba(255, 255, 255, 0.14);
     --field-error: #9a3f2c;
 
@@ -266,18 +280,35 @@
 
   :root {
     /* ---------- Horizontal system --------------------------------
-       One consistent container for the whole site. 84rem (1344px)
-       creates a focused, prestigious executive measure. */
-    --max: 84rem; /* 1344px */
-    --gutter: clamp(1.25rem, 3.5vw, 3rem);
+       One container for the whole site (.shell): content up to 90rem
+       (1440px) wide, inside a gutter of 20–24px on a phone, 32–40px
+       on a tablet and 48–64px on a desktop. Every section, the header
+       and the footer share it, so they share both edges. Measures for
+       running text are held by `ch` limits on the text itself. */
+    --max: 90rem; /* 1440px */
+    --gutter: max(clamp(1.25rem, 5.6vw, 1.5rem), min(4.2vw, 4rem));
+
+    /* ---------- Spacing scale ------------------------------------
+       8 · 12 · 16 · 24 · 32 · 48 · 64 · 80 · 96. Section rhythm below
+       is built from it; reach for a step before reaching for a value. */
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+    --space-6: 3rem;
+    --space-7: 4rem;
+    --space-8: 5rem;
+    --space-9: 6rem;
 
     /* ---------- Vertical rhythm ----------------------------------
-       Intentional spacing based on content — no artificial massive voids. */
+       Section padding runs 56px on a phone to 88px on a desktop; the
+       trims at a change of ground are the steps below it. */
     --pad: clamp(3.5rem, 6vw, 5.5rem);
-    --pad-edge: clamp(2.5rem, 4.5vw, 4rem);
-    --pad-sm: clamp(2rem, 3.5vw, 3rem);
+    --pad-edge: clamp(var(--space-6), 4.5vw, var(--space-7));
+    --pad-sm: clamp(var(--space-5), 3.5vw, var(--space-6));
 
-    --gap: clamp(1.5rem, 2.8vw, 3rem);
+    --gap: clamp(var(--space-4), 2.8vw, var(--space-6));
 
     /* ---------- Form ---------------------------------------------- */
     --r-sm: 0.125rem; /* 2px  — chips, marks   */
@@ -311,10 +342,15 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Every size on the site is in rem, so the root is the one dial for
+     a large screen: it holds at the reader's default up to 1600px and
+     eases to 112.5% by 2560px, and type, spacing and the container's
+     cap grow together instead of the page simply getting emptier. */
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     background-color: var(--void);
+    font-size: clamp(100%, 0.7917rem + 0.2083vw, 112.5%);
   }
 
   html,
@@ -360,17 +396,15 @@
      LAYOUT
      ============================================================ */
 
+  /* The page is drawn edge to edge under `viewport-fit=cover`, so on
+     a notched phone in landscape the gutter never falls inside the
+     safe area. */
   .shell {
     width: 100%;
     max-width: calc(var(--max) + 2 * var(--gutter));
     margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-
-  .shell-wide {
-    width: 100%;
-    margin-inline: auto;
-    padding-inline: var(--gutter);
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
   }
 
   .section {
@@ -450,49 +484,70 @@
   /* ============================================================
      TYPE
      ------------------------------------------------------------
-     One scale for the site. The serif carries display sizes; the
-     sans carries everything that is read rather than seen.
+     One scale for the whole site, and every heading is set from it —
+     never from a one-off size at the call site. Newsreader carries
+     every heading, upright: no italic anywhere in the display type.
+     Inter carries everything that is read rather than seen.
+
+       H1      .t-h1      74px desktop · ~50px tablet · 40px phone
+       H2      .t-h2      54px · ~40px · 34px
+       H3      .t-h3      31px · ~26px · 24px
+       card    .t-card    24px · 22px · 20px — the title of a card/row
+       eyebrow .t-label   12px small capitals, in the gold that is read
+       body    .t-body    16–18px, line-height 1.65
+
+     Line heights are never under 1.05 — the face has real descenders,
+     and a masked line has to hold them.
      ============================================================ */
 
-  /* Newsreader is set light at display sizes and returns to regular as
-     the size comes down: the optical-size axis does the rest. Line
-     heights are never under 1.0 — the face has real descenders, and a
-     masked line has to hold them. */
   .font-display {
     font-weight: 380;
     font-optical-sizing: auto;
   }
 
+  /* `.t-display` and `.t-hero` are the older names for the H1 step. */
+  .t-h1,
+  .t-display,
   .t-hero {
     font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(2.6rem, 6.4vw, 6.75rem);
-    line-height: 1.02;
-    letter-spacing: -0.026em;
-    font-weight: 340;
-  }
-
-  .t-display {
-    font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(2.35rem, 4.9vw, 4.75rem);
-    line-height: 1.05;
-    letter-spacing: -0.022em;
-    font-weight: 350;
+    font-size: clamp(2.5rem, 4.4vw + 1rem, 4.625rem);
+    line-height: 1.06;
+    letter-spacing: -0.024em;
+    font-weight: 360;
+    font-optical-sizing: auto;
   }
 
   .t-h2 {
     font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(1.95rem, 3.5vw, 3.35rem);
+    font-size: clamp(2.125rem, 3vw + 1.1rem, 3.375rem);
     line-height: 1.1;
     letter-spacing: -0.018em;
-    font-weight: 370;
+    font-weight: 380;
+    font-optical-sizing: auto;
   }
 
   .t-h3 {
     font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(1.35rem, 1.9vw, 1.85rem);
+    font-size: clamp(1.5rem, 0.9vw + 1.2rem, 1.9375rem);
     line-height: 1.2;
     letter-spacing: -0.01em;
     font-weight: 400;
+    font-optical-sizing: auto;
+  }
+
+  .t-card {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(1.25rem, 0.45vw + 1.1rem, 1.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.008em;
+    font-weight: 400;
+    font-optical-sizing: auto;
+  }
+
+  /* The space between an eyebrow and the heading under it: 16px on a
+     phone, 24px on a desktop. */
+  .mt-eyebrow {
+    margin-top: clamp(var(--space-3), 1.6vw, var(--space-4));
   }
 
   .t-h4 {
@@ -503,21 +558,21 @@
   }
 
   .t-lead {
-    font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+    font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
     line-height: 1.6;
     font-weight: 400;
     letter-spacing: -0.008em;
   }
 
   .t-body {
-    font-size: clamp(0.975rem, 1.05vw, 1.0625rem);
-    line-height: 1.7;
+    font-size: clamp(1rem, 0.2vw + 0.95rem, 1.125rem);
+    line-height: 1.65;
     font-weight: 400;
   }
 
   .t-small {
     font-size: 0.9375rem;
-    line-height: 1.62;
+    line-height: 1.6;
     font-weight: 400;
   }
 
@@ -529,16 +584,16 @@
   }
 
   .t-label {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     line-height: 1.4;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
   @media (max-width: 399px) {
     .t-label {
-      letter-spacing: 0.13em;
+      letter-spacing: 0.14em;
     }
   }
 
@@ -548,11 +603,12 @@
     letter-spacing: 0.06em;
   }
 
-  /* A label with the accent rule in front of it. */
+  /* An eyebrow: the accent rule, then the label. Every section opens
+     with exactly this. */
   .kicker {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
+    gap: var(--space-2);
     color: var(--gold);
   }
 
@@ -560,7 +616,7 @@
     content: '';
     display: block;
     height: 1px;
-    width: 1.75rem;
+    width: var(--space-5);
     flex: none;
     background: var(--brass);
   }
@@ -1385,13 +1441,15 @@
     }
   }
 
+  /* The opening statement of a service page — set on the H3 step of
+     the scale, so it never introduces a size of its own. */
   .intro-title {
     font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(1.65rem, 2.7vw, 2.6rem);
-    line-height: 1.16;
-    letter-spacing: -0.016em;
-    font-weight: 370;
-    max-width: 20ch;
+    font-size: clamp(1.5rem, 0.9vw + 1.2rem, 1.9375rem);
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    max-width: 26ch;
   }
 
   .intro-copy > * + * {
@@ -1748,6 +1806,35 @@ html.theme-switching *::after {
   transform-box: fill-box;
   transform-origin: center;
   animation: map-pulse 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* ============================================================
+   GLOBE
+   ------------------------------------------------------------
+   The Global Perspective globe (components/ui/Globe). The stage is
+   the card's own flat ground: nothing is drawn behind or beneath
+   the sphere. A drag on touch turns the globe sideways only: the
+   vertical stays with the page, so the section can never trap a
+   scroll.
+   ============================================================ */
+
+.globe-canvas {
+  cursor: grab;
+  touch-action: pan-y;
+  transition: opacity 0.2s linear;
+}
+
+.globe-canvas[data-dragging] {
+  cursor: grabbing;
+}
+
+/* Labels sit over land and sea alike; a halo of the plate keeps
+   them legible on either without a box around them. */
+.globe-label {
+  will-change: transform, opacity;
+  text-shadow:
+    0 0 4px var(--plate),
+    0 0 10px var(--plate);
 }
 
 /* Grain exists to stop a large flat black from banding. On an ivory

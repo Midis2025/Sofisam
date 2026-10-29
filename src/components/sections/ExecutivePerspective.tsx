@@ -56,10 +56,9 @@ export function ExecutivePerspective() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.6, ease: EASE }}
-            className="flex items-center gap-3"
+            className="kicker"
           >
-            <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <p className="t-label">
               Executive Perspective
             </p>
           </motion.div>
@@ -70,7 +69,7 @@ export function ExecutivePerspective() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.75, ease: EASE, delay: 0.1 }}
-            className="mt-3 font-display text-[clamp(2.1rem,3.4vw,3.25rem)] font-light leading-[1.14] tracking-[-0.02em] text-[var(--ivory)]"
+            className="mt-eyebrow t-h2 text-[var(--ivory)]"
           >
             Advice given by people who have held the position.
           </motion.h2>
@@ -80,7 +79,7 @@ export function ExecutivePerspective() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.75, ease: EASE, delay: 0.18 }}
-            className="mt-4 text-[1rem] leading-relaxed text-[var(--sage)] max-w-[54ch]"
+            className="mt-4 t-body text-[var(--sage)] max-w-[54ch]"
           >
             Our principals are highly successful business executives and investors that bring unique perspectives to all of our mandates and investments.
           </motion.p>
@@ -109,10 +108,10 @@ export function ExecutivePerspective() {
                   <span className="font-mono text-xs font-semibold text-[var(--brass)]">
                     {m.k}
                   </span>
-                  <h3 className="mt-2.5 font-display text-xl font-normal text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="mt-2.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     {m.title}
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+                  <p className="mt-2 t-small text-[var(--sage)]">
                     {m.desc}
                   </p>
                 </div>

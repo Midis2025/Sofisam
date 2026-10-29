@@ -66,18 +66,17 @@ export function ClosingSection({
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
           {/* Left Column: Start a Conversation Form & Direct Details */}
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 Start a Conversation
               </p>
             </div>
 
-            <h2 className="mt-4 font-display text-[clamp(2.1rem,3.4vw,3.25rem)] font-light tracking-[-0.02em] text-[var(--ivory)]">
+            <h2 className="mt-eyebrow t-h2 text-[var(--ivory)]">
               Reach out to discuss strategic opportunities.
             </h2>
 
-            <p className="mt-4 text-sm leading-relaxed text-[var(--sage)] max-w-[50ch]">
+            <p className="mt-4 t-body text-[var(--sage)] max-w-[50ch]">
               Every enquiry is handled in strict confidence by the firm&apos;s principals. We welcome confidential discussion regarding mandates, restructuring, or advisory requirements.
             </p>
 
@@ -193,16 +192,16 @@ export function ClosingSection({
             <div className="p-8 sm:p-10 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
               <div className="flex items-center gap-2.5">
                 <span className="h-px w-6 bg-[var(--brass)]" />
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+                <p className="t-label text-gold">
                   {newsletterCopy.heading}
                 </p>
               </div>
 
-              <h3 className="mt-4 font-display text-2xl font-light text-[var(--ivory)]">
+              <h3 className="mt-4 t-card text-[var(--ivory)]">
                 Strategic Perspectives
               </h3>
 
-              <p className="mt-3 text-xs leading-relaxed text-[var(--sage)]">
+              <p className="mt-3 t-small text-[var(--sage)]">
                 {newsletterCopy.standfirst}
               </p>
 

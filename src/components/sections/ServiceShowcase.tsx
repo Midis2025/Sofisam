@@ -27,20 +27,19 @@ export function ServiceShowcase() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 {servicesIntro.eyebrow}
               </p>
             </div>
             <h2
               id="expertise-heading"
-              className="mt-3 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)]"
             >
               {servicesIntro.heading}
             </h2>
           </div>
-          <p className="max-w-[42ch] text-sm leading-relaxed text-[var(--sage)]">
+          <p className="max-w-[42ch] t-body text-[var(--sage)]">
             {servicesIntro.standfirst}
           </p>
         </div>
@@ -77,7 +76,7 @@ export function ServiceShowcase() {
                         {s.index}
                       </span>
                       <h3
-                        className={`font-display text-2xl tracking-tight transition-colors duration-300 ${
+                        className={`t-card tracking-tight transition-colors duration-300 ${
                           isActive
                             ? 'font-normal text-[var(--ivory)]'
                             : 'font-light text-[var(--sage)] group-hover:text-[var(--ivory)]'
@@ -147,7 +146,7 @@ export function ServiceShowcase() {
                       <p className="text-xs uppercase tracking-widest text-[#e8c89b] font-medium">
                         Service {s.index} · Practice Area
                       </p>
-                      <h4 className="mt-1 font-display text-2xl text-white font-light">
+                      <h4 className="mt-1 t-card text-white font-light">
                         {s.title}
                       </h4>
                       <p className="mt-2 text-xs text-white/80 line-clamp-2 leading-relaxed">
@@ -179,7 +178,7 @@ export function ServiceShowcase() {
                     <span className="font-mono text-xs font-semibold text-[var(--brass)]">
                       {s.index}
                     </span>
-                    <h3 className="font-display text-lg text-[var(--ivory)] font-medium">
+                    <h3 className="t-card text-[var(--ivory)] font-medium">
                       {s.title}
                     </h3>
                   </div>
@@ -210,7 +209,7 @@ export function ServiceShowcase() {
                         />
                       </div>
                       <div className="p-5">
-                        <p className="text-xs leading-relaxed text-[var(--sage)]">
+                        <p className="t-small text-[var(--sage)]">
                           {s.sourceSummary}
                         </p>
                         <Link

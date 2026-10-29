@@ -28,14 +28,13 @@ export function DubaiSection() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
           {/* Left Column: Headquarters Narrative & Verified Facts */}
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 Dubai — DMCC
               </p>
             </div>
 
-            <h2 className="mt-4 font-display text-[clamp(2.1rem,3.4vw,3.25rem)] font-light leading-[1.14] tracking-[-0.02em] text-[var(--ivory)]">
+            <h2 className="mt-eyebrow t-h2 text-[var(--ivory)]">
               A base chosen for its global reach.
             </h2>
 
@@ -43,7 +42,7 @@ export function DubaiSection() {
               From our world headquarters in the {contact.headquarters}, our relationships and strategic partnerships span the globe.
             </p>
 
-            <p className="mt-4 text-sm leading-relaxed text-[var(--sage)]">
+            <p className="mt-4 t-body text-[var(--sage)]">
               Dubai sits strategically where the working day connects Asia in the morning and Europe and the Americas in the afternoon. What makes it essential is the density of global counterparties, sovereign entities, and institutional capital actively present.
             </p>
 

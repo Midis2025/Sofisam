@@ -88,7 +88,7 @@ export default function InsightsPage() {
 
                   <h2
                     id="featured-heading"
-                    className="t-display mt-5 max-w-[16ch] text-ivory transition-colors duration-500 group-hover:text-gold"
+                    className="t-h2 mt-5 max-w-[16ch] text-ivory transition-colors duration-500 group-hover:text-gold"
                   >
                     {featuredInsight.title}
                   </h2>

@@ -1,43 +1,88 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { Minus, Move, Plus, RotateCcw } from 'lucide-react';
 
-import { WORLD_GRATICULE, WORLD_H, WORLD_LAND, WORLD_OUTLINE, WORLD_W, project } from '@/data/world-map';
+import type { GlobeHandle, GlobeHub } from '@/components/ui/Globe';
+import { useTheme } from '@/lib/theme';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-type Hub = {
-  key: string;
-  name: string;
-  tier: string;
-  coords: [number, number];
-};
+// Three.js and the land texture load only when the section is close to view.
+const Globe = dynamic(() => import('@/components/ui/Globe').then((m) => m.Globe), { ssr: false });
 
-const HQ = project(55.14, 25.07); // Dubai, DMCC
+type Hub = GlobeHub & { tier: string };
 
 const hubs: Hub[] = [
-  { key: 'london', name: 'London', tier: 'European Financial Centre', coords: project(-0.13, 51.51) },
-  { key: 'new-york', name: 'New York', tier: 'Americas Capital Hub', coords: project(-74.0, 40.71) },
-  { key: 'geneva', name: 'Geneva', tier: 'Private Capital & Advisory', coords: project(6.14, 46.2) },
-  { key: 'riyadh', name: 'Riyadh', tier: 'Regional Institutional Partner', coords: project(46.68, 24.71) },
-  { key: 'abu-dhabi', name: 'Abu Dhabi', tier: 'Regional Capital Hub', coords: project(54.37, 24.45) },
-  { key: 'singapore', name: 'Singapore', tier: 'Asia-Pacific Gateway', coords: project(103.82, 1.35) },
-  { key: 'hong-kong', name: 'Hong Kong', tier: 'Asia Financial Centre', coords: project(114.17, 22.32) },
+  { key: 'dubai', name: 'Dubai', tier: 'World Headquarters · DMCC', lon: 55.14, lat: 25.07, hq: true, side: 'r' },
+  { key: 'london', name: 'London', tier: 'European Financial Centre', lon: -0.13, lat: 51.51, side: 'l' },
+  { key: 'new-york', name: 'New York', tier: 'Americas Capital Hub', lon: -74.0, lat: 40.71, side: 'l' },
+  { key: 'geneva', name: 'Geneva', tier: 'Private Capital & Advisory', lon: 6.14, lat: 46.2, minor: true, side: 'r' },
+  { key: 'riyadh', name: 'Riyadh', tier: 'Regional Institutional Partner', lon: 46.68, lat: 24.71, side: 'l' },
+  { key: 'abu-dhabi', name: 'Abu Dhabi', tier: 'Regional Capital Hub', lon: 54.37, lat: 24.45, minor: true, side: 'l' },
+  { key: 'singapore', name: 'Singapore', tier: 'Asia-Pacific Gateway', lon: 103.82, lat: 1.35, side: 'r' },
+  { key: 'hong-kong', name: 'Hong Kong', tier: 'Asia Financial Centre', lon: 114.17, lat: 22.32, side: 'r' },
 ];
 
-function arc([x1, y1]: readonly [number, number], [x2, y2]: readonly [number, number]) {
-  const mx = (x1 + x2) / 2;
-  const len = Math.hypot(x2 - x1, y2 - y1);
-  const my = (y1 + y2) / 2 - len * 0.24;
-  return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
-}
+const [hq, ...centres] = hubs;
+
+const controlClass =
+  'flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--plate)]/80 text-[var(--sage)] shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-300 hover:border-[var(--line-gold)] hover:text-[var(--ivory)] disabled:pointer-events-none disabled:opacity-40 sm:h-11 sm:w-11';
 
 export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotion() ?? false;
+  const theme = useTheme();
   const stage = useRef<HTMLDivElement>(null);
-  const inView = useInView(stage, { once: true, margin: '-10% 0px' });
+  // Mounted a screen ahead, so the texture is in hand by the time it is seen.
+  const near = useInView(stage, { once: true, margin: '600px 0px' });
+  const globe = useRef<GlobeHandle | null>(null);
   const [active, setActive] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(0);
+  const [touched, setTouched] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  // The globe reads this through a ref on every frame, so a fresh closure
+  // per render is harmless.
+  const select = (key: string) => {
+    const next = active === key ? null : key;
+    setActive(next);
+    globe.current?.focus(next);
+  };
+
+  const reset = () => {
+    setActive(null);
+    setZoom(0);
+    globe.current?.reset();
+  };
+
+  const zoomBy = (step: 1 | -1) => {
+    setZoom((z) => Math.min(Math.max(z + step, 0), 2));
+    globe.current?.zoom(step);
+  };
+
+  const onKey = (e: React.KeyboardEvent) => {
+    const g = globe.current;
+    if (!g) return;
+    const map: Record<string, () => void> = {
+      ArrowLeft: () => g.nudge(-12, 0),
+      ArrowRight: () => g.nudge(12, 0),
+      ArrowUp: () => g.nudge(0, 8),
+      ArrowDown: () => g.nudge(0, -8),
+      '+': () => zoomBy(1),
+      '=': () => zoomBy(1),
+      '-': () => zoomBy(-1),
+      Home: reset,
+      '0': reset,
+    };
+    const fn = map[e.key];
+    if (fn) {
+      e.preventDefault();
+      fn();
+      setTouched(true);
+    }
+  };
 
   const selectedHub = hubs.find((h) => h.key === active);
 
@@ -51,203 +96,201 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 Global Perspective
               </p>
             </div>
             <h2
               id="global-heading"
-              className="mt-3 font-display text-[clamp(2.1rem,3.4vw,3.25rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)]"
             >
               One vantage point. A global field of view.
             </h2>
           </div>
           <div className="max-w-[44ch]">
-            <p className="text-sm font-medium leading-relaxed text-[var(--ivory-2)]">{lead}</p>
-            <p className="mt-1.5 text-xs leading-relaxed text-[var(--sage)]">{note}</p>
+            <p className="t-body text-[var(--ivory-2)]">{lead}</p>
+            <p className="mt-1.5 t-small text-[var(--sage)]">{note}</p>
           </div>
         </div>
 
-        {/* Global Vector Map Stage */}
+        {/* Globe stage and the centres beside it */}
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.85, ease: EASE }}
-          className="mt-10 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] p-5 sm:p-8 lg:p-10"
+          className="mt-10 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] lg:grid lg:grid-cols-12"
         >
-          <div ref={stage} className="relative aspect-[1000/450] w-full">
-            <svg
-              viewBox={`0 0 ${WORLD_W} ${WORLD_H}`}
-              className="w-full h-full"
-              role="img"
-              aria-label="Global network map centering on SOFISAM headquarters in Dubai"
-            >
-              <defs>
-                <linearGradient id="gold-line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#b8945f" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#c5a880" stopOpacity="0.35" />
-                </linearGradient>
-              </defs>
-
-              {/* World outline and graticule */}
-              <path
-                d={WORLD_OUTLINE}
-                fill="none"
-                stroke="rgba(0,0,0,0.06)"
-                strokeWidth={0.8}
-                vectorEffect="non-scaling-stroke"
+          <div
+            ref={stage}
+            role="application"
+            aria-roledescription="interactive globe"
+            aria-label="Globe centred on the SOFISAM headquarters in Dubai, with arcs to London, New York, Geneva, Riyadh, Abu Dhabi, Singapore and Hong Kong. Use the arrow keys to turn it, plus and minus to zoom, and Home to return to Dubai."
+            tabIndex={0}
+            onKeyDown={onKey}
+            className="globe-stage relative aspect-[10/11] w-full outline-offset-[-3px] sm:aspect-[4/3] lg:col-span-8 lg:aspect-auto lg:h-[clamp(34rem,44vw,50rem)]"
+          >
+            {near && !failed && (
+              <Globe
+                hubs={hubs}
+                active={active}
+                onSelect={select}
+                onInteract={() => setTouched(true)}
+                onFail={() => setFailed(true)}
+                theme={theme}
+                reduce={reduce}
+                handleRef={globe}
               />
-              <path
-                d={WORLD_GRATICULE}
-                fill="none"
-                stroke="rgba(0,0,0,0.04)"
-                strokeWidth={0.5}
-                vectorEffect="non-scaling-stroke"
-              />
+            )}
 
-              {/* Landmass */}
-              <path
-                d={WORLD_LAND}
-                fill="#ebe7df"
-                stroke="#d8d3c7"
-                strokeWidth={0.6}
-                strokeLinejoin="round"
-                vectorEffect="non-scaling-stroke"
-              />
+            {failed && (
+              <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+                <p className="max-w-[30ch] t-body text-[var(--sage)]">
+                  Headquartered in Dubai, with relationships across London, New York, Geneva, Riyadh, Abu
+                  Dhabi, Singapore and Hong Kong.
+                </p>
+              </div>
+            )}
 
-              {/* Connection Arcs from Dubai (HQ) */}
-              {hubs.map((hub, i) => {
-                const arcPath = arc(HQ, hub.coords);
-                const isSelected = active === hub.key;
-
-                return (
-                  <g key={hub.key} className="transition-opacity duration-300">
-                    <motion.path
-                      d={arcPath}
-                      fill="none"
-                      stroke={isSelected ? '#9e7d47' : 'url(#gold-line-grad)'}
-                      strokeWidth={isSelected ? 2 : 1.1}
-                      strokeLinecap="round"
-                      strokeDasharray={isSelected ? undefined : '4 3'}
-                      vectorEffect="non-scaling-stroke"
-                      initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
-                      animate={inView ? { pathLength: 1 } : {}}
-                      transition={{ duration: 1.4, ease: EASE, delay: 0.15 + i * 0.12 }}
-                    />
-                    {/* Destination node */}
-                    <circle
-                      cx={hub.coords[0]}
-                      cy={hub.coords[1]}
-                      r={isSelected ? 4.5 : 2.5}
-                      fill={isSelected ? '#9e7d47' : '#b8945f'}
-                      className="transition-all duration-300"
-                    />
-                    <text
-                      x={hub.coords[0] + 5}
-                      y={hub.coords[1] - 4}
-                      className={`text-[9px] font-sans font-medium select-none transition-colors duration-300 ${
-                        isSelected ? 'fill-[#121417] font-semibold' : 'fill-[#5c564c]'
-                      }`}
-                    >
-                      {hub.name}
-                    </text>
-                  </g>
-                );
-              })}
-
-              {/* Dubai Primary Hub (HQ) */}
-              <circle
-                cx={HQ[0]}
-                cy={HQ[1]}
-                r={7}
-                fill="none"
-                stroke="#b8945f"
-                strokeWidth={1.5}
-                className="animate-pulse"
-              />
-              <circle
-                cx={HQ[0]}
-                cy={HQ[1]}
-                r={3.5}
-                fill="#9e7d47"
-              />
-              <text
-                x={HQ[0] + 8}
-                y={HQ[1] + 3}
-                className="text-[10px] font-sans font-bold fill-[#1c1a17] select-none tracking-wide"
+            {/* Hint */}
+            {!failed && (
+              <p
+                aria-hidden
+                className={`pointer-events-none absolute bottom-4 left-4 hidden items-center xs:flex gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-[var(--stone)] transition-opacity duration-700 sm:bottom-6 sm:left-6 ${
+                  touched ? 'opacity-0' : 'opacity-100'
+                }`}
               >
-                DUBAI (HQ)
-              </text>
-            </svg>
+                <Move strokeWidth={1.5} className="h-3.5 w-3.5" />
+                <span>Drag to explore</span>
+              </p>
+            )}
+
+            {/* Controls */}
+            {!failed && (
+              <div className="absolute bottom-3 right-3 flex items-center gap-2 sm:bottom-5 sm:right-5">
+                <button type="button" aria-label="Zoom out" disabled={zoom === 0} onClick={() => zoomBy(-1)} className={controlClass}>
+                  <Minus strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+                <button type="button" aria-label="Zoom in" disabled={zoom === 2} onClick={() => zoomBy(1)} className={controlClass}>
+                  <Plus strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+                <button type="button" aria-label="Return to Dubai" onClick={reset} className={controlClass}>
+                  <RotateCcw strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* Active Hub Card & Filter Buttons Below Map */}
-          <div className="mt-6 pt-5 border-t border-[var(--line)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[var(--brass)]" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ivory)]">
-                {selectedHub ? `${selectedHub.name} · ${selectedHub.tier}` : 'Select a Financial Centre'}
-              </span>
+          {/* The centres */}
+          <div className="flex flex-col border-t border-[var(--line)] p-5 sm:p-8 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-10">
+            <div className="flex items-center justify-between">
+              <p className="t-label text-gold">
+                Financial Centres
+              </p>
+              <span className="font-mono text-xs text-[var(--stone)]">{String(hubs.length).padStart(2, '0')}</span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              {hubs.map((hub) => (
-                <button
-                  key={hub.key}
-                  type="button"
-                  onMouseEnter={() => setActive(hub.key)}
-                  onMouseLeave={() => setActive(null)}
-                  onClick={() => setActive(active === hub.key ? null : hub.key)}
-                  className={`rounded-none border px-3 py-1.5 text-xs font-medium transition-all duration-300 ${
-                    active === hub.key
-                      ? 'border-[var(--brass)] bg-[var(--brass)] text-white shadow-sm'
-                      : 'border-[var(--line)] bg-[var(--void)] text-[var(--sage)] hover:border-[var(--line-strong)] hover:text-[var(--ivory)]'
-                  }`}
-                >
-                  {hub.name}
-                </button>
-              ))}
-            </div>
+            <button
+              type="button"
+              aria-pressed={active === hq.key}
+              onClick={() => select(hq.key)}
+              className="group mt-5 flex items-start gap-3 border-y border-[var(--line)] py-5 text-left"
+            >
+              <span className="relative mt-2 flex h-2.5 w-2.5 flex-none">
+                <span className="absolute inset-0 rounded-full bg-[var(--brass)] opacity-40 motion-safe:animate-ping" />
+                <span className="relative h-2.5 w-2.5 rounded-full bg-[var(--brass)]" />
+              </span>
+              <span>
+                <span className="block font-display text-[clamp(1.5rem,2vw,1.875rem)] font-light leading-tight text-[var(--ivory)] transition-colors group-hover:text-[var(--gold)]">
+                  {hq.name}
+                </span>
+                <span className="mt-1 block text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--brass)]">
+                  {hq.tier}
+                </span>
+              </span>
+            </button>
+
+            <ul className="mt-1 grid grid-cols-2 gap-x-5 lg:grid-cols-1">
+              {centres.map((c, i) => {
+                const on = active === c.key;
+                return (
+                  <li key={c.key} className="border-b border-[var(--line-soft)]">
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => select(c.key)}
+                      className="group relative flex w-full items-baseline gap-3 py-3 text-left lg:py-3.5"
+                    >
+                      <span
+                        aria-hidden
+                        className={`absolute -left-5 bottom-2 top-2 hidden w-[2px] origin-top bg-[var(--brass)] transition-transform duration-300 sm:-left-8 lg:-left-10 lg:block ${
+                          on ? 'scale-y-100' : 'scale-y-0'
+                        }`}
+                      />
+                      <span className="hidden font-mono text-[0.6875rem] text-[var(--brass)] sm:inline">
+                        {String(i + 2).padStart(2, '0')}
+                      </span>
+                      <span className="min-w-0">
+                        <span
+                          className={`block text-sm font-medium transition-colors duration-300 ${
+                            on ? 'text-[var(--gold)]' : 'text-[var(--ivory)] group-hover:text-[var(--gold)]'
+                          }`}
+                        >
+                          {c.name}
+                        </span>
+                        <span className="mt-0.5 hidden text-xs leading-snug text-[var(--sage)] sm:block">{c.tier}</span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p aria-live="polite" className="mt-5 text-xs leading-relaxed text-[var(--stone)] lg:mt-auto lg:pt-6">
+              {selectedHub
+                ? selectedHub.hq
+                  ? 'Dubai — the headquarters every relationship is held from.'
+                  : `${selectedHub.name} · ${selectedHub.tier}`
+                : 'Select a centre to bring it into view.'}
+            </p>
           </div>
         </motion.div>
 
         {/* 3 Metric Summary Pillars */}
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           <div className="group p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)]">
-            <p className="text-xs uppercase tracking-widest text-[var(--brass)] font-sans">
+            <p className="t-label text-gold">
               Headquarters
             </p>
-            <p className="mt-2 font-display text-2xl text-[var(--ivory)] font-light">
+            <p className="t-card mt-2 text-[var(--ivory)]">
               Dubai, DMCC
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+            <p className="mt-2 t-small text-[var(--sage)]">
               World headquarters at the crossroads of international capital flows.
             </p>
           </div>
 
           <div className="group p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)]">
-            <p className="text-xs uppercase tracking-widest text-[var(--brass)] font-sans">
+            <p className="t-label text-gold">
               Reach
             </p>
-            <p className="mt-2 font-display text-2xl text-[var(--ivory)] font-light">
+            <p className="t-card mt-2 text-[var(--ivory)]">
               4 Continents
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+            <p className="mt-2 t-small text-[var(--sage)]">
               Relationships across Europe, the Middle East, the Americas, and Asia.
             </p>
           </div>
 
           <div className="group p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)]">
-            <p className="text-xs uppercase tracking-widest text-[var(--brass)] font-sans">
+            <p className="t-label text-gold">
               Method
             </p>
-            <p className="mt-2 font-display text-2xl text-[var(--ivory)] font-light">
+            <p className="t-card mt-2 text-[var(--ivory)]">
               Principal Relationships
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--sage)]">
+            <p className="mt-2 t-small text-[var(--sage)]">
               Confidential, unconflicted advisory conducted by senior principals.
             </p>
           </div>

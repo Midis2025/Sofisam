@@ -85,7 +85,7 @@ export function Newsletter() {
               <p className="t-label">Newsletter</p>
             </Reveal>
 
-            <h2 id="newsletter-heading" className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory">
+            <h2 id="newsletter-heading" className="t-h2 mt-eyebrow text-ivory">
               <MaskedLines lines={[newsletterCopy.heading]} />
             </h2>
 

@@ -49,10 +49,9 @@ export function Hero() {
               initial={reduce ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE }}
-              className="flex items-center gap-3"
+              className="kicker"
             >
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+              <p className="t-label">
                 {heroCopy.eyebrow}
               </p>
             </motion.div>
@@ -61,9 +60,9 @@ export function Hero() {
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-              className="mt-4 max-w-[20ch] font-display text-[clamp(2.4rem,4.5vw,4.25rem)] font-light leading-[1.08] tracking-[-0.025em] text-[var(--ivory)]"
+              className="mt-eyebrow max-w-[20ch] t-h1 text-[var(--ivory)]"
             >
-              A Global Corporate <span className="italic text-[var(--brass)] font-normal">Advisory</span> Platform
+              A Global Corporate <span className="text-[var(--brass)]">Advisory</span> Platform
             </motion.h1>
           </div>
 
@@ -73,7 +72,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease: EASE, delay: 0.18 }}
             className="lg:col-span-4 lg:pb-1"
           >
-            <p className="max-w-[42ch] text-[1rem] leading-relaxed text-[var(--sage)]">
+            <p className="max-w-[42ch] t-body text-[var(--sage)]">
               {heroCopy.statement}
             </p>
 
@@ -104,7 +103,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, scale: 0.99 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.0, ease: EASE, delay: 0.25 }}
-          className="relative mt-8 sm:mt-10 w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)] aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/10] max-h-[32rem]"
+          className="relative mt-8 sm:mt-10 w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)] aspect-[3/2] sm:aspect-[21/9] lg:aspect-[24/10] max-h-[min(44rem,68svh)]"
         >
           <div className="absolute inset-0">
             <HeroFilm position="50% 38%" />
@@ -160,10 +159,10 @@ export function Hero() {
               <span className="font-mono text-xs font-semibold tracking-wider text-[var(--brass)]">
                 {c.idx}
               </span>
-              <h3 className="mt-1.5 text-base font-medium tracking-tight text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+              <h3 className="mt-1.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                 {c.title}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-[var(--sage)]">
+              <p className="mt-1.5 t-small text-[var(--sage)]">
                 {c.desc}
               </p>
             </motion.div>

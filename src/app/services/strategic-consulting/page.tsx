@@ -127,7 +127,7 @@ export default function StrategicConsultingPage() {
           </Reveal>
           <h2
             id="sc-framework"
-            className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+            className="t-h2 head-title mt-eyebrow text-ivory"
           >
             <span className="sr-only">
               Five questions we work through before we give a view.
@@ -188,7 +188,7 @@ export default function StrategicConsultingPage() {
           </Reveal>
           <h2
             id="sc-outlook"
-            className="t-h2 head-title mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
+            className="t-h2 head-title mt-eyebrow text-ivory"
           >
             <span className="sr-only">Growth is published. Durability is not.</span>
             <span aria-hidden className="block lg:hidden">

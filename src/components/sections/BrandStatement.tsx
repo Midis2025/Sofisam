@@ -29,10 +29,9 @@ export function BrandStatement() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.6, ease: EASE }}
-                className="flex items-center gap-3"
+                className="kicker"
               >
-                <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+                <p className="t-label">
                   {welcomeCopy.eyebrow}
                 </p>
               </motion.div>
@@ -43,7 +42,7 @@ export function BrandStatement() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.75, ease: EASE, delay: 0.1 }}
-                className="mt-4 font-display text-[clamp(2.1rem,3.2vw,3.15rem)] font-light leading-[1.14] tracking-[-0.02em] text-[var(--ivory)]"
+                className="mt-eyebrow t-h2 text-[var(--ivory)]"
               >
                 A platform, and the relationships behind it.
               </motion.h2>
@@ -53,7 +52,7 @@ export function BrandStatement() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.75, ease: EASE, delay: 0.18 }}
-                className="mt-6 space-y-4 text-[0.9375rem] leading-relaxed text-[var(--sage)]"
+                className="mt-6 space-y-4 t-body text-[var(--sage)]"
               >
                 <p>{welcomeCopy.paragraphs[0]}</p>
                 <p>{welcomeCopy.paragraphs[2]}</p>
@@ -67,10 +66,10 @@ export function BrandStatement() {
                 transition={{ duration: 0.75, ease: EASE, delay: 0.25 }}
                 className="mt-6 border-l-2 border-[var(--brass)] bg-[var(--plate)] p-5 shadow-[var(--shadow-pill)]"
               >
-                <p className="font-display text-[1.0625rem] italic leading-snug text-[var(--ivory-2)]">
+                <p className="font-display text-[1.125rem] leading-snug text-[var(--ivory-2)]">
                   &ldquo;{welcomeCopy.paragraphs[1]}&rdquo;
                 </p>
-                <p className="mt-2 text-xs uppercase tracking-wider text-[var(--brass)] font-sans">
+                <p className="t-label mt-2 text-gold">
                   The Foundation of Our Mandates
                 </p>
               </motion.div>

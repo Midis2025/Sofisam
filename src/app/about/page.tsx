@@ -81,7 +81,7 @@ export default function AboutPage() {
 
           <div className="mt-[clamp(1.5rem,2.2vw,2rem)] grid items-stretch gap-[clamp(2rem,4vw,4.5rem)] lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h2 id="about-intro" className="t-display max-w-[14ch] text-ivory">
+              <h2 id="about-intro" className="t-h2 max-w-[14ch] text-ivory">
                 <MaskedLines lines={['The firm in', 'its own words']} />
               </h2>
 
@@ -146,7 +146,7 @@ export default function AboutPage() {
 
             <h2
               id="about-international"
-              className="t-h2 mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[18ch] text-ivory"
+              className="t-h2 mt-eyebrow max-w-[18ch] text-ivory"
             >
               <MaskedLines lines={['Relationships and', 'partnerships that', 'span the globe.']} />
             </h2>
@@ -175,7 +175,7 @@ export default function AboutPage() {
 
               <h2
                 id="about-positioning"
-                className="t-display mt-[clamp(1.5rem,2.2vw,2rem)] max-w-[47.5rem] text-ivory"
+                className="t-h2 mt-eyebrow max-w-[47.5rem] text-ivory"
               >
                 <MaskedLines lines={['Where the', 'decision cannot', 'be delegated.']} />
               </h2>
@@ -230,7 +230,7 @@ export default function AboutPage() {
 
               <h2
                 id="about-principles"
-                className="t-display head-title mt-[clamp(1.75rem,2.4vw,2.25rem)] max-w-[14ch] text-ivory"
+                className="t-h2 head-title mt-eyebrow max-w-[14ch] text-ivory"
               >
                 <MaskedLines lines={['How the firm', 'actually operates.']} />
               </h2>
@@ -255,7 +255,7 @@ export default function AboutPage() {
                   <span className="t-num pt-[0.3rem] text-[0.85rem] text-gold">{p.k}</span>
 
                   <div>
-                    <h3 className="font-display text-[clamp(1.3rem,1.5vw,1.7rem)] leading-[1.14] tracking-tight text-ivory transition-transform duration-500 ease-premium group-hover:translate-x-1">
+                    <h3 className="t-card text-ivory transition-transform duration-500 ease-premium group-hover:translate-x-1">
                       {p.t}
                     </h3>
                     <p className="t-small mt-3 max-w-[46ch] text-sage">{p.d}</p>
@@ -288,7 +288,7 @@ export default function AboutPage() {
                 <p className="t-label">Dubai — DMCC</p>
               </Reveal>
 
-              <h2 id="about-dmcc" className="t-h2 mt-[clamp(1rem,2vw,1.5rem)] max-w-[12ch] text-ivory">
+              <h2 id="about-dmcc" className="t-h2 mt-eyebrow max-w-[12ch] text-ivory">
                 <MaskedLines lines={['World', 'headquarters.']} />
               </h2>
 

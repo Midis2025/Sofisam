@@ -105,7 +105,7 @@ export function Header() {
         onMouseLeave={scheduleCloseMega}
       >
         <div
-          className={`shell-wide relative flex items-center justify-between gap-6 transition-[height] duration-700 ease-premium ${
+          className={`shell relative flex items-center justify-between gap-6 transition-[height] duration-700 ease-premium ${
             glass ? 'h-[4rem] lg:h-[4.5rem]' : 'h-[4.5rem] lg:h-[5.5rem]'
           }`}
         >

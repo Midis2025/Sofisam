@@ -26,21 +26,20 @@ export function InsightsEditorial() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--brass)]" aria-hidden />
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
+            <div className="kicker">
+              <p className="t-label">
                 {insightsIntro.eyebrow}
               </p>
             </div>
             <h2
               id="insights-heading"
-              className="mt-4 font-display text-[clamp(2.1rem,3.2vw,3rem)] font-light tracking-[-0.02em] text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)]"
             >
               {insightsIntro.heading}
             </h2>
           </div>
           <div className="flex items-center gap-6">
-            <p className="max-w-[40ch] text-sm leading-relaxed text-[var(--sage)] hidden sm:block">
+            <p className="max-w-[40ch] t-body text-[var(--sage)] hidden sm:block">
               {insightsIntro.standfirst}
             </p>
             <Link
@@ -95,13 +94,13 @@ export function InsightsEditorial() {
                     <span className="text-[var(--stone)]">{featured.readingTime}</span>
                   </div>
 
-                  <h3 className="mt-4 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="mt-4 t-h3 text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     <Link href={`/insights/${featured.slug}`}>
                       {featured.title}
                     </Link>
                   </h3>
 
-                  <p className="mt-4 text-sm leading-relaxed text-[var(--sage)]">
+                  <p className="mt-4 t-body text-[var(--sage)]">
                     {featured.summary}
                   </p>
                 </div>
@@ -153,13 +152,13 @@ export function InsightsEditorial() {
                       </time>
                     </div>
 
-                    <h3 className="mt-3 font-display text-xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                    <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                       <Link href={`/insights/${item.slug}`}>
                         {item.title}
                       </Link>
                     </h3>
 
-                    <p className="mt-2 text-xs leading-relaxed text-[var(--sage)] line-clamp-2">
+                    <p className="mt-2 t-small text-[var(--sage)] line-clamp-2">
                       {item.summary}
                     </p>
                   </div>

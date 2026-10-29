@@ -63,7 +63,7 @@ export function ServiceSelector() {
 
             <h2
               id="disciplines-heading"
-              className="t-h2 head-title mt-[clamp(1.25rem,2.6vw,2rem)] text-ivory"
+              className="t-h2 head-title mt-eyebrow text-ivory"
             >
               <span className="sr-only">One standard of judgement, three forms.</span>
               <span aria-hidden className="block lg:hidden">
