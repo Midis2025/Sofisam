@@ -95,7 +95,7 @@ export default function AboutPage() {
 
               <Reveal kind="body" delay={0.12}>
                 <blockquote className="mt-8 border-l-2 border-[var(--brass)] bg-[var(--plate)] p-6 sm:p-8 rounded-r-[var(--r-md)] shadow-[var(--shadow-plate)]">
-                  <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light italic leading-snug">
+                  <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light leading-snug">
                     &ldquo;{welcomeCopy.paragraphs[1]}&rdquo;
                   </p>
                   <p className="mt-4 text-xs uppercase tracking-widest text-[var(--gold)] font-medium">
@@ -315,8 +315,8 @@ export default function AboutPage() {
                 />
 
                 <div>
-                  <span className="text-xs font-mono font-bold text-[var(--brass)]">
-                    {p.k}
+                  <span className="t-label text-[var(--gold)]">
+                    Commitment
                   </span>
                   <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
                     {p.t}
@@ -327,7 +327,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="mt-6 pt-3.5 border-t border-[var(--line-soft)] flex items-center justify-between text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">
-                  <span>Commitment {p.k}</span>
+                  <span>Operating Standard</span>
                   <CheckCircle2 className="h-3.5 w-3.5 text-[var(--brass)] opacity-60 group-hover:opacity-100" />
                 </div>
               </RowReveal>

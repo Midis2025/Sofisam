@@ -95,13 +95,9 @@ export function ProcessNarrative() {
 
         {/* 5-Step Horizontal Progression Track (Desktop lg+) */}
         <div className="mt-12 hidden lg:block">
-          <div className="grid grid-cols-5 gap-4 relative">
-            {/* Background connecting line */}
-            <div className="absolute top-6 left-6 right-6 h-[2px] bg-[var(--line)] -z-0" />
-
+          <div className="grid grid-cols-5 gap-4">
             {steps.map((s, i) => {
               const isCurrent = active === i;
-              const isPast = active > i;
 
               return (
                 <button
@@ -109,31 +105,25 @@ export function ProcessNarrative() {
                   type="button"
                   onClick={() => setActive(i)}
                   onMouseEnter={() => setActive(i)}
-                  className={`text-left group relative z-10 p-4 rounded-[var(--r-md)] transition-all duration-300 focus:outline-none ${
+                  className={`text-left group relative z-10 p-5 rounded-[var(--r-md)] transition-all duration-300 focus:outline-none ${
                     isCurrent
                       ? 'bg-[var(--plate)] shadow-[var(--shadow-plate)] border border-[var(--line-strong)]'
-                      : 'hover:bg-[var(--plate)]/50 border border-transparent'
+                      : 'hover:bg-[var(--plate)]/50 border border-[var(--line-soft)] bg-transparent'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between border-b border-[var(--line-soft)] pb-2.5">
                     <span
-                      className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-mono font-bold transition-all duration-300 ${
-                        isCurrent
-                          ? 'bg-[var(--brass)] text-white shadow-sm'
-                          : isPast
-                          ? 'bg-[var(--line-strong)] text-[var(--ivory)]'
-                          : 'bg-[var(--line)] text-[var(--stone)] group-hover:text-[var(--ivory)]'
-                      }`}
-                    >
-                      {s.step}
-                    </span>
-                    <span
-                      className={`text-xs uppercase tracking-wider font-semibold transition-colors ${
+                      className={`t-label transition-colors ${
                         isCurrent ? 'text-[var(--gold)]' : 'text-[var(--stone)]'
                       }`}
                     >
-                      Stage {s.step}
+                      Stage
                     </span>
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                        isCurrent ? 'bg-[var(--brass)] scale-125' : 'bg-[var(--line-strong)]'
+                      }`}
+                    />
                   </div>
 
                   <p
@@ -159,10 +149,10 @@ export function ProcessNarrative() {
           <div className="lg:col-span-5 flex flex-col justify-between p-10 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
             <div>
               <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--brass)]">
-                  Stage {steps[active].step} of 05
+                <span className="t-label text-[var(--brass)]">
+                  Advisory Framework Stage
                 </span>
-                <span className="text-xs text-[var(--stone)]">Advisory Progression</span>
+                <span className="text-xs text-[var(--stone)]">Progressive Sequence</span>
               </div>
 
               <h3 className="mt-6 font-display text-3xl text-[var(--ivory)] font-light">
@@ -210,21 +200,11 @@ export function ProcessNarrative() {
                     <div className="absolute inset-x-0 bottom-0 p-8 text-white z-10 flex items-end justify-between">
                       <div>
                         <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
-                          {s.step} · {s.tagline}
+                          {s.tagline}
                         </span>
                         <h4 className="mt-1 font-display text-2xl text-white font-light">
                           {s.title}
                         </h4>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {steps.map((_, dotIdx) => (
-                          <span
-                            key={dotIdx}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${
-                              active === dotIdx ? 'w-6 bg-[var(--brass)]' : 'w-1.5 bg-white/40'
-                            }`}
-                          />
-                        ))}
                       </div>
                     </div>
                   </div>
@@ -243,10 +223,10 @@ export function ProcessNarrative() {
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono font-bold text-[var(--brass)] bg-[var(--line-soft)] px-2.5 py-1 rounded">
-                    STAGE {s.step}
+                  <span className="t-label text-[var(--gold)]">
+                    Advisory Stage
                   </span>
-                  <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">Advisory</span>
+                  <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">Sequence</span>
                 </div>
                 <h3 className="t-card text-[var(--ivory)] font-medium">
                   {s.title}

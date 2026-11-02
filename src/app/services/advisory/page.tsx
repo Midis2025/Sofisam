@@ -80,7 +80,7 @@ export default function AdvisoryPage() {
           <div className="mt-12 pt-8 border-t border-[var(--line)]">
             <Reveal delay={0.08}>
               <blockquote className="max-w-[48rem]">
-                <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light italic leading-snug">
+                <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light leading-snug">
                   &ldquo;Built over decades of international business experience, advising boards and executive teams across consequential matters.&rdquo;
                 </p>
                 <footer className="mt-4 flex items-center gap-3">

@@ -1,259 +1,173 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Compass, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
-import { heroCopy, contact } from '@/data/site';
 import { HeroFilm } from './HeroFilm';
 import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const credentials = [
-  {
-    idx: '01',
-    title: 'Strategic Consulting',
-    desc: 'Confidential, unconflicted advice for critical business decisions.',
-    href: '/services/strategic-consulting',
-  },
-  {
-    idx: '02',
-    title: 'Corporate Advisory',
-    desc: 'Executive perspective built from decades of leadership experience.',
-    href: '/services/advisory',
-  },
-  {
-    idx: '03',
-    title: 'Structuring',
-    desc: 'Tested frameworks for mandates and strategic investments.',
-    href: '/services/structuring',
-  },
-  {
-    idx: '04',
-    title: 'Global Platform',
-    desc: 'World headquarters in Dubai Multi Commodities Centre.',
-    href: '/about',
-  },
-];
-
 /**
- * SOFISAM Flagship Hero
+ * SOFISAM Flagship Hero Section — Global Grid Aligned Edition
  *
- * Cinematic composition establishing:
- * - Authoritative international advisory presence
- * - Dubai DMCC headquarters badge & live UTC+4 market indicator
- * - Luxury serif typography with staggered word/line reveals
- * - Full-fidelity cinematic film backdrop with gradient scrims
- * - Architectural 4-pillar credentials bar
+ * Integrated into the unified SOFISAM layout system:
+ * - Uses the EXACT global `.shell` container and 12-column responsive grid
+ * - Left edge of eyebrow, headline, copy, CTAs, and global platform strip
+ *   align seamlessly with the header logo and subsequent section headings
+ * - Right edge of headquarters block and scroll indicator align with
+ *   the header "Get in Touch" CTA and section boundaries
+ * - Full-bleed background video with cinematic directional scrims
+ * - Upright Newsreader display serif typography with fluid clamp scaling
  */
 export function Hero() {
   const reduce = useReducedMotion();
   const { openEnquiryModal } = useEnquiryModal();
-  const [dubaiTime, setDubaiTime] = useState<string>('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const now = new Date();
-        const formatted = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Asia/Dubai',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        }).format(now);
-        setDubaiTime(`${formatted} GST`);
-      } catch {
-        setDubaiTime('12:00:00 GST');
-      }
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section
-      data-section="SOFISAM"
-      className="relative bg-[var(--void)] pt-[calc(var(--header-h)+1.25rem)] pb-14 sm:pb-20 lg:pt-[calc(var(--header-h)+2rem)] lg:pb-24 overflow-hidden"
-      aria-label="Introduction & Global Advisory Platform"
+      data-section="SOFISAM-HERO"
+      className="tone-dark relative w-full overflow-hidden flex flex-col justify-between min-h-[88svh] sm:min-h-[90svh] lg:min-h-[92svh] lg:h-[92svh]"
+      aria-label="SOFISAM — International Strategic Consulting & Corporate Advisory"
     >
-      <div className="shell">
-        {/* Top Meta Status Strip */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[var(--line-soft)] text-xs"
-        >
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--brass)] opacity-60" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--brass)]" />
-            </span>
-            <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
-              Dubai Multi Commodities Centre (DMCC)
-            </span>
-          </div>
+      {/* 1. Full-Bleed Background Dubai Video / Fallback Poster (Edge-to-Edge) */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <HeroFilm position="50% 45%" />
+      </div>
 
-          <div className="flex items-center gap-4 text-[0.6875rem] uppercase tracking-widest text-[var(--stone)] font-mono">
-            {dubaiTime && (
-              <span className="flex items-center gap-1.5">
-                <Compass className="h-3 w-3 text-[var(--brass)]" />
-                <span>Dubai {dubaiTime}</span>
-              </span>
-            )}
-            <span className="hidden sm:inline-block">25.0743° N, 55.1437° E</span>
-          </div>
-        </motion.div>
+      {/* 2. Sophisticated Directional & Vignette Overlay Scrims */}
+      {/* Left-to-right gradient ensuring high text contrast while keeping Dubai skyline visible */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0f1214]/85 via-[#0f1214]/60 to-[#0f1214]/25 max-md:from-[#0f1214]/90 max-md:via-[#0f1214]/75 max-md:to-[#0f1214]/50"
+      />
 
-        {/* Editorial Eyebrow & Title Spread */}
-        <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-14 lg:items-end">
-          <div className="lg:col-span-8">
+      {/* Bottom gradient to anchor lower metadata and global reach strip */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-44 z-[1] bg-gradient-to-t from-[#0f1214]/90 via-[#0f1214]/40 to-transparent"
+      />
+
+      {/* Top subtle scrim for transparent header contrast */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 z-[1] bg-gradient-to-b from-[#0f1214]/65 to-transparent"
+      />
+
+      {/* 3. Global Page Container (.shell) */}
+      <div className="shell relative z-10 flex flex-col justify-between flex-1 w-full pt-[calc(var(--header-h)+1.25rem)] sm:pt-[calc(var(--header-h)+1.75rem)] lg:pt-[calc(var(--header-h)+2.25rem)] pb-6 sm:pb-8 lg:pb-9">
+        {/* Main Content Area on Global 12-Column Grid */}
+        <div className="my-auto py-6 sm:py-8 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-end">
+          {/* Left Column: Eyebrow, Dominant Headline, Paragraph & CTAs */}
+          <div className="lg:col-span-7 xl:col-span-8 flex flex-col">
+            {/* Eyebrow */}
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
-              className="kicker"
+              className="flex items-center gap-2.5"
             >
-              <p className="t-label">
-                {heroCopy.eyebrow}
+              <span className="h-px w-6 bg-[#C7A46A]" />
+              <p className="t-label text-[#C7A46A]">
+                DUBAI · GLOBAL ADVISORY
               </p>
             </motion.div>
 
+            {/* Dominant Headline (Newsreader Display Serif, Upright, No Italics) */}
             <motion.h1
-              initial={reduce ? false : { opacity: 0, y: 20 }}
+              initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, ease: EASE, delay: 0.12 }}
-              className="mt-eyebrow t-h1 text-[var(--ivory)] font-light leading-[1.04]"
+              className="mt-4 sm:mt-5 font-display text-[clamp(2.85rem,5.2vw,5.75rem)] font-light text-white leading-[0.98] sm:leading-[1.02] tracking-[-0.024em] max-w-[820px]"
             >
-              A Global Corporate{' '}
-              <span className="text-[var(--brass)] font-normal italic font-display">
-                Advisory
-              </span>{' '}
-              Platform
+              Strategic clarity<br className="hidden sm:inline" /> for a changing world.
             </motion.h1>
-          </div>
 
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: EASE, delay: 0.2 }}
-            className="lg:col-span-4 lg:pb-1"
-          >
-            <p className="max-w-[44ch] t-body text-[var(--sage)] leading-relaxed">
-              {heroCopy.statement}
-            </p>
+            {/* Supporting Copy */}
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, ease: EASE, delay: 0.2 }}
+              className="mt-5 sm:mt-6 text-[clamp(1rem,1.12vw,1.15rem)] text-white/85 leading-relaxed max-w-[560px]"
+            >
+              SOFISAM provides confidential, unconflicted strategic consulting, corporate advisory and mandate structuring for businesses, investors and decision-makers navigating complex international markets.
+            </motion.p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-4">
+            {/* CTA Buttons */}
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, ease: EASE, delay: 0.28 }}
+              className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4"
+            >
               <button
                 type="button"
                 onClick={() => openEnquiryModal()}
-                className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-none bg-[var(--ivory)] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-md transition-all duration-300 hover:bg-[var(--brass)] hover:text-white cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2.5 min-h-[48px] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] bg-[#F6F2EA] text-[#171717] transition-all duration-300 hover:bg-[#C7A46A] hover:text-white cursor-pointer shadow-sm rounded-none"
               >
-                <span>{heroCopy.primaryCta.label}</span>
+                <span>START A CONVERSATION</span>
                 <ArrowUpRight
                   aria-hidden
-                  strokeWidth={1.5}
+                  strokeWidth={1.75}
                   className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 />
               </button>
+
               <Link
-                href={heroCopy.secondaryCta.href}
-                className="group inline-flex items-center justify-center gap-2 rounded-none border border-[var(--line-strong)] bg-transparent px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] transition-all duration-300 hover:border-[var(--ivory)] hover:bg-[var(--line-soft)]"
+                href="/services"
+                className="group inline-flex items-center justify-center gap-2.5 min-h-[48px] px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] border border-white/40 bg-transparent text-white transition-all duration-300 hover:border-white hover:bg-white/10 rounded-none"
               >
-                <span>{heroCopy.secondaryCta.label}</span>
+                <span>EXPLORE SOFISAM</span>
+                <ArrowUpRight
+                  aria-hidden
+                  strokeWidth={1.75}
+                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
               </Link>
-            </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: World Headquarters Block (Aligned with Global Right Grid Edge) */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: EASE, delay: 0.32 }}
+            className="lg:col-span-5 xl:col-span-4 lg:text-right flex flex-col lg:items-end justify-end pb-1 mt-6 lg:mt-0"
+          >
+            <p className="text-[0.6875rem] font-mono uppercase tracking-[0.22em] text-[#C7A46A]">
+              WORLD HEADQUARTERS
+            </p>
+            <p className="mt-1 text-sm sm:text-base font-light text-white/95">
+              Dubai Multi Commodities Centre
+            </p>
+            <p className="text-xs text-white/60 font-mono mt-0.5">
+              Dubai, United Arab Emirates
+            </p>
           </motion.div>
         </div>
 
-        {/* Cinematic Architectural Frame */}
+        {/* 4. Global Platform Strip (Aligned with Global Grid) */}
         <motion.div
-          initial={reduce ? false : { opacity: 0, scale: 0.985 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: EASE, delay: 0.28 }}
-          className="relative mt-10 sm:mt-12 w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)] aspect-[3/2] sm:aspect-[21/9] lg:aspect-[24/10] max-h-[min(46rem,70svh)]"
-        >
-          <div className="absolute inset-0">
-            <HeroFilm position="50% 38%" />
-          </div>
-
-          {/* Luxury Scrim Overlay */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/30"
-          />
-
-          {/* Architectural Framing Accents (Corner Hairlines) */}
-          <span aria-hidden className="absolute top-4 left-4 h-4 w-4 border-t border-l border-white/40 pointer-events-none" />
-          <span aria-hidden className="absolute top-4 right-4 h-4 w-4 border-t border-r border-white/40 pointer-events-none" />
-          <span aria-hidden className="absolute bottom-4 left-4 h-4 w-4 border-b border-l border-white/40 pointer-events-none" />
-          <span aria-hidden className="absolute bottom-4 right-4 h-4 w-4 border-b border-r border-white/40 pointer-events-none" />
-
-          {/* Badges on Bottom Bar */}
-          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6 sm:p-8 text-white z-10">
-            <div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#e8c89b]" />
-                <p className="text-[0.6875rem] uppercase tracking-[0.22em] text-[#e8c89b] font-medium">
-                  World Headquarters
-                </p>
-              </div>
-              <p className="mt-1 font-display text-base sm:text-lg font-light text-white/95">
-                {contact.headquarters}, {contact.address.locality}
-              </p>
-            </div>
-
-            <div className="hidden sm:block text-right">
-              <p className="text-[0.6875rem] uppercase tracking-[0.22em] text-white/60 font-medium">
-                Strategic Scope
-              </p>
-              <p className="mt-1 text-sm font-light text-white/95">
-                Middle East · Europe · Asia · Americas
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 4-Pillar Credentials Bar */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: EASE, delay: 0.38 }}
-          className="mt-8 grid grid-cols-1 divide-y divide-[var(--line)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] sm:grid-cols-2 sm:divide-y-0 sm:divide-x lg:grid-cols-4 rounded-[var(--r-lg)] overflow-hidden"
+          transition={{ duration: 0.85, ease: EASE, delay: 0.36 }}
+          className="pt-5 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
         >
-          {credentials.map((c, i) => (
-            <Link
-              key={c.idx}
-              href={c.href}
-              className="group relative p-6 lg:p-7 transition-all duration-300 hover:bg-[var(--void)] hover:-translate-y-0.5 focus:outline-none"
-            >
-              {/* Gold Top Indicator */}
-              <span
-                aria-hidden
-                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[var(--brass)] transition-transform duration-300 ease-out group-hover:scale-x-100"
-              />
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="text-[0.6875rem] font-mono uppercase tracking-[0.22em] text-[#C7A46A]">
+              GLOBAL PLATFORM:
+            </span>
+            <span className="text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-white/90">
+              DUBAI · MIDDLE EAST · EUROPE · ASIA · AMERICAS
+            </span>
+          </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-medium text-[var(--stone)] group-hover:text-[var(--brass)] transition-colors">
-                  {c.idx}
-                </span>
-                <ArrowUpRight
-                  className="h-3.5 w-3.5 text-[var(--stone)] opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-[var(--gold)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </div>
-
-              <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
-                {c.title}
-              </h3>
-              <p className="mt-2 t-small text-[var(--sage)] leading-relaxed">
-                {c.desc}
-              </p>
-            </Link>
-          ))}
+          {/* Subtle Vertical Scroll Indicator (Aligns with Global Right Edge) */}
+          <div className="hidden md:flex items-center gap-1.5 text-[0.6875rem] font-mono uppercase tracking-[0.2em] text-white/50">
+            <span>SCROLL</span>
+            <span className="inline-block text-[0.65rem] animate-pulse">↓</span>
+          </div>
         </motion.div>
       </div>
     </section>

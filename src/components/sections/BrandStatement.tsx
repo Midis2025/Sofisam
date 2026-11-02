@@ -76,7 +76,7 @@ export function BrandStatement() {
                 transition={{ duration: 0.85, ease: EASE, delay: 0.18 }}
                 className="relative border-l-2 border-[var(--brass)] bg-[var(--plate)] p-6 sm:p-8 rounded-r-[var(--r-md)] shadow-[var(--shadow-plate)]"
               >
-                <p className="font-display text-[1.25rem] sm:text-[1.375rem] font-light leading-snug text-[var(--ivory)] italic">
+                <p className="font-display text-[1.25rem] sm:text-[1.375rem] font-light leading-snug text-[var(--ivory)]">
                   &ldquo;{welcomeCopy.paragraphs[1]}&rdquo;
                 </p>
                 <footer className="mt-4 flex items-center justify-between text-xs text-[var(--stone)] uppercase tracking-wider">

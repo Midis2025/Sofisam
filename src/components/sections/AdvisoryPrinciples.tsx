@@ -103,8 +103,8 @@ export function AdvisoryPrinciples() {
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-[var(--brass)]">
-                      {p.num}
+                    <span className="t-label text-[var(--gold)]">
+                      Standard
                     </span>
                     <Icon className="h-4 w-4 text-[var(--stone)] group-hover:text-[var(--gold)] transition-colors" />
                   </div>
@@ -121,7 +121,7 @@ export function AdvisoryPrinciples() {
                 </div>
 
                 <div className="mt-8 pt-3.5 border-t border-[var(--line-soft)] flex items-center justify-between text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">
-                  <span>Pillar {p.num}</span>
+                  <span>Advisory Pillar</span>
                   <span
                     aria-hidden
                     className="h-1.5 w-1.5 rounded-full bg-[var(--brass)] transition-transform duration-300 group-hover:scale-150"

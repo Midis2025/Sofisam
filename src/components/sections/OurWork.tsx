@@ -137,8 +137,8 @@ export function OurWork() {
             <div className="lg:col-span-5 flex flex-col justify-between p-8 sm:p-10 lg:p-12 order-1">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-[var(--brass)]">
-                    FOUNDATION {featured.index}
+                  <span className="t-label text-[var(--gold)]">
+                    Platform
                   </span>
                   <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-medium">
                     {featured.category}
@@ -207,9 +207,6 @@ export function OurWork() {
                     aria-hidden
                     className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
                   />
-                  <span className="absolute top-3 left-3 text-xs font-mono font-bold text-white bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded">
-                    {item.index}
-                  </span>
                 </div>
 
                 <div className="flex flex-1 flex-col justify-between p-6">

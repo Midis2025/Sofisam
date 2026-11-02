@@ -114,8 +114,8 @@ export function ExecutivePerspective() {
 
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-medium text-[var(--brass)]">
-                        {m.k}
+                      <span className="t-label text-[var(--gold)]">
+                        Principle
                       </span>
                       <Icon className="h-4 w-4 text-[var(--stone)] group-hover:text-[var(--gold)] transition-colors" />
                     </div>

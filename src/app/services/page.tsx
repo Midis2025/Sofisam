@@ -76,8 +76,8 @@ export default function ServicesPage() {
                 />
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-[var(--brass)]">
-                      DISCIPLINE {s.index}
+                    <span className="t-label text-[var(--gold)]">
+                      Core Discipline
                     </span>
                     <ArrowUpRight className="h-4 w-4 text-[var(--stone)] group-hover:text-[var(--gold)] transition-colors" />
                   </div>

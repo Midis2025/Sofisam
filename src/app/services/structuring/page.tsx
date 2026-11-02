@@ -208,9 +208,9 @@ export default function StructuringPage() {
                 className="group py-8 sm:py-10 transition-colors duration-300 hover:bg-[var(--plate)]/40 px-4 -mx-4 rounded-[var(--r-md)]"
               >
                 <div className="grid gap-6 md:grid-cols-12 md:gap-10 items-baseline">
-                  <div className="md:col-span-1">
-                    <span className="text-xs font-mono font-bold text-[var(--brass)] bg-[var(--line-soft)] px-2.5 py-1 rounded">
-                      {t.n}
+                  <div className="md:col-span-2">
+                    <span className="t-label text-[var(--gold)]">
+                      Standard
                     </span>
                   </div>
                   <div className="md:col-span-5">
@@ -218,7 +218,7 @@ export default function StructuringPage() {
                       {t.t}
                     </h3>
                   </div>
-                  <div className="md:col-span-6">
+                  <div className="md:col-span-5">
                     <p className="t-body text-[var(--sage)] leading-relaxed">
                       {t.d}
                     </p>

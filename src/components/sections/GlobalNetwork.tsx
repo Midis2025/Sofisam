@@ -155,14 +155,10 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
                       type="button"
                       aria-pressed={on}
                       onClick={() => select(c.key)}
-                      className="group relative flex w-full items-baseline gap-3 py-3 text-left lg:py-3.5"
+                      className={`group relative flex w-full items-baseline gap-2.5 py-3 text-left lg:py-3.5 transition-all ${
+                        on ? 'pl-2.5 border-l-2 border-[var(--brass)]' : 'pl-0 border-l-2 border-transparent'
+                      }`}
                     >
-                      <span
-                        aria-hidden
-                        className={`absolute -left-5 bottom-2 top-2 hidden w-[2px] origin-top bg-[var(--brass)] transition-transform duration-300 sm:-left-8 lg:-left-10 lg:block ${
-                          on ? 'scale-y-100' : 'scale-y-0'
-                        }`}
-                      />
                       <span className="min-w-0">
                         <span
                           className={`block text-sm font-medium transition-colors duration-300 ${

@@ -226,7 +226,7 @@ export function Header() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                 <span className="absolute bottom-2 left-2 text-[0.625rem] uppercase tracking-wider text-[#e8c89b] font-medium">
-                                  {services[hoveredService]?.index} · {services[hoveredService]?.slug}
+                                  {services[hoveredService]?.title}
                                 </span>
                               </div>
                               <p className="p-2 text-[0.6875rem] text-[var(--stone)] leading-relaxed">

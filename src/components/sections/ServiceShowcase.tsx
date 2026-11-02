@@ -94,10 +94,7 @@ export function ServiceShowcase() {
                   />
 
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-3.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--line-soft)] text-xs font-mono font-medium text-[var(--brass)]">
-                        {s.index}
-                      </span>
+                    <div>
                       <h3
                         className={`t-card transition-colors duration-300 ${
                           isActive
@@ -185,7 +182,7 @@ export function ServiceShowcase() {
                     <div className="absolute inset-x-0 bottom-0 p-8 text-white z-10">
                       <div className="flex items-center justify-between">
                         <p className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
-                          Discipline {s.index}
+                          Core Discipline
                         </p>
                         <span className="text-xs text-white/60">SOFISAM FZCO</span>
                       </div>
@@ -226,10 +223,7 @@ export function ServiceShowcase() {
                   onClick={() => setMobileExpanded(isExpanded ? null : i)}
                   className="w-full flex items-center justify-between p-5 sm:p-6 text-left focus:outline-none"
                 >
-                  <div className="flex items-center gap-3.5">
-                    <span className="text-xs font-mono font-semibold text-[var(--brass)]">
-                      {s.index}
-                    </span>
+                  <div>
                     <h3 className="t-card text-[var(--ivory)] font-medium">
                       {s.title}
                     </h3>

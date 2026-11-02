@@ -163,7 +163,7 @@ export default async function InsightPage({
                   {insight.pullQuote && bi === 1 && (
                     <Reveal delay={0.1}>
                       <blockquote className="my-12 border-l-2 border-[var(--brass)] bg-[var(--plate)] p-8 sm:p-10 rounded-r-[var(--r-md)] shadow-[var(--shadow-plate)]">
-                        <p className="font-display text-xl sm:text-2xl lg:text-3xl font-light text-[var(--ivory)] italic leading-snug">
+                        <p className="font-display text-xl sm:text-2xl lg:text-3xl font-light text-[var(--ivory)] leading-snug">
                           &ldquo;{insight.pullQuote}&rdquo;
                         </p>
                         <footer className="mt-4 text-xs uppercase tracking-widest text-[var(--gold)] font-mono font-medium">
