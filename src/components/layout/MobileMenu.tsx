@@ -10,6 +10,7 @@ import { navItems } from './nav-data';
 import { contact } from '@/data/site';
 import { Logo } from '@/components/ui/Logo';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -36,6 +37,7 @@ export function MobileMenu({
 }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  const { openEnquiryModal } = useEnquiryModal();
 
   // Lock background scroll without losing scroll position.
   useEffect(() => {
@@ -206,6 +208,18 @@ export function MobileMenu({
               transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
             >
               <div className="surface">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    openEnquiryModal();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 rounded-none bg-[var(--ivory)] px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-sm hover:bg-[var(--brass)] hover:text-white transition-colors mb-6 cursor-pointer"
+                >
+                  <span>Private Enquiry</span>
+                  <span aria-hidden>→</span>
+                </button>
+
                 <p className="t-label text-gold">Contact</p>
 
                 <div className="mt-5 flex flex-col items-start">

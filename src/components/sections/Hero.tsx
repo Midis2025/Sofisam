@@ -7,6 +7,7 @@ import { ArrowUpRight, Compass, ShieldCheck } from 'lucide-react';
 
 import { heroCopy, contact } from '@/data/site';
 import { HeroFilm } from './HeroFilm';
+import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -49,6 +50,7 @@ const credentials = [
  */
 export function Hero() {
   const reduce = useReducedMotion();
+  const { openEnquiryModal } = useEnquiryModal();
   const [dubaiTime, setDubaiTime] = useState<string>('');
 
   useEffect(() => {
@@ -146,9 +148,10 @@ export function Hero() {
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link
-                href={heroCopy.primaryCta.href}
-                className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-none bg-[var(--ivory)] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-md transition-all duration-300 hover:bg-[var(--brass)] hover:text-white"
+              <button
+                type="button"
+                onClick={() => openEnquiryModal()}
+                className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-none bg-[var(--ivory)] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-md transition-all duration-300 hover:bg-[var(--brass)] hover:text-white cursor-pointer"
               >
                 <span>{heroCopy.primaryCta.label}</span>
                 <ArrowUpRight
@@ -156,7 +159,7 @@ export function Hero() {
                   strokeWidth={1.5}
                   className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 />
-              </Link>
+              </button>
               <Link
                 href={heroCopy.secondaryCta.href}
                 className="group inline-flex items-center justify-center gap-2 rounded-none border border-[var(--line-strong)] bg-transparent px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] transition-all duration-300 hover:border-[var(--ivory)] hover:bg-[var(--line-soft)]"

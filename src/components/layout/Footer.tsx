@@ -1,10 +1,13 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowUpRight, MapPin, Mail, Phone } from 'lucide-react';
+import { ArrowUpRight, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
 
 import { contact, copyright, site } from '@/data/site';
 import { services } from '@/data/services';
 import { Logo } from '@/components/ui/Logo';
 import { BackToTop } from './BackToTop';
+import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const YEAR = new Date().getFullYear();
 
@@ -33,6 +36,8 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
  * - Legal statement & smooth return-to-top
  */
 export function Footer() {
+  const { openEnquiryModal } = useEnquiryModal();
+
   return (
     <footer className="border-t border-[var(--line)] bg-[var(--char)] text-[var(--ivory)] transition-colors duration-500">
       <div className="shell pt-14 pb-10 sm:pt-16 lg:pt-20">
@@ -51,25 +56,33 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-6 lg:text-right">
-            <p className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">
-              Direct Advisory Inquiries
-            </p>
-            <div className="mt-2 flex flex-wrap items-center gap-4 lg:justify-end">
-              <a
-                href={`mailto:${contact.email}`}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+            <div className="flex flex-col lg:items-end gap-3">
+              <button
+                type="button"
+                onClick={() => openEnquiryModal()}
+                className="inline-flex items-center gap-2 rounded-none bg-[var(--ivory)] px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-sm transition-all duration-300 hover:bg-[var(--brass)] hover:text-white cursor-pointer w-fit"
               >
-                <Mail className="h-3.5 w-3.5 text-[var(--brass)]" />
-                <span>{contact.email}</span>
-              </a>
-              <span className="text-[var(--line-strong)]">|</span>
-              <a
-                href={`tel:${contact.phoneHref}`}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
-              >
-                <Phone className="h-3.5 w-3.5 text-[var(--brass)]" />
-                <span>{contact.phone}</span>
-              </a>
+                <span>Get in Touch</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+
+              <div className="flex flex-wrap items-center gap-4 lg:justify-end text-xs text-[var(--stone)] pt-1">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                >
+                  <Mail className="h-3.5 w-3.5 text-[var(--brass)]" />
+                  <span>{contact.email}</span>
+                </a>
+                <span className="text-[var(--line-strong)]">|</span>
+                <a
+                  href={`tel:${contact.phoneHref}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                >
+                  <Phone className="h-3.5 w-3.5 text-[var(--brass)]" />
+                  <span>{contact.phone}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

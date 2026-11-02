@@ -327,6 +327,7 @@ export default function StructuringPage() {
       <CTASection
         eyebrow="Structuring"
         sectionLabel="Enquiries"
+        areaOfInterest="Structuring"
         lines={['Design it to hold', 'under market stress.']}
         body="Reach out to discuss mandate structuring, shareholder governance, or investment frameworks. Every enquiry is handled in strict confidence."
       />

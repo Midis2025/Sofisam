@@ -29,6 +29,15 @@ export interface ContactPayload {
   message: string;
 }
 
+export interface EnquiryPayload {
+  fullName: string;
+  company?: string;
+  email: string;
+  phone?: string;
+  areaOfInterest: string;
+  requirement: string;
+}
+
 export interface NewsletterPayload {
   email: string;
 }
@@ -38,6 +47,7 @@ export interface SubmitResult {
   /** False when no backend has been configured for this form. */
   configured: boolean;
   message: string;
+  errors?: Record<string, string>;
 }
 
 const NOT_CONFIGURED_CONTACT =
@@ -61,6 +71,42 @@ async function post(endpoint: string, body: unknown): Promise<boolean> {
     return res.ok;
   } catch {
     return false;
+  }
+}
+
+export async function submitPrivateEnquiry(
+  payload: EnquiryPayload,
+): Promise<SubmitResult> {
+  try {
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json().catch(() => null);
+
+    if (res.ok && data?.ok) {
+      return {
+        ok: true,
+        configured: true,
+        message: data?.message || 'Thank you for contacting SOFISAM. A member of our team will review your enquiry and respond directly.',
+      };
+    }
+
+    return {
+      ok: false,
+      configured: true,
+      message: data?.message || GENERIC_FAILURE,
+      errors: data?.errors,
+    };
+  } catch (err) {
+    console.error('submitPrivateEnquiry error:', err);
+    return {
+      ok: false,
+      configured: false,
+      message: GENERIC_FAILURE,
+    };
   }
 }
 

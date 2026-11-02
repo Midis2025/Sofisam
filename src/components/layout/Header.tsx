@@ -13,6 +13,7 @@ import { Picture } from '@/components/ui/Picture';
 import { Logo } from '@/components/ui/Logo';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useDarkUnder } from '@/lib/theme';
+import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -28,6 +29,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function Header() {
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  const { openEnquiryModal } = useEnquiryModal();
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -266,9 +268,10 @@ export function Header() {
           {/* Right Header Actions: Theme Toggle & Primary Contact Button */}
           <div className="hidden items-center gap-4 lg:flex">
             <ThemeToggle />
-            <Link
-              href="/contact"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none border border-[var(--brass)] bg-[var(--ivory)] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-sm transition-all duration-300 hover:bg-[var(--brass)] hover:text-white"
+            <button
+              type="button"
+              onClick={() => openEnquiryModal()}
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none border border-[var(--brass)] bg-[var(--ivory)] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-sm transition-all duration-300 hover:bg-[var(--brass)] hover:text-white cursor-pointer"
             >
               <span>Get in Touch</span>
               <ArrowUpRight
@@ -276,7 +279,7 @@ export function Header() {
                 strokeWidth={1.5}
                 className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Navigation Trigger & Theme Toggle */}

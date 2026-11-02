@@ -223,6 +223,7 @@ export default function AdvisoryPage() {
       <CTASection
         eyebrow="Corporate Advisory"
         sectionLabel="Enquiries"
+        areaOfInterest="Advisory"
         lines={['Take confidential counsel', 'with executive principals.']}
         body="Reach out to discuss executive decision-making, shareholder alignment, or corporate governance. Every enquiry is handled in strict confidence."
       />

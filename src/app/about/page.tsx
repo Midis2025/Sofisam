@@ -410,6 +410,7 @@ export default function AboutPage() {
       {/* 09 — Final Closing CTA */}
       <CTASection
         eyebrow="Enquiries"
+        areaOfInterest="Strategic Consulting"
         lines={['Speak directly with', 'the firm.']}
         body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in strict confidence by senior principals."
       />

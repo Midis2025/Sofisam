@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { contact } from '@/data/site';
 import { MaskedLines } from '@/components/animations/Reveal';
+import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -22,6 +23,7 @@ interface CTASectionProps {
   sectionLabel?: string;
   lines?: string[];
   body?: string;
+  areaOfInterest?: string;
 }
 
 /* --------------------------------------------------------------------------
@@ -139,8 +141,10 @@ export function CTASection({
   sectionLabel,
   lines = ['Start a', 'conversation.'],
   body = 'Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence.',
+  areaOfInterest,
 }: CTASectionProps) {
   const reduce = useReducedMotion();
+  const { openEnquiryModal } = useEnquiryModal();
 
   return (
     <section
@@ -234,9 +238,10 @@ export function CTASection({
             transition={{ duration: 0.8, ease: EASE, delay: 0.9 }}
           >
             <div className="overflow-hidden rounded-[var(--r-lg)] border border-ivory/[0.14] bg-[var(--g-bg)] shadow-[var(--depth-1)] backdrop-blur-[12px] transition-colors duration-700 ease-premium group-hover/pane:border-ivory/25">
-              <Link
-                href="/contact"
-                className="group/r flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-[var(--g-bg-hi)] focus-visible:bg-[var(--g-bg-hi)]"
+              <button
+                type="button"
+                onClick={() => openEnquiryModal({ areaOfInterest })}
+                className="group/r w-full flex items-center justify-between gap-6 px-[clamp(1.25rem,2vw,1.85rem)] py-[clamp(1.35rem,2.1vw,1.85rem)] transition-colors duration-500 ease-premium hover:bg-[var(--g-bg-hi)] focus-visible:bg-[var(--g-bg-hi)] text-left cursor-pointer"
               >
                 <span className="t-h4 text-ivory transition-colors duration-500 ease-premium group-hover/r:text-gold-hi">
                   Get in Touch
@@ -248,7 +253,7 @@ export function CTASection({
                     className="h-[1rem] w-[1rem] text-gold transition-transform duration-500 ease-premium group-hover/r:translate-x-1"
                   />
                 </span>
-              </Link>
+              </button>
 
               <span aria-hidden className="block h-px bg-ivory/[0.12]" />
 

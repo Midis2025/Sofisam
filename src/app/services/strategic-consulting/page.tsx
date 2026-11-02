@@ -271,6 +271,7 @@ export default function StrategicConsultingPage() {
       <CTASection
         eyebrow="Strategic Consulting"
         sectionLabel="Enquiries"
+        areaOfInterest="Strategic Consulting"
         lines={['Bring us the', 'consequential decision.']}
         body="Reach out to discuss strategic opportunities, sovereign considerations, or advisory requirements. Every enquiry is handled in strict confidence."
       />

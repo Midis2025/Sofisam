@@ -7,6 +7,8 @@ import { Footer } from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { Preloader, preloadInitScript } from '@/components/ui/Preloader';
+import { EnquiryModalProvider } from '@/context/EnquiryModalContext';
+import { EnquiryModal } from '@/components/ui/EnquiryModal';
 import { themeInitScript } from '@/lib/theme-script';
 import { site, contact } from '@/data/site';
 
@@ -125,13 +127,16 @@ export default function RootLayout({
           // Structured data uses only values verified on sofisam.com.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationSchema) }}
         />
-        <Preloader />
-        <ScrollProgress />
-        <Header />
-        <PageTransition>
-          <main id="main">{children}</main>
-          <Footer />
-        </PageTransition>
+        <EnquiryModalProvider>
+          <Preloader />
+          <ScrollProgress />
+          <Header />
+          <PageTransition>
+            <main id="main">{children}</main>
+            <Footer />
+          </PageTransition>
+          <EnquiryModal />
+        </EnquiryModalProvider>
       </body>
     </html>
   );
