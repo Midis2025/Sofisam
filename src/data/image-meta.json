@@ -11,6 +11,15 @@
     ],
     "blur": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwAwCdASoUAA8APrVIn0onJCKhsAgA4BaJaQAD5DoL9LQ+AXGcpRrcAM2+72TnrpX7CeWwr8NvO6uVa3b17fL3QB7v+ZdHAug6o6E3ha4QFSU83GZD7jWRres3g1XuNFNMP1y4pcic5KkgwDFfn6EAAAA="
   },
+  "abu-dhabi-financial-district": {
+    "w": 1024,
+    "h": 1536,
+    "variants": [
+      640,
+      1024
+    ],
+    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4IMQAAAAQBQCdASoUAB4APrVMn0snJCKhqA1Q4BaJbACdMzQ+AFVImxrrArLPfDY3S7PLafdYAP79mqbUP1tmyb6CRDV6HaSAhsy8xykXE8Tzh7gl8vLFqqq8q6PXU55nSiR8PaJlLv6hWUcbXVmUw1QfetyLdZQr0fnWrCHXlN2wmV2XfThEIZR/er/Geq2S+pHBwSctNyrf+fHlGY5m0lXtaaIzgRY7n7D3Dzaq5HjswhUjyZgb2FlGtncFepujR3YVBuakAAAA"
+  },
   "boardroom-folders": {
     "w": 2133,
     "h": 3200,
@@ -82,6 +91,18 @@
     ],
     "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADwAwCdASoUAA0APrVInkmnJCKhMAgA4BaJaQAAUqZZlUZaMyDzu1IAAP7zNPNDaxrrtFV6SarB681EfRaEiB5898F6GYpW8Or2eGn7Sugr2hqQjtjAN6SkS8yhxNt85vcHmy5IAAA="
   },
+  "corporate-media-communications": {
+    "w": 2244,
+    "h": 2804,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2244
+    ],
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACwBQCdASoUABkAPrVOnkunJCKhqA1Q4BaJYwDE3AgOWAQuHtSrzeZgOwK4j8jtZzkjQqvqfgAA/vhXVQHmiqjYx5FMoYB5kUKH4jGUpQC06ym04kliu5YDETV8UgqjzLOLM1AisJ64uTSoRNcDqbXohvLXlIKlK9xvuzF4LH4wbKshBtGUrPo37G4szpwXiKOplr/fcSbRGhPJLZHl8kffTMNoxtBpYwmSfNSxZRgAAA=="
+  },
   "council-session": {
     "w": 3200,
     "h": 2134,
@@ -118,6 +139,27 @@
     ],
     "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoUAA0APrVIn0onJCKhsAgA4BaJYwC7LwAB0aUOfRe7HmigAP7u0uCKdQeLiMgqE2nuiPRNHqHj2wm4Ebyc1U8+VSivWsVQDOTjP3UbC/Q7u6kbAAA="
   },
+  "dubai-downtown-skyline": {
+    "w": 1024,
+    "h": 1536,
+    "variants": [
+      640,
+      1024
+    ],
+    "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAAAQBQCdASoUAB4APrVEnkonI6KhsBgMAOAWiUAQG68gE9EAY1kFMDyCyCuAACC8OLgAAP7+FJBDcFBhs7Jqu2o54auXRPGY5x7W8dl7oCheUBzxFFsG9D41GCsjY5yclhLzFl0qErb6woaJmMaWOuBAoEAF2KxnsV61MLUJtQ836ngTj6bmJd6qHG7tWBPs7UdghZnhrBba7Md+WQpDme8gAegyHAAA"
+  },
+  "dubai-executive-boardroom": {
+    "w": 3200,
+    "h": 2133,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABQBACdASoUAA0APrVInkmnJCKhMAgA4BaJZQCdAYxYzmZlNp0jRguQ7V0AAP7ogTCqgvHMk2omUzONUkQ0luKU33UBH3PrjfaFPcWuzDiZkPygdd9nuS05ZEiI1Y08lj9xerov/Dnc/aVSbBzvLzZ/uN2+6KRYoXRJZXBxrc/HqpIzH5LG6ZQf3EwSnjMRm9v7SGMLWrAAAA=="
+  },
   "dubai-haze": {
     "w": 3200,
     "h": 2134,
@@ -129,6 +171,30 @@
       3200
     ],
     "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACwBACdASoUAA0APrVInkmnJCKhMAgA4BaJbACdMoKBzb/4D4K8lgdHCFbLiVCwAP2bZqMqJxUnQoo+FNc5C6KmIB71MuulT/xAveMaKdWn5NJ67IAQLUqKCD8ZnQY7IgLzC+z/Fq6yKU0qRJdNmtcBK3bwPjouRfN4HmYkblKbtVK2XfzT6QhCPRzo1PT5NPxah0zrpjuAAA=="
+  },
+  "dubai-investor-outreach": {
+    "w": 2244,
+    "h": 2804,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2244
+    ],
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADQBACdASoUABkAPrVKoEqnJCMhqA1Q4BaJZQDDNBI/75O6DmstHa4pHnhSlQZiQAD++Gi586/T1A13wj5j5C+BUMukERA4JdMIgYR7GqYJgYtJlN2pTDyCNVOFDofQHoqAuShk8ep4VQDYQugtiLMQXHlaZe1MqzAAAA=="
+  },
+  "dubai-investor-relations": {
+    "w": 2244,
+    "h": 2804,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2244
+    ],
+    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4IPQAAADwBQCdASoUABkAPrVSn0ynJKKiKAqo4BaJYwDFCuov/jeBcFhvKNM0m8/7FDprwnWnf1NSdD0AAAD+Bfhbb7KAHGB1LMVQWWPfsEE7Dv99J8ousI/Ucw9yomv5Vl7f3psnouSInILVrmSir/r1jSW00w8ArjH636nr0bhSTTyr1oR17JY7rytBmfF/UP7f+83rbcZV1+x/+0zgQ7kSWg6KwXPHtY9IV5sAsH70YeZUtK3ENb5g18L5DmlQolW6f3lGjD0pdORfZtfvDsqB/cHdGzjKF4Qbs3d4hGnxHruR6l56uYsbhhBuMPVchlVim3zUAAAA"
   },
   "exec-boardroom-sunset": {
     "w": 1672,
@@ -172,6 +238,17 @@
       1536
     ],
     "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAACQBACdASoUAA0APrVInkmnJCKhMAgA4BaJZgCdMoMYA+gazpF4BXVhZ4RiXqAA/sHRoxmifPbbneD/mtrqeqkHnE1h7qmhNZ7ExvstjTzg3oP/4V/DmZ8bIiieYH1Ij5iqUojU1EvtW8vF2cfTeXGFBO58WTTGYY1wK6zBMVqARjQQPMwR2Rzzfe986ecT/QnOipriUVd2oQi+AAA="
+  },
+  "executive-digital-communications": {
+    "w": 1740,
+    "h": 2175,
+    "variants": [
+      640,
+      1080,
+      1600,
+      1740
+    ],
+    "blur": "data:image/webp;base64,UklGRkQBAABXRUJQVlA4IDgBAADQBgCdASoUABkAPrVSok0nJKMiKAgA4BaJaQAEQe8bP0F7Af6sejN1Gf7AB3Vfbxne+yV0Pph95b+ECXHTKAAA/vlRjJhRZw7Mw+uYfZ9vElsblt/g4F5fFdYrYgu4ZZUyk4D5sXvkSRn9X+E/wBmP19j/QDjv1jf+f3ZrhIJ6qEbuo03qFWz4rzcBvg+TsTqzPhuIM2z8ALGc+BqgXifRCtC1vkMfK2+A/T52Li9kvtf/HQ96+zPTCoP/w2ItH1F7vliv1E3Dk+n6UqDgluuWRTWZUhuwL1by3m4bKT4aG1Lv9ZskGeCYwOd+PdMrVPxCifWjJHMLNDDbbD2Hl8Vfq3ovycmzScSeq1+Y5g6mO/jGvDj/38xMlHWZDon4R+Rn36Lv2EkUx7g8C1pLN6a3ro//yGEwAAA="
   },
   "facade-pale": {
     "w": 3200,
@@ -315,6 +392,16 @@
       3200
     ],
     "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAADwAwCdASoUAA0APrVInkmnJCKhMAgA4BaJYwAD5hnpjZlrpl3KWU0QAP7qT16oObsdrx2Ufv/PJFe7fo5KaKSvp7L/9eeE2jggQXb+SqZpgzKkCyivcDUwt9fd62AtemxmANKx+vXeyjO/GtBMAOf6HNH2IuZihdGzean8lJGDuq45C6G2NZfnVa4cAA=="
+  },
+  "riyadh-financial-center": {
+    "w": 1086,
+    "h": 1448,
+    "variants": [
+      640,
+      1080,
+      1086
+    ],
+    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4IOIAAADwBQCdASoUABsAPqlCnkmmI6MhMAwAwBUJbACdGaA2wF2wAUi4ngAVPaim7Q9Pf1baW266Ahs3AAD++ctqpUXYiR0YHaLm/PvFKsWu7/6MtnromKA+2Tm1s0BdweXnItPdXBvhi4jqHNGybumgy+HuqHWzQ/yqXZwNSbn+RL+3DXBVTHZiG+UJO8xGhCxddYePwFTFtLI1Ob/6ieomZVA4DCjP96NCpaLIFUrl0h65qmgrKd/L6/ZkSOxU6LE8B3p3aSGixnHHWf2n/DnuQGPbaRwaAYs4KVnni5tfIkC8JoAA"
   },
   "spiral-dark": {
     "w": 3000,

@@ -37,9 +37,9 @@ export const insights: Insight[] = [
     isoDate: '2026-01-15',
     category: 'Global Markets',
     readingTime: '6 min read',
-    image: 'city-mono',
+    image: 'capital-columns',
     imageAlt:
-      'Monochrome view of a dense metropolitan skyline, its towers layered into the distance',
+      'Classical institutional capital architecture juxtaposed with modern glass towers',
     focal: '50% 40%',
     standfirst:
       'An analysis of emerging economic trends and adapting to the changing global landscape.',
@@ -145,9 +145,9 @@ export const insights: Insight[] = [
     isoDate: '2025-11-28',
     category: 'Perspective',
     readingTime: '5 min read',
-    image: 'towers-converge',
+    image: 'difc-gate',
     imageAlt:
-      'Skyscrapers seen from below, converging on the open sky between them',
+      'The Gate building at Dubai International Financial Centre (DIFC) framed by modern corporate towers',
     focal: '50% 50%',
     standfirst:
       'Why Dubai represents a pivotal hub for international strategic consulting.',

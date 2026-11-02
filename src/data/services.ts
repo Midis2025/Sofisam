@@ -47,10 +47,10 @@ export const services: Service[] = [
       headline: 'Judgement applied to consequential decisions.',
       standfirst:
         'Providing confidential, unconflicted strategic advice to navigate complex global markets and make critical business decisions.',
-      image: 'city-blue-night',
+      image: 'dubai-executive-boardroom',
       imageAlt:
-        'Aerial view of a dense international city at night, its financial district lit against the dark',
-      focal: '50% 55%',
+        'Executive presentation and strategic counsel in a modern corporate boardroom',
+      focal: '50% 50%',
     },
     intro: {
       lead: 'Most consequential decisions are not made with complete information. They are made with partial evidence, competing interests and a finite window in which to act.',
@@ -97,10 +97,10 @@ export const services: Service[] = [
       headline: 'Counsel formed in the room where decisions are taken.',
       standfirst:
         'Leveraging decades of international business experience to guide executive decision-making and corporate governance.',
-      image: 'towers-mono',
+      image: 'exec-boardroom-sunset',
       imageAlt:
-        'Aerial view of a lit financial district at dusk, in near-monochrome',
-      focal: '50% 40%',
+        'Executive boardroom overlooking the illuminated Dubai financial district at sunset',
+      focal: '50% 50%',
     },
     intro: {
       lead: 'Experience is only useful when it has been earned in comparable conditions. Our principals are highly successful business executives and investors, and the advisory work reflects that vantage point.',
@@ -147,9 +147,9 @@ export const services: Service[] = [
       headline: 'Form determines what a structure can withstand.',
       standfirst:
         'Expert structuring for mandates and investments, built on successful executive perspectives and proven frameworks.',
-      image: 'structure-grid',
+      image: 'towers-converge',
       imageAlt:
-        'Detail of a concrete facade, its panels set in a precise repeating grid',
+        'Modern Dubai corporate towers converging upwards, reflecting architectural precision',
       focal: '50% 50%',
     },
     intro: {

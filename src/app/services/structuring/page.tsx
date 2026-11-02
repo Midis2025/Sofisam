@@ -265,8 +265,8 @@ export default function StructuringPage() {
             <ImageReveal className="lg:col-span-7 order-2">
               <div className="media aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="spiral-dark"
-                  alt="A spiral staircase seen down its own well, turning in on itself"
+                  name="riyadh-financial-center"
+                  alt="Modern architectural lines of the financial center towers"
                   sizes="(min-width:1024px) 56vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -292,11 +292,11 @@ export default function StructuringPage() {
       <section data-section="Proven Frameworks" className="section tone-dark ground-void grain relative overflow-hidden" aria-labelledby="st-precision">
         <div className="media media-flat veil-full absolute inset-0">
           <Picture
-            name="gold-lattice"
+            name="structure-grid"
             alt=""
             decorative
             sizes="100vw"
-            focal="50% 68%"
+            focal="50% 50%"
             className="h-full w-full object-cover"
           />
         </div>

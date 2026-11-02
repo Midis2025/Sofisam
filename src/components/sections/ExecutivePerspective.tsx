@@ -151,8 +151,8 @@ export function ExecutivePerspective() {
                 style={reduce ? undefined : { scale: imgScale, y: imgY }}
               >
                 <Picture
-                  name="exec-boardroom-sunset"
-                  alt="Executives in discussion around a boardroom table with Dubai sunset skyline through the glass"
+                  name="exec-boardroom-twilight"
+                  alt="Executives in discussion around an evening boardroom table overlooking the Dubai financial district"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   focal="30% 55%"
                   className="h-full w-full object-cover"

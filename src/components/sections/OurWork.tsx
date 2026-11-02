@@ -38,8 +38,8 @@ const coreAreas: CoreArea[] = [
     title: 'Strategic Consulting',
     description:
       'Providing confidential, unconflicted strategic advice to navigate complex global markets, evaluate commercial risks, and make critical business decisions.',
-    image: 'city-blue-night',
-    imageAlt: 'Financial district illuminated at night',
+    image: 'district-dusk',
+    imageAlt: 'International financial district towers standing against the evening sky',
     href: '/services/strategic-consulting',
     cta: 'Explore Consulting',
   },

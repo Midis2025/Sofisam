@@ -53,9 +53,9 @@ export default function ServicesPage() {
         sectionLabel="Our Expertise"
         headline={['Strategic solutions tailored to', 'complex global markets.']}
         standfirst={servicesIntro.standfirst}
-        image="hero-dubai"
-        imageAlt="Dubai's skyline at night, its towers reflected in the water"
-        focal="50% 55%"
+        image="exec-plaza-twilight"
+        imageAlt="Illuminated Dubai corporate towers and executive plaza at twilight"
+        focal="50% 50%"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Our Expertise' }]}
       />
 

@@ -134,10 +134,10 @@ export default function AboutPage() {
               <ImageReveal delay={0.1}>
                 <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                   <Picture
-                    name="facade-pale"
-                    alt="Close architectural view of pale facade panels"
+                    name="dubai-investor-outreach"
+                    alt="Senior institutional leaders and strategic partners in executive consultation"
                     sizes="(min-width:1024px) 40vw, 100vw"
-                    focal="62% 40%"
+                    focal="50% 40%"
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
@@ -164,8 +164,8 @@ export default function AboutPage() {
       >
         <Parallax className="absolute inset-0" strength={8}>
           <Picture
-            name="city-mono"
-            alt=""
+            name="city-blue-night"
+            alt="Illuminated towers of the Dubai financial district at night"
             decorative
             sizes="100vw"
             focal="50% 45%"
@@ -254,8 +254,8 @@ export default function AboutPage() {
             <ImageReveal delay={0.1} className="lg:col-span-6">
               <div className="media aspect-[4/3] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="lounge-dark"
-                  alt="A spacious meeting room with a long table, columns and a wide city view"
+                  name="exec-courtyard-dusk"
+                  alt="Modern glass corporate office courtyard in Dubai at dusk"
                   sizes="(min-width:1024px) 50vw, 100vw"
                   focal="50% 50%"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -379,8 +379,8 @@ export default function AboutPage() {
             <ImageReveal className="lg:col-span-7 order-2">
               <div className="media aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="dubai-haze"
-                  alt="The Dubai skyline at golden hour, its towers standing in warm haze"
+                  name="hero-dubai"
+                  alt="Panoramic Dubai financial district skyline and DMCC towers illuminated at dusk"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   focal="50% 55%"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

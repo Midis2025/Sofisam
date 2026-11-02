@@ -76,9 +76,8 @@ export function GlobalPerspective({
           <ImageReveal delay={0.08} className="mt-[var(--pad-sm)]">
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9]">
               <Picture
-                name="city-mono"
-                alt=""
-                decorative
+                name="tower-dusk"
+                alt="Illuminated financial district towers standing against the evening sky"
                 sizes="(max-width: 767px) 190vw, 100vw"
                 focal="50% 45%"
                 className="h-full w-full"

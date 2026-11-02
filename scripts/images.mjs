@@ -93,7 +93,7 @@ if (!existsSync(OUT_DIR)) {
 
 const meta = JSON.parse(await readFile(META, 'utf8'));
 const files = (await readdir(dir))
-  .filter((f) => /\.(jpe?g|png|tiff?|webp)$/i.test(f))
+  .filter((f) => /\.(jpe?g|png|tiff?|webp|avif)$/i.test(f))
   .map((f) => path.join(dir, f));
 
 if (files.length === 0) {

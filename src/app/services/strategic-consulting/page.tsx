@@ -53,20 +53,20 @@ const framework = [
 
 const themeMedia = [
   {
-    name: 'district-dusk',
-    alt: 'International financial district towers standing against a heavy dusk sky',
+    name: 'executive-digital-communications',
+    alt: 'Executive analyzing strategic financial market data and cross-border indicators',
   },
   {
-    name: 'spiral-dark',
-    alt: 'Dark spiral stair seen from below, forming a precise geometric spiral',
+    name: 'dubai-investor-relations',
+    alt: 'Confidential executive strategic consultation in private advisory offices',
   },
   {
-    name: 'lounge-dark',
-    alt: 'Darkened executive lounge with slatted screens and low, considered lighting',
+    name: 'corporate-media-communications',
+    alt: 'Senior advisors delivering confidential strategic briefings',
   },
   {
-    name: 'dubai-haze',
-    alt: 'Dubai skyline across the water in warm morning haze',
+    name: 'abu-dhabi-financial-district',
+    alt: 'Modern financial district towers reflecting global capital flows',
   },
 ];
 
