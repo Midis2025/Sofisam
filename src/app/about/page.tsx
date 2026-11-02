@@ -4,6 +4,7 @@ import { ArrowUpRight, Award, Building, CheckCircle2, Globe, Shield, Users } fro
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { Parallax } from '@/components/animations/Parallax';
 import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
@@ -193,13 +194,9 @@ export default function AboutPage() {
             </Reveal>
 
             <div className="mt-8 flex items-center gap-6">
-              <Link
-                href="/services"
-                className="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-[var(--brass)] hover:text-white"
-              >
-                <span>Explore Capabilities</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
+              <Button variant="primary" tone="light" href="/services">
+                Explore Capabilities
+              </Button>
             </div>
           </div>
         </div>
@@ -365,13 +362,9 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-8 flex items-center gap-6">
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:text-[var(--ivory)] transition-colors"
-                >
-                  <span>Inquire with Headquarters</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
+                <Button variant="link" href="/contact">
+                  Inquire with Headquarters
+                </Button>
               </div>
             </div>
 

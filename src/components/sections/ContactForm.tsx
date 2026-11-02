@@ -182,7 +182,7 @@ export function ContactForm() {
       </div>
 
       <div className="mt-[clamp(2.25rem,3.5vw,3rem)]">
-        <ButtonSubmit tone="light" variant="solid" disabled={busy}>
+        <ButtonSubmit tone="light" variant="primary" disabled={busy}>
           {busy ? (
             <span className="inline-flex items-center gap-3">
               <Loader2 aria-hidden className="h-3.5 w-3.5 animate-spin" strokeWidth={1.6} />

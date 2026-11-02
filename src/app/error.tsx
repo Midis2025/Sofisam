@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 export default function GlobalError({
   error,
@@ -23,19 +23,20 @@ export default function GlobalError({
           Please try again or return to the home page.
         </p>
         <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
+          <Button
+            variant="primary"
+            arrow="none"
             onClick={() => reset()}
-            className="px-5 py-2.5 bg-[#171717] text-white text-xs uppercase tracking-wider font-semibold"
           >
             Retry
-          </button>
-          <Link
+          </Button>
+          <Button
+            variant="secondary"
+            arrow="none"
             href="/"
-            className="px-5 py-2.5 border border-[#171717] text-[#171717] text-xs uppercase tracking-wider font-semibold"
           >
             Home
-          </Link>
+          </Button>
         </div>
       </div>
     </section>

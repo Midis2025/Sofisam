@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone, ShieldCheck, Clock, Building2 } from 'lucide-react
 
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Newsletter } from '@/components/sections/Newsletter';
+import { Button } from '@/components/ui/Button';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 import { contact, contactCopy, site } from '@/data/site';
 
@@ -185,15 +186,14 @@ export default function ContactPage() {
                 </dl>
 
                 <div className="mt-6 pt-2">
-                  <a
+                  <Button
+                    variant="link"
                     href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:underline"
                   >
-                    <span>Open in Google Maps</span>
-                    <MapPin className="h-3.5 w-3.5" />
-                  </a>
+                    Open in Google Maps
+                  </Button>
                 </div>
               </div>
             </div>

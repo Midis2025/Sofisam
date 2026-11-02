@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { contact, newsletterCopy } from '@/data/site';
 import { useNewsletter } from './Newsletter';
+import { Button } from '@/components/ui/Button';
 import { submitContactEnquiry } from '@/lib/forms';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -155,23 +156,13 @@ export function ClosingSection({
               )}
 
               <div className="pt-2 flex items-center justify-between gap-4 flex-wrap">
-                <button
+                <Button
                   type="submit"
-                  disabled={contactStatus === 'loading'}
-                  className="group inline-flex items-center justify-center gap-2.5 rounded-none bg-[var(--ivory)] px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-md transition-all duration-300 hover:bg-[var(--brass)] hover:text-white disabled:opacity-50"
+                  variant="primary"
+                  loading={contactStatus === 'loading'}
                 >
-                  {contactStatus === 'loading' ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>Transmitting...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Submit Confidential Enquiry</span>
-                      <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </>
-                  )}
-                </button>
+                  Submit Confidential Enquiry
+                </Button>
 
                 <div className="flex items-center gap-1.5 text-xs text-[var(--stone)]">
                   <Shield className="h-3.5 w-3.5 text-[var(--brass)]" />
@@ -258,13 +249,15 @@ export function ClosingSection({
                   </div>
                 )}
 
-                <button
+                <Button
                   type="submit"
-                  disabled={nl.state === 'loading'}
-                  className="w-full rounded-none border border-[var(--line-strong)] bg-[var(--plate)] px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] transition-all hover:border-[var(--brass)] hover:bg-[var(--brass)] hover:text-white disabled:opacity-50"
+                  variant="secondary"
+                  fullWidth
+                  loading={nl.state === 'loading'}
+                  arrow="right"
                 >
-                  {nl.state === 'loading' ? 'Subscribing...' : newsletterCopy.submitLabel}
-                </button>
+                  {newsletterCopy.submitLabel}
+                </Button>
               </form>
 
               <p className="mt-6 text-[0.6875rem] text-[var(--stone)] leading-relaxed border-t border-[var(--line)] pt-4">

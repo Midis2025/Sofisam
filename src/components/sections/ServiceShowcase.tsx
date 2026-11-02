@@ -8,6 +8,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { services } from '@/data/services';
 import { servicesIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -192,13 +193,14 @@ export function ServiceShowcase() {
                       <p className="mt-2 text-xs text-white/80 leading-relaxed max-w-[34ch]">
                         {s.navDescription}
                       </p>
-                      <Link
+                      <Button
+                        variant="link"
+                        tone="light"
                         href={`/services/${s.slug}`}
-                        className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e8c89b] hover:text-white transition-colors"
+                        className="mt-5"
                       >
-                        <span>Detailed Overview</span>
-                        <ArrowUpRight className="h-3.5 w-3.5" />
-                      </Link>
+                        Detailed Overview
+                      </Button>
                     </div>
                   </div>
                 );
@@ -270,13 +272,12 @@ export function ServiceShowcase() {
                           ))}
                         </div>
                         <div className="mt-6 pt-4 border-t border-[var(--line)]">
-                          <Link
+                          <Button
+                            variant="link"
                             href={`/services/${s.slug}`}
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:underline"
                           >
-                            <span>Explore {s.title}</span>
-                            <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
-                          </Link>
+                            Explore {s.title}
+                          </Button>
                         </div>
                       </div>
                     </motion.div>

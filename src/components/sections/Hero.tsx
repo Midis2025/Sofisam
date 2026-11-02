@@ -1,10 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 
 import { HeroFilm } from './HeroFilm';
+import { Button } from '@/components/ui/Button';
 import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -101,30 +100,21 @@ export function Hero() {
               transition={{ duration: 0.85, ease: EASE, delay: 0.28 }}
               className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4"
             >
-              <button
-                type="button"
+              <Button
+                variant="primary"
+                tone="light"
                 onClick={() => openEnquiryModal()}
-                className="group inline-flex items-center justify-center gap-2.5 min-h-[48px] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] bg-[#F6F2EA] text-[#171717] transition-all duration-300 hover:bg-[#C7A46A] hover:text-white cursor-pointer shadow-sm rounded-none"
               >
-                <span>START A CONVERSATION</span>
-                <ArrowUpRight
-                  aria-hidden
-                  strokeWidth={1.75}
-                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </button>
+                START A CONVERSATION
+              </Button>
 
-              <Link
+              <Button
+                variant="secondary"
+                tone="light"
                 href="/services"
-                className="group inline-flex items-center justify-center gap-2.5 min-h-[48px] px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] border border-white/40 bg-transparent text-white transition-all duration-300 hover:border-white hover:bg-white/10 rounded-none"
               >
-                <span>EXPLORE SOFISAM</span>
-                <ArrowUpRight
-                  aria-hidden
-                  strokeWidth={1.75}
-                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </Link>
+                EXPLORE SOFISAM
+              </Button>
             </motion.div>
           </div>
 

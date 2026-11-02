@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { insights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { MaskedLines } from '@/components/animations/Reveal';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -52,13 +53,9 @@ export function InsightsEditorial() {
             <p className="max-w-[42ch] t-body text-[var(--sage)] hidden sm:block leading-relaxed">
               {insightsIntro.standfirst}
             </p>
-            <Link
-              href="/insights"
-              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors whitespace-nowrap"
-            >
-              <span>All Perspectives</span>
-              <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
+            <Button variant="link" href="/insights" className="whitespace-nowrap">
+              All Perspectives
+            </Button>
           </div>
         </div>
 
@@ -121,13 +118,9 @@ export function InsightsEditorial() {
                   <span className="text-xs text-[var(--stone)] uppercase tracking-wider">
                     Executive Analysis
                   </span>
-                  <Link
-                    href={`/insights/${featured.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
-                  >
-                    <span>Read Full Piece</span>
-                    <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
-                  </Link>
+                  <Button variant="link" href={`/insights/${featured.slug}`}>
+                    Read Full Piece
+                  </Button>
                 </div>
               </div>
             </motion.article>
@@ -181,13 +174,9 @@ export function InsightsEditorial() {
 
                   <div className="mt-4 pt-3 border-t border-[var(--line)] flex items-center justify-between text-xs">
                     <span className="text-[0.6875rem] text-[var(--stone)] uppercase tracking-wider">Advisory Reading</span>
-                    <Link
-                      href={`/insights/${item.slug}`}
-                      className="inline-flex items-center gap-1 font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
-                    >
-                      <span>Read</span>
-                      <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3 w-3" />
-                    </Link>
+                    <Button variant="link" size="sm" href={`/insights/${item.slug}`}>
+                      Read
+                    </Button>
                   </div>
                 </div>
               </motion.article>

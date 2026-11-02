@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight, Clock, Calendar, Share2 } from 'lucide-react';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { ClosingSection } from '@/components/sections/ClosingSection';
 import { Reveal } from '@/components/animations/Reveal';
 import { insights, insightBySlug } from '@/data/insights';
@@ -121,13 +122,14 @@ export default async function InsightPage({
                 </div>
 
                 <div className="pt-2">
-                  <Link
+                  <Button
+                    variant="link"
+                    arrow="none"
                     href="/insights"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:text-[var(--ivory)] transition-colors"
                   >
-                    <ArrowLeft className="h-3.5 w-3.5" />
-                    <span>Return to All Insights</span>
-                  </Link>
+                    <ArrowLeft className="h-3.5 w-3.5 mr-1" />
+                    Return to All Insights
+                  </Button>
                 </div>
               </div>
             </aside>

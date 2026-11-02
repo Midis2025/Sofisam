@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, Compass } from 'lucide-react';
 
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { services } from '@/data/services';
 
 export const metadata: Metadata = {
@@ -41,20 +42,14 @@ export default function NotFound() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-none bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-[var(--brass)] hover:text-white"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Return to Homepage</span>
-            </Link>
+            <Button variant="primary" tone="light" arrow="none" href="/">
+              <ArrowLeft className="h-4 w-4 mr-1 inline-block" />
+              Return to Homepage
+            </Button>
 
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-none border border-white/40 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:border-white hover:bg-white/10"
-            >
-              <span>Contact Firm</span>
-            </Link>
+            <Button variant="secondary" tone="light" href="/contact">
+              Contact Firm
+            </Button>
           </div>
 
           <div className="mt-14 pt-8 border-t border-white/20">

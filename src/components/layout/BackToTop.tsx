@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowUp } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 /**
  * Returns to the top of the page — smoothly, unless the visitor has asked
@@ -19,13 +20,18 @@ export function BackToTop({ className = '' }: { className?: string }) {
   };
 
   return (
-    <button type="button" onClick={toTop} className={`group inline-flex items-center gap-2 ${className}`}>
-      <span className="link-underline">Back to top</span>
+    <Button
+      variant="link"
+      arrow="none"
+      onClick={toTop}
+      className={className}
+    >
+      <span>Back to top</span>
       <ArrowUp
         aria-hidden
         strokeWidth={1.5}
-        className="h-3.5 w-3.5 transition-transform duration-500 ease-premium group-hover:-translate-y-0.5"
+        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
       />
-    </button>
+    </Button>
   );
 }

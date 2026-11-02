@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { MaskedLines } from '@/components/animations/Reveal';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -175,13 +176,9 @@ export function OurWork() {
 
               <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
                 <span className="text-xs text-[var(--stone)]">SOFISAM Global Base</span>
-                <Link
-                  href={featured.href}
-                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors"
-                >
-                  <span>{featured.cta}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
+                <Button variant="link" href={featured.href}>
+                  {featured.cta}
+                </Button>
               </div>
             </div>
 
@@ -247,13 +244,9 @@ export function OurWork() {
 
                   <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
                     <span className="text-[0.6875rem] text-[var(--stone)] uppercase tracking-wider">Practice</span>
-                    <Link
-                      href={item.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors"
-                    >
-                      <span>{item.cta}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </Link>
+                    <Button variant="link" size="sm" href={item.href}>
+                      {item.cta}
+                    </Button>
                   </div>
                 </div>
               </motion.article>

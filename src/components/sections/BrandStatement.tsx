@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { welcomeCopy, contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { FocusIn } from '@/components/animations/SplitText';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -112,29 +113,13 @@ export function BrandStatement() {
               </div>
 
               <div className="mt-6 flex flex-wrap items-center gap-6">
-                <Link
-                  href="/about"
-                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
-                >
-                  <span>About the Firm</span>
-                  <ArrowUpRight
-                    aria-hidden
-                    strokeWidth={1.5}
-                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  />
-                </Link>
+                <Button variant="link" href="/about">
+                  About the Firm
+                </Button>
                 <span className="text-[var(--line-strong)]">|</span>
-                <Link
-                  href="/services"
-                  className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-[var(--sage)] hover:text-[var(--ivory)] transition-colors"
-                >
-                  <span>Our Practice Areas</span>
-                  <ArrowUpRight
-                    aria-hidden
-                    strokeWidth={1.5}
-                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  />
-                </Link>
+                <Button variant="link" href="/services">
+                  Our Practice Areas
+                </Button>
               </div>
             </div>
           </div>

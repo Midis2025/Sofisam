@@ -6,6 +6,7 @@ import { ArrowUpRight, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
 import { contact, copyright, site } from '@/data/site';
 import { services } from '@/data/services';
 import { Logo } from '@/components/ui/Logo';
+import { Button } from '@/components/ui/Button';
 import { BackToTop } from './BackToTop';
 import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
@@ -57,14 +58,13 @@ export function Footer() {
 
           <div className="lg:col-span-6 lg:text-right">
             <div className="flex flex-col lg:items-end gap-3">
-              <button
-                type="button"
+              <Button
+                variant="primary"
+                size="sm"
                 onClick={() => openEnquiryModal()}
-                className="inline-flex items-center gap-2 rounded-none bg-[var(--ivory)] px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] shadow-sm transition-all duration-300 hover:bg-[var(--brass)] hover:text-white cursor-pointer w-fit"
               >
-                <span>Get in Touch</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </button>
+                Get in Touch
+              </Button>
 
               <div className="flex flex-wrap items-center gap-4 lg:justify-end text-xs text-[var(--stone)] pt-1">
                 <a

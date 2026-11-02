@@ -6,6 +6,7 @@ import { X, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 
 import { useEnquiryModal } from '@/context/EnquiryModalContext';
 import { Logo } from '@/components/ui/Logo';
+import { Button } from '@/components/ui/Button';
 import { submitPrivateEnquiry, type EnquiryPayload } from '@/lib/forms';
 
 const AREAS_OF_INTEREST = [
@@ -262,13 +263,12 @@ export function EnquiryModal() {
                 </p>
 
                 <div className="mt-8 pt-6 border-t border-[var(--line-soft)]">
-                  <button
-                    type="button"
+                  <Button
+                    variant="primary"
                     onClick={handleClose}
-                    className="inline-flex items-center justify-center rounded-none bg-[var(--ivory)] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] transition-colors hover:bg-[var(--brass)] hover:text-white"
                   >
                     BACK TO WEBSITE
-                  </button>
+                  </Button>
                 </div>
               </div>
             ) : (
@@ -493,23 +493,15 @@ export function EnquiryModal() {
 
                     {/* Submit CTA and Privacy Text */}
                     <div className="pt-2 space-y-3">
-                      <button
+                      <Button
                         type="submit"
-                        disabled={isSubmitting}
-                        className="w-full min-h-[48px] flex items-center justify-center gap-2 rounded-none bg-[var(--ivory)] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink)] transition-colors hover:bg-[var(--brass)] hover:text-white disabled:opacity-50"
+                        variant="primary"
+                        fullWidth
+                        loading={isSubmitting}
+                        arrow="right"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin text-current" />
-                            <span>SENDING…</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>SEND ENQUIRY</span>
-                            <ArrowRight className="h-4 w-4" />
-                          </>
-                        )}
-                      </button>
+                        SEND ENQUIRY
+                      </Button>
 
                       <p className="text-[0.6875rem] text-[var(--stone)] leading-relaxed text-center sm:text-left">
                         Your information is treated confidentially and used only to respond to your

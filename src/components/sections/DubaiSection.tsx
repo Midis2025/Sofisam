@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { MaskedLines } from '@/components/animations/Reveal';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -73,13 +74,9 @@ export function DubaiSection() {
             </dl>
 
             <div className="mt-8 pt-4 flex items-center gap-6">
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:text-[var(--ivory)] transition-colors"
-              >
-                <span>Read About Our Dubai Hub</span>
-                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
+              <Button variant="link" href="/about">
+                Read About Our Dubai Hub
+              </Button>
             </div>
           </div>
 

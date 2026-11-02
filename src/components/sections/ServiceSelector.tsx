@@ -7,6 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { services } from '@/data/services';
 import { Picture } from '@/components/ui/Picture';
+import { Button } from '@/components/ui/Button';
 import { Tilt } from '@/components/ui/Tilt';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 
@@ -207,17 +208,13 @@ export function ServiceSelector() {
                         {s.intro.lead}
                       </p>
 
-                      <Link
+                      <Button
+                        variant="link"
                         href={`/services/${s.slug}`}
-                        className="group cta mt-[clamp(1.5rem,2.4vw,2rem)] text-ivory hover:text-gold"
+                        className="mt-[clamp(1.5rem,2.4vw,2rem)]"
                       >
-                        <span className="link-underline">Explore {s.title}</span>
-                        <ArrowUpRight
-                          aria-hidden
-                          strokeWidth={1.5}
-                          className="arrow h-3.5 w-3.5"
-                        />
-                      </Link>
+                        Explore {s.title}
+                      </Button>
                     </motion.div>
                   </>
                 )}
