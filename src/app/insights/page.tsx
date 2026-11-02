@@ -74,7 +74,7 @@ export default function InsightsPage() {
 
               <div className="grid lg:grid-cols-12 items-stretch">
                 {/* Content (Left Column on Desktop, First on Mobile) */}
-                <div className="lg:col-span-5 flex flex-col justify-between p-8 sm:p-10 lg:p-12 order-1">
+                <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 lg:p-10 order-1">
                   <div>
                     <div className="flex items-center gap-3 text-xs text-[var(--stone)] font-mono">
                       <span className="text-[var(--gold)] font-semibold uppercase">{featuredInsight.category}</span>
@@ -86,17 +86,17 @@ export default function InsightsPage() {
 
                     <h2
                       id="featured-heading"
-                      className="mt-4 font-display text-2xl sm:text-3xl lg:text-4xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug"
+                      className="mt-4 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug"
                     >
                       {featuredInsight.title}
                     </h2>
 
-                    <p className="mt-4 t-body text-[var(--sage)] leading-relaxed">
+                    <p className="mt-3.5 t-body text-[var(--sage)] leading-relaxed">
                       {featuredInsight.summary}
                     </p>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center justify-between">
+                  <div className="mt-6 pt-5 border-t border-[var(--line)] flex items-center justify-between">
                     <span className="text-xs uppercase tracking-wider text-[var(--stone)] font-medium">
                       Executive Analysis
                     </span>

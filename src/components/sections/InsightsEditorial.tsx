@@ -63,7 +63,7 @@ export function InsightsEditorial() {
         </div>
 
         {/* Editorial Layout: Featured (Left 7 Cols) + Secondary (Right 5 Cols) */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-10 items-start">
           {/* Featured Article */}
           {featured && (
             <motion.article
@@ -71,9 +71,9 @@ export function InsightsEditorial() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.75, ease: EASE }}
-              className="lg:col-span-7 flex flex-col justify-between overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group transition-all duration-300 hover:border-[var(--line-strong)]"
+              className="lg:col-span-7 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group transition-all duration-300 hover:border-[var(--line-strong)]"
             >
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-[var(--graphite)]">
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[2/1] w-full overflow-hidden bg-[var(--graphite)]">
                 <Picture
                   name={featured.image}
                   alt={featured.imageAlt}
@@ -90,35 +90,34 @@ export function InsightsEditorial() {
                 </span>
               </div>
 
-              <div className="flex flex-1 flex-col justify-between p-8 sm:p-10">
-                <div>
-                  <div className="flex items-center gap-3 text-xs">
-                    <span className="font-semibold uppercase tracking-wider text-[var(--gold)]">
-                      {featured.category}
-                    </span>
-                    <span className="text-[var(--line-strong)]">·</span>
-                    <time dateTime={featured.isoDate} className="text-[var(--stone)] font-mono">
-                      {featured.date}
-                    </time>
-                    <span className="text-[var(--line-strong)]">·</span>
-                    <span className="text-[var(--stone)] flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {featured.readingTime}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug">
-                    <Link href={`/insights/${featured.slug}`}>
-                      {featured.title}
-                    </Link>
-                  </h3>
-
-                  <p className="mt-4 t-body text-[var(--sage)] leading-relaxed">
-                    {featured.summary}
-                  </p>
+              <div className="flex flex-col p-6 sm:p-8 lg:p-9">
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="font-semibold uppercase tracking-wider text-[var(--gold)]">
+                    {featured.category}
+                  </span>
+                  <span className="text-[var(--line-strong)]">·</span>
+                  <time dateTime={featured.isoDate} className="text-[var(--stone)] font-mono">
+                    {featured.date}
+                  </time>
+                  <span className="text-[var(--line-strong)]">·</span>
+                  <span className="text-[var(--stone)] flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {featured.readingTime}
+                  </span>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center justify-between">
+                <h3 className="mt-3.5 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug">
+                  <Link href={`/insights/${featured.slug}`}>
+                    {featured.title}
+                  </Link>
+                </h3>
+
+                <p className="mt-3 t-body text-[var(--sage)] leading-relaxed">
+                  {featured.summary}
+                </p>
+
+                {/* Flexible breathing space & Bottom metadata */}
+                <div className="mt-6 sm:mt-8 pt-5 border-t border-[var(--line)] flex items-center justify-between">
                   <span className="text-xs text-[var(--stone)] uppercase tracking-wider">
                     Executive Analysis
                   </span>
@@ -135,7 +134,7 @@ export function InsightsEditorial() {
           )}
 
           {/* Secondary Articles Column */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-6">
             {secondary.map((item, i) => (
               <motion.article
                 key={item.slug}
@@ -143,49 +142,51 @@ export function InsightsEditorial() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.75, ease: EASE, delay: 0.15 + i * 0.1 }}
-                className="flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all duration-300 hover:border-[var(--line-strong)] hover:-translate-y-1"
+                className="flex flex-col sm:flex-row overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all duration-300 hover:border-[var(--line-strong)] hover:-translate-y-1"
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--graphite)]">
+                <div className="relative aspect-[16/10] sm:aspect-auto sm:w-44 lg:w-40 shrink-0 overflow-hidden bg-[var(--graphite)]">
                   <Picture
                     name={item.image}
                     alt={item.imageAlt}
-                    sizes="(min-width: 1024px) 42vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, (min-width: 640px) 35vw, 100vw"
                     focal={item.focal}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 text-xs uppercase tracking-wider text-white bg-black/40 backdrop-blur-sm px-2.5 py-0.5 rounded">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent sm:hidden" />
+                  <span className="absolute bottom-3 left-3 text-xs uppercase tracking-wider text-white bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded sm:hidden">
                     {item.category}
                   </span>
                 </div>
 
-                <div className="flex flex-1 flex-col justify-between p-6 sm:p-7">
+                <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                   <div>
-                    <div className="flex items-center gap-2.5 text-xs text-[var(--stone)] font-mono">
+                    <div className="flex items-center gap-2 text-xs text-[var(--stone)] font-mono">
+                      <span className="text-[var(--gold)] font-semibold uppercase hidden sm:inline">{item.category}</span>
+                      <span className="hidden sm:inline">·</span>
                       <time dateTime={item.isoDate}>{item.date}</time>
                       <span>·</span>
                       <span>{item.readingTime}</span>
                     </div>
 
-                    <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors font-medium">
+                    <h3 className="mt-2.5 font-display text-lg sm:text-xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug">
                       <Link href={`/insights/${item.slug}`}>
                         {item.title}
                       </Link>
                     </h3>
 
-                    <p className="mt-2.5 t-small text-[var(--sage)] line-clamp-2 leading-relaxed">
+                    <p className="mt-2 t-small text-[var(--sage)] line-clamp-2 leading-relaxed">
                       {item.summary}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
-                    <span className="text-xs text-[var(--stone)]">Advisory Reading</span>
+                  <div className="mt-4 pt-3 border-t border-[var(--line)] flex items-center justify-between text-xs">
+                    <span className="text-[0.6875rem] text-[var(--stone)] uppercase tracking-wider">Advisory Reading</span>
                     <Link
                       href={`/insights/${item.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                      className="inline-flex items-center gap-1 font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
                     >
                       <span>Read</span>
-                      <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
+                      <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3 w-3" />
                     </Link>
                   </div>
                 </div>

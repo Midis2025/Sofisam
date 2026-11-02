@@ -134,26 +134,46 @@ export function OurWork() {
             />
 
             {/* Content (Left Column on Desktop, First on Mobile) */}
-            <div className="lg:col-span-5 flex flex-col justify-between p-8 sm:p-10 lg:p-12 order-1">
+            <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 lg:p-10 order-1">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="t-label text-[var(--gold)]">
                     Platform
                   </span>
-                  <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-medium">
+                  <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono">
                     {featured.category}
                   </span>
                 </div>
 
-                <h3 className="mt-5 font-display text-3xl text-[var(--ivory)] font-light group-hover:text-[var(--gold)] transition-colors">
+                <h3 className="mt-4 font-display text-2xl sm:text-3xl text-[var(--ivory)] font-light group-hover:text-[var(--gold)] transition-colors leading-snug">
                   {featured.title}
                 </h3>
-                <p className="mt-4 t-body text-[var(--sage)] leading-relaxed">
+                <p className="mt-3 t-body text-[var(--sage)] leading-relaxed">
                   {featured.description}
                 </p>
+
+                {/* Platform Highlights */}
+                <div className="mt-5 grid grid-cols-2 gap-4 py-3.5 border-y border-[var(--line)]">
+                  <div>
+                    <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono block">
+                      Jurisdiction
+                    </span>
+                    <span className="text-xs text-[var(--ivory)] font-medium mt-0.5 block">
+                      DMCC Free Zone
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono block">
+                      Strategic Hub
+                    </span>
+                    <span className="text-xs text-[var(--ivory)] font-medium mt-0.5 block">
+                      Crossroads of Time Zones
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
                 <span className="text-xs text-[var(--stone)]">SOFISAM Global Base</span>
                 <Link
                   href={featured.href}
@@ -166,7 +186,7 @@ export function OurWork() {
             </div>
 
             {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
-            <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-auto lg:col-span-7 overflow-hidden bg-[var(--graphite)] order-2">
+            <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-auto lg:col-span-7 overflow-hidden bg-[var(--graphite)] order-2 min-h-[260px]">
               <Picture
                 name={featured.image}
                 alt={featured.imageAlt}
@@ -177,6 +197,9 @@ export function OurWork() {
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent lg:hidden"
               />
+              <div className="absolute top-4 right-4 hidden lg:flex items-center gap-2 bg-black/50 backdrop-blur-md px-3 py-1 rounded-[var(--r-sm)] border border-white/20 text-white text-[0.6875rem] font-mono uppercase tracking-wider">
+                <span>JLT, Dubai · 500001</span>
+              </div>
             </div>
           </motion.article>
 
