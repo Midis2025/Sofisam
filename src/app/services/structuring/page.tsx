@@ -7,7 +7,6 @@ import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
 import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
-import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
 
 const service = serviceBySlug('structuring')!;
@@ -322,15 +321,6 @@ export default function StructuringPage() {
 
       {/* 07 — Service Pager */}
       <ServicePager current="structuring" />
-
-      {/* 08 — Closing CTA */}
-      <CTASection
-        eyebrow="Structuring"
-        sectionLabel="Enquiries"
-        areaOfInterest="Structuring"
-        lines={['Design it to hold', 'under market stress.']}
-        body="Reach out to discuss mandate structuring, shareholder governance, or investment frameworks. Every enquiry is handled in strict confidence."
-      />
     </>
   );
 }

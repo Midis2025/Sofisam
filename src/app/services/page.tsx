@@ -5,7 +5,6 @@ import { ArrowUpRight, CheckCircle2, Shield, Users, Layers } from 'lucide-react'
 import { PageHero } from '@/components/layout/PageHero';
 import { ServiceSelector } from '@/components/sections/ServiceSelector';
 import { ProcessNarrative } from '@/components/sections/ProcessNarrative';
-import { CTASection } from '@/components/sections/CTASection';
 import { Tilt } from '@/components/ui/Tilt';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 import { servicesIntro } from '@/data/site';
@@ -164,13 +163,6 @@ export default function ServicesPage() {
 
       {/* 05 — Disciplined Five-Stage Advisory Sequence */}
       <ProcessNarrative />
-
-      {/* 06 — Closing CTA */}
-      <CTASection
-        eyebrow="Engagements"
-        lines={['Discuss a confidential', 'mandate.']}
-        body="Reach out to discuss strategic opportunities, cross-border restructuring, or advisory requirements. Every enquiry is handled in strict confidence."
-      />
     </>
   );
 }

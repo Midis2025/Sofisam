@@ -7,7 +7,6 @@ import { Picture } from '@/components/ui/Picture';
 import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
 import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
-import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
 
 const service = serviceBySlug('strategic-consulting')!;
@@ -266,15 +265,6 @@ export default function StrategicConsultingPage() {
 
       {/* 06 — Service Pager */}
       <ServicePager current="strategic-consulting" />
-
-      {/* 07 — Closing CTA */}
-      <CTASection
-        eyebrow="Strategic Consulting"
-        sectionLabel="Enquiries"
-        areaOfInterest="Strategic Consulting"
-        lines={['Bring us the', 'consequential decision.']}
-        body="Reach out to discuss strategic opportunities, sovereign considerations, or advisory requirements. Every enquiry is handled in strict confidence."
-      />
     </>
   );
 }

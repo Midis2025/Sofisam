@@ -8,7 +8,6 @@ import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal
 import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { AdvisoryThemes } from '@/components/sections/AdvisoryThemes';
 import { ServicePager } from '@/components/sections/ServicePager';
-import { CTASection } from '@/components/sections/CTASection';
 import { serviceBySlug } from '@/data/services';
 
 const service = serviceBySlug('advisory')!;
@@ -218,15 +217,6 @@ export default function AdvisoryPage() {
 
       {/* 06 — Service Pager */}
       <ServicePager current="advisory" />
-
-      {/* 07 — CTA */}
-      <CTASection
-        eyebrow="Corporate Advisory"
-        sectionLabel="Enquiries"
-        areaOfInterest="Advisory"
-        lines={['Take confidential counsel', 'with executive principals.']}
-        body="Reach out to discuss executive decision-making, shareholder alignment, or corporate governance. Every enquiry is handled in strict confidence."
-      />
     </>
   );
 }

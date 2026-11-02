@@ -8,7 +8,6 @@ import { Parallax } from '@/components/animations/Parallax';
 import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
 import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
-import { CTASection } from '@/components/sections/CTASection';
 import { welcomeCopy, contact, site } from '@/data/site';
 
 export const metadata: Metadata = {
@@ -406,14 +405,6 @@ export default function AboutPage() {
 
       {/* 08 — Global Perspective Editorial Variant */}
       <GlobalPerspective variant="editorial" />
-
-      {/* 09 — Final Closing CTA */}
-      <CTASection
-        eyebrow="Enquiries"
-        areaOfInterest="Strategic Consulting"
-        lines={['Speak directly with', 'the firm.']}
-        body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in strict confidence by senior principals."
-      />
     </>
   );
 }
