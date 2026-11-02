@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowUpRight, CheckCircle2, Shield, Users } from 'lucide-react';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
@@ -12,7 +14,7 @@ import { serviceBySlug } from '@/data/services';
 const service = serviceBySlug('advisory')!;
 
 export const metadata: Metadata = {
-  title: 'Advisory',
+  title: 'Corporate Advisory',
   description: service.metaDescription,
   alternates: { canonical: '/services/advisory' },
   openGraph: {
@@ -25,29 +27,30 @@ export const metadata: Metadata = {
 const governanceNotes = [
   {
     t: 'Authority',
-    d: 'Who is entitled to commit the organisation, to what size, and on whose behalf.',
+    d: 'Who is entitled to commit the organisation, up to what financial magnitude, and on whose explicit behalf.',
   },
   {
     t: 'Oversight',
-    d: 'What the board actually sees, how often, and whether it is enough to hold a position.',
+    d: 'What information the board actually reviews, how frequently, and whether it is sufficient to hold a legally defensible position.',
   },
   {
     t: 'Accountability',
-    d: 'Where responsibility lands when an outcome goes the other way, and whether that is understood in advance.',
+    d: 'Where commercial and legal responsibility lands when an outcome reverses, and whether that distribution is settled in advance.',
   },
   {
-    t: 'Succession',
-    d: 'Whether the structure survives the departure of the people who currently make it work.',
+    t: 'Succession & Continuity',
+    d: 'Whether the operational governance and decision frameworks survive the departure of the individuals who created them.',
   },
 ];
 
 export default function AdvisoryPage() {
   return (
     <>
+      {/* 01 — Page Hero */}
       <PageHero
         eyebrow={service.hero.eyebrow}
         sectionLabel={service.title}
-        headline={['Counsel formed', 'in the room where', 'decisions are taken.']}
+        headline={['Counsel formed in the room', 'where decisions are taken.']}
         headlineWide={['Counsel formed in the room', 'where decisions are taken.']}
         standfirst={service.hero.standfirst}
         image={service.hero.image}
@@ -56,157 +59,172 @@ export default function AdvisoryPage() {
         size="tall"
         crumbs={[
           { label: 'Home', href: '/' },
-          { label: 'Services', href: '/services' },
+          { label: 'Our Expertise', href: '/services' },
           { label: service.title },
         ]}
       />
 
-      {/* Introduction */}
+      {/* 02 — Introduction */}
       <ServiceIntro
         labelledBy="adv-intro"
-        label="Introduction"
+        label="Executive Counsel"
         heading={
           <h2
             id="adv-intro"
-            className="t-h2 mt-[clamp(1.25rem,2.4vw,1.75rem)] text-ivory"
+            className="font-display text-2xl sm:text-3xl mt-4 text-[var(--ivory)] font-light leading-snug"
           >
             Executive decision-making, supported rather than substituted.
           </h2>
         }
         below={
-          <>
-            <Reveal delay={0.05}>
-              <span aria-hidden className="rule my-[clamp(3rem,4vw,4rem)] block" />
-            </Reveal>
-
+          <div className="mt-12 pt-8 border-t border-[var(--line)]">
             <Reveal delay={0.08}>
-              <blockquote>
-                <p className="t-display max-w-[20ch] text-ivory">
-                  Built over decades of international business experience.
+              <blockquote className="max-w-[48rem]">
+                <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light italic leading-snug">
+                  &ldquo;Built over decades of international business experience, advising boards and executive teams across consequential matters.&rdquo;
                 </p>
-                <footer className="mt-8 flex items-center gap-4">
-                  <span aria-hidden className="block h-px w-12 bg-gold" />
-                  <span className="t-label text-sage">SOFISAM FZCO</span>
+                <footer className="mt-4 flex items-center gap-3">
+                  <span aria-hidden className="block h-px w-8 bg-[var(--brass)]" />
+                  <span className="text-xs uppercase tracking-widest text-[var(--gold)] font-semibold">SOFISAM FZCO</span>
                 </footer>
               </blockquote>
             </Reveal>
-          </>
+          </div>
         }
       >
         <Reveal delay={0.06}>
-          <p className="t-lead text-ivory">{service.intro.lead}</p>
+          <p className="t-lead text-[var(--ivory)] leading-relaxed">{service.intro.lead}</p>
         </Reveal>
 
-        <div className="intro-body">
+        <div className="intro-body space-y-4 pt-2">
           {service.intro.body.map((p, i) => (
             <Reveal key={p} delay={0.08 * (i + 1)}>
-              <p className="t-body text-sage">{p}</p>
+              <p className="t-body text-[var(--sage)] leading-relaxed">{p}</p>
             </Reveal>
           ))}
         </div>
       </ServiceIntro>
 
-      {/* Governance — plate beside a precise ledger */}
-      <section data-section="Corporate Governance" className="section ground-graphite" aria-labelledby="adv-governance">
+      {/* 03 — Governance Architecture Ledger */}
+      <section data-section="Corporate Governance" className="section ground-graphite border-b border-[var(--line-soft)]" aria-labelledby="adv-governance">
         <div className="shell">
-          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:items-center lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-            <ImageReveal className="lg:col-span-5">
-              <div className="media aspect-[4/5] w-full">
-                <Picture
-                  name="process-structure"
-                  alt="A hand setting a signature to a document"
-                  sizes="(min-width:1024px) 42vw, 100vw"
-                  focal="44% 50%"
-                  className="h-full w-full"
-                />
-              </div>
-            </ImageReveal>
-
-            <div className="lg:col-span-6 lg:col-start-7">
-              <Reveal kind="label" className="kicker">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+            {/* Content (Left Column on Desktop, First on Mobile) */}
+            <div className="lg:col-span-7 order-1">
+              <div className="kicker">
                 <p className="t-label">Corporate Governance</p>
-              </Reveal>
+              </div>
 
               <h2
                 id="adv-governance"
-                className="t-h2 mt-eyebrow max-w-[15ch] text-ivory"
+                className="t-h2 mt-eyebrow text-[var(--ivory)] font-light leading-[1.08]"
               >
-                <MaskedLines lines={['Governance is a', 'working system,', 'not a document.']} />
+                <MaskedLines lines={['Governance is a working', 'system, not a document.']} />
               </h2>
 
               <Reveal delay={0.12}>
-                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[46ch] text-sage">
-                  We consider how authority, oversight and accountability are
-                  distributed, and whether that distribution matches the scale of
-                  what is being decided.
+                <p className="t-body mt-5 text-[var(--sage)] leading-relaxed">
+                  We consider how authority, oversight, and accountability are actually distributed in practice, and whether that distribution matches the scale of the strategic decisions being made.
                 </p>
               </Reveal>
 
-              <dl className="mt-[clamp(2rem,3.4vw,3rem)]">
+              <dl className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
                 {governanceNotes.map((g, i) => (
                   <Reveal key={g.t} delay={i * 0.06}>
-                    <div className="row grid gap-2 py-[clamp(1.25rem,2vw,1.6rem)] last:border-b last:border-[var(--line)] sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-8">
-                      <dt className="t-label text-sage sm:pt-1">{g.t}</dt>
-                      <dd className="t-small max-w-[44ch] text-ivory-2">{g.d}</dd>
+                    <div className="py-4 grid gap-2 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6 items-baseline">
+                      <dt className="text-xs uppercase tracking-wider text-[var(--gold)] font-mono font-medium">{g.t}</dt>
+                      <dd className="t-small text-[var(--ivory-2)] leading-relaxed">{g.d}</dd>
                     </div>
                   </Reveal>
                 ))}
               </dl>
             </div>
+
+            {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
+            <ImageReveal className="lg:col-span-5 order-2">
+              <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+                <Picture
+                  name="process-structure"
+                  alt="A hand setting a signature to a legal document"
+                  sizes="(min-width:1024px) 42vw, 100vw"
+                  focal="44% 50%"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10">
+                  <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+                    Governance Structure
+                  </span>
+                  <p className="text-sm font-light text-white/95 mt-1">
+                    Defensible frameworks designed for high-stakes decisions
+                  </p>
+                </div>
+              </div>
+            </ImageReveal>
           </div>
         </div>
       </section>
 
-      {/* Themes */}
+      {/* 04 — Advisory Perspective Themes */}
       <AdvisoryThemes themes={service.themes} />
 
-      {/* Experience statement */}
-      <section data-section="Experience" className="section ground-char" aria-labelledby="adv-experience">
+      {/* 05 — Experience & Vantage Feature */}
+      <section data-section="Experience" className="section ground-char border-b border-[var(--line-soft)]" aria-labelledby="adv-experience">
         <div className="shell">
-          <div className="head">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
             <div>
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Experience</p>
-              </Reveal>
+              <div className="kicker">
+                <p className="t-label">Direct Ownership</p>
+              </div>
               <h2
                 id="adv-experience"
-                className="t-h2 head-title mt-eyebrow text-ivory"
+                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
               >
-                <MaskedLines lines={['The view of', 'an owner, not', 'an observer.']} />
+                <MaskedLines lines={['The view of an owner,', 'not a bystander.']} />
               </h2>
             </div>
-            <div className="lg:pb-2">
-              <Reveal delay={0.1}>
-                <p className="t-body head-note text-sage">
-                  Our principals are highly successful business executives and
-                  investors that bring unique perspectives to all of our mandates
-                  and investments.
-                </p>
-              </Reveal>
-            </div>
+            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
+              Our principals bring unique perspectives to all of our mandates and investments — grounded in capital deployed and operating leadership.
+            </p>
           </div>
 
-          <ImageReveal className="mt-[var(--pad-sm)]">
-            <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[21/9]">
+          <ImageReveal className="mt-12">
+            <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9] overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
               <Picture
                 name="tower-detail"
-                alt="Office floors lit at night across the facade of a tower"
+                alt="Office floors lit at night across the facade of a financial tower"
                 sizes="100vw"
                 focal="50% 45%"
-                className="h-full w-full"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-8 text-white z-10 flex items-end justify-between">
+                <div>
+                  <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+                    Principal Executive Standard
+                  </span>
+                  <p className="mt-1 font-display text-2xl text-white font-light">
+                    Confidential Strategic Advisory
+                  </p>
+                </div>
+                <span className="text-xs font-mono text-white/70 hidden sm:block">
+                  Dubai Multi Commodities Centre
+                </span>
+              </div>
             </div>
           </ImageReveal>
         </div>
       </section>
 
+      {/* 06 — Service Pager */}
       <ServicePager current="advisory" />
 
+      {/* 07 — CTA */}
       <CTASection
-        eyebrow="Advisory"
+        eyebrow="Corporate Advisory"
         sectionLabel="Enquiries"
-        lines={['Take counsel', 'in confidence.']}
-        body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
+        lines={['Take confidential counsel', 'with executive principals.']}
+        body="Reach out to discuss executive decision-making, shareholder alignment, or corporate governance. Every enquiry is handled in strict confidence."
       />
     </>
   );

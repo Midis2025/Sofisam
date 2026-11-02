@@ -280,13 +280,13 @@
 
   :root {
     /* ---------- Horizontal system --------------------------------
-       One container for the whole site (.shell): content up to 90rem
-       (1440px) wide, inside a gutter of 20–24px on a phone, 32–40px
-       on a tablet and 48–64px on a desktop. Every section, the header
-       and the footer share it, so they share both edges. Measures for
-       running text are held by `ch` limits on the text itself. */
-    --max: 90rem; /* 1440px */
-    --gutter: max(clamp(1.25rem, 5.6vw, 1.5rem), min(4.2vw, 4rem));
+       Full-width container for the whole site (.shell): utilizes the full
+       available viewport width, removing restrictive max-width constraints.
+       Fluid edge gutter scales smoothly from 1.25rem (20px) on mobile to
+       3.5rem (56px) on ultra-wide screens. Text readability is preserved
+       with comfortable `ch` limits on text blocks. */
+    --max: 100%;
+    --gutter: clamp(1.25rem, 3.5vw, 3.5rem);
 
     /* ---------- Spacing scale ------------------------------------
        8 · 12 · 16 · 24 · 32 · 48 · 64 · 80 · 96. Section rhythm below
@@ -401,7 +401,7 @@
      safe area. */
   .shell {
     width: 100%;
-    max-width: calc(var(--max) + 2 * var(--gutter));
+    max-width: 100%;
     margin-inline: auto;
     padding-left: max(var(--gutter), env(safe-area-inset-left));
     padding-right: max(var(--gutter), env(safe-area-inset-right));

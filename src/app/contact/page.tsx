@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, ShieldCheck, Clock, Building2 } from 'lucide-react';
 
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Newsletter } from '@/components/sections/Newsletter';
@@ -7,12 +7,12 @@ import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 import { contact, contactCopy, site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'Contact & Mandates',
   description:
-    'Contact SOFISAM FZCO. Reach out to discuss strategic opportunities or advisory requirements. DMCC Business Centre, Jumeirah Lake Towers, Dubai.',
+    'Contact SOFISAM FZCO. Reach out to discuss strategic opportunities, restructuring, or advisory requirements. DMCC Business Centre, Jumeirah Lake Towers, Dubai.',
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Contact | SOFISAM FZCO',
+    title: 'Contact & Mandates | SOFISAM FZCO',
     description: 'Reach out to discuss strategic opportunities or advisory requirements.',
     url: '/contact',
   },
@@ -23,87 +23,111 @@ const mapQuery = encodeURIComponent(`${contact.address.line1}, ${contact.address
 export default function ContactPage() {
   return (
     <>
-      {/* The enquiry. The statement and the direct lines on the ivory page,
-          the form on a white sheet beside them — nothing behind either. */}
+      {/* 01 — Direct Enquiry Spread */}
       <section data-section="Get in Touch" className="ground-void relative overflow-hidden" aria-labelledby="contact-heading">
         <div className="shell relative z-10 pb-[var(--pad)] pt-[calc(var(--header-h)+clamp(2.5rem,7vh,5rem))]">
-          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(3rem,5vw,6rem)]">
-            {/* Statement and details */}
+          <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-16 items-start">
+            {/* Left Column: Statement & Channels */}
             <div className="lg:col-span-5">
-              <Reveal kind="label" className="kicker">
+              <div className="kicker">
                 <p className="t-label">{contactCopy.eyebrow}</p>
-              </Reveal>
+              </div>
 
               <h1
                 id="contact-heading"
-                className="t-display mt-eyebrow max-w-[11ch] text-ivory"
+                className="t-h1 mt-eyebrow text-[var(--ivory)] font-light leading-[1.06]"
               >
-                <MaskedLines lines={['Start a', 'conversation.']} />
+                <MaskedLines lines={['Start a confidential', 'conversation.']} />
               </h1>
 
               <Reveal delay={0.14}>
-                <p className="t-lead mt-[clamp(1.25rem,2.2vw,2rem)] max-w-[42ch] text-sage">
+                <p className="t-lead mt-6 text-[var(--sage)] leading-relaxed max-w-[44ch]">
                   {contactCopy.standfirst}
                 </p>
               </Reveal>
 
-              <Reveal delay={0.2}>
-                <div className="mt-[clamp(2.25rem,4vw,3.5rem)]">
-                  <h2 className="t-label text-sage">{contactCopy.detailsHeading}</h2>
+              <div className="mt-10 space-y-4">
+                {/* Direct Email Card */}
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="group flex items-start gap-4 p-5 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--plate)] transition-all duration-300 hover:border-[var(--brass)] hover:shadow-[var(--shadow-pill)]"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--line-soft)] text-[var(--brass)] group-hover:bg-[var(--brass)] group-hover:text-white transition-colors">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono font-medium">
+                      Confidential Inquiries
+                    </span>
+                    <p className="text-sm font-medium text-[var(--ivory)] mt-0.5 group-hover:text-[var(--gold)] transition-colors">
+                      {contact.email}
+                    </p>
+                  </div>
+                </a>
 
-                  <ul className="mt-7 space-y-6">
-                    <li>
-                      <a href={`mailto:${contact.email}`} className="group flex items-center gap-5">
-                        <Badge>
-                          <Mail aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
-                        </Badge>
-                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory-2">
-                          {contact.email}
-                        </span>
-                      </a>
-                    </li>
+                {/* Direct Phone Card */}
+                <a
+                  href={`tel:${contact.phoneHref}`}
+                  className="group flex items-start gap-4 p-5 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--plate)] transition-all duration-300 hover:border-[var(--brass)] hover:shadow-[var(--shadow-pill)]"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--line-soft)] text-[var(--brass)] group-hover:bg-[var(--brass)] group-hover:text-white transition-colors">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono font-medium">
+                      Direct Advisory Line
+                    </span>
+                    <p className="text-sm font-medium text-[var(--ivory)] mt-0.5 group-hover:text-[var(--gold)] transition-colors">
+                      {contact.phone}
+                    </p>
+                  </div>
+                </a>
 
-                    <li>
-                      <a href={`tel:${contact.phoneHref}`} className="group flex items-center gap-5">
-                        <Badge>
-                          <Phone aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
-                        </Badge>
-                        <span className="link-underline text-[1.0625rem] font-light tracking-wide text-ivory-2">
-                          {contact.phone}
-                        </span>
-                      </a>
-                    </li>
-
-                    <li className="flex items-start gap-5">
-                      <Badge static>
-                        <MapPin aria-hidden strokeWidth={1.4} className="h-[1.05rem] w-[1.05rem]" />
-                      </Badge>
-                      <address className="not-italic">
-                        <p className="text-[1.0625rem] font-light leading-relaxed tracking-wide text-ivory-2">
-                          {contact.address.line1}
-                          <br />
-                          {contact.address.line2}
-                        </p>
-                      </address>
-                    </li>
-                  </ul>
+                {/* Headquarters Location Card */}
+                <div className="flex items-start gap-4 p-5 rounded-[var(--r-md)] border border-[var(--line-soft)] bg-[var(--plate)]/60">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--line-soft)] text-[var(--brass)]">
+                    <MapPin className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <span className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono font-medium">
+                      World Headquarters · DMCC
+                    </span>
+                    <address className="not-italic text-xs text-[var(--ivory-2)] mt-1 leading-relaxed">
+                      {contact.address.line1}
+                      <br />
+                      {contact.address.line2}
+                    </address>
+                  </div>
                 </div>
-              </Reveal>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center gap-2 text-xs text-[var(--stone)]">
+                <ShieldCheck className="h-4 w-4 text-[var(--brass)]" />
+                <span>Strictly unconflicted and confidential advisory protocol.</span>
+              </div>
             </div>
 
-            {/* The form */}
-            <div className="lg:col-span-6 lg:col-start-7">
+            {/* Right Column: Confidential Form */}
+            <div className="lg:col-span-7">
               <Reveal kind="card" delay={0.1}>
-                <div className="surface-deep px-[clamp(1.25rem,3vw,3rem)] py-[clamp(2rem,3.6vw,3.25rem)]">
-                  <h2 className="t-h3 text-ivory">Send a message</h2>
-                  <p className="t-body mt-3 max-w-[42ch] text-sage">
-                    Tell us briefly what you are working through and we will respond
-                    directly.
-                  </p>
+                <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] p-8 sm:p-12 shadow-[var(--shadow-plate)]">
+                  <div className="flex items-center justify-between border-b border-[var(--line)] pb-5">
+                    <div>
+                      <h2 className="font-display text-2xl text-[var(--ivory)] font-light">
+                        Send a Confidential Message
+                      </h2>
+                      <p className="text-xs text-[var(--sage)] mt-1">
+                        Outline your advisory requirement or mandate parameters.
+                      </p>
+                    </div>
+                    <span className="text-xs font-mono font-semibold uppercase text-[var(--brass)]">
+                      SOFISAM
+                    </span>
+                  </div>
 
-                  <span aria-hidden className="rule my-[clamp(1.75rem,3vw,2.5rem)]" />
-
-                  <ContactForm />
+                  <div className="mt-8">
+                    <ContactForm />
+                  </div>
                 </div>
               </Reveal>
             </div>
@@ -111,72 +135,45 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Location */}
-      <section data-section="Location" className="section ground-char" aria-labelledby="location-heading">
+      {/* 02 — Location & Map Chapter */}
+      <section data-section="Location" className="section ground-char border-b border-[var(--line-soft)]" aria-labelledby="location-heading">
         <div className="shell">
-          <div className="head">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
             <div>
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Location</p>
-              </Reveal>
+              <div className="kicker">
+                <p className="t-label">World Headquarters</p>
+              </div>
               <h2
                 id="location-heading"
-                className="t-h2 head-title mt-eyebrow text-ivory"
+                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
               >
-                <MaskedLines lines={['World headquarters,', 'Jumeirah Lake Towers.']} />
+                <MaskedLines lines={['Dubai Multi Commodities', 'Centre (DMCC).']} />
               </h2>
             </div>
-            <div className="lg:pb-2">
-              <Reveal delay={0.1}>
-                <p className="t-body head-note text-sage">
-                  {site.name} is based in the {contact.headquarters}. Visits are by
-                  arrangement.
-                </p>
-              </Reveal>
-            </div>
+            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
+              {site.name} is headquartered in the {contact.headquarters}, Jumeirah Lake Towers, Dubai. In-person meetings are conducted by prior arrangement.
+            </p>
           </div>
 
-          <div className="mt-[var(--pad-sm)] grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4vw,4.5rem)]">
-            {/* Map */}
-            <Reveal className="lg:col-span-8">
-              <div className="media aspect-[16/10] w-full border border-[var(--line)] lg:aspect-[16/9]">
-                {/* What shows until the map arrives — or instead of it, where a
-                    browser or network blocks the embed. */}
-                <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-graphite p-6 text-center">
-                  <span className="h-2.5 w-2.5 rounded-full bg-brass shadow-[0_0_0_6px_rgb(var(--brass-rgb)/0.18)]" />
-                  <p className="t-label text-gold">{contact.headquarters}</p>
-                  <p className="t-small max-w-[34ch] text-sage">
-                    {contact.address.line1}, {contact.address.line2}
-                  </p>
-                </div>
-                <iframe
-                  title={`Map showing ${contact.address.line1}, ${contact.address.line2}`}
-                  src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="relative h-full w-full border-0 grayscale-[0.4] contrast-[1.05]"
-                />
-              </div>
-            </Reveal>
-
-            {/* Details */}
-            <div className="lg:col-span-4">
-              <Reveal>
-                <dl>
+          <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+            {/* Headquarters Ledger (Left Column on Desktop, First on Mobile) */}
+            <div className="lg:col-span-5 order-1">
+              <div className="p-8 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
+                <h3 className="t-label text-gold">Location Summary</h3>
+                <dl className="mt-6 divide-y divide-[var(--line)] border-y border-[var(--line)]">
                   {[
-                    { k: 'Address', v: `${contact.address.line1}\n${contact.address.line2}` },
-                    { k: 'Free zone', v: contact.headquarters },
-                    { k: 'Email', v: contact.email, href: `mailto:${contact.email}` },
+                    { k: 'Jurisdiction', v: contact.headquarters },
+                    { k: 'Complex', v: 'Jewellery & Gemplex 3' },
+                    { k: 'District', v: 'Jumeirah Lake Towers (JLT)' },
+                    { k: 'City & State', v: 'Dubai, UAE' },
                     { k: 'Telephone', v: contact.phone, href: `tel:${contact.phoneHref}` },
+                    { k: 'Email', v: contact.email, href: `mailto:${contact.email}` },
                   ].map((row) => (
-                    <div key={row.k} className="row py-5 last:border-b last:border-[var(--line)]">
-                      <dt className="t-label text-sage">{row.k}</dt>
-                      <dd className="mt-3 whitespace-pre-line text-[0.98rem] leading-relaxed text-ivory-2">
+                    <div key={row.k} className="py-3.5 flex items-baseline justify-between gap-4">
+                      <dt className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">{row.k}</dt>
+                      <dd className="text-xs font-medium text-[var(--ivory)] text-right">
                         {row.href ? (
-                          <a
-                            href={row.href}
-                            className="link-underline inline-block py-1.5 hover:text-gold"
-                          >
+                          <a href={row.href} className="hover:text-[var(--gold)] transition-colors">
                             {row.v}
                           </a>
                         ) : (
@@ -186,39 +183,39 @@ export default function ContactPage() {
                     </div>
                   ))}
                 </dl>
-              </Reveal>
 
-              <Reveal delay={0.12}>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="cta mt-6 text-sage hover:text-ivory"
-                >
-                  <span className="link-underline">Open in Google Maps</span>
-                </a>
-              </Reveal>
+                <div className="mt-6 pt-2">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:underline"
+                  >
+                    <span>Open in Google Maps</span>
+                    <MapPin className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Map Iframe Container (Right Column on Desktop, Below on Mobile) */}
+            <div className="lg:col-span-7 order-2">
+              <div className="media aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] lg:aspect-[16/9]">
+                <iframe
+                  title={`Map showing ${contact.address.line1}, ${contact.address.line2}`}
+                  src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="relative h-full w-full border-0 grayscale-[0.35] contrast-[1.08]"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* 03 — Newsletter */}
       <Newsletter />
     </>
-  );
-}
-
-/** The circular mark that carries a contact icon. */
-function Badge({ children, static: isStatic }: { children: React.ReactNode; static?: boolean }) {
-  return (
-    <span
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--g-line)] bg-[var(--g-bg)] text-gold shadow-[var(--control-shadow)] backdrop-blur-md ${
-        isStatic
-          ? ''
-          : 'transition-colors duration-500 ease-premium group-hover:border-gold group-hover:bg-gold group-hover:text-ink'
-      }`}
-    >
-      {children}
-    </span>
   );
 }

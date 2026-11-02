@@ -38,25 +38,22 @@ export function ServicePager({ current }: { current: ServiceSlug }) {
                   />
                 )}
 
-                <span
-                  className={`flex min-w-0 flex-1 items-center gap-5 ${
-                    dir === 'Next' ? 'sm:flex-row-reverse sm:text-right' : ''
-                  }`}
-                >
-                  <span className="media hidden aspect-square w-16 shrink-0 sm:block">
+                <span className="flex min-w-0 flex-1 items-center justify-between gap-5">
+                  <span className="min-w-0">
+                    <span className="t-label block text-gold">{dir}</span>
+                    <span className="t-h3 mt-2.5 block text-balance text-ivory transition-colors duration-500 group-hover:text-gold-hi">
+                      {s.title}
+                    </span>
+                  </span>
+                  <span className="media hidden aspect-square w-16 shrink-0 sm:block overflow-hidden rounded-[var(--r-md)] border border-[var(--line)]">
                     <Picture
                       name={s.hero.image}
                       alt=""
                       decorative
                       sizes="64px"
                       focal={s.hero.focal}
+                      className="h-full w-full object-cover"
                     />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="t-label block text-gold">{dir}</span>
-                    <span className="t-h3 mt-2.5 block text-balance text-ivory transition-colors duration-500 group-hover:text-gold-hi">
-                      {s.title}
-                    </span>
                   </span>
                 </span>
 

@@ -114,76 +114,16 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
           </div>
         </div>
 
-        {/* Globe stage and the centres beside it */}
+        {/* Content & Globe stage (Left: Centres & Narrative, Right: Interactive Globe) */}
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.85, ease: EASE }}
-          className="mt-10 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] lg:grid lg:grid-cols-12"
+          className="mt-10 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] flex flex-col lg:grid lg:grid-cols-12"
         >
-          <div
-            ref={stage}
-            role="application"
-            aria-roledescription="interactive globe"
-            aria-label="Globe centred on the SOFISAM headquarters in Dubai, with arcs to London, New York, Geneva, Riyadh, Abu Dhabi, Singapore and Hong Kong. Use the arrow keys to turn it, plus and minus to zoom, and Home to return to Dubai."
-            tabIndex={0}
-            onKeyDown={onKey}
-            className="globe-stage relative aspect-[10/11] w-full outline-offset-[-3px] sm:aspect-[4/3] lg:col-span-8 lg:aspect-auto lg:h-[clamp(34rem,44vw,50rem)]"
-          >
-            {near && !failed && (
-              <Globe
-                hubs={hubs}
-                active={active}
-                onSelect={select}
-                onInteract={() => setTouched(true)}
-                onFail={() => setFailed(true)}
-                theme={theme}
-                reduce={reduce}
-                handleRef={globe}
-              />
-            )}
-
-            {failed && (
-              <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                <p className="max-w-[30ch] t-body text-[var(--sage)]">
-                  Headquartered in Dubai, with relationships across London, New York, Geneva, Riyadh, Abu
-                  Dhabi, Singapore and Hong Kong.
-                </p>
-              </div>
-            )}
-
-            {/* Hint */}
-            {!failed && (
-              <p
-                aria-hidden
-                className={`pointer-events-none absolute bottom-4 left-4 hidden items-center xs:flex gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-[var(--stone)] transition-opacity duration-700 sm:bottom-6 sm:left-6 ${
-                  touched ? 'opacity-0' : 'opacity-100'
-                }`}
-              >
-                <Move strokeWidth={1.5} className="h-3.5 w-3.5" />
-                <span>Drag to explore</span>
-              </p>
-            )}
-
-            {/* Controls */}
-            {!failed && (
-              <div className="absolute bottom-3 right-3 flex items-center gap-2 sm:bottom-5 sm:right-5">
-                <button type="button" aria-label="Zoom out" disabled={zoom === 0} onClick={() => zoomBy(-1)} className={controlClass}>
-                  <Minus strokeWidth={1.5} className="h-4 w-4" />
-                </button>
-                <button type="button" aria-label="Zoom in" disabled={zoom === 2} onClick={() => zoomBy(1)} className={controlClass}>
-                  <Plus strokeWidth={1.5} className="h-4 w-4" />
-                </button>
-                <button type="button" aria-label="Return to Dubai" onClick={reset} className={controlClass}>
-                  <RotateCcw strokeWidth={1.5} className="h-4 w-4" />
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* The centres */}
-          <div className="flex flex-col border-t border-[var(--line)] p-5 sm:p-8 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-10">
+          {/* Left Column on Desktop / First on Mobile: The Centres & Relationships */}
+          <div className="order-1 flex flex-col border-b border-[var(--line)] p-5 sm:p-8 lg:order-1 lg:col-span-4 lg:border-r lg:border-b-0 lg:p-10">
             <p className="t-label text-gold">Financial Centres</p>
 
             <button
@@ -246,6 +186,67 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
                   : `${selectedHub.name} · ${selectedHub.tier}`
                 : 'Select a centre to bring it into view.'}
             </p>
+          </div>
+
+          {/* Right Column on Desktop / Second on Mobile: Globe Stage Visual Element */}
+          <div
+            ref={stage}
+            role="application"
+            aria-roledescription="interactive globe"
+            aria-label="Globe centred on the SOFISAM headquarters in Dubai, with arcs to London, New York, Geneva, Riyadh, Abu Dhabi, Singapore and Hong Kong. Use the arrow keys to turn it, plus and minus to zoom, and Home to return to Dubai."
+            tabIndex={0}
+            onKeyDown={onKey}
+            className="globe-stage order-2 relative aspect-[10/11] w-full outline-offset-[-3px] sm:aspect-[4/3] lg:order-2 lg:col-span-8 lg:aspect-auto lg:h-[clamp(34rem,44vw,50rem)]"
+          >
+            {near && !failed && (
+              <Globe
+                hubs={hubs}
+                active={active}
+                onSelect={select}
+                onInteract={() => setTouched(true)}
+                onFail={() => setFailed(true)}
+                theme={theme}
+                reduce={reduce}
+                handleRef={globe}
+              />
+            )}
+
+            {failed && (
+              <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+                <p className="max-w-[30ch] t-body text-[var(--sage)]">
+                  Headquartered in Dubai, with relationships across London, New York, Geneva, Riyadh, Abu
+                  Dhabi, Singapore and Hong Kong.
+                </p>
+              </div>
+            )}
+
+            {/* Hint */}
+            {!failed && (
+              <p
+                aria-hidden
+                className={`pointer-events-none absolute bottom-4 left-4 hidden items-center xs:flex gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-[var(--stone)] transition-opacity duration-700 sm:bottom-6 sm:left-6 ${
+                  touched ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
+                <Move strokeWidth={1.5} className="h-3.5 w-3.5" />
+                <span>Drag to explore</span>
+              </p>
+            )}
+
+            {/* Controls */}
+            {!failed && (
+              <div className="absolute bottom-3 right-3 flex items-center gap-2 sm:bottom-5 sm:right-5">
+                <button type="button" aria-label="Zoom out" disabled={zoom === 0} onClick={() => zoomBy(-1)} className={controlClass}>
+                  <Minus strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+                <button type="button" aria-label="Zoom in" disabled={zoom === 2} onClick={() => zoomBy(1)} className={controlClass}>
+                  <Plus strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+                <button type="button" aria-label="Return to Dubai" onClick={reset} className={controlClass}>
+                  <RotateCcw strokeWidth={1.5} className="h-4 w-4" />
+                </button>
+              </div>
+            )}
           </div>
         </motion.div>
 

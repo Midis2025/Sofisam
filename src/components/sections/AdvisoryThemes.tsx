@@ -6,48 +6,24 @@ import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal
 type ServiceTheme = { label: string; title: string; body: string };
 
 /**
- * Advisory-specific composition: a standing image plate beside the themes set
- * as an open ledger. Every description stays on the page — nothing is folded
- * away behind a toggle.
+ * Advisory-specific composition: themes set as an open ledger on the left,
+ * with a standing image plate on the right. Every description stays on the
+ * page — nothing is folded away behind a toggle.
  */
 export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
   return (
     <section data-section="Advisory Perspective" className="section ground-void" aria-labelledby="advisory-themes">
       <div className="shell">
-        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)]">
-          {/* Standing media */}
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
-              <ImageReveal>
-                <div className="media aspect-[4/5] w-full">
-                  <Picture
-                    name="lounge-dark"
-                    alt="A spacious meeting room with a long table, columns and a wide city view"
-                    sizes="(min-width:1024px) 42vw, 100vw"
-                    focal="50% 50%"
-                    className="h-full w-full"
-                  />
-                </div>
-              </ImageReveal>
-
-              <Reveal delay={0.12}>
-                <p className="t-meta mt-5 max-w-[36ch] text-stone">
-                  Imagery is illustrative. No photograph on this site depicts a
-                  principal of the firm.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Themes */}
-          <div className="lg:col-span-6 lg:col-start-7">
+        <div className="grid gap-[var(--gap)] lg:grid-cols-12 lg:gap-[clamp(2.5rem,4.5vw,5rem)] items-start">
+          {/* Themes (Left Column on Desktop, First on Mobile) */}
+          <div className="lg:col-span-7 order-1">
             <Reveal kind="label" className="kicker">
               <p className="t-label">Advisory Perspective</p>
             </Reveal>
 
             <h2
               id="advisory-themes"
-              className="t-h2 mt-eyebrow max-w-[16ch] text-ivory"
+              className="t-h2 mt-eyebrow max-w-[20ch] text-ivory"
             >
               <MaskedLines lines={['What the counsel', 'actually covers.']} />
             </h2>
@@ -68,6 +44,30 @@ export function AdvisoryThemes({ themes }: { themes: ServiceTheme[] }) {
                 </Reveal>
               ))}
             </ol>
+          </div>
+
+          {/* Standing Media Plate (Right Column on Desktop, Below on Mobile) */}
+          <div className="lg:col-span-5 order-2">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+3rem)]">
+              <ImageReveal>
+                <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)]">
+                  <Picture
+                    name="lounge-dark"
+                    alt="A spacious meeting room with a long table, columns and a wide city view"
+                    sizes="(min-width:1024px) 42vw, 100vw"
+                    focal="50% 50%"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </ImageReveal>
+
+              <Reveal delay={0.12}>
+                <p className="t-meta mt-5 max-w-[36ch] text-stone">
+                  Imagery is illustrative. No photograph on this site depicts a
+                  principal of the firm.
+                </p>
+              </Reveal>
+            </div>
           </div>
         </div>
       </div>

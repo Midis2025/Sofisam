@@ -1,15 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, BookOpen, Clock } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { insights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
+import { MaskedLines } from '@/components/animations/Reveal';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * SOFISAM Insights & Strategic Perspectives
+ *
+ * Editorial magazine layout:
+ * - Featured lead analysis with full-spread visual plate and excerpt
+ * - Curated secondary perspectives in clean editorial cards
+ * - Metadata badges (Category · Reading Time · Date)
+ * - Refined hover states with subtle image expansion and gold highlights
+ */
 export function InsightsEditorial() {
   const reduce = useReducedMotion();
   const featured = insights[0];
@@ -19,7 +29,7 @@ export function InsightsEditorial() {
     <section
       data-section="Insights"
       id="insights"
-      className="relative bg-[var(--char)] py-20 lg:py-28 border-b border-[var(--line-soft)]"
+      className="relative bg-[var(--char)] py-20 sm:py-24 lg:py-28 border-b border-[var(--line-soft)]"
       aria-labelledby="insights-heading"
     >
       <div className="shell">
@@ -33,27 +43,27 @@ export function InsightsEditorial() {
             </div>
             <h2
               id="insights-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)]"
+              className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
             >
-              {insightsIntro.heading}
+              <MaskedLines lines={['Perspectives on global markets', 'and governance.']} />
             </h2>
           </div>
           <div className="flex items-center gap-6">
-            <p className="max-w-[40ch] t-body text-[var(--sage)] hidden sm:block">
+            <p className="max-w-[42ch] t-body text-[var(--sage)] hidden sm:block leading-relaxed">
               {insightsIntro.standfirst}
             </p>
             <Link
               href="/insights"
-              className="group inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors whitespace-nowrap"
+              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors whitespace-nowrap"
             >
-              <span>All Insights</span>
+              <span>All Perspectives</span>
               <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </div>
         </div>
 
-        {/* Editorial Layout: Featured Insight (Left 7 Cols) + 2 Secondary Insights (Right 5 Cols) */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
+        {/* Editorial Layout: Featured (Left 7 Cols) + Secondary (Right 5 Cols) */}
+        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
           {/* Featured Article */}
           {featured && (
             <motion.article
@@ -61,7 +71,7 @@ export function InsightsEditorial() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.75, ease: EASE }}
-              className="lg:col-span-7 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group"
+              className="lg:col-span-7 flex flex-col justify-between overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group transition-all duration-300 hover:border-[var(--line-strong)]"
             >
               <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-[var(--graphite)]">
                 <Picture
@@ -73,9 +83,9 @@ export function InsightsEditorial() {
                 />
                 <div
                   aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
                 />
-                <span className="absolute top-4 left-4 text-xs font-semibold uppercase tracking-wider text-white/90 bg-black/40 backdrop-blur-md px-3 py-1 rounded-[var(--r-sm)]">
+                <span className="absolute top-4 left-4 text-xs font-semibold uppercase tracking-wider text-white bg-black/50 backdrop-blur-md px-3 py-1 rounded-[var(--r-sm)] border border-white/20">
                   Featured Perspective
                 </span>
               </div>
@@ -87,31 +97,36 @@ export function InsightsEditorial() {
                       {featured.category}
                     </span>
                     <span className="text-[var(--line-strong)]">·</span>
-                    <time dateTime={featured.isoDate} className="text-[var(--stone)]">
+                    <time dateTime={featured.isoDate} className="text-[var(--stone)] font-mono">
                       {featured.date}
                     </time>
                     <span className="text-[var(--line-strong)]">·</span>
-                    <span className="text-[var(--stone)]">{featured.readingTime}</span>
+                    <span className="text-[var(--stone)] flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {featured.readingTime}
+                    </span>
                   </div>
 
-                  <h3 className="mt-4 t-h3 text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="mt-4 font-display text-2xl sm:text-3xl font-light text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors leading-snug">
                     <Link href={`/insights/${featured.slug}`}>
                       {featured.title}
                     </Link>
                   </h3>
 
-                  <p className="mt-4 t-body text-[var(--sage)]">
+                  <p className="mt-4 t-body text-[var(--sage)] leading-relaxed">
                     {featured.summary}
                   </p>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center justify-between">
-                  <span className="text-xs text-[var(--stone)]">Strategic Advisory Analysis</span>
+                  <span className="text-xs text-[var(--stone)] uppercase tracking-wider">
+                    Executive Analysis
+                  </span>
                   <Link
                     href={`/insights/${featured.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
                   >
-                    <span>Read Article</span>
+                    <span>Read Full Piece</span>
                     <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />
                   </Link>
                 </div>
@@ -120,7 +135,7 @@ export function InsightsEditorial() {
           )}
 
           {/* Secondary Articles Column */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
+          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
             {secondary.map((item, i) => (
               <motion.article
                 key={item.slug}
@@ -128,9 +143,9 @@ export function InsightsEditorial() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.75, ease: EASE, delay: 0.15 + i * 0.1 }}
-                className="flex flex-col sm:flex-row lg:flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all hover:border-[var(--line-strong)]"
+                className="flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all duration-300 hover:border-[var(--line-strong)] hover:-translate-y-1"
               >
-                <div className="relative aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/8] sm:w-2/5 lg:w-full overflow-hidden bg-[var(--graphite)]">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--graphite)]">
                   <Picture
                     name={item.image}
                     alt={item.imageAlt}
@@ -138,36 +153,36 @@ export function InsightsEditorial() {
                     focal={item.focal}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <span className="absolute bottom-3 left-3 text-xs uppercase tracking-wider text-white bg-black/40 backdrop-blur-sm px-2.5 py-0.5 rounded">
+                    {item.category}
+                  </span>
                 </div>
 
                 <div className="flex flex-1 flex-col justify-between p-6 sm:p-7">
                   <div>
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="font-semibold uppercase tracking-wider text-[var(--gold)]">
-                        {item.category}
-                      </span>
-                      <span className="text-[var(--line-strong)]">·</span>
-                      <time dateTime={item.isoDate} className="text-[var(--stone)]">
-                        {item.date}
-                      </time>
+                    <div className="flex items-center gap-2.5 text-xs text-[var(--stone)] font-mono">
+                      <time dateTime={item.isoDate}>{item.date}</time>
+                      <span>·</span>
+                      <span>{item.readingTime}</span>
                     </div>
 
-                    <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                    <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors font-medium">
                       <Link href={`/insights/${item.slug}`}>
                         {item.title}
                       </Link>
                     </h3>
 
-                    <p className="mt-2 t-small text-[var(--sage)] line-clamp-2">
+                    <p className="mt-2.5 t-small text-[var(--sage)] line-clamp-2 leading-relaxed">
                       {item.summary}
                     </p>
                   </div>
 
-                  <div className="mt-5 pt-4 border-t border-[var(--line)] flex items-center justify-between">
-                    <span className="text-xs text-[var(--stone)]">{item.readingTime}</span>
+                  <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
+                    <span className="text-xs text-[var(--stone)]">Advisory Reading</span>
                     <Link
                       href={`/insights/${item.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-medium uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
                     >
                       <span>Read</span>
                       <ArrowUpRight aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5" />

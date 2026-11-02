@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowUpRight, Award, Building, CheckCircle2, Globe, Shield, Users } from 'lucide-react';
 
 import { PageHero } from '@/components/layout/PageHero';
 import { Picture } from '@/components/ui/Picture';
@@ -7,121 +9,155 @@ import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animat
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
 import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
 import { CTASection } from '@/components/sections/CTASection';
-import { welcomeCopy, contact } from '@/data/site';
+import { welcomeCopy, contact, site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About the Firm',
   description:
     'SOFISAM FZCO is an International Strategic Consulting, Advisory and Structuring Firm with world headquarters in the Dubai Multi Commodities Centre.',
   alternates: { canonical: '/about' },
   openGraph: {
-    title: 'About | SOFISAM FZCO',
+    title: 'About the Firm | SOFISAM FZCO',
     description:
       'International Strategic Consulting, Advisory and Structuring Firm, headquartered in the Dubai Multi Commodities Centre.',
     url: '/about',
   },
 };
 
-/** Six working principles, in order — one grid lays them out. */
+/** Six working commitments governing client engagements */
 const operatingPrinciples = [
   {
     k: '01',
     t: 'Independence is structural',
-    d: 'We hold no product to place and no side to favour. That is a condition of how the firm is set up, not an intention it announces.',
+    d: 'We hold no product to place and no side to favour. That is a condition of how the firm is built, not a decorative intention.',
   },
   {
     k: '02',
     t: 'Discretion is the default',
-    d: 'Engagements are handled in a closed circle and remain there. Confidentiality is a working condition rather than a clause.',
+    d: 'Engagements are handled exclusively in a closed circle by senior principals. Confidentiality is a working condition.',
   },
   {
     k: '03',
     t: 'Judgement over volume',
-    d: 'A small number of matters, taken seriously, by the principals who accepted them.',
+    d: 'A selective number of mandates, evaluated deeply by the principals who carry direct responsibility for the outcome.',
   },
   {
     k: '04',
-    t: 'A plain recommendation',
-    d: 'Where we have a view, we give it — with the reasoning attached and the downside stated.',
+    t: 'Definitive counsel',
+    d: 'Where we hold a view, we deliver it plainly — with complete commercial reasoning, trade-offs, and downside risks identified.',
   },
   {
     k: '05',
-    t: 'Read each market on its terms',
-    d: 'Conditions rarely travel between jurisdictions. Neither should the assumptions built on them.',
+    t: 'Local market reality',
+    d: 'Conditions rarely travel identically across borders. We evaluate each market and jurisdiction on its actual structural terms.',
   },
   {
     k: '06',
-    t: 'Availability after the decision',
-    d: 'The difficult questions rarely arrive on the day a decision is taken.',
+    t: 'Ongoing commitment',
+    d: 'The most consequential governance and execution questions rarely arrive on the day terms are agreed.',
   },
+];
+
+const credentialsList = [
+  { label: 'Headquarters', value: 'Dubai Multi Commodities Centre (DMCC)' },
+  { label: 'Nature of Firm', value: 'International Strategic Consulting & Structuring' },
+  { label: 'Leadership Vantage', value: 'Principals with Direct Executive Experience' },
+  { label: 'Core Scope', value: 'Strategic Mandates, Corporate Advisory, Governance' },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* 01 — The cinematic opening, shared with every other inner page. */}
+      {/* 01 — Distinctive Editorial Masthead */}
       <PageHero
         eyebrow="About SOFISAM"
-        headline={['A firm built', 'around judgement.']}
+        sectionLabel="About the Firm"
+        headline={['A firm built around', 'unconflicted judgement.']}
         standfirst={welcomeCopy.positioning}
         image="difc-gate"
         imageAlt="Dubai's financial district gate building lit at dusk, framed between surrounding towers"
         focal="50% 45%"
-        crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About the Firm' }]}
       />
 
-      {/* 02 — The firm in its own words. The statement holds the container
-             edge, its supporting columns sit beneath it on one rule, and the
-             plate runs the full height of the text beside it. */}
-      <section data-section="Welcome" className="section ground-char" aria-labelledby="about-intro">
+      {/* 02 — The Firm in its Own Words */}
+      <section data-section="Firm Overview" className="section ground-char" aria-labelledby="about-intro">
         <div className="shell">
-          <Reveal kind="label" className="kicker">
+          <div className="flex items-center gap-3 kicker">
             <p className="t-label">{welcomeCopy.eyebrow}</p>
-          </Reveal>
+          </div>
 
-          <div className="mt-[clamp(1.5rem,2.2vw,2rem)] grid items-stretch gap-[clamp(2rem,4vw,4.5rem)] lg:grid-cols-12">
+          <div className="mt-eyebrow grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
             <div className="lg:col-span-7">
-              <h2 id="about-intro" className="t-h2 max-w-[14ch] text-ivory">
-                <MaskedLines lines={['The firm in', 'its own words']} />
+              <h2 id="about-intro" className="t-h2 text-[var(--ivory)] font-light leading-[1.08]">
+                <MaskedLines lines={['Uncompromised perspective,', 'built over decades.']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="mt-[clamp(2.25rem,3vw,3rem)] max-w-[24ch] font-display text-[clamp(1.65rem,2.8vw,2.6rem)] leading-[1.12] tracking-tighter text-ivory">
-                  {welcomeCopy.paragraphs[1]}
-                </p>
+                <blockquote className="mt-8 border-l-2 border-[var(--brass)] bg-[var(--plate)] p-6 sm:p-8 rounded-r-[var(--r-md)] shadow-[var(--shadow-plate)]">
+                  <p className="font-display text-xl sm:text-2xl text-[var(--ivory)] font-light italic leading-snug">
+                    &ldquo;{welcomeCopy.paragraphs[1]}&rdquo;
+                  </p>
+                  <p className="mt-4 text-xs uppercase tracking-widest text-[var(--gold)] font-medium">
+                    Corporate Foundation Statement
+                  </p>
+                </blockquote>
               </Reveal>
 
-              <div className="mt-[clamp(2.75rem,3.6vw,3.75rem)] grid gap-x-[clamp(2.5rem,4vw,4.5rem)] gap-y-[clamp(1.5rem,2vw,2rem)] sm:grid-cols-2">
-                <RowReveal as="div" className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
-                  <p className="t-lead max-w-[30ch] text-ivory">{welcomeCopy.positioning}</p>
-                </RowReveal>
+              <div className="mt-8 space-y-5 t-body text-[var(--sage)] leading-relaxed">
+                <Reveal delay={0.18}>
+                  <p>{welcomeCopy.paragraphs[0]}</p>
+                </Reveal>
+                <Reveal delay={0.24}>
+                  <p>{welcomeCopy.paragraphs[2]}</p>
+                </Reveal>
+              </div>
 
-                <RowReveal as="div" delay={0.1} className="pt-[clamp(1.5rem,1.9vw,1.75rem)]">
-                  <p className="t-body head-note text-sage">{welcomeCopy.paragraphs[0]}</p>
-                  <p className="t-body mt-5 max-w-[38ch] text-sage">
-                    {welcomeCopy.paragraphs[2]}
-                  </p>
-                </RowReveal>
+              {/* Verified Firm Facts */}
+              <div className="mt-10 pt-6 border-t border-[var(--line)]">
+                <dl className="grid gap-4 sm:grid-cols-2">
+                  {credentialsList.map((c) => (
+                    <div key={c.label} className="p-4 rounded-[var(--r-md)] border border-[var(--line-soft)] bg-[var(--plate)]">
+                      <dt className="text-[0.6875rem] uppercase tracking-wider text-[var(--stone)] font-mono">
+                        {c.label}
+                      </dt>
+                      <dd className="mt-1 text-sm font-medium text-[var(--ivory)]">
+                        {c.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </div>
 
-            <ImageReveal delay={0.1} className="lg:relative lg:col-span-5 lg:h-full lg:min-h-[26rem]">
-              <div className="media aspect-[4/5] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
-                <Picture
-                  name="facade-pale"
-                  alt="Close view of a pale building facade, its windows set deep into the wall"
-                  sizes="(min-width:1024px) 40vw, 100vw"
-                  focal="62% 40%"
-                  className="h-full w-full"
-                />
-              </div>
-            </ImageReveal>
+            {/* Standing Architectural Image Plate */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <ImageReveal delay={0.1}>
+                <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+                  <Picture
+                    name="facade-pale"
+                    alt="Close architectural view of pale facade panels"
+                    sizes="(min-width:1024px) 40vw, 100vw"
+                    focal="62% 40%"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10">
+                    <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+                      Institutional Rigour
+                    </span>
+                    <p className="mt-1 text-sm text-white/95 font-light">
+                      Built to withstand cross-border complexity
+                    </p>
+                  </div>
+                </div>
+              </ImageReveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 03 — International perspective: a full-bleed passage with the
-             statement set over the lower half of the frame. */}
+      {/* 03 — Full-Bleed Parallax Passage: International Field of View */}
       <section
         data-section="International Perspective"
         className="band tone-dark veil-bottom grain relative w-full overflow-hidden bg-void"
@@ -138,189 +174,244 @@ export default function AboutPage() {
           />
         </Parallax>
 
-        <div className="shell relative z-10 flex min-h-[clamp(26rem,64vh,38rem)] flex-col justify-end py-[clamp(3rem,6vw,5.5rem)]">
-          <div className="max-w-[44rem]">
-            <Reveal kind="label" className="kicker">
-              <p className="t-label text-gold">International Perspective</p>
-            </Reveal>
+        <div className="shell relative z-10 flex min-h-[clamp(28rem,65vh,42rem)] flex-col justify-end py-20 sm:py-24">
+          <div className="max-w-[46rem]">
+            <div className="kicker">
+              <p className="t-label text-gold">Global Presence</p>
+            </div>
 
             <h2
               id="about-international"
-              className="t-h2 mt-eyebrow max-w-[18ch] text-ivory"
+              className="t-h2 mt-eyebrow text-white font-light leading-[1.08]"
             >
-              <MaskedLines lines={['Relationships and', 'partnerships that', 'span the globe.']} />
+              <MaskedLines lines={['Relationships and partnerships', 'that span the globe.']} />
             </h2>
 
             <Reveal delay={0.12}>
-              <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[56ch] text-sage">
-                From our world headquarters in the {contact.headquarters}, we work with
-                counterparties whose assumptions were formed elsewhere — and read each
-                position on its own terms rather than by regional average.
+              <p className="t-body mt-5 text-white/85 leading-relaxed max-w-[54ch]">
+                From our world headquarters in the {contact.headquarters}, our relationships connect counterparties across the Middle East, Europe, Asia, and the Americas — reading each position on its own merits rather than a generic average.
               </p>
             </Reveal>
+
+            <div className="mt-8 flex items-center gap-6">
+              <Link
+                href="/services"
+                className="group inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-[var(--brass)] hover:text-white"
+              >
+                <span>Explore Capabilities</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 04 — Corporate advisory: the page's dark passage. The statement and
-             its plate share one row, the plate out of the height calculation
-             so the two start and finish together. */}
+      {/* 04 — Executive Vantage: Where Decisions Cannot Be Delegated */}
       <section data-section="Corporate Advisory" className="section ground-void" aria-labelledby="about-positioning">
         <div className="shell">
-          <div className="grid items-stretch gap-[clamp(2rem,6vw,6.25rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)]">
-            <div className="flex flex-col justify-center">
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Corporate Advisory</p>
-              </Reveal>
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-6 flex flex-col justify-center">
+              <div className="kicker">
+                <p className="t-label">Advisory Vantage</p>
+              </div>
 
               <h2
                 id="about-positioning"
-                className="t-h2 mt-eyebrow max-w-[47.5rem] text-ivory"
+                className="t-h2 mt-eyebrow text-[var(--ivory)] font-light leading-[1.08]"
               >
-                <MaskedLines lines={['Where the', 'decision cannot', 'be delegated.']} />
+                <MaskedLines lines={['Where the decision', 'cannot be delegated.']} />
               </h2>
 
               <Reveal kind="body" delay={0.12}>
-                <p className="t-body mt-[clamp(2rem,2.8vw,2.75rem)] max-w-[54ch] text-sage">
-                  The matters we are brought into tend to sit above the level at which
-                  an organisation can resolve them internally: what a leadership team
-                  should do next, how a board should hold a position, whether a
-                  structure is carrying more weight than it was designed for.
+                <p className="t-body mt-6 text-[var(--sage)] leading-relaxed max-w-[54ch]">
+                  The matters we are brought into tend to sit above the level at which an organisation can resolve them internally: what a leadership team should commit to next, how a board should hold a contested position, or whether an existing corporate structure is carrying more strain than it was designed to withstand.
                 </p>
               </Reveal>
 
               <Reveal kind="body" delay={0.18}>
-                <p className="t-body mt-5 max-w-[54ch] text-sage">
-                  Our principals are highly successful business executives and investors
-                  that bring unique perspectives to all of our mandates and investments.
-                  That is the vantage point the advice is given from.
+                <p className="t-body mt-4 text-[var(--sage)] leading-relaxed max-w-[54ch]">
+                  Our principals are highly successful business executives and investors that bring unique perspectives to all of our mandates and investments. That direct ownership mindset is the vantage point our advice is delivered from.
                 </p>
               </Reveal>
+
+              <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center gap-8">
+                <div>
+                  <p className="font-display text-2xl text-[var(--ivory)] font-light">100%</p>
+                  <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">Unconflicted</p>
+                </div>
+                <div className="h-8 w-px bg-[var(--line)]" />
+                <div>
+                  <p className="font-display text-2xl text-[var(--ivory)] font-light">DMCC</p>
+                  <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">World Headquarters</p>
+                </div>
+                <div className="h-8 w-px bg-[var(--line)]" />
+                <div>
+                  <p className="font-display text-2xl text-[var(--ivory)] font-light">Global</p>
+                  <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">Cross-Border Reach</p>
+                </div>
+              </div>
             </div>
 
-            <ImageReveal delay={0.1} className="lg:relative lg:h-full lg:min-h-[32.5rem] lg:max-h-[43.75rem]">
-              <div className="media aspect-[4/3] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
+            <ImageReveal delay={0.1} className="lg:col-span-6">
+              <div className="media aspect-[4/3] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
                   name="lounge-dark"
                   alt="A spacious meeting room with a long table, columns and a wide city view"
-                  sizes="(min-width:1024px) 44vw, 100vw"
+                  sizes="(min-width:1024px) 50vw, 100vw"
                   focal="50% 50%"
-                  className="h-full w-full"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10 flex items-center justify-between">
+                  <div>
+                    <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+                      Confidential Dialogue
+                    </span>
+                    <p className="text-sm font-light text-white/95">
+                      Closed-circle advisory with executive principals
+                    </p>
+                  </div>
+                  <Users className="h-4 w-4 text-[#e8c89b]" />
+                </div>
               </div>
             </ImageReveal>
           </div>
         </div>
       </section>
 
-      {/* 05 — Confidential / Unconflicted / Strategic / International / Experienced */}
+      {/* 05 — 5 Core Advisory Principles */}
       <AdvisoryPrinciples />
 
-      {/* 06 — Working principles: one grid, two columns, three aligned rows.
-             Every item shares the same internal structure so the numbers,
-             titles, descriptions and rules all line up, and the six enter in
-             order. The DOM order is 01–06, so a phone stacks them correctly. */}
-      <section data-section="Working Principles" className="section ground-char" aria-labelledby="about-principles">
+      {/* 06 — 6 Operating Principles Grid */}
+      <section data-section="Operating Principles" className="section ground-char" aria-labelledby="about-principles">
         <div className="shell">
-          <div className="head">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
             <div>
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Working Principles</p>
-              </Reveal>
-
+              <div className="kicker">
+                <p className="t-label">Operating Commitments</p>
+              </div>
               <h2
                 id="about-principles"
-                className="t-h2 head-title mt-eyebrow max-w-[14ch] text-ivory"
+                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
               >
                 <MaskedLines lines={['How the firm', 'actually operates.']} />
               </h2>
             </div>
-
-            <Reveal kind="body" delay={0.1} className="lg:pb-2">
-              <p className="t-body head-note text-sage">
-                Six commitments that govern how an engagement is taken on and how it is
-                carried.
-              </p>
-            </Reveal>
+            <p className="t-body text-[var(--sage)] max-w-[44ch] leading-relaxed">
+              Six commitments that govern how every advisory engagement is taken on, framed, and carried through to completion.
+            </p>
           </div>
 
-          <ol className="mt-[var(--pad-sm)] grid grid-cols-1 gap-x-[clamp(3.5rem,6vw,6.875rem)] md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {operatingPrinciples.map((p, i) => (
               <RowReveal
                 key={p.k}
                 delay={i * 0.08}
-                className="group pb-[clamp(2rem,2.6vw,2.5rem)] pt-[clamp(1.75rem,2.4vw,2.125rem)]"
+                className="group relative flex flex-col justify-between p-7 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-plate)]"
               >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[var(--brass)] transition-transform duration-300 ease-out group-hover:scale-x-100"
+                />
+
                 <div>
-                  <div>
-                    <h3 className="t-card text-ivory transition-transform duration-500 ease-premium group-hover:translate-x-1">
-                      {p.t}
-                    </h3>
-                    <p className="t-small mt-3 max-w-[46ch] text-sage">{p.d}</p>
-                  </div>
+                  <span className="text-xs font-mono font-bold text-[var(--brass)]">
+                    {p.k}
+                  </span>
+                  <h3 className="mt-3 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                    {p.t}
+                  </h3>
+                  <p className="mt-2.5 t-small text-[var(--sage)] leading-relaxed">
+                    {p.d}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-3.5 border-t border-[var(--line-soft)] flex items-center justify-between text-[0.6875rem] uppercase tracking-wider text-[var(--stone)]">
+                  <span>Commitment {p.k}</span>
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--brass)] opacity-60 group-hover:opacity-100" />
                 </div>
               </RowReveal>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      {/* 07 — World headquarters: a cinematic plate against structured detail. */}
+      {/* 07 — World Headquarters: Dubai DMCC Feature */}
       <section data-section="Dubai — DMCC" className="section ground-graphite" aria-labelledby="about-dmcc">
         <div className="shell">
-          <div className="grid gap-[var(--gap)] lg:grid-cols-[minmax(0,1.25fr)_minmax(19rem,0.8fr)] lg:items-center lg:gap-[clamp(2rem,4vw,4.5rem)]">
-            <ImageReveal>
-              <div className="media aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[5/4]">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+            {/* Content (Left Column on Desktop, First on Mobile) */}
+            <div className="lg:col-span-5 order-1">
+              <div className="kicker">
+                <p className="t-label">Dubai — DMCC</p>
+              </div>
+
+              <h2 id="about-dmcc" className="t-h2 mt-eyebrow text-[var(--ivory)] font-light leading-[1.08]">
+                <MaskedLines lines={['World headquarters,', 'global reach.']} />
+              </h2>
+
+              <p className="t-body mt-5 text-[var(--sage)] leading-relaxed">
+                SOFISAM FZCO is based in the {contact.headquarters}, a free zone in Jumeirah Lake Towers that concentrates internationally oriented businesses within a defined and well-understood international framework.
+              </p>
+
+              <div className="mt-8 p-6 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--plate)]">
+                <p className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">
+                  Registered Address
+                </p>
+                <address className="mt-2 not-italic text-sm text-[var(--ivory)] font-medium leading-relaxed">
+                  {contact.address.line1}
+                  <br />
+                  {contact.address.line2}
+                </address>
+              </div>
+
+              <div className="mt-8 flex items-center gap-6">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--gold)] hover:text-[var(--ivory)] transition-colors"
+                >
+                  <span>Inquire with Headquarters</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Image Plate (Right Column on Desktop, Below on Mobile) */}
+            <ImageReveal className="lg:col-span-7 order-2">
+              <div className="media aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
                   name="dubai-haze"
                   alt="The Dubai skyline at golden hour, its towers standing in warm haze"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   focal="50% 55%"
-                  className="h-full w-full"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10 flex items-center justify-between">
+                  <div>
+                    <span className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+                      World Headquarters
+                    </span>
+                    <p className="text-sm font-light text-white/95">
+                      Dubai Multi Commodities Centre, JLT
+                    </p>
+                  </div>
+                  <Building className="h-4 w-4 text-[#e8c89b]" />
+                </div>
               </div>
             </ImageReveal>
-
-            <div>
-              <Reveal kind="label" className="kicker">
-                <p className="t-label">Dubai — DMCC</p>
-              </Reveal>
-
-              <h2 id="about-dmcc" className="t-h2 mt-eyebrow max-w-[12ch] text-ivory">
-                <MaskedLines lines={['World', 'headquarters.']} />
-              </h2>
-
-              <Reveal kind="body" delay={0.12}>
-                <p className="t-body mt-[clamp(1.25rem,2.2vw,1.75rem)] max-w-[44ch] text-sage">
-                  SOFISAM FZCO is based in the {contact.headquarters}, a free zone in
-                  Jumeirah Lake Towers that concentrates internationally oriented
-                  businesses within a defined and well-understood framework.
-                </p>
-              </Reveal>
-
-              <RowReveal as="div" delay={0.16} className="mt-[clamp(1.75rem,3vw,2.5rem)] pt-5">
-                <p className="t-label text-sage">Address</p>
-                <address className="mt-3 not-italic">
-                  <p className="t-h4 leading-relaxed text-ivory">
-                    {contact.address.line1}
-                    <br />
-                    {contact.address.line2}
-                  </p>
-                </address>
-              </RowReveal>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 08 — Global perspective, opened out rather than banded */}
+      {/* 08 — Global Perspective Editorial Variant */}
       <GlobalPerspective variant="editorial" />
 
-      {/* 09 — Enquiries */}
+      {/* 09 — Final Closing CTA */}
       <CTASection
         eyebrow="Enquiries"
-        lines={['Speak with', 'the firm.']}
-        body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in confidence."
+        lines={['Speak directly with', 'the firm.']}
+        body="Reach out to discuss strategic opportunities or advisory requirements. Every enquiry is handled in strict confidence by senior principals."
       />
     </>
   );

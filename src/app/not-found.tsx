@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowLeft, ArrowUpRight, Compass } from 'lucide-react';
 
 import { Picture } from '@/components/ui/Picture';
-import { ButtonLink } from '@/components/ui/Button';
 import { services } from '@/data/services';
 
 export const metadata: Metadata = {
-  title: 'Page not found',
+  title: 'Page Not Found | SOFISAM FZCO',
   robots: { index: false, follow: true },
 };
 
 export default function NotFound() {
   return (
-    <section className="tone-dark relative flex min-h-screen-safe items-center overflow-hidden bg-void text-ivory">
+    <section className="tone-dark relative flex min-h-screen-safe items-center overflow-hidden bg-[var(--void)] text-[var(--ivory)]">
+      {/* Background Architectural Plate */}
       <div className="media media-flat veil-hero grain absolute inset-0">
         <Picture
           name="towers-mono"
@@ -20,49 +21,72 @@ export default function NotFound() {
           decorative
           sizes="100vw"
           focal="50% 40%"
-          className="h-full w-full"
+          className="h-full w-full object-cover opacity-60"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/70" />
       </div>
 
-      <div className="below-header shell relative z-10 pb-[var(--pad)]">
-        <p className="t-label text-gold">Error 404</p>
+      <div className="shell relative z-10 py-24 sm:py-32">
+        <div className="max-w-[42rem]">
+          <div className="flex items-center gap-2 kicker">
+            <p className="t-label text-gold">Status 404</p>
+          </div>
 
-        <h1 className="t-display mt-7 max-w-[14ch] text-ivory">Page not found.</h1>
+          <h1 className="t-h1 mt-eyebrow text-white font-light leading-[1.06]">
+            Page not found.
+          </h1>
 
-        <p className="t-lead mt-7 max-w-[46ch] text-stone">
-          The page you were looking for is not here. It may have moved, or the
-          address may be incomplete.
-        </p>
+          <p className="t-lead mt-6 text-white/80 leading-relaxed max-w-[44ch]">
+            The requested advisory document or page does not exist at this address. It may have been relocated or archived.
+          </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <ButtonLink href="/" tone="light" variant="solid">
-            Return home
-          </ButtonLink>
-          <ButtonLink href="/contact" tone="light" variant="outline">
-            Get in touch
-          </ButtonLink>
-        </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-none bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-[var(--brass)] hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Return to Homepage</span>
+            </Link>
 
-        <nav aria-label="Suggested pages" className="mt-14 border-t border-ivory/15 pt-8">
-          <p className="t-label text-stone">Elsewhere on the site</p>
-          <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-            {[
-              { label: 'About', href: '/about' },
-              { label: 'Services', href: '/services' },
-              ...services.map((s) => ({ label: s.title, href: `/services/${s.slug}` })),
-              { label: 'Insights', href: '/insights' },
-            ].map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="link-underline text-[0.95rem] font-light text-sage hover:text-ivory"
-                >
-                  {l.label}
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-none border border-white/40 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:border-white hover:bg-white/10"
+            >
+              <span>Contact Firm</span>
+            </Link>
+          </div>
+
+          <div className="mt-14 pt-8 border-t border-white/20">
+            <p className="text-xs uppercase tracking-widest text-[#e8c89b] font-mono">
+              Key Firm Destinations
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs">
+              <li>
+                <Link href="/about" className="text-white/80 hover:text-white transition-colors">
+                  About the Firm
                 </Link>
               </li>
-            ))}
-          </ul>
-        </nav>
+              <li>
+                <Link href="/services" className="text-white/80 hover:text-white transition-colors">
+                  Our Expertise
+                </Link>
+              </li>
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="text-white/80 hover:text-white transition-colors">
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/insights" className="text-white/80 hover:text-white transition-colors">
+                  Strategic Insights
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,183 +1,198 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight, MapPin, Mail, Phone } from 'lucide-react';
 
-import { contact, copyright } from '@/data/site';
+import { contact, copyright, site } from '@/data/site';
 import { services } from '@/data/services';
-import { Reveal } from '@/components/animations/Reveal';
+import { Logo } from '@/components/ui/Logo';
 import { BackToTop } from './BackToTop';
 
 const YEAR = new Date().getFullYear();
 
-const pages = [
+const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About the Firm', href: '/about' },
+  { label: 'Our Expertise', href: '/services' },
+  { label: 'Strategic Insights', href: '/insights' },
+  { label: 'Contact & Mandates', href: '/contact' },
 ];
 
-const reach = ['Middle East', 'Europe', 'Asia', 'Americas'];
+const globalReach = ['Middle East', 'Europe', 'Asia', 'Americas'];
 
 const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `${contact.address.line1}, ${contact.address.line2}`,
 )}`;
 
 /**
- * A column. Every column opens with the same heading and the same gap
- * beneath it, so the four headings share one baseline and so do the first
- * lines under them — alignment is a property of the grid, not of margins
- * tuned per column.
- */
-function Column({
-  title,
-  children,
-  delay = 0,
-  className = '',
-}: {
-  title: string;
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <Reveal as="div" kind="body" delay={delay} className={className}>
-      <h2 className="t-label text-gold">{title}</h2>
-      <div className="mt-5">{children}</div>
-    </Reveal>
-  );
-}
-
-/** A directory link: one line of body type, its underline drawn on hover. */
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="group inline-flex min-h-[2.75rem] items-center text-[0.9375rem] text-ivory-2 transition-colors duration-500 ease-premium hover:text-ivory md:min-h-0 md:py-[0.3125rem]"
-    >
-      <span className="link-underline">{children}</span>
-    </Link>
-  );
-}
-
-/** A small caption over a value — Telephone, Email. */
-function Caption({ children }: { children: React.ReactNode }) {
-  return <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-stone">{children}</p>;
-}
-
-/**
- * The footer.
+ * SOFISAM Premium Architectural Footer
  *
- * A directory set on the lifted ivory ground, read left to right: the site,
- * the three disciplines, how to reach the firm and where it is. One grid
- * carries all four columns — four across on a desktop, two on a tablet, one
- * on a phone — inside the same container as every section above it, so
- * the footer's edges are the page's edges.
- *
- * Beneath it, between two hairlines, the firm's reach as a single line of
- * small capitals; then the legal line on one baseline.
+ * Designed with prestigious editorial layout:
+ * - Brand positioning and DMCC headquarters certification
+ * - Structured navigation columns with hairline separators
+ * - Direct contact channels with interactive hover states
+ * - Global presence indicators
+ * - Legal statement & smooth return-to-top
  */
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--line)] bg-[var(--char)] text-[var(--ivory)]">
-      <div className="shell pt-12 md:pt-16 lg:pt-[5.25rem]">
-        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12 lg:grid-cols-[1fr_1fr_1.3fr_1.3fr] lg:gap-x-10">
-          <Column title="Explore">
-            <nav aria-label="Footer">
-              <ul>
-                {pages.map((p) => (
-                  <li key={p.href}>
-                    <FooterLink href={p.href}>{p.label}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </Column>
+    <footer className="border-t border-[var(--line)] bg-[var(--char)] text-[var(--ivory)] transition-colors duration-500">
+      <div className="shell pt-14 pb-10 sm:pt-16 lg:pt-20">
+        {/* Top Brand & Headquarters Bar */}
+        <div className="grid gap-8 pb-12 border-b border-[var(--line)] lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-6">
+            <Link href="/" aria-label="SOFISAM FZCO — Home" className="inline-block">
+              <Logo alt="SOFISAM FZCO" className="h-10 w-auto" />
+            </Link>
+            <p className="mt-4 max-w-[42ch] font-display text-lg text-[var(--ivory)] font-light leading-snug">
+              International Strategic Consulting, Advisory and Structuring Firm.
+            </p>
+            <p className="mt-2 text-xs uppercase tracking-widest text-[var(--brass)] font-semibold">
+              World Headquarters · Dubai Multi Commodities Centre
+            </p>
+          </div>
 
-          <Column title="Services" delay={0.05}>
-            <nav aria-label="Services">
-              <ul>
-                {services.map((s) => (
-                  <li key={s.slug}>
-                    <FooterLink href={`/services/${s.slug}`}>{s.title}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </Column>
-
-          <Column title="Connect" delay={0.1}>
-            <div className="space-y-5">
-              <div>
-                <Caption>Telephone</Caption>
-                <a
-                  href={`tel:${contact.phoneHref}`}
-                  className="mt-1 inline-flex min-h-[2.75rem] items-center text-base font-medium text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
-                >
-                  <span className="link-underline">{contact.phone}</span>
-                </a>
-              </div>
-              <div>
-                <Caption>Email</Caption>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="mt-1 inline-flex min-h-[2.75rem] items-center text-base font-medium text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
-                >
-                  <span className="link-underline">{contact.email}</span>
-                </a>
-              </div>
+          <div className="lg:col-span-6 lg:text-right">
+            <p className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">
+              Direct Advisory Inquiries
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-4 lg:justify-end">
+              <a
+                href={`mailto:${contact.email}`}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5 text-[var(--brass)]" />
+                <span>{contact.email}</span>
+              </a>
+              <span className="text-[var(--line-strong)]">|</span>
+              <a
+                href={`tel:${contact.phoneHref}`}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5 text-[var(--brass)]" />
+                <span>{contact.phone}</span>
+              </a>
             </div>
-          </Column>
+          </div>
+        </div>
 
-          <Column title="World Headquarters" delay={0.15}>
-            <address className="not-italic">
-              <p className="text-[0.9375rem] font-semibold uppercase leading-[1.6] tracking-[0.12em] text-ivory">
-                Dubai
-              </p>
-              <p className="mt-1 text-[0.9375rem] leading-[1.7] text-ivory-2">
-                DMCC Business Centre
-                <br />
-                Jumeirah Lake Towers
-                <br />
-                Dubai, United Arab Emirates
-              </p>
+        {/* 4-Column Navigation & Details Grid */}
+        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 pb-12 border-b border-[var(--line)]">
+          {/* Col 1: Overview */}
+          <div>
+            <h3 className="t-label text-gold">Navigation</h3>
+            <ul className="mt-5 space-y-2.5">
+              {navLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-1 text-sm text-[var(--sage)] hover:text-[var(--ivory)] transition-colors py-1"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="h-3 w-3 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-[var(--gold)] group-hover:translate-x-0.5" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 2: Services / Disciplines */}
+          <div>
+            <h3 className="t-label text-gold">Disciplines</h3>
+            <ul className="mt-5 space-y-2.5">
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="group inline-flex items-center gap-1 text-sm text-[var(--sage)] hover:text-[var(--ivory)] transition-colors py-1"
+                  >
+                    <span>{s.title}</span>
+                    <ArrowUpRight className="h-3 w-3 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-[var(--gold)] group-hover:translate-x-0.5" />
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/services"
+                  className="inline-block text-xs uppercase tracking-wider text-[var(--brass)] font-semibold hover:underline pt-2"
+                >
+                  View All Capabilities →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Principles */}
+          <div>
+            <h3 className="t-label text-gold">Advisory Pillars</h3>
+            <ul className="mt-5 space-y-2 text-xs text-[var(--sage)]">
+              <li className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[var(--brass)]" />
+                <span>Confidential Engagements</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[var(--brass)]" />
+                <span>Unconflicted Advice</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[var(--brass)]" />
+                <span>Strategic Mandate Structuring</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[var(--brass)]" />
+                <span>Decades of Executive Experience</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[var(--brass)]" />
+                <span>Global Cross-Border Relationships</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Registered Location */}
+          <div>
+            <h3 className="t-label text-gold">World Headquarters</h3>
+            <address className="mt-5 not-italic text-sm text-[var(--ivory-2)] space-y-1 leading-relaxed">
+              <p className="font-medium text-[var(--ivory)]">SOFISAM FZCO</p>
+              <p>{contact.address.line1}</p>
+              <p>{contact.address.line2}</p>
             </address>
             <a
               href={mapHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-4 inline-flex min-h-[2.75rem] items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ivory transition-colors duration-500 hover:text-gold md:min-h-0"
+              className="group mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--brass)] hover:text-[var(--ivory)] transition-colors"
             >
-              <span className="link-underline">View location</span>
-              <ArrowRight aria-hidden strokeWidth={1.5} className="arrow-right h-3.5 w-3.5 text-[var(--brass)]" />
-              <span className="sr-only">(opens Google Maps in a new tab)</span>
+              <MapPin className="h-3.5 w-3.5" />
+              <span>Location in Dubai</span>
+              <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
-          </Column>
+          </div>
         </div>
 
-        {/* Reach */}
-        <div className="mt-12 border-y border-[var(--line)] py-4 md:mt-14 lg:mt-16">
-          <ul
-            aria-label="Global presence"
-            className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-stone"
-          >
-            <li className="text-gold">Dubai</li>
-            {reach.map((r) => (
-              <li key={r} className="flex items-center gap-x-3">
-                <span aria-hidden className="h-[3px] w-[3px] rounded-full bg-[var(--brass)] opacity-80" />
-                {r}
+        {/* Global Presence Horizon */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 py-4 border-b border-[var(--line)]">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[var(--brass)] animate-pulse" />
+            <span className="text-xs uppercase tracking-widest text-[var(--stone)] font-mono">
+              International Reach
+            </span>
+          </div>
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs uppercase tracking-wider text-[var(--sage)]">
+            <li className="font-semibold text-[var(--gold)]">Dubai Headquarters</li>
+            {globalReach.map((region) => (
+              <li key={region} className="flex items-center gap-4">
+                <span aria-hidden className="text-[var(--line-strong)]">·</span>
+                <span>{region}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Legal */}
-        <div className="flex flex-col gap-2 py-6 text-[0.8125rem] text-stone md:flex-row md:items-center md:justify-between md:gap-6">
-          <p>
-            © {YEAR} {copyright}
-          </p>
-          <div className="flex items-center justify-between gap-8 md:justify-end">
-            <span>Dubai, UAE</span>
-            <BackToTop className="min-h-[2.75rem] text-ivory-2 transition-colors duration-500 hover:text-ivory md:min-h-0" />
+        {/* Legal & Copyright */}
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--stone)]">
+          <p>© {YEAR} {copyright}</p>
+          <div className="flex items-center gap-6">
+            <span>Dubai, United Arab Emirates</span>
+            <BackToTop className="text-[var(--ivory-2)] hover:text-[var(--gold)] transition-colors text-xs uppercase tracking-wider font-medium" />
           </div>
         </div>
       </div>
