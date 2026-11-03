@@ -124,7 +124,7 @@ export function ProcessNarrative() {
                   >
                     {s.title}
                   </p>
-                  <p className="mt-1 text-xs text-[var(--stone)] line-clamp-1">
+                  <p className="mt-1 text-xs text-[var(--stone)]">
                     {s.tagline}
                   </p>
                 </button>
@@ -137,7 +137,7 @@ export function ProcessNarrative() {
         <div className="mt-10 hidden lg:grid lg:grid-cols-12 gap-12 items-stretch">
           <div className="lg:col-span-5 flex flex-col justify-between p-10 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
             <div>
-              <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-[var(--line)] pb-4">
                 <span className="t-label text-[var(--brass)]">
                   Advisory Framework Stage
                 </span>

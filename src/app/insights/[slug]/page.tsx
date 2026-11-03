@@ -234,7 +234,7 @@ export default async function InsightPage({
                       <h3 className="mt-3 font-display text-2xl text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors font-light leading-snug">
                         {item.title}
                       </h3>
-                      <p className="mt-2 text-xs text-[var(--sage)] line-clamp-2 leading-relaxed">
+                      <p className="mt-2 text-xs text-[var(--sage)] leading-relaxed">
                         {item.summary}
                       </p>
                     </div>

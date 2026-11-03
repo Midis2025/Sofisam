@@ -132,7 +132,7 @@ export function OurWork() {
             {/* Content (Left Column on Desktop, First on Mobile) */}
             <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 lg:p-10 order-1">
               <div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1.5">
                   <span className="t-label text-[var(--gold)]">
                     Platform
                   </span>
@@ -169,9 +169,9 @@ export function OurWork() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between gap-4">
                 <span className="text-xs text-[var(--stone)]">SOFISAM Global Base</span>
-                <Button variant="link" href={featured.href}>
+                <Button variant="link" href={featured.href} className="min-w-0 text-right">
                   {featured.cta}
                 </Button>
               </div>
@@ -198,8 +198,13 @@ export function OurWork() {
             </div>
           </motion.article>
 
-          {/* 4 Supporting Disciplines in 2x2 Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 items-stretch">
+          {/* 4 Supporting Disciplines: 1 column on a phone, 2×2 from tablet,
+              4 across from 1280px. Each card spans three rows of the parent
+              grid (image · body · CTA) through subgrid, so every card in a
+              row shares the same row heights: equal card heights, and the
+              divider over the CTA at exactly the same line in every card,
+              even where one CTA wraps and its neighbours do not. */}
+          <div className="grid gap-x-6 gap-y-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-5 2xl:gap-x-8">
             {supporting.map((item, i) => (
               <motion.article
                 key={item.index}
@@ -207,14 +212,14 @@ export function OurWork() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.65, ease: EASE, delay: i * 0.09 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-plate)]"
+                className="group relative row-span-3 grid grid-rows-subgrid gap-y-0 min-w-0 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-plate)]"
               >
                 <span
                   aria-hidden
                   className="absolute inset-x-0 top-0 z-20 h-[2px] origin-left scale-x-0 bg-[var(--brass)] transition-transform duration-300 ease-out group-hover:scale-x-100"
                 />
 
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--graphite)]">
+                <div className="relative aspect-[16/10] sm:aspect-[2/1] md:aspect-[16/10] w-full overflow-hidden bg-[var(--graphite)]">
                   <Picture
                     name={item.image}
                     alt={item.imageAlt}
@@ -228,25 +233,29 @@ export function OurWork() {
                   />
                 </div>
 
-                <div className="flex flex-1 flex-col justify-between p-6">
-                  <div>
-                    <p className="t-label text-gold">
-                      {item.category}
-                    </p>
-                    <h3 className="mt-2.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2.5 t-small text-[var(--sage)] leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
+                <div className="min-w-0 px-5 pt-5 sm:px-6 sm:pt-6">
+                  <p className="t-label text-gold">
+                    {item.category}
+                  </p>
+                  <h3 className="mt-2.5 t-card text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2.5 t-small text-[var(--sage)] leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
 
-                  <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between">
-                    <span className="text-[0.6875rem] text-[var(--stone)] uppercase tracking-wider">Practice</span>
-                    <Button variant="link" size="sm" href={item.href}>
-                      {item.cta}
-                    </Button>
-                  </div>
+                {/* The CTA row: the label holds left and the link right; a
+                    long CTA wraps inside its own box (right-aligned, the
+                    arrow staying at the right) rather than being clipped.
+                    The row fills its shared subgrid track from the top, so
+                    the divider sits on the same line in every card of a row
+                    even when only some CTAs wrap. */}
+                <div className="mx-5 mb-5 mt-6 sm:mx-6 sm:mb-6 flex items-start justify-between gap-4 border-t border-[var(--line)] pt-4">
+                  <span className="shrink-0 text-[0.6875rem] text-[var(--stone)] uppercase tracking-wider">Practice</span>
+                  <Button variant="link" size="sm" href={item.href} className="min-w-0 text-right">
+                    {item.cta}
+                  </Button>
                 </div>
               </motion.article>
             ))}

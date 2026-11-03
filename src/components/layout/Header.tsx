@@ -208,7 +208,7 @@ export function Header() {
                                         }`}
                                       />
                                     </div>
-                                    <p className="mt-1 text-xs text-[var(--sage)] line-clamp-1">
+                                    <p className="mt-1 text-xs text-[var(--sage)]">
                                       {s.navDescription}
                                     </p>
                                   </Link>
@@ -287,7 +287,7 @@ export function Header() {
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line-strong)] bg-[var(--plate)]/80 text-[var(--ivory)] shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-300 hover:border-[var(--brass)] hover:text-[var(--gold)]"
+              className="group relative flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line-strong)] bg-[var(--plate)]/80 text-[var(--ivory)] shadow-[var(--control-shadow)] backdrop-blur-md transition-colors duration-300 hover:border-[var(--brass)] hover:text-[var(--gold)]"
             >
               <span className="flex w-4 flex-col items-end gap-[5px]">
                 <span className="block h-[1.5px] w-full bg-current transition-all duration-300" />

@@ -50,10 +50,10 @@ const VARIANT_STYLES: Record<CanonicalVariant, Record<ButtonTone, string>> = {
       'bg-transparent text-white border border-white/40 hover:border-white hover:bg-white/10 rounded-[var(--r-sm)] uppercase tracking-[0.12em]',
   },
   link: {
-    auto: 'bg-transparent text-[var(--ivory)] hover:text-[var(--gold)] uppercase tracking-[0.12em] p-0 min-h-0 border-none',
-    dark: 'bg-transparent text-[#171717] hover:text-[#C7A46A] uppercase tracking-[0.12em] p-0 min-h-0 border-none',
+    auto: 'bg-transparent text-[var(--ivory)] hover:text-[var(--gold)] uppercase tracking-[0.12em] p-0 min-h-0 border-none before:absolute before:-inset-x-1 before:-inset-y-3.5',
+    dark: 'bg-transparent text-[#171717] hover:text-[#C7A46A] uppercase tracking-[0.12em] p-0 min-h-0 border-none before:absolute before:-inset-x-1 before:-inset-y-3.5',
     light:
-      'bg-transparent text-white hover:text-[var(--gold)] uppercase tracking-[0.12em] p-0 min-h-0 border-none',
+      'bg-transparent text-white hover:text-[var(--gold)] uppercase tracking-[0.12em] p-0 min-h-0 border-none before:absolute before:-inset-x-1 before:-inset-y-3.5',
   },
   icon: {
     auto: 'rounded-full border border-[var(--line-strong)] bg-[var(--plate)]/80 text-[var(--ivory)] hover:border-[var(--brass)] hover:text-[var(--gold)] hover:bg-[var(--plate)] shadow-sm',

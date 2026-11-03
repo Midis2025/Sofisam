@@ -113,7 +113,7 @@ export default function ContactPage() {
             <div className="lg:col-span-7">
               <Reveal kind="card" delay={0.1}>
                 <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] p-8 sm:p-12 shadow-[var(--shadow-plate)]">
-                  <div className="flex items-center justify-between border-b border-[var(--line)] pb-5">
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-[var(--line)] pb-5">
                     <div>
                       <h2 className="font-display text-2xl text-[var(--ivory)] font-light">
                         Send a Confidential Message

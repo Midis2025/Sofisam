@@ -84,7 +84,7 @@ export default function ServicesPage() {
                   <h3 className="mt-4 font-display text-2xl text-[var(--ivory)] group-hover:text-[var(--gold)] transition-colors font-light">
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-xs text-[var(--sage)] leading-relaxed line-clamp-2">
+                  <p className="mt-2 text-xs text-[var(--sage)] leading-relaxed">
                     {s.navDescription}
                   </p>
                 </div>

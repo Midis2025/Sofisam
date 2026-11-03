@@ -160,7 +160,7 @@ export function InsightsEditorial() {
                       </Link>
                     </h3>
 
-                    <p className="mt-2 t-small text-[var(--sage)] line-clamp-2 leading-relaxed">
+                    <p className="mt-2 t-small text-[var(--sage)] leading-relaxed">
                       {item.summary}
                     </p>
                   </div>

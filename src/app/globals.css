@@ -1700,6 +1700,14 @@ html.theme-switching *::after {
     background-color 0.5s var(--ease-glass);
 }
 
+/* The pill is drawn 34px tall, but it is tapped as a 44px target: an
+   invisible hit area round it, so it reads small and still takes a thumb. */
+.theme-toggle::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--tt-h) - 2.75rem) / 2) -2px;
+}
+
 .theme-toggle:hover {
   border-color: var(--line-gold);
   background: var(--g-bg-hi);
