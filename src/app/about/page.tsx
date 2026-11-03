@@ -87,7 +87,7 @@ export default function AboutPage() {
             <p className="t-label">{welcomeCopy.eyebrow}</p>
           </div>
 
-          <div className="mt-eyebrow grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
+          <div className="mt-eyebrow grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-stretch">
             <div className="lg:col-span-7">
               <h2 id="about-intro" className="t-h2 text-[var(--ivory)] font-light leading-[1.08]">
                 <MaskedLines lines={['Uncompromised perspective,', 'built over decades.']} />
@@ -131,15 +131,15 @@ export default function AboutPage() {
             </div>
 
             {/* Standing Architectural Image Plate */}
-            <div className="lg:col-span-5 flex flex-col justify-between">
-              <ImageReveal delay={0.1}>
-                <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+            <div className="lg:col-span-5">
+              <ImageReveal delay={0.1} className="lg:h-full">
+                <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[26rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                   <Picture
-                    name="dubai-investor-outreach"
-                    alt="Senior institutional leaders and strategic partners in executive consultation"
+                    name="dubai-frame-day"
+                    alt="The Dubai Frame architectural landmark towering under clear blue skies"
                     sizes="(min-width:1024px) 40vw, 100vw"
-                    focal="50% 40%"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    focal="50% 35%"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10">
@@ -205,7 +205,7 @@ export default function AboutPage() {
       {/* 04 — Executive Vantage: Where Decisions Cannot Be Delegated */}
       <section data-section="Corporate Advisory" className="section ground-void" aria-labelledby="about-positioning">
         <div className="shell">
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-stretch">
             <div className="lg:col-span-6 flex flex-col justify-center">
               <div className="kicker">
                 <p className="t-label">Advisory Vantage</p>
@@ -230,17 +230,17 @@ export default function AboutPage() {
                 </p>
               </Reveal>
 
-              <div className="mt-8 pt-6 border-t border-[var(--line)] flex items-center gap-8">
+              <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-wrap items-center gap-x-6 gap-y-4 sm:gap-x-8">
                 <div>
                   <p className="font-display text-2xl text-[var(--ivory)] font-light">100%</p>
                   <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">Unconflicted</p>
                 </div>
-                <div className="h-8 w-px bg-[var(--line)]" />
+                <div aria-hidden className="hidden h-8 w-px bg-[var(--line)] sm:block" />
                 <div>
                   <p className="font-display text-2xl text-[var(--ivory)] font-light">DMCC</p>
                   <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">World Headquarters</p>
                 </div>
-                <div className="h-8 w-px bg-[var(--line)]" />
+                <div aria-hidden className="hidden h-8 w-px bg-[var(--line)] sm:block" />
                 <div>
                   <p className="font-display text-2xl text-[var(--ivory)] font-light">Global</p>
                   <p className="text-xs uppercase tracking-wider text-[var(--stone)] mt-0.5">Cross-Border Reach</p>
@@ -249,13 +249,13 @@ export default function AboutPage() {
             </div>
 
             <ImageReveal delay={0.1} className="lg:col-span-6">
-              <div className="media aspect-[4/3] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+              <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
                   name="exec-courtyard-dusk"
                   alt="Modern glass corporate office courtyard in Dubai at dusk"
                   sizes="(min-width:1024px) 50vw, 100vw"
                   focal="50% 50%"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10 flex items-center justify-between">
@@ -335,7 +335,7 @@ export default function AboutPage() {
       {/* 07 — World Headquarters: Dubai DMCC Feature */}
       <section data-section="Dubai — DMCC" className="section ground-graphite" aria-labelledby="about-dmcc">
         <div className="shell">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-16">
             {/* Content (Left Column on Desktop, First on Mobile) */}
             <div className="lg:col-span-5 order-1">
               <div className="kicker">
@@ -370,13 +370,13 @@ export default function AboutPage() {
 
             {/* Image Plate (Right Column on Desktop, Below on Mobile) */}
             <ImageReveal className="lg:col-span-7 order-2">
-              <div className="media aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+              <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
                   name="hero-dubai"
                   alt="Panoramic Dubai financial district skyline and DMCC towers illuminated at dusk"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   focal="50% 55%"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10 flex items-center justify-between">

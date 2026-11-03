@@ -132,13 +132,16 @@ export function BrandStatement() {
             transition={{ duration: 0.95, ease: EASE, delay: 0.22 }}
             className="lg:col-span-6 flex flex-col justify-between"
           >
-            <div className="group relative h-full min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
+            {/* The plate takes its height from the narrative column beside it
+                (lg) or from its ratio when stacked; the portrait photograph is
+                lifted out of flow so its own proportions never set the row. */}
+            <div className="group relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
               <Picture
-                name="business-bay"
-                alt="Dubai Business Bay corporate towers standing across the water"
+                name="dubai-museum-khalifa"
+                alt="Museum of the Future with illuminated Arabic calligraphy and the Burj Khalifa towering in the Dubai Downtown skyline"
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                focal="50% 45%"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                focal="50% 72%"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div
                 aria-hidden

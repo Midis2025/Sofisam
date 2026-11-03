@@ -125,7 +125,7 @@ export default function StructuringPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+          <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-stretch">
             {/* Content (Left Column on Desktop, First on Mobile) */}
             <div className="lg:col-span-7 order-1">
               <Reveal>
@@ -155,13 +155,15 @@ export default function StructuringPage() {
 
             {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
             <ImageReveal className="lg:col-span-5 order-2">
-              <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+              {/* Height follows the decision ledger beside it (lg); stacked,
+                  a landscape ratio keeps the plate from towering over text. */}
+              <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="lattice-white"
-                  alt="The facade of a modern building, its balconies set in a regular grid"
+                  name="dubai-frame-night"
+                  alt="Dubai Frame illuminated at night showcasing soaring geometric structural design"
                   sizes="(min-width:1024px) 42vw, 100vw"
-                  focal="50% 48%"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  focal="50% 40%"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10">
@@ -232,7 +234,7 @@ export default function StructuringPage() {
       {/* 05 — Mandates & Investments Asymmetric Feature */}
       <section data-section="Mandates & Investments" className="section ground-graphite border-b border-[var(--line-soft)]" aria-labelledby="st-mandates">
         <div className="shell">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-16">
             {/* Content (Left Column on Desktop, First on Mobile) */}
             <div className="lg:col-span-5 order-1">
               <div className="kicker">
@@ -263,13 +265,13 @@ export default function StructuringPage() {
 
             {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
             <ImageReveal className="lg:col-span-7 order-2">
-              <div className="media aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+              <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="riyadh-financial-center"
-                  alt="Modern architectural lines of the financial center towers"
+                  name="dubai-burj-al-arab-avenue"
+                  alt="Burj Al Arab framed by modern city boulevard and palm trees"
                   sizes="(min-width:1024px) 56vw, 100vw"
-                  focal="50% 50%"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  focal="50% 30%"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-8 text-white z-10 flex items-end justify-between">

@@ -76,10 +76,10 @@ export function GlobalPerspective({
           <ImageReveal delay={0.08} className="mt-[var(--pad-sm)]">
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9]">
               <Picture
-                name="tower-dusk"
-                alt="Illuminated financial district towers standing against the evening sky"
+                name="dubai-palm-aerial"
+                alt="Vast aerial vantage point of Dubai's Palm Jumeirah and the open Arabian Gulf horizon"
                 sizes="(max-width: 767px) 190vw, 100vw"
-                focal="50% 45%"
+                focal="50% 50%"
                 className="h-full w-full"
               />
             </div>

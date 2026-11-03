@@ -38,9 +38,9 @@ export function DubaiSection() {
       aria-label="Dubai World Headquarters"
     >
       <div className="shell">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+        <div className="grid gap-12 xl:grid-cols-12 xl:gap-16 xl:items-stretch">
           {/* Left Column: Headquarters Narrative & Verified Facts */}
-          <div className="lg:col-span-5">
+          <div className="xl:col-span-5">
             <div className="kicker">
               <p className="t-label">
                 Dubai — DMCC
@@ -86,15 +86,17 @@ export function DubaiSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-10% 0px' }}
             transition={{ duration: 0.9, ease: EASE }}
-            className="lg:col-span-7"
+            className="xl:col-span-7"
           >
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)] group">
+            {/* Matches the headquarters narrative and facts ledger beside it
+                rather than floating mid-column at a fixed ratio. */}
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9] xl:aspect-auto xl:h-full xl:min-h-[28rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)] group">
               <Picture
                 name="dubai-haze"
                 alt="Dubai DMCC towers rising into the atmospheric horizon"
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                focal="50% 45%"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(min-width: 1280px) 58vw, 100vw"
+                focal="55% 50%"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div
                 aria-hidden

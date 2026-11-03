@@ -33,9 +33,9 @@ export default function InsightsPage() {
         sectionLabel="Strategic Insights"
         headline={['Perspectives on global markets,', 'governance, and structuring.']}
         standfirst={insightsIntro.standfirst}
-        image="abstract-dark"
-        imageAlt="The curved glass fins of a contemporary facade against a pale sky"
-        focal="60% 45%"
+        image="dubai-museum-atrium"
+        imageAlt="Illuminated architectural calligraphy and sweeping curves inside the Museum of the Future in Dubai"
+        focal="50% 50%"
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Strategic Insights' }]}
       />
 
@@ -108,13 +108,15 @@ export default function InsightsPage() {
                 </div>
 
                 {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
-                <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto overflow-hidden bg-[var(--graphite)] order-2">
+                {/* The portrait source is lifted out of flow so the plate takes
+                    the editorial column's height rather than its own. */}
+                <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:min-h-[22rem] overflow-hidden bg-[var(--graphite)] order-2">
                   <Picture
                     name={featuredInsight.image}
                     alt={featuredInsight.imageAlt}
                     sizes="(min-width: 1024px) 60vw, 100vw"
                     focal={featuredInsight.focal}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
                   <span className="absolute top-4 left-4 text-xs font-semibold uppercase tracking-wider text-white bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-[var(--r-sm)] border border-white/20">

@@ -107,7 +107,7 @@ export default function AdvisoryPage() {
       {/* 03 — Governance Architecture Ledger */}
       <section data-section="Corporate Governance" className="section ground-graphite border-b border-[var(--line-soft)]" aria-labelledby="adv-governance">
         <div className="shell">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-16">
             {/* Content (Left Column on Desktop, First on Mobile) */}
             <div className="lg:col-span-7 order-1">
               <div className="kicker">
@@ -141,13 +141,13 @@ export default function AdvisoryPage() {
 
             {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
             <ImageReveal className="lg:col-span-5 order-2">
-              <div className="media aspect-[4/5] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+              <div className="media aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                 <Picture
-                  name="process-structure"
-                  alt="A hand setting a signature to a legal document"
+                  name="dubai-burj-khalifa-reflection"
+                  alt="Burj Khalifa soaring vertically with symmetrical architectural reflection in Downtown Dubai"
                   sizes="(min-width:1024px) 42vw, 100vw"
-                  focal="44% 50%"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  focal="50% 40%"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white z-10">
@@ -190,10 +190,10 @@ export default function AdvisoryPage() {
           <ImageReveal className="mt-12">
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9] overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
               <Picture
-                name="tower-detail"
-                alt="Office floors lit at night across the facade of a financial tower"
+                name="dubai-burj-al-arab-gulf"
+                alt="Panoramic view of Burj Al Arab along the Dubai coastline over the Arabian Gulf"
                 sizes="100vw"
-                focal="50% 45%"
+                focal="50% 50%"
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />

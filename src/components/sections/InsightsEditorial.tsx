@@ -60,7 +60,9 @@ export function InsightsEditorial() {
         </div>
 
         {/* Editorial Layout: Featured (Left 7 Cols) + Secondary (Right 5 Cols) */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-10 items-start">
+        {/* Both columns share one row height on lg: the featured image flexes
+            to take what the text leaves, so neither column trails empty. */}
+        <div className="mt-12 grid gap-8 xl:grid-cols-12 xl:gap-10 xl:items-stretch">
           {/* Featured Article */}
           {featured && (
             <motion.article
@@ -68,15 +70,15 @@ export function InsightsEditorial() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.75, ease: EASE }}
-              className="lg:col-span-7 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group transition-all duration-300 hover:border-[var(--line-strong)]"
+              className="xl:col-span-7 flex flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)] group transition-all duration-300 hover:border-[var(--line-strong)]"
             >
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[2/1] w-full overflow-hidden bg-[var(--graphite)]">
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/9] xl:aspect-auto xl:flex-1 xl:min-h-[17rem] w-full overflow-hidden bg-[var(--graphite)]">
                 <Picture
                   name={featured.image}
                   alt={featured.imageAlt}
-                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  sizes="(min-width: 1280px) 58vw, 100vw"
                   focal={featured.focal}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div
                   aria-hidden
@@ -127,7 +129,7 @@ export function InsightsEditorial() {
           )}
 
           {/* Secondary Articles Column */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="xl:col-span-5 grid gap-6 lg:grid-cols-2 xl:flex xl:flex-col">
             {secondary.map((item, i) => (
               <motion.article
                 key={item.slug}
@@ -135,15 +137,15 @@ export function InsightsEditorial() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.75, ease: EASE, delay: 0.15 + i * 0.1 }}
-                className="flex flex-col sm:flex-row overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all duration-300 hover:border-[var(--line-strong)] hover:-translate-y-1"
+                className="xl:flex-1 flex flex-col sm:flex-row overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] group transition-all duration-300 hover:border-[var(--line-strong)] hover:-translate-y-1"
               >
-                <div className="relative aspect-[16/10] sm:aspect-auto sm:w-44 lg:w-40 shrink-0 overflow-hidden bg-[var(--graphite)]">
+                <div className="relative aspect-[16/10] sm:aspect-auto sm:w-44 sm:min-h-[10rem] lg:w-40 shrink-0 overflow-hidden bg-[var(--graphite)]">
                   <Picture
                     name={item.image}
                     alt={item.imageAlt}
-                    sizes="(min-width: 1024px) 20vw, (min-width: 640px) 35vw, 100vw"
+                    sizes="(min-width: 1280px) 15vw, (min-width: 640px) 25vw, 100vw"
                     focal={item.focal}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent sm:hidden" />
                   <span className="absolute bottom-3 left-3 text-xs uppercase tracking-wider text-white bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded sm:hidden">

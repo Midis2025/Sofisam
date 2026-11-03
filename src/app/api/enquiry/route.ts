@@ -12,10 +12,17 @@ interface EnquiryBody {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const VALID_AREAS = [
+  // Enquiry modal
   'Strategic Consulting',
   'Advisory',
   'Structuring',
   'Investment / Mandate',
+  // Closing "Private Enquiry" panel
+  'Strategic Advisory',
+  'Investor Relations',
+  'Corporate Restructuring',
+  'GCC / International Expansion',
+  'Strategic Partnerships',
   'Other',
 ];
 

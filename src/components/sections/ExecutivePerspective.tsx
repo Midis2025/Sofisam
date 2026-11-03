@@ -92,9 +92,9 @@ export function ExecutivePerspective() {
         </div>
 
         {/* 2-Column Split: 4 Interactive Pillars (Left) + Parallax Plate (Right) */}
-        <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14 items-stretch">
+        <div className="mt-14 grid gap-10 xl:grid-cols-12 xl:gap-14 items-stretch">
           {/* 4 Pillars Column */}
-          <div className="lg:col-span-6 grid gap-5 sm:grid-cols-2">
+          <div className="xl:col-span-6 grid gap-5 sm:grid-cols-2">
             {markers.map((m, i) => {
               const Icon = m.icon;
               return (
@@ -138,23 +138,23 @@ export function ExecutivePerspective() {
           </div>
 
           {/* Right Column: High-Resolution Boardroom Plate with Parallax */}
-          <div ref={imageRef} className="lg:col-span-6 flex flex-col justify-between">
+          <div ref={imageRef} className="xl:col-span-6 flex flex-col justify-between">
             <motion.div
               initial={reduce ? false : { opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
-              className="relative h-full min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)]"
+              className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9] xl:aspect-auto xl:h-full xl:min-h-[24rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--graphite)] shadow-[var(--shadow-plate)]"
             >
               <motion.div
-                className="h-full w-full"
+                className="absolute inset-0"
                 style={reduce ? undefined : { scale: imgScale, y: imgY }}
               >
                 <Picture
-                  name="exec-boardroom-twilight"
-                  alt="Executives in discussion around an evening boardroom table overlooking the Dubai financial district"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  focal="30% 55%"
+                  name="dubai-executive-dialogue"
+                  alt="Senior Arab executive and corporate advisory partner in confidential strategic discussion in an executive boardroom"
+                  sizes="(min-width: 1280px) 50vw, 100vw"
+                  focal="45% 45%"
                   className="h-full w-full object-cover"
                 />
               </motion.div>

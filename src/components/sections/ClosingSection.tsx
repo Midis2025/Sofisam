@@ -1,285 +1,421 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowUpRight, Check, Loader2, Mail, MapPin, Phone, Shield } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useId, useRef, useState } from 'react';
+import { ChevronDown, ShieldCheck } from 'lucide-react';
 
-import { contact, newsletterCopy } from '@/data/site';
-import { useNewsletter } from './Newsletter';
+import { contact } from '@/data/site';
 import { Button } from '@/components/ui/Button';
-import { submitContactEnquiry } from '@/lib/forms';
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { Picture } from '@/components/ui/Picture';
+import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal';
+import { submitPrivateEnquiry } from '@/lib/forms';
 
 export interface ClosingSectionProps {
+  /** Heading lines — pages may set their own; defaults to the firm's invitation. */
   lines?: string[];
   body?: string;
 }
 
-/**
- * SOFISAM Premium Contact & Mandates CTA Section
- *
- * Impactful conversion chapter:
- * - Direct confidential enquiry submission path
- * - Direct communications channels (phone, email, DMCC headquarters address)
- * - Strategic perspectives newsletter subscription
- * - Strict verification feedback states
+const AREAS = [
+  'Strategic Advisory',
+  'Investor Relations',
+  'Corporate Restructuring',
+  'GCC / International Expansion',
+  'Strategic Partnerships',
+  'Other',
+] as const;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+type FieldKey = 'name' | 'email' | 'organisation' | 'area' | 'message';
+type Fields = Record<FieldKey, string>;
+type Errors = Partial<Record<FieldKey, string>>;
+
+const EMPTY: Fields = { name: '', email: '', organisation: '', area: '', message: '' };
+
+/** Field order, used to move focus to the first problem on submit. */
+const ORDER: FieldKey[] = ['name', 'email', 'organisation', 'area', 'message'];
+
+/** Server field names from /api/enquiry mapped back onto this form. */
+const SERVER_KEYS: Record<string, FieldKey> = {
+  fullName: 'name',
+  email: 'email',
+  company: 'organisation',
+  areaOfInterest: 'area',
+  requirement: 'message',
+};
+
+function validate(f: Fields): Errors {
+  const e: Errors = {};
+  if (f.name.trim().length < 2) e.name = 'Please enter your name.';
+  if (!f.email.trim()) e.email = 'Please enter your email address.';
+  else if (!EMAIL_RE.test(f.email.trim())) e.email = 'Please enter a valid email address.';
+  if (!f.area) e.area = 'Please select an area of interest.';
+  if (f.message.trim().length < 10)
+    e.message = 'Please outline your enquiry in a few words (at least 10 characters).';
+  return e;
+}
+
+/*
+ * One control style for every field in the panel: a thin champagne-ruled
+ * box on the page ground, gold on focus, never a browser-blue ring. Kept
+ * here rather than in globals because the site-wide `.field` system is the
+ * floating-label underline used on /contact, and this panel calls for
+ * persistent labels with visible placeholders.
  */
-export function ClosingSection({
-  lines,
-  body,
-}: ClosingSectionProps = {}) {
-  const reduce = useReducedMotion();
-  const nl = useNewsletter();
+const CONTROL =
+  'block w-full min-h-[3rem] rounded-[var(--r-md)] border border-[var(--line-strong)] bg-[var(--void)] px-4 py-3 text-[0.9375rem] leading-normal text-[var(--ivory)] placeholder:text-[var(--stone)] transition-[border-color,box-shadow] duration-300 ease-out hover:border-[var(--line-control)] focus:outline-none focus:border-[var(--brass)] focus:shadow-[0_0_0_3px_rgba(199,164,106,0.16)] aria-[invalid=true]:border-[var(--field-error)] disabled:opacity-60';
 
-  // Contact quick-form state
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [contactError, setContactError] = useState('');
+const LABEL = 't-label !text-[0.6875rem] text-[var(--gold)]';
 
-  async function handleContactSubmit(e: React.FormEvent) {
+/**
+ * Start a Conversation — the closing chapter of the homepage and insight
+ * pages.
+ *
+ * An invitation rather than a form: the firm's statement and a single
+ * restrained Dubai plate on the left, a private enquiry panel on the right,
+ * and the direct channels set as a ledger beneath both. The plate flexes to
+ * take whatever height the statement leaves, so the two columns end on the
+ * same line at every desktop width.
+ */
+export function ClosingSection({ lines, body }: ClosingSectionProps = {}) {
+  const uid = useId();
+  const id = (k: string) => `${uid}-${k}`;
+
+  const [fields, setFields] = useState<Fields>(EMPTY);
+  const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
+  const [serverErrors, setServerErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formMessage, setFormMessage] = useState('');
+  const successRef = useRef<HTMLHeadingElement>(null);
+
+  const clientErrors = validate(fields);
+  const errorFor = (k: FieldKey) =>
+    serverErrors[k] ?? (touched[k] ? clientErrors[k] : undefined);
+
+  const set =
+    (k: FieldKey) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      setFields((f) => ({ ...f, [k]: e.target.value }));
+      if (serverErrors[k]) setServerErrors((s) => ({ ...s, [k]: undefined }));
+    };
+  const blur = (k: FieldKey) => () => setTouched((t) => ({ ...t, [k]: true }));
+
+  /** Shared a11y wiring for one control. */
+  const aria = (k: FieldKey, required = true) => {
+    const err = errorFor(k);
+    return {
+      id: id(k),
+      name: k,
+      value: fields[k],
+      onChange: set(k),
+      onBlur: blur(k),
+      disabled: status === 'loading',
+      'aria-required': required || undefined,
+      'aria-invalid': err ? true : undefined,
+      'aria-describedby': err ? id(`${k}-err`) : undefined,
+    } as const;
+  };
+
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setContactError('Please complete all fields prior to transmission.');
+    setTouched({ name: true, email: true, organisation: true, area: true, message: true });
+    setFormMessage('');
+
+    const errs = validate(fields);
+    const first = ORDER.find((k) => errs[k]);
+    if (first) {
+      document.getElementById(id(first))?.focus();
       return;
     }
-    setContactError('');
-    setContactStatus('loading');
 
-    const res = await submitContactEnquiry({
-      name: name.trim(),
-      email: email.trim(),
-      message: message.trim(),
+    setStatus('loading');
+    const res = await submitPrivateEnquiry({
+      fullName: fields.name.trim(),
+      email: fields.email.trim(),
+      company: fields.organisation.trim() || undefined,
+      areaOfInterest: fields.area,
+      requirement: fields.message.trim(),
     });
 
     if (res.ok) {
-      setContactStatus('success');
-      setName('');
-      setEmail('');
-      setMessage('');
-    } else {
-      setContactStatus('error');
-      setContactError(res.message);
+      setStatus('success');
+      setFields(EMPTY);
+      setTouched({});
+      // Move focus to the confirmation so it is announced and the
+      // keyboard position is not lost with the form.
+      requestAnimationFrame(() => successRef.current?.focus());
+      return;
     }
+
+    const mapped: Errors = {};
+    for (const [k, v] of Object.entries(res.errors ?? {})) {
+      const key = SERVER_KEYS[k];
+      if (key) mapped[key] = v;
+    }
+    setServerErrors(mapped);
+    setStatus('error');
+    setFormMessage(res.message);
+    const firstServer = ORDER.find((k) => mapped[k]);
+    if (firstServer) document.getElementById(id(firstServer))?.focus();
   }
 
-  const headingText = lines ? lines.join(' ') : 'Reach out to discuss strategic opportunities.';
-  const bodyText =
-    body ||
-    'Every enquiry is handled in strict confidence by the firm’s principals. We welcome confidential discussion regarding mandates, restructuring, or advisory requirements.';
+  function reset() {
+    setStatus('idle');
+    setFormMessage('');
+    setServerErrors({});
+    requestAnimationFrame(() => document.getElementById(id('name'))?.focus());
+  }
+
+  const heading = lines ?? ['A conversation', 'worth having.'];
+  const intro =
+    body ??
+    'SOFISAM works directly with principals, executives and decision-makers on confidential strategic matters. Every enquiry is handled in strict confidence by the firm’s principals.';
+
+  const errorText = (k: FieldKey) => {
+    const err = errorFor(k);
+    return err ? (
+      <p id={id(`${k}-err`)} className="mt-2 text-xs leading-snug text-[var(--field-error)]">
+        {err}
+      </p>
+    ) : null;
+  };
 
   return (
     <section
       data-section="Contact"
       id="contact"
-      className="relative bg-[var(--void)] py-20 sm:py-24 lg:py-28"
-      aria-label="Contact and Newsletter"
+      className="relative bg-[var(--void)] py-[clamp(4.5rem,8vw,7rem)]"
+      aria-labelledby={id('heading')}
     >
       <div className="shell">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
-          {/* Left Column: Direct Confidential Form */}
-          <div className="lg:col-span-7">
-            <div className="kicker">
-              <p className="t-label">
-                Start a Conversation
-              </p>
-            </div>
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-[clamp(2.5rem,5vw,5.5rem)] lg:items-stretch">
+          {/* ── Statement & Dubai plate ─────────────────────────── */}
+          <div className="lg:col-span-5 flex flex-col">
+            <Reveal kind="label" className="kicker">
+              <p className="t-label">Start a Conversation</p>
+            </Reveal>
 
-            <h2 className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08] max-w-[20ch]">
-              {headingText}
+            <h2
+              id={id('heading')}
+              className="t-h1 mt-eyebrow text-[clamp(2.25rem,4.6vw+0.6rem,4.5rem)] text-[var(--ivory)]"
+            >
+              <MaskedLines lines={heading} />
             </h2>
 
-            <p className="mt-4 t-body text-[var(--sage)] max-w-[50ch] leading-relaxed">
-              {bodyText}
-            </p>
+            <Reveal delay={0.12}>
+              <p className="t-body mt-6 max-w-[46ch] text-[var(--sage)]">{intro}</p>
+            </Reveal>
 
-            {/* Confidential Enquiry Form */}
-            <form onSubmit={handleContactSubmit} noValidate className="mt-8 space-y-4 max-w-[40rem]">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="closing-name" className="block text-xs font-medium uppercase tracking-wider text-[var(--stone)] mb-2 font-mono">
-                    Name &amp; Title
-                  </label>
-                  <input
-                    id="closing-name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Principal or Executive"
-                    className="w-full rounded-none border border-[var(--line-strong)] bg-[var(--plate)] px-4 py-3 text-sm text-[var(--ivory)] placeholder-[var(--stone)]/60 focus:border-[var(--brass)] focus:outline-none transition-colors"
+            <figure className="mt-10 flex flex-col lg:flex-1">
+              <ImageReveal delay={0.1} className="lg:flex-1 lg:flex lg:flex-col">
+                <div className="group media media-zoom relative aspect-[4/3] sm:aspect-[21/9] lg:aspect-auto lg:flex-1 lg:min-h-[15rem] w-full border border-[var(--line)]">
+                  <Picture
+                    name="dubai-frame-night"
+                    alt="The Dubai Frame at night, its lattice-clad structure rising against a dark sky"
+                    sizes="(min-width: 1024px) 38vw, 100vw"
+                    focal="50% 42%"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
+              </ImageReveal>
+              <figcaption className="mt-4 flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-3">
+                <span className="t-label !text-[0.6875rem] text-[var(--gold)]">Dubai · UAE</span>
+                <span className="t-meta text-[var(--stone)]">Global headquarters</span>
+              </figcaption>
+            </figure>
+          </div>
 
-                <div>
-                  <label htmlFor="closing-email" className="block text-xs font-medium uppercase tracking-wider text-[var(--stone)] mb-2 font-mono">
-                    Corporate Email
-                  </label>
-                  <input
-                    id="closing-email"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="principal@institution.com"
-                    className="w-full rounded-none border border-[var(--line-strong)] bg-[var(--plate)] px-4 py-3 text-sm text-[var(--ivory)] placeholder-[var(--stone)]/60 focus:border-[var(--brass)] focus:outline-none transition-colors"
-                  />
+          {/* ── Private enquiry panel ───────────────────────────── */}
+          <Reveal kind="card" delay={0.08} className="lg:col-span-7">
+            <div className="-mx-[var(--gutter)] flex h-full flex-col border-y border-[var(--line)] bg-[var(--plate)] px-[var(--gutter)] py-8 sm:mx-0 sm:rounded-[var(--r-lg)] sm:border sm:p-[clamp(1.75rem,3.4vw,3rem)] sm:shadow-[var(--shadow-plate)]">
+              <div className="kicker">
+                <p className="t-label">Private Enquiry</p>
+              </div>
+
+              {status === 'success' ? (
+                <div role="status" className="mt-6 flex min-h-[18rem] flex-1 flex-col justify-center border-t border-[var(--line)] py-8">
+                  <p className={LABEL}>Enquiry received</p>
+                  <h3
+                    ref={successRef}
+                    tabIndex={-1}
+                    className="mt-4 max-w-[30ch] font-display text-[clamp(1.5rem,1.2vw+1.15rem,2rem)] font-light leading-snug text-[var(--ivory)] focus:outline-none"
+                  >
+                    Thank you. Your enquiry has been received confidentially.
+                  </h3>
+                  <p className="t-body mt-3 max-w-[46ch] text-[var(--sage)]">
+                    A member of the SOFISAM team will be in contact directly.
+                  </p>
+                  <div className="mt-8">
+                    <Button variant="link" arrow="right" onClick={reset}>
+                      Send another enquiry
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <>
+                  <h3 className="mt-4 font-display text-[clamp(1.625rem,1.3vw+1.2rem,2.25rem)] font-light leading-[1.15] tracking-[-0.012em] text-[var(--ivory)]">
+                    Tell us what you&rsquo;re considering.
+                  </h3>
+                  <p className="t-small mt-3 max-w-[52ch] text-[var(--sage)]">
+                    Share a brief outline of your situation and a member of our team will respond directly.
+                  </p>
 
-              <div>
-                <label htmlFor="closing-message" className="block text-xs font-medium uppercase tracking-wider text-[var(--stone)] mb-2 font-mono">
-                  Advisory Requirement
-                </label>
-                <textarea
-                  id="closing-message"
-                  rows={3}
-                  required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Outline the nature of your mandate, cross-border restructuring, or advisory need..."
-                  className="w-full rounded-none border border-[var(--line-strong)] bg-[var(--plate)] px-4 py-3 text-sm text-[var(--ivory)] placeholder-[var(--stone)]/60 focus:border-[var(--brass)] focus:outline-none transition-colors resize-none"
-                />
-              </div>
+                  <form onSubmit={onSubmit} noValidate className="mt-8 grid gap-x-5 gap-y-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor={id('name')} className={LABEL}>
+                        Name &amp; Title
+                      </label>
+                      <input
+                        {...aria('name')}
+                        type="text"
+                        autoComplete="name"
+                        placeholder="Principal / Executive"
+                        className={`mt-2 ${CONTROL}`}
+                      />
+                      {errorText('name')}
+                    </div>
 
-              {contactError && (
-                <p className="text-xs text-red-600 dark:text-red-400 font-medium">{contactError}</p>
+                    <div>
+                      <label htmlFor={id('email')} className={LABEL}>
+                        Corporate Email
+                      </label>
+                      <input
+                        {...aria('email')}
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        spellCheck={false}
+                        placeholder="name@institution.com"
+                        className={`mt-2 ${CONTROL}`}
+                      />
+                      {errorText('email')}
+                    </div>
+
+                    <div>
+                      <label htmlFor={id('organisation')} className={LABEL}>
+                        Organisation{' '}
+                        <span className="font-normal normal-case tracking-normal text-[var(--stone)]">
+                          (optional)
+                        </span>
+                      </label>
+                      <input
+                        {...aria('organisation', false)}
+                        type="text"
+                        autoComplete="organization"
+                        placeholder="Company / Institution"
+                        className={`mt-2 ${CONTROL}`}
+                      />
+                      {errorText('organisation')}
+                    </div>
+
+                    <div>
+                      <label htmlFor={id('area')} className={LABEL}>
+                        Area of Interest
+                      </label>
+                      <div className="relative mt-2">
+                        <select
+                          {...aria('area')}
+                          className={`${CONTROL} cursor-pointer appearance-none pr-11 ${
+                            fields.area ? '' : 'text-[var(--stone)]'
+                          }`}
+                        >
+                          <option value="" disabled>
+                            Select an area
+                          </option>
+                          {AREAS.map((a) => (
+                            <option key={a} value={a} className="text-[var(--ivory)]">
+                              {a}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown
+                          aria-hidden
+                          strokeWidth={1.5}
+                          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--brass)]"
+                        />
+                      </div>
+                      {errorText('area')}
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label htmlFor={id('message')} className={LABEL}>
+                        Message
+                      </label>
+                      <textarea
+                        {...aria('message')}
+                        rows={4}
+                        placeholder="Briefly outline the opportunity, mandate or matter you would like to discuss."
+                        className={`mt-2 min-h-[8.5rem] resize-y ${CONTROL}`}
+                      />
+                      {errorText('message')}
+                    </div>
+
+                    <div className="sm:col-span-2 pt-1">
+                      {formMessage && (
+                        <p role="alert" className="mb-4 text-sm leading-snug text-[var(--field-error)]">
+                          {formMessage}
+                        </p>
+                      )}
+
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        arrow="right"
+                        loading={status === 'loading'}
+                        className="w-full sm:w-auto"
+                      >
+                        Submit Confidential Enquiry
+                      </Button>
+
+                      <p className="mt-5 flex items-center gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-[var(--stone)]">
+                        <ShieldCheck aria-hidden strokeWidth={1.5} className="h-3.5 w-3.5 shrink-0 text-[var(--brass)]" />
+                        <span>Confidential · Unconflicted · Direct</span>
+                      </p>
+                    </div>
+                  </form>
+                </>
               )}
+            </div>
+          </Reveal>
+        </div>
 
-              {contactStatus === 'success' && (
-                <div className="flex items-center gap-2.5 text-sm text-green-800 bg-green-50 dark:bg-green-950/40 dark:text-green-300 p-4 border border-green-200">
-                  <Check className="h-4 w-4 shrink-0 text-green-600" />
-                  <span>Your message has been received in confidence. A principal will respond directly.</span>
-                </div>
-              )}
-
-              <div className="pt-2 flex items-center justify-between gap-4 flex-wrap">
-                <Button
-                  type="submit"
-                  variant="primary"
-                  loading={contactStatus === 'loading'}
-                >
-                  Submit Confidential Enquiry
-                </Button>
-
-                <div className="flex items-center gap-1.5 text-xs text-[var(--stone)]">
-                  <Shield className="h-3.5 w-3.5 text-[var(--brass)]" />
-                  <span>Unconflicted &amp; Strictly Confidential</span>
-                </div>
-              </div>
-            </form>
-
-            {/* Direct Channel Metadata */}
-            <div className="mt-12 pt-8 border-t border-[var(--line)] grid gap-6 sm:grid-cols-2">
-              <div>
-                <p className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">
-                  Direct Line
-                </p>
+        {/* ── Direct channels ledger ────────────────────────────── */}
+        <Reveal delay={0.05}>
+          <dl className="mt-[clamp(3rem,5vw,4.5rem)] grid gap-x-10 gap-y-7 border-t border-[var(--line)] pt-[clamp(1.75rem,2.6vw,2.5rem)] md:grid-cols-[1fr_1fr_1.5fr]">
+            <div>
+              <dt className="t-label !text-[0.6875rem] text-[var(--stone)]">Direct Line</dt>
+              <dd className="mt-2.5">
                 <a
                   href={`tel:${contact.phoneHref}`}
-                  className="mt-1.5 inline-flex items-center gap-2 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                  className="font-display text-[1.375rem] font-light leading-snug text-[var(--ivory)] transition-colors duration-300 hover:text-[var(--gold)] focus-visible:text-[var(--gold)] focus-visible:underline focus-visible:underline-offset-4 focus-visible:outline-none"
                 >
-                  <Phone className="h-3.5 w-3.5 text-[var(--brass)]" />
-                  <span>{contact.phone}</span>
+                  {contact.phone}
                 </a>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-wider text-[var(--stone)] font-mono">
-                  Confidential Email
-                </p>
+              </dd>
+            </div>
+            <div>
+              <dt className="t-label !text-[0.6875rem] text-[var(--stone)]">Confidential Email</dt>
+              <dd className="mt-2.5">
                 <a
                   href={`mailto:${contact.email}`}
-                  className="mt-1.5 inline-flex items-center gap-2 text-sm font-medium text-[var(--ivory)] hover:text-[var(--gold)] transition-colors"
+                  className="font-display text-[1.375rem] font-light leading-snug text-[var(--ivory)] transition-colors duration-300 hover:text-[var(--gold)] focus-visible:text-[var(--gold)] focus-visible:underline focus-visible:underline-offset-4 focus-visible:outline-none"
                 >
-                  <Mail className="h-3.5 w-3.5 text-[var(--brass)]" />
-                  <span>{contact.email}</span>
+                  {contact.email}
                 </a>
-              </div>
+              </dd>
             </div>
-          </div>
-
-          {/* Right Column: Newsletter Subscription & Registered Headquarters */}
-          <div className="lg:col-span-5 space-y-8">
-            {/* Newsletter Subscription Card */}
-            <div className="p-8 sm:p-10 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-plate)]">
-              <div className="flex items-center gap-2.5">
-                <span className="h-px w-6 bg-[var(--brass)]" />
-                <p className="t-label text-gold">
-                  {newsletterCopy.heading}
-                </p>
-              </div>
-
-              <h3 className="mt-4 t-card text-[var(--ivory)] font-light">
-                Strategic Perspectives
-              </h3>
-
-              <p className="mt-3 t-small text-[var(--sage)] leading-relaxed">
-                {newsletterCopy.standfirst}
-              </p>
-
-              <form onSubmit={nl.onSubmit} noValidate className="mt-6 space-y-3.5">
-                <div>
-                  <label htmlFor={`${nl.id}-email`} className="block text-xs font-medium uppercase tracking-wider text-[var(--stone)] mb-1.5 font-mono">
-                    {newsletterCopy.fieldLabel}
-                  </label>
-                  <input
-                    id={`${nl.id}-email`}
-                    name="email"
-                    type="email"
-                    required
-                    value={nl.email}
-                    onChange={nl.onChange}
-                    disabled={nl.state === 'loading'}
-                    placeholder="executive@institution.com"
-                    className="w-full rounded-none border border-[var(--line-strong)] bg-[var(--void)] px-4 py-3 text-sm text-[var(--ivory)] placeholder-[var(--stone)]/60 focus:border-[var(--brass)] focus:outline-none transition-colors"
-                  />
-                </div>
-
-                {nl.invalid && (
-                  <p className="text-xs text-red-600 dark:text-red-400 font-medium">Please enter a valid corporate email address.</p>
-                )}
-
-                {nl.state === 'success' && (
-                  <div className="flex items-center gap-2 text-xs text-green-700 bg-green-50 p-3 border border-green-200">
-                    <Check className="h-4 w-4 shrink-0" />
-                    <span>Subscription confirmed. You will receive SOFISAM strategic perspectives.</span>
-                  </div>
-                )}
-
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  fullWidth
-                  loading={nl.state === 'loading'}
-                  arrow="right"
-                >
-                  {newsletterCopy.submitLabel}
-                </Button>
-              </form>
-
-              <p className="mt-6 text-[0.6875rem] text-[var(--stone)] leading-relaxed border-t border-[var(--line)] pt-4">
-                {newsletterCopy.privacyNote}
-              </p>
+            <div>
+              <dt className="t-label !text-[0.6875rem] text-[var(--stone)]">Dubai Office</dt>
+              <dd className="mt-2.5 t-small text-[var(--ivory-2)]">
+                <address className="not-italic">
+                  {contact.address.line1}
+                  <br />
+                  {contact.address.line2}
+                </address>
+              </dd>
             </div>
-
-            {/* Registered Headquarters Card */}
-            <div className="p-7 rounded-[var(--r-lg)] border border-[var(--line-soft)] bg-[var(--plate)]/60">
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[var(--gold)] font-medium">
-                <MapPin className="h-3.5 w-3.5 text-[var(--brass)]" />
-                <span>DMCC Registered Office</span>
-              </div>
-              <p className="mt-2 text-sm text-[var(--ivory)] font-medium">
-                {contact.address.line1}
-              </p>
-              <p className="text-xs text-[var(--sage)] leading-relaxed mt-1">
-                {contact.address.line2}
-              </p>
-            </div>
-          </div>
-        </div>
+          </dl>
+        </Reveal>
       </div>
     </section>
   );

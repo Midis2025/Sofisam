@@ -139,6 +139,64 @@
     ],
     "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoUAA0APrVIn0onJCKhsAgA4BaJYwC7LwAB0aUOfRe7HmigAP7u0uCKdQeLiMgqE2nuiPRNHqHj2wm4Ebyc1U8+VSivWsVQDOTjP3UbC/Q7u6kbAAA="
   },
+  "dubai-burj-al-arab-avenue": {
+    "w": 1506,
+    "h": 2677,
+    "variants": [
+      640,
+      1080,
+      1506
+    ],
+    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4IOIAAABwBgCdASoUACQAPrVSok0nJKMiJWsw4BaJYgCdMsJEkDcTTLETYGdXfV8qZRRrf89iHUcyGTOqNE1HeoAA/uv+ie6yE2RLPos6fW5a2q8ix2uIDPiu68ReZT4Qe0aSgYhU0HFJkyDeRFMBZCdCP9daFZC9imks2FB1ebDkg9f6sX7Y/2upf06NIuD+lYr6wQgA44c7yVlsAgolbYj/8hbP52BSnCkLukOFJIekqrq9qJVMkatDiebAvO26lrXwRifAEUmojx+TSbCrQkA28W4Kfrm7IRAHKElPVmqqADYtkWAA"
+  },
+  "dubai-burj-al-arab-gulf": {
+    "w": 3200,
+    "h": 2133,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwBACdASoUAA0APrVKnkonJCKhsAgA4BaJZgCdMoLT9A42SBGSbeXelmAA3jOif0SwCExSpITYkpOjA0Y50ou1vgA2vtBPi1tCMzCdiWNnzgzJOTHGOrg8ki6lX8D+PoR396UslH+moAAA"
+  },
+  "dubai-burj-khalifa-promenade": {
+    "w": 2400,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2400
+    ],
+    "blur": "data:image/webp;base64,UklGRvYAAABXRUJQVlA4IOoAAABwBQCdASoUABsAPrVOn0snJCKhsBgIAOAWiUAToAG23wkp6R0zDwYCq3e98KjBIYiFVcQwAM40Rs0SfN70SckWHP5sOSsY2MXq0DZIE+00l5L9O1OwTZVE9TsE3Ap58rtoSzvO4cN8tbEv8N/xf2P6eOWMTQwBE/qfV+2cf0X/DWqFyx4wC7R8fD23l+mAbHyF+98ZorrgrCd7azRUp6lfMNcMjD3cK3ZejngACPBK+oo1RsE273gN3xY7eRk0/Dz9a0kspG/3C2RJKjGYlERUGwggAxUHHka9aTjAINSPkuK9K6BrSs0lEAA="
+  },
+  "dubai-burj-khalifa-reflection": {
+    "w": 2400,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2400
+    ],
+    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAABQBQCdASoUABsAPrVMnkmnJCKhMAgA4BaJQBYj5fhoYxWHBUyuri7UVSCCS1KBywPlHAAA/llO5GpjzGdaK982tOT2qh38kSatawD+D757jqADXrW8xX3WeRyySWPvcN1FEZeRZU7D9RZQV/Z8j4jv45HMAnwCoTGZf0CJW//FTG5mVBnYQnkdaMew0EMXhfz0H+yiPvpkpCYDV6AQGiZFCiHslzfjWJ0vsuDR1V8SMaFSsKjzrTeQAAA="
+  },
+  "dubai-client-services": {
+    "w": 3200,
+    "h": 2134,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAACQBACdASoUAA0APrVInkmnJCKhMAgA4BaJQBOkERwW4t105a8F4C/FIv7jaggA/grspjcFPX4jA5EIlwR/PsXP4x4yUk2olW1tsSJKQiuN0Ink/jAgTZM/ksMirL1RiRx9gNumBm9xek7ONedJh1MqQjBgnXswDQuom8HYGhJnyVOogGIRunXctb9YuogpE6mLH7++zSK2ICcKRwFHpR7+H8LHdMRY/2DZFagYAAA="
+  },
   "dubai-downtown-skyline": {
     "w": 1024,
     "h": 1536,
@@ -159,6 +217,41 @@
       3200
     ],
     "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABQBACdASoUAA0APrVInkmnJCKhMAgA4BaJZQCdAYxYzmZlNp0jRguQ7V0AAP7ogTCqgvHMk2omUzONUkQ0luKU33UBH3PrjfaFPcWuzDiZkPygdd9nuS05ZEiI1Y08lj9xerov/Dnc/aVSbBzvLzZ/uN2+6KRYoXRJZXBxrc/HqpIzH5LG6ZQf3EwSnjMRm9v7SGMLWrAAAA=="
+  },
+  "dubai-executive-dialogue": {
+    "w": 3200,
+    "h": 2136,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACQAwCdASoUAA0APrVKnkmnJCKhMAgA4BaJZACdACGaTPJS3lYAAP6h5RLDwWehNUO3+jgjlrwT1UBdb7DdpMwoRfn+XAtRmUGQoSCJ04+9v61JzP5fw1y+yIo7OXlxrTB7iXTCr8wn9xp2E72Z/w4iuysagVGvMYxE51WzTDhC4AAA"
+  },
+  "dubai-frame-day": {
+    "w": 2133,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2133
+    ],
+    "blur": "data:image/webp;base64,UklGRv4AAABXRUJQVlA4IPIAAACwBQCdASoUAB4APq1GmUmmI6IhMAwAwBWJbACpI46Viem77sDYCU2keIuQp4mgQbKuxaXYgAAA/Skell2QQ3pZ/M/fS6IP6oitN6r+gHWD5wAW25+seuHSn0cEZp3EfIZSI8C082WgyexoGzl2jZBNVMKSnlKTN2GP+8wkAEKK8X5aRtr5w+WWq08KfewFWNnf5GRJziC4c10AlfvLMfYoK+oKgVtuD8KSPNhw4+pHES+of9KmzOePtHdhPRQHqXuUbDZ7xP5mq8E58JZIiMfZWBe+gPRRP+q8F5ocavV7kuyyeV9KfJ8Kb3F5EqAt8nRIAA=="
+  },
+  "dubai-frame-night": {
+    "w": 2715,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2715
+    ],
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACwBACdASoUABgAPqVEmkmmJCKhN/qoAMAUiWkAAFu2YNtZdPNz0blzedneXaWAAP7653c7Vw8Bq2tg6UpNZyVwG9WgS3Hlg68/+V37KLLD+z5uyIAUxuXLYtqoBqfwi0D45KK522vSP7vvaCQEBI+JUAmHX1iRF8xc+2EAAAA="
   },
   "dubai-haze": {
     "w": 3200,
@@ -195,6 +288,75 @@
       2244
     ],
     "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4IPQAAADwBQCdASoUABkAPrVSn0ynJKKiKAqo4BaJYwDFCuov/jeBcFhvKNM0m8/7FDprwnWnf1NSdD0AAAD+Bfhbb7KAHGB1LMVQWWPfsEE7Dv99J8ousI/Ucw9yomv5Vl7f3psnouSInILVrmSir/r1jSW00w8ArjH636nr0bhSTTyr1oR17JY7rytBmfF/UP7f+83rbcZV1+x/+0zgQ7kSWg6KwXPHtY9IV5sAsH70YeZUtK3ENb5g18L5DmlQolW6f3lGjD0pdORfZtfvDsqB/cHdGzjKF4Qbs3d4hGnxHruR6l56uYsbhhBuMPVchlVim3zUAAAA"
+  },
+  "dubai-museum-atrium": {
+    "w": 2560,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2560
+    ],
+    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAAAwBQCdASoUABkAPrVQn0ynJKKiKAqo4BaJZwCzgYx2bUf6M2dM2Fn9DlgjYw+1BYPoIAD+Vb5kVVIwzXb3fmRg9HclMwH/rFd4PPsqLdhJ3LWW0xlt06UjhdN2PjUHeMkyLKtNCCEmt7uHEfqttbH7jcAvoUj0K+LXrjT3yujwaKcw+mtFfCiIpTSqjJwW/iILuK4xBBDztZmS61WbzdDt7wMHMOTX9fPNspmezW7boYPpl9+PYku7AMvcEOZz3SLSmZEDvPnAAAAA"
+  },
+  "dubai-museum-interior": {
+    "w": 2133,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2133
+    ],
+    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4IPQAAADQBQCdASoUAB4APrVQoUwnJKMiKAqo4BaJaQDCCywTkYUuliz+Vtd597tUvZNmR11moA0pLGUAAP6GkAbSjh7kt7hP6UySk9MJ8wmbHf/bqXwm6Bxm2VkHj7tVZoa/C7sxEFZacXGhoC7BETh0sWe/RojCM+FrbOeTz4M6CG0wAIuUyy5Y2JMfqlmsvo+dEr/0SUX9TpdZnVRfXNsSXqKSLWD8yJH8t/Hav13tiCI41g+ale8mJ0q//p5NbX0/E7Z96ThVyj5p7NHDhHt3c1r18UsO0gNb54AvCjvjso50K4mSdBawUS3iK2w/JeSw+0TP//AA"
+  },
+  "dubai-museum-khalifa": {
+    "w": 1990,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      1990
+    ],
+    "blur": "data:image/webp;base64,UklGRhABAABXRUJQVlA4IAQBAACwBQCdASoUACAAPrVSok0nJKMiKAgA4BaJaACdMy/lwDzwQRVXnbiKI727evMzHl+ScSYvoAAA/sAea13abmP5Et1Ik0d/ffjuP9FsCzESxjfHNFv/8zbr+gxpj8RfdLV//r0s6F/9Ztr57bhkz2/r8/tZOyFyNnXt6i+js0dBK9N57wdQ3gmEXpqLD3o6l0RKeOfQeVlvV/xwz5EIp5DPh3s4Xy26lWFpYO5ouVxM5Vn/QBCPEgNfscnhibRFqll77Ay/EH8/FA8Sd+Tz6skkYwfPofEJ6Yb7y04l6+NJYhJ7hCqJPeDlOaBTYdYkvh+RM58cgby38hksf2lOntsO93MgAA=="
+  },
+  "dubai-museum-spiral": {
+    "w": 1801,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      1801
+    ],
+    "blur": "data:image/webp;base64,UklGRiABAABXRUJQVlA4IBQBAABQBwCdASoUACQAPrVOoEwnJCMiKqgA4BaJZwC4yXmJ/t0A2apWd49QLfZV6CMJkibnn3uSuRl3l3fgEocvXKD0xK+AAP70nX2Qvpp/lqWX3ZHECpAvZPp8cgiNjfe2s+TnbcYWkYFj2wX27jpBVIk3RQvZMwjLWVFqQR/bMIrC3G6R8RU4L3ozBGzeWBQVp2RS+Nit8dw+owrRqmhcfb7x8XWVKaes3EFqcwaPEyZfQWb1dWZy2GO607qZYJ4XkoNN81+R5F+EgslcVwP84uZD0FlxdbrcgN8kLBVNme9qaA0VkBLMUAt4wjiluDwDLII77zgJzw6KWO5f0qdz/dyzRuyQLZLzn5X6Iabk97WvkCnAAAA="
+  },
+  "dubai-palm-aerial": {
+    "w": 3200,
+    "h": 2132,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAAAwBACdASoUAA0APrVKnkonJCKhsAgA4BaJQBOmUDX/wG0C4vvSbRYsT0AA/pfgfaGqVu7W4JbIzPcBp/yl18029hHU1rSH1uo9ykDpVrlHHRvEVL5A+WfaVwQfZv5NimhisMnQsWfTiUEE2E+tBQHrbl5B16slDjgQRReRCZm6h2xy6sueX2D1kzrPG0a4AAA="
+  },
+  "dubai-palm-jumeirah-pool": {
+    "w": 2400,
+    "h": 3200,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      2400
+    ],
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACwBQCdASoUABsAPrFEnUmnI6KhN/VYAOAWCWoAnTLs/I3/4HuQ43pPiB3xfKfBsaEQFFtrY8AA/vHes3JPJtwjg93D87LP3GJQuC8NaZVrHeTeKfOH+78bowbJzbI/qTKIapwt+jA7g7/bD258odOn7PLetLRbTiqz2m7JWmodrd8y6uRd5plUq0c0jzTdbORftUXBG+fSZQ7H+NoG77cX74YiBXDycumtMKg53ApJ+S+b6qSfnOrzJShf8GxiPgAAAA=="
   },
   "exec-boardroom-sunset": {
     "w": 1672,

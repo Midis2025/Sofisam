@@ -17,6 +17,8 @@ interface CoreArea {
   description: string;
   image: string;
   imageAlt: string;
+  /** object-position for the card crop */
+  focal?: string;
   href: string;
   cta: string;
 }
@@ -39,8 +41,9 @@ const coreAreas: CoreArea[] = [
     title: 'Strategic Consulting',
     description:
       'Providing confidential, unconflicted strategic advice to navigate complex global markets, evaluate commercial risks, and make critical business decisions.',
-    image: 'district-dusk',
-    imageAlt: 'International financial district towers standing against the evening sky',
+    image: 'dubai-museum-atrium',
+    imageAlt: 'Museum of the Future grand interior atrium with illuminated Arabic calligraphy and flowing architectural curves',
+    focal: '50% 45%',
     href: '/services/strategic-consulting',
     cta: 'Explore Consulting',
   },
@@ -50,8 +53,9 @@ const coreAreas: CoreArea[] = [
     title: 'Corporate Advisory',
     description:
       'Leveraging decades of international business experience to guide executive decision-making, shareholder alignment, and corporate governance.',
-    image: 'boardroom-leather',
-    imageAlt: 'Executive conference boardroom table and leather seating',
+    image: 'capital-columns',
+    imageAlt: 'Classical stone columns of an institutional facade',
+    focal: '50% 50%',
     href: '/services/advisory',
     cta: 'Explore Advisory',
   },
@@ -62,7 +66,8 @@ const coreAreas: CoreArea[] = [
     description:
       'Expert structuring for mandates and investments, built on proven executive frameworks designed to withstand complex cross-border conditions.',
     image: 'gold-lattice',
-    imageAlt: 'Architectural lattice and structural grid',
+    imageAlt: 'Ordered bronze facade grid of a contemporary office building',
+    focal: '50% 50%',
     href: '/services/structuring',
     cta: 'Explore Structuring',
   },
@@ -72,8 +77,9 @@ const coreAreas: CoreArea[] = [
     title: 'Mandates & Investments',
     description:
       'Advice given from the vantage point of principals and business executives who have held positions and deployed capital rather than only advising on them.',
-    image: 'capital-columns',
-    imageAlt: 'Colonnade and architectural columns representing institutional permanence',
+    image: 'dubai-investor-outreach',
+    imageAlt: 'Executives presenting to an audience in a boardroom overlooking the Dubai skyline at night',
+    focal: '50% 50%',
     href: '/services/structuring',
     cta: 'Explore Mandates',
   },
@@ -183,12 +189,15 @@ export function OurWork() {
             </div>
 
             {/* Media Plate (Right Column on Desktop, Below on Mobile) */}
-            <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-auto lg:col-span-7 overflow-hidden bg-[var(--graphite)] order-2 min-h-[260px]">
+            {/* Out-of-flow image: on lg the plate matches the content column
+                instead of the photograph's own ratio stretching the card. */}
+            <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-auto lg:col-span-7 lg:min-h-[20rem] overflow-hidden bg-[var(--graphite)] order-2">
               <Picture
                 name={featured.image}
                 alt={featured.imageAlt}
                 sizes="(min-width: 1024px) 60vw, 100vw"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                focal="50% 60%"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div
                 aria-hidden
@@ -201,7 +210,7 @@ export function OurWork() {
           </motion.article>
 
           {/* 4 Supporting Disciplines in 2x2 Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 items-stretch">
             {supporting.map((item, i) => (
               <motion.article
                 key={item.index}
@@ -220,8 +229,9 @@ export function OurWork() {
                   <Picture
                     name={item.image}
                     alt={item.imageAlt}
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    focal={item.focal}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                   <div
                     aria-hidden

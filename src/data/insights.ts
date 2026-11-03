@@ -37,10 +37,10 @@ export const insights: Insight[] = [
     isoDate: '2026-01-15',
     category: 'Global Markets',
     readingTime: '6 min read',
-    image: 'capital-columns',
+    image: 'dubai-palm-jumeirah-pool',
     imageAlt:
-      'Classical institutional capital architecture juxtaposed with modern glass towers',
-    focal: '50% 40%',
+      'High vantage point overlooking Dubai\'s Palm Jumeirah and the expansive Arabian Gulf horizon',
+    focal: '50% 52%',
     standfirst:
       'An analysis of emerging economic trends and adapting to the changing global landscape.',
     pullQuote:
@@ -91,10 +91,10 @@ export const insights: Insight[] = [
     isoDate: '2025-12-10',
     category: 'Structuring',
     readingTime: '7 min read',
-    image: 'lattice-white',
+    image: 'boardroom-folders',
     imageAlt:
-      'The facade of a modern building, its balconies set in a regular grid',
-    focal: '50% 50%',
+      'Prepared board folders laid out along a private boardroom table',
+    focal: '50% 70%',
     standfirst:
       'Best practices for governance, wealth preservation, and generational transfer.',
     pullQuote:
@@ -145,10 +145,10 @@ export const insights: Insight[] = [
     isoDate: '2025-11-28',
     category: 'Perspective',
     readingTime: '5 min read',
-    image: 'difc-gate',
+    image: 'dubai-burj-khalifa-promenade',
     imageAlt:
-      'The Gate building at Dubai International Financial Centre (DIFC) framed by modern corporate towers',
-    focal: '50% 50%',
+      'The Burj Khalifa towering over Downtown Dubai with modern corporate infrastructure',
+    focal: '50% 35%',
     standfirst:
       'Why Dubai represents a pivotal hub for international strategic consulting.',
     pullQuote:

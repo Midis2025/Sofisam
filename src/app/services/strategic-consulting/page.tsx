@@ -51,7 +51,7 @@ const framework = [
   },
 ];
 
-const themeMedia = [
+const themeMedia: { name: string; alt: string; focal?: string }[] = [
   {
     name: 'executive-digital-communications',
     alt: 'Executive analyzing strategic financial market data and cross-border indicators',
@@ -59,14 +59,15 @@ const themeMedia = [
   {
     name: 'dubai-investor-relations',
     alt: 'Confidential executive strategic consultation in private advisory offices',
+    focal: '50% 60%',
   },
   {
-    name: 'corporate-media-communications',
-    alt: 'Senior advisors delivering confidential strategic briefings',
+    name: 'boardroom-leather',
+    alt: 'A private, closed boardroom with leather chairs set around a long table',
   },
   {
-    name: 'abu-dhabi-financial-district',
-    alt: 'Modern financial district towers reflecting global capital flows',
+    name: 'dubai-burj-khalifa-promenade',
+    alt: 'The Burj Khalifa and Downtown corporate towers reflecting global capital connectivity',
   },
 ];
 
@@ -228,9 +229,9 @@ export default function StrategicConsultingPage() {
               return (
                 <li
                   key={t.label}
-                  className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14"
+                  className="grid gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-14"
                 >
-                  <div className="lg:col-span-5 order-1">
+                  <div className="lg:col-span-6 lg:self-center order-1">
                     <Reveal>
                       <span className="text-xs font-mono font-semibold text-[var(--brass)] uppercase">
                         Theme 0{i + 1} · {t.label}
@@ -244,14 +245,14 @@ export default function StrategicConsultingPage() {
                     </Reveal>
                   </div>
 
-                  <ImageReveal className="lg:col-span-7 order-2">
-                    <div className="media aspect-[16/10] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
+                  <ImageReveal className="lg:col-span-6 order-2">
+                    <div className="media aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[18rem] w-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">
                       <Picture
                         name={m.name}
                         alt={m.alt}
                         sizes="(min-width:1024px) 50vw, 100vw"
-                        focal="50% 50%"
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        focal={m.focal ?? '50% 50%'}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     </div>
