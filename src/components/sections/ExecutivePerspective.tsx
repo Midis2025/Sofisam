@@ -6,7 +6,7 @@ import { ArrowUpRight, Compass, Eye, Shield, Users } from 'lucide-react';
 import Link from 'next/link';
 
 import { Picture } from '@/components/ui/Picture';
-import { MaskedLines } from '@/components/animations/Reveal';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -66,30 +66,12 @@ export function ExecutivePerspective() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="max-w-[52rem]">
-          <div className="kicker">
-            <p className="t-label">
-              Executive Perspective
-            </p>
-          </div>
-
-          <h2
-            id="perspective-heading"
-            className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-          >
-            <MaskedLines lines={['Advice given by people who', 'have held the position.']} />
-          </h2>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.75, ease: EASE, delay: 0.16 }}
-            className="mt-5 t-body text-[var(--sage)] max-w-[56ch] leading-relaxed"
-          >
-            Our principals are highly successful business executives and investors that bring unique perspectives to all of our mandates and investments.
-          </motion.p>
-        </div>
+        <SectionHeader
+          label="Executive Perspective"
+          heading="Advice given by people who have held the position."
+          headingId="perspective-heading"
+          copy="Our principals are highly successful business executives and investors that bring unique perspectives to all of our mandates and investments."
+        />
 
         {/* 2-Column Split: 4 Interactive Pillars (Left) + Parallax Plate (Right) */}
         <div className="mt-14 grid gap-10 xl:grid-cols-12 xl:gap-14 items-stretch">

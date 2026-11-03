@@ -6,6 +6,7 @@ import { Newsletter } from '@/components/sections/Newsletter';
 import { Button } from '@/components/ui/Button';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
 import { contact, contactCopy, site } from '@/data/site';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 export const metadata: Metadata = {
   title: 'Contact & Mandates',
@@ -139,22 +140,13 @@ export default function ContactPage() {
       {/* 02 — Location & Map Chapter */}
       <section data-section="Location" className="section ground-char border-b border-[var(--line-soft)]" aria-labelledby="location-heading">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">World Headquarters</p>
-              </div>
-              <h2
-                id="location-heading"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['Dubai Multi Commodities', 'Centre (DMCC).']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              {site.name} is headquartered in the {contact.headquarters}, Jumeirah Lake Towers, Dubai. In-person meetings are conducted by prior arrangement.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="World Headquarters"
+            heading="Dubai Multi Commodities Centre (DMCC)."
+            headingId="location-heading"
+            copy={`${site.name} is headquartered in the ${contact.headquarters}, Jumeirah Lake Towers, Dubai. In-person meetings are conducted by prior arrangement.`}
+          />
 
           <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
             {/* Headquarters Ledger (Left Column on Desktop, First on Mobile) */}

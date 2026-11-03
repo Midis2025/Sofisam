@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { Picture } from '@/components/ui/Picture';
 import { Button } from '@/components/ui/Button';
-import { MaskedLines } from '@/components/animations/Reveal';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -106,24 +106,13 @@ export function OurWork() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-          <div>
-            <div className="kicker">
-              <p className="t-label">
-                Capabilities &amp; Reach
-              </p>
-            </div>
-            <h2
-              id="core-areas-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-            >
-              <MaskedLines lines={['Core foundations and', 'disciplines of the firm.']} />
-            </h2>
-          </div>
-          <p className="max-w-[44ch] t-body text-[var(--sage)] leading-relaxed">
-            Five core foundations and disciplines through which SOFISAM advises boards, principals, and international corporate clients.
-          </p>
-        </div>
+        <SectionHeader
+          ruled
+          label="Capabilities & Reach"
+          heading="Core foundations and disciplines of the firm."
+          headingId="core-areas-heading"
+          copy="Five core foundations and disciplines through which SOFISAM advises boards, principals, and international corporate clients."
+        />
 
         {/* Asymmetric Showcase Grid */}
         <div className="mt-12 space-y-8">

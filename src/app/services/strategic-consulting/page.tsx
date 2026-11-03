@@ -8,6 +8,7 @@ import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal
 import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { serviceBySlug } from '@/data/services';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const service = serviceBySlug('strategic-consulting')!;
 
@@ -128,22 +129,13 @@ export default function StrategicConsultingPage() {
       {/* 03 — Decision Framework: 5 Numbered Questions */}
       <section data-section="Decision Framework" className="section ground-void border-b border-[var(--line-soft)]" aria-labelledby="sc-framework">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Strategic Framework</p>
-              </div>
-              <h2
-                id="sc-framework"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['Five questions we work through', 'before we give a view.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              Every mandate is evaluated against strict analytical and structural tests before any strategic recommendation is committed to paper.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Strategic Framework"
+            heading="Five questions we work through before we give a view."
+            headingId="sc-framework"
+            copy="Every mandate is evaluated against strict analytical and structural tests before any strategic recommendation is committed to paper."
+          />
 
           <ol className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
             {framework.map((f, i) => (

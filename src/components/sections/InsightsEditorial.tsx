@@ -8,7 +8,7 @@ import { insights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
 import { Button } from '@/components/ui/Button';
-import { MaskedLines } from '@/components/animations/Reveal';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -35,29 +35,20 @@ export function InsightsEditorial() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-          <div>
-            <div className="kicker">
-              <p className="t-label">
-                {insightsIntro.eyebrow}
-              </p>
-            </div>
-            <h2
-              id="insights-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-            >
-              <MaskedLines lines={['Perspectives on global markets', 'and governance.']} />
-            </h2>
-          </div>
-          <div className="flex items-center gap-6">
-            <p className="max-w-[42ch] t-body text-[var(--sage)] hidden sm:block leading-relaxed">
-              {insightsIntro.standfirst}
-            </p>
-            <Button variant="link" href="/insights" className="whitespace-nowrap">
-              All Perspectives
-            </Button>
-          </div>
-        </div>
+        <SectionHeader
+          ruled
+          label={insightsIntro.eyebrow}
+          heading="Perspectives on global markets and governance."
+          headingId="insights-heading"
+          copy={
+            <>
+              <p className="t-body text-[var(--sage)]">{insightsIntro.standfirst}</p>
+              <Button variant="link" href="/insights" className="mt-5 whitespace-nowrap">
+                All Perspectives
+              </Button>
+            </>
+          }
+        />
 
         {/* Editorial Layout: Featured (Left 7 Cols) + Secondary (Right 5 Cols) */}
         {/* Both columns share one row height on lg: the featured image flexes

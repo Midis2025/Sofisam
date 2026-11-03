@@ -6,9 +6,10 @@ import { PageHero } from '@/components/layout/PageHero';
 import { ServiceSelector } from '@/components/sections/ServiceSelector';
 import { ProcessNarrative } from '@/components/sections/ProcessNarrative';
 import { Tilt } from '@/components/ui/Tilt';
-import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { Reveal } from '@/components/animations/Reveal';
 import { servicesIntro } from '@/data/site';
 import { services } from '@/data/services';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 export const metadata: Metadata = {
   title: 'Our Practice Areas & Capabilities',
@@ -102,22 +103,13 @@ export default function ServicesPage() {
       {/* 04 — Who We Advise */}
       <section data-section="Who We Advise" className="section ground-void border-b border-[var(--line-soft)]" aria-labelledby="who-we-advise">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Counterparties</p>
-              </div>
-              <h2
-                id="who-we-advise"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['The people who carry', 'the final decision.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              Engagements are accepted directly with the executives and owners accountable for the outcome, never a layer removed.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Counterparties"
+            heading="The people who carry the final decision."
+            headingId="who-we-advise"
+            copy="Engagements are accepted directly with the executives and owners accountable for the outcome, never a layer removed."
+          />
 
           <ul className="mt-12 grid gap-8 md:grid-cols-3">
             {whoWeAdvise.map((w, i) => {

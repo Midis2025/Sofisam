@@ -7,6 +7,7 @@ import { Minus, Move, Plus, RotateCcw } from 'lucide-react';
 
 import type { GlobeHandle, GlobeHub } from '@/components/ui/Globe';
 import { useTheme } from '@/lib/theme';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -94,25 +95,18 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-10 border-b border-[var(--line)]">
-          <div>
-            <div className="kicker">
-              <p className="t-label">
-                Global Perspective
-              </p>
-            </div>
-            <h2
-              id="global-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)]"
-            >
-              One vantage point. A global field of view.
-            </h2>
-          </div>
-          <div className="max-w-[44ch]">
-            <p className="t-body text-[var(--ivory-2)]">{lead}</p>
-            <p className="mt-1.5 t-small text-[var(--sage)]">{note}</p>
-          </div>
-        </div>
+        <SectionHeader
+          ruled
+          label="Global Perspective"
+          heading="One vantage point. A&nbsp;global field of view."
+          headingId="global-heading"
+          copy={
+            <>
+              <p className="t-body text-[var(--ivory-2)]">{lead}</p>
+              <p className="mt-1.5 t-small text-[var(--sage)]">{note}</p>
+            </>
+          }
+        />
 
         {/* Content & Globe stage (Left: Centres & Narrative, Right: Interactive Globe) */}
         <motion.div

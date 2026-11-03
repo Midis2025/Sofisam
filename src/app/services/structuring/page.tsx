@@ -8,6 +8,7 @@ import { Reveal, MaskedLines, ImageReveal } from '@/components/animations/Reveal
 import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { serviceBySlug } from '@/data/services';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const service = serviceBySlug('structuring')!;
 
@@ -108,22 +109,13 @@ export default function StructuringPage() {
       {/* 03 — Framework Thinking: Intent Before Instrument */}
       <section data-section="Framework Thinking" className="section ground-void border-b border-[var(--line-soft)]" aria-labelledby="st-framework">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Framework Thinking</p>
-              </div>
-              <h2
-                id="st-framework"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['Intent before instrument.', 'Architecture before form.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              We begin with what an arrangement is meant to achieve, and only then consider the legal form it should take.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Framework Thinking"
+            heading="Intent before instrument. Architecture before form."
+            headingId="st-framework"
+            copy="We begin with what an arrangement is meant to achieve, and only then consider the legal form it should take."
+          />
 
           <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-stretch">
             {/* Content (Left Column on Desktop, First on Mobile) */}
@@ -183,22 +175,13 @@ export default function StructuringPage() {
       {/* 04 — Five Tests a Structure Has to Survive */}
       <section data-section="Structuring Tests" className="section ground-char border-b border-[var(--line-soft)]" aria-labelledby="st-tests">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Structuring Approach</p>
-              </div>
-              <h2
-                id="st-tests"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['Five tests a structure', 'has to survive.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              Applied rigorously across mandates and investments alike, and revisited when circumstances move away from the baseline.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Structuring Approach"
+            heading="Five tests a structure has to survive."
+            headingId="st-tests"
+            copy="Applied rigorously across mandates and investments alike, and revisited when circumstances move away from the baseline."
+          />
 
           <ol className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
             {tests.map((t, i) => (

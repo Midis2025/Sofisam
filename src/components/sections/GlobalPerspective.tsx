@@ -1,8 +1,9 @@
 'use client';
 
 import { Picture } from '@/components/ui/Picture';
-import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animations/Reveal';
+import { Reveal, ImageReveal, RowReveal } from '@/components/animations/Reveal';
 import { GlobalNetwork } from './GlobalNetwork';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 /**
  * Global perspective.
@@ -35,22 +36,12 @@ export function GlobalPerspective({
     return (
       <section data-section="Global Perspective" className="section ground-char" aria-labelledby="global-heading">
         <div className="shell">
-          <Reveal kind="label" className="kicker">
-            <p className="t-label">Global Perspective</p>
-          </Reveal>
-
-          <h2
-            id="global-heading"
-            className="t-h2 mt-eyebrow max-w-[68.75rem] text-ivory"
-          >
-            <MaskedLines lines={['One vantage point.', 'A global field of view.']} />
-          </h2>
-
-          <Reveal kind="body" delay={0.12}>
-            <p className="t-lead mt-[clamp(2rem,2.6vw,2.5rem)] max-w-[56.25rem] text-sage">
-              {LEAD}
-            </p>
-          </Reveal>
+          <SectionHeader
+            label="Global Perspective"
+            heading="One vantage point. A&nbsp;global field of view."
+            headingId="global-heading"
+            copy={LEAD}
+          />
 
           {/* Three columns off one rule */}
           <dl className="mt-[clamp(3rem,4.5vw,4.5rem)] grid gap-x-[clamp(2.25rem,4vw,4.5rem)] gap-y-[clamp(1.5rem,2vw,2rem)] sm:grid-cols-3">

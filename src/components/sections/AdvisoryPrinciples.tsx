@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { Award, Compass, EyeOff, Globe2, ShieldCheck } from 'lucide-react';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -63,24 +64,12 @@ export function AdvisoryPrinciples() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="max-w-[50rem]">
-          <div className="kicker">
-            <p className="t-label">
-              Advisory Principles
-            </p>
-          </div>
-
-          <h2
-            id="principles-heading"
-            className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-          >
-            Five principles that decide what we will and will not say.
-          </h2>
-
-          <p className="mt-4 t-body text-[var(--sage)] leading-relaxed max-w-[54ch]">
-            The advice SOFISAM provides is described in its own terms: confidential, unconflicted, and strategic, built over decades of international business experience.
-          </p>
-        </div>
+        <SectionHeader
+          label="Advisory Principles"
+          heading="Five principles that decide what we will and will not say."
+          headingId="principles-heading"
+          copy="The advice SOFISAM provides is described in its own terms: confidential, unconflicted, and strategic, built over decades of international business experience."
+        />
 
         {/* 5-Column Editorial Card Grid with Progressive Reveal */}
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5 items-stretch">

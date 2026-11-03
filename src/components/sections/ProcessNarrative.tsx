@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 
 import { Picture } from '@/components/ui/Picture';
-import { MaskedLines } from '@/components/animations/Reveal';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -74,24 +74,13 @@ export function ProcessNarrative() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-          <div>
-            <div className="kicker">
-              <p className="t-label">
-                Way of Working
-              </p>
-            </div>
-            <h2
-              id="process-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-            >
-              <MaskedLines lines={['A disciplined sequence,', 'not a methodology.']} />
-            </h2>
-          </div>
-          <p className="max-w-[44ch] t-body text-[var(--sage)] leading-relaxed">
-            Every corporate engagement is unique. The structured order in which we evaluate, structure, and execute on one rarely is.
-          </p>
-        </div>
+        <SectionHeader
+          ruled
+          label="Way of Working"
+          heading="A disciplined sequence, not a methodology."
+          headingId="process-heading"
+          copy="Every corporate engagement is unique. The structured order in which we evaluate, structure, and execute on one rarely is."
+        />
 
         {/* 5-Step Horizontal Progression Track (Desktop lg+) */}
         <div className="mt-12 hidden lg:block">

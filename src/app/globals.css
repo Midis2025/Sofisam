@@ -1364,32 +1364,73 @@
      that uses one is measured identically.
      ============================================================ */
 
-  /* A section heading with a note held to the right of it. */
-  .head {
+  /* ------------------------------------------------------------
+     SECTION HEADER — label, heading and an optional supporting
+     note, used by every editorial section (see SectionHeader.tsx).
+
+     Two grid items: the main block (label over heading) and the
+     note. From 768px they sit side by side in ONE row, aligned on
+     their last baselines, so the note's final line always rests on
+     the heading's final line — one, two or three heading lines
+     alike — with no offsets. The label rides with its heading and
+     takes no part in that alignment: when a note runs taller, the
+     whole label + heading unit drops together and the label gap
+     never changes.
+
+       < 768     one column: label, heading, note
+       768-1199  two columns, tablet proportions
+       >= 1200   two columns, desktop proportions
+     ------------------------------------------------------------ */
+  .section-header {
+    --header-gap: clamp(2rem, 5vw, 4rem);
+    --header-heading-gap: clamp(var(--space-3), 1.6vw, var(--space-4));
+    --header-copy-gap: var(--space-4);
+    --header-rule-gap: clamp(2.25rem, 4vw, 3rem);
+
     display: grid;
-    gap: clamp(1.25rem, 2.4vw, 2rem);
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  @media (min-width: 1024px) {
-    .head {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      align-items: end;
-      gap: clamp(2rem, 4vw, 5rem);
+  .section-header--ruled {
+    padding-bottom: var(--header-rule-gap);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-heading {
+    margin-top: var(--header-heading-gap);
+    max-width: 53rem;
+    color: var(--ivory);
+    text-wrap: balance;
+  }
+
+  .section-header__copy {
+    margin-top: var(--header-copy-gap);
+    max-width: 36rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+      column-gap: var(--header-gap);
+    }
+
+    /* `end` is the fallback where baseline alignment is unsupported. */
+    .section-header__main,
+    .section-header__copy {
+      align-self: end;
+      align-self: last baseline;
+    }
+
+    .section-header__copy {
+      margin-top: 0;
+      max-width: 32rem;
     }
   }
 
-  .head-title {
-    max-width: 18ch;
-  }
-
-  .head-note {
-    max-width: 46ch;
-  }
-
-  @media (min-width: 1024px) {
-    .head-note {
-      justify-self: end;
-      text-align: left;
+  @media (min-width: 1200px) {
+    .section-header {
+      --header-gap: clamp(3rem, 7vw, 9rem);
+      grid-template-columns: minmax(0, 1.35fr) minmax(17.5rem, 0.65fr);
     }
   }
 
@@ -1404,23 +1445,6 @@
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
       align-items: baseline;
       gap: clamp(1.5rem, 3vw, 3rem);
-    }
-  }
-
-  /* A head that stands over a ledger borrows the ledger's own
-     columns, so the note lands on the same line as the row
-     descriptions and the heading sits over the titles. Without
-     this the head keeps its own two columns and the boundary
-     between head and rows reads as two grids. */
-  @media (min-width: 1024px) {
-    .head-ledger {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      column-gap: clamp(1.5rem, 3vw, 3rem);
-    }
-
-    /* The note is aligned by the track, not pushed to its far end. */
-    .head-ledger .head-note {
-      justify-self: start;
     }
   }
 

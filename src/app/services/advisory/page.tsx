@@ -9,6 +9,7 @@ import { ServiceIntro } from '@/components/sections/ServiceIntro';
 import { AdvisoryThemes } from '@/components/sections/AdvisoryThemes';
 import { ServicePager } from '@/components/sections/ServicePager';
 import { serviceBySlug } from '@/data/services';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const service = serviceBySlug('advisory')!;
 
@@ -170,22 +171,13 @@ export default function AdvisoryPage() {
       {/* 05 — Experience & Vantage Feature */}
       <section data-section="Experience" className="section ground-char border-b border-[var(--line-soft)]" aria-labelledby="adv-experience">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Direct Ownership</p>
-              </div>
-              <h2
-                id="adv-experience"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['The view of an owner,', 'not a bystander.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[42ch] leading-relaxed">
-              Our principals bring unique perspectives to all of our mandates and investments — grounded in capital deployed and operating leadership.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Direct Ownership"
+            heading="The view of an owner, not a bystander."
+            headingId="adv-experience"
+            copy="Our principals bring unique perspectives to all of our mandates and investments — grounded in capital deployed and operating leadership."
+          />
 
           <ImageReveal className="mt-12">
             <div className="media aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[24/9] overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[var(--shadow-plate)] group">

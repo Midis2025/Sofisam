@@ -10,6 +10,7 @@ import { Reveal, MaskedLines, ImageReveal, RowReveal } from '@/components/animat
 import { GlobalPerspective } from '@/components/sections/GlobalPerspective';
 import { AdvisoryPrinciples } from '@/components/sections/AdvisoryPrinciples';
 import { welcomeCopy, contact, site } from '@/data/site';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 export const metadata: Metadata = {
   title: 'About the Firm',
@@ -281,22 +282,13 @@ export default function AboutPage() {
       {/* 06 — 6 Operating Principles Grid */}
       <section data-section="Operating Principles" className="section ground-char" aria-labelledby="about-principles">
         <div className="shell">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-            <div>
-              <div className="kicker">
-                <p className="t-label">Operating Commitments</p>
-              </div>
-              <h2
-                id="about-principles"
-                className="mt-eyebrow t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                <MaskedLines lines={['How the firm', 'actually operates.']} />
-              </h2>
-            </div>
-            <p className="t-body text-[var(--sage)] max-w-[44ch] leading-relaxed">
-              Six commitments that govern how every advisory engagement is taken on, framed, and carried through to completion.
-            </p>
-          </div>
+          <SectionHeader
+            ruled
+            label="Operating Commitments"
+            heading="How the firm actually operates."
+            headingId="about-principles"
+            copy="Six commitments that govern how every advisory engagement is taken on, framed, and carried through to completion."
+          />
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {operatingPrinciples.map((p, i) => (

@@ -9,6 +9,7 @@ import { services } from '@/data/services';
 import { servicesIntro } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
 import { Button } from '@/components/ui/Button';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -44,26 +45,13 @@ export function ServiceShowcase() {
     >
       <div className="shell">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-[var(--line)]">
-          <div>
-            <div className="kicker">
-              <p className="t-label">
-                {servicesIntro.eyebrow}
-              </p>
-            </div>
-            <h2
-              id="expertise-heading"
-              className="mt-eyebrow t-h2 text-[var(--ivory)] font-light"
-            >
-              {servicesIntro.heading}
-            </h2>
-          </div>
-          <div className="max-w-[44ch]">
-            <p className="t-body text-[var(--sage)] leading-relaxed">
-              {servicesIntro.standfirst}
-            </p>
-          </div>
-        </div>
+        <SectionHeader
+          ruled
+          label={servicesIntro.eyebrow}
+          heading={servicesIntro.heading}
+          headingId="expertise-heading"
+          copy={servicesIntro.standfirst}
+        />
 
         {/* Desktop Interactive Layout (lg+) */}
         <div className="mt-12 hidden lg:grid lg:grid-cols-12 lg:gap-14 items-stretch">

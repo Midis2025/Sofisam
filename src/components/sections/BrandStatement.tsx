@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { welcomeCopy, contact } from '@/data/site';
 import { Picture } from '@/components/ui/Picture';
 import { Button } from '@/components/ui/Button';
-import { FocusIn } from '@/components/animations/SplitText';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * SOFISAM Brand Statement & Introduction
  *
  * Distinct Editorial Layout featuring:
- * - FocusIn blur-to-focus typography transition (unique to this section)
+ * - Shared SectionHeader (label, heading, positioning note)
  * - Large pull quote highlighting unconflicted advice
  * - 3 Strategic credentials metrics
  * - High-resolution architectural plate of Dubai Business Bay with custom framing
@@ -31,38 +31,12 @@ export function BrandStatement() {
       aria-labelledby="welcome-heading"
     >
       <div className="shell">
-        {/* Top Eyebrow */}
-        <div className="kicker">
-          <p className="t-label">
-            {welcomeCopy.eyebrow}
-          </p>
-        </div>
-
-        {/* Asymmetric Editorial Header */}
-        <div className="mt-eyebrow grid gap-8 lg:grid-cols-12 lg:gap-14 items-baseline">
-          <div className="lg:col-span-7">
-            <FocusIn delay={0.05}>
-              <h2
-                id="welcome-heading"
-                className="t-h2 text-[var(--ivory)] font-light leading-[1.08]"
-              >
-                An international advisory platform, and the relationships behind it.
-              </h2>
-            </FocusIn>
-          </div>
-
-          <div className="lg:col-span-5">
-            <motion.p
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-10% 0px' }}
-              transition={{ duration: 0.75, ease: EASE, delay: 0.15 }}
-              className="t-lead text-[var(--sage)] leading-relaxed"
-            >
-              {welcomeCopy.positioning}
-            </motion.p>
-          </div>
-        </div>
+        <SectionHeader
+          label={welcomeCopy.eyebrow}
+          heading="An international advisory platform, and the relationships behind it."
+          headingId="welcome-heading"
+          copy={welcomeCopy.positioning}
+        />
 
         {/* Main Content Split: Editorial Narrative & Architectural Plate */}
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14 items-stretch">

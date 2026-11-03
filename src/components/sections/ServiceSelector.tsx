@@ -10,6 +10,7 @@ import { Picture } from '@/components/ui/Picture';
 import { Button } from '@/components/ui/Button';
 import { Tilt } from '@/components/ui/Tilt';
 import { Reveal, MaskedLines } from '@/components/animations/Reveal';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -56,36 +57,12 @@ export function ServiceSelector() {
           here — the heading, the two columns and the themes — stops on one line
           clear of the rail rather than running under it. */}
       <div className="shell md:pr-[calc(var(--gutter)+2rem)]">
-        <div className="head">
-          <div>
-            <Reveal kind="label" className="kicker">
-              <p className="t-label">Three Disciplines</p>
-            </Reveal>
-
-            <h2
-              id="disciplines-heading"
-              className="t-h2 head-title mt-eyebrow text-ivory"
-            >
-              <span className="sr-only">One standard of judgement, three forms.</span>
-              <span aria-hidden className="block lg:hidden">
-                <MaskedLines lines={['One standard', 'of judgement,', 'three forms.']} />
-              </span>
-              <span aria-hidden className="hidden lg:block">
-                <MaskedLines lines={['One standard of judgement,', 'three forms.']} />
-              </span>
-            </h2>
-          </div>
-
-          <div className="lg:pb-2">
-            <Reveal delay={0.12}>
-              <p className="t-body head-note text-sage">
-                Consulting, advisory and structuring are separate practices, but they
-                are not separate opinions. Whichever one an engagement begins in, the
-                reasoning behind it is the same.
-              </p>
-            </Reveal>
-          </div>
-        </div>
+        <SectionHeader
+          label="Three Disciplines"
+          heading="One standard of judgement, three forms."
+          headingId="disciplines-heading"
+          copy="Consulting, advisory and structuring are separate practices, but they are not separate opinions. Whichever one an engagement begins in, the reasoning behind it is the same."
+        />
 
         <div className="mt-[var(--pad-sm)] grid gap-[clamp(2rem,4vw,5rem)] lg:grid-cols-12">
           {/* ---------- The index ---------- */}
