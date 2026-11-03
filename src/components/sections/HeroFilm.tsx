@@ -4,53 +4,28 @@ import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 
 /**
- * The masthead's ground: a skyline timelapse, from night into day and back.
+ * The masthead's ground: a fixed-camera timelapse of the Dubai Marina towers,
+ * the clouds moving over them through an afternoon.
  *
- * One supplied 4K clip, cut three ways for the three shapes a masthead takes,
- * rather than one landscape file cropped by `object-cover` into a phone:
+ * One 1920×1080 clip serves every shape of masthead, cropped by
+ * `object-cover` around `position` — the tower cluster sits left of centre,
+ * so the crop is held there and a tall phone frame still keeps it in view.
  *
- *   desktop  16:9  1920×1080   the full width of the frame
- *   tablet    4:3  1440×1080   the skyline held centre
- *   mobile   9:16   810×1440   the tower cluster, composed for a tall screen
+ * The clip is a single forward pass, not a palindrome, so it is not left to
+ * `loop` (which would jump from the last frame back to the first). Instead the
+ * film dissolves out over its final second onto the poster — which is the
+ * clip's own first frame — and is then restarted underneath it at 0 and shown
+ * again at once. Frame 0 over frame 0 is invisible, so the only seam is a
+ * slow cross-dissolve.
  *
- * Every cut is a downscale of the 4K source, never an enlargement, with the
- * highlights rolled off so the overcast daylight at the bright end never goes
- * paper-white behind the type. The timelapse runs forward and then back, so
- * the loop has no cut in it. Each cut has a poster that is its own first
- * frame: the still the film fades up out of, and the whole ground where the
- * film is not run.
- *
- * The cut is chosen by the frame's shape, not its width, and the same
- * breakpoints drive the <picture> that carries the posters and the hook that
- * picks the film, so the still and the film it fades into are always the same
- * composition. Only the cut in force is ever requested.
+ * The poster is also the whole ground where the film is not run.
  */
 
-const CUTS = [
-  { key: 'mobile', media: '(max-aspect-ratio: 13/20)', w: 810, h: 1440 },
-  { key: 'tablet', media: '(max-aspect-ratio: 3/2)', w: 1440, h: 1080 },
-  { key: 'desktop', media: null, w: 1920, h: 1080 },
-] as const;
+const FILM = '/videos/hero-film.mp4';
+const POSTER = '/videos/hero-film-poster.webp';
 
-type Cut = (typeof CUTS)[number]['key'];
-
-const filmSrc = (cut: Cut) => `/videos/hero-${cut}.mp4`;
-const posterSrc = (cut: Cut) => `/videos/hero-${cut}-poster.webp`;
-
-/** Which cut this frame takes, kept current as the frame changes shape. */
-function useFilmCut() {
-  const [cut, setCut] = useState<Cut | null>(null);
-
-  useEffect(() => {
-    const queries = CUTS.map((c) => (c.media ? window.matchMedia(c.media) : null));
-    const pick = () => setCut(CUTS[queries.findIndex((q) => q === null || q.matches)].key);
-    pick();
-    queries.forEach((q) => q?.addEventListener('change', pick));
-    return () => queries.forEach((q) => q?.removeEventListener('change', pick));
-  }, []);
-
-  return cut;
-}
+/** Seconds before the end at which the film starts dissolving to the poster. */
+const DISSOLVE = 1.2;
 
 /**
  * Whether this device gets film at all. Decided after mount, because the
@@ -75,21 +50,20 @@ function useWantsFilm() {
 }
 
 /** `position` is the object-position for both the still and the film — the
- *  part of the frame kept when the window is wider than the cut. */
-export function HeroFilm({ position = '50% 50%' }: { position?: string }) {
+ *  part of the frame kept when the masthead is a different shape from 16:9. */
+export function HeroFilm({ position = '48% 50%' }: { position?: string }) {
   const reduce = useReducedMotion();
   const wants = useWantsFilm();
-  const cut = useFilmCut();
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  // 'in': fully shown · 'out': dissolving to the poster · 'cut': restarting
+  // under the poster, shown again with no transition.
+  const [phase, setPhase] = useState<'in' | 'out' | 'cut'>('in');
 
-  const run = wants && !failed && cut !== null;
+  const run = wants && !failed;
 
   const frame = useRef<HTMLDivElement>(null);
   const film = useRef<HTMLVideoElement>(null);
-
-  // A change of cut is a new file: it fades up again from its own poster.
-  useEffect(() => setReady(false), [cut]);
 
   // Nothing decodes while the masthead is off screen.
   useEffect(() => {
@@ -106,64 +80,80 @@ export function HeroFilm({ position = '50% 50%' }: { position?: string }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [run, cut]);
+  }, [run]);
+
+  // After a restart, let one frame paint at full opacity with no transition
+  // before transitions apply again.
+  useEffect(() => {
+    if (phase !== 'cut') return;
+    // Flush the untransitioned full opacity to the style engine first, or the
+    // browser sees 0 → 1 with the transition back on and fades it up again.
+    void film.current?.offsetHeight;
+    const id = window.setTimeout(() => setPhase('in'), 60);
+    return () => window.clearTimeout(id);
+  }, [phase]);
+
+  const onTimeUpdate = () => {
+    const v = film.current;
+    if (!v || !v.duration || phase !== 'in') return;
+    if (v.duration - v.currentTime <= DISSOLVE) setPhase('out');
+  };
+
+  const onEnded = () => {
+    const v = film.current;
+    if (!v) return;
+    v.currentTime = 0;
+    void v.play().catch(() => {});
+    setPhase('cut');
+  };
+
+  const shown = ready && phase !== 'out';
 
   return (
     <div ref={frame} className="absolute inset-0">
-      {/* The poster, in the cut this frame takes. It carries the description
-          only where it is the whole ground; under the film it is decoration.
-          The still drifts slowly when there is no film to move it. */}
+      {/* The poster: the clip's first frame. It carries the description only
+          where it is the whole ground; under the film it is decoration. The
+          still drifts slowly when there is no film to move it. */}
       <div className={`media media-flat absolute inset-0${reduce || run ? '' : ' hero-drift'}`}>
-        <picture>
-          {CUTS.filter((c) => c.media).map((c) => (
-            <source
-              key={c.key}
-              media={c.media ?? undefined}
-              srcSet={posterSrc(c.key)}
-              type="image/webp"
-              width={c.w}
-              height={c.h}
-            />
-          ))}
-          <img
-            src={posterSrc('desktop')}
-            alt={run ? '' : 'A city skyline before dawn, its towers still lit'}
-            aria-hidden={run || undefined}
-            width={1920}
-            height={1080}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="block h-full w-full object-cover"
-            style={{ objectPosition: position }}
-          />
-        </picture>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={POSTER}
+          alt={run ? '' : 'The towers of Dubai Marina under a moving afternoon sky'}
+          aria-hidden={run || undefined}
+          width={1920}
+          height={1080}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="block h-full w-full object-cover"
+          style={{ objectPosition: position }}
+        />
       </div>
 
-      {/* The film. Muted, looping and inline — what autoplay costs on every
-          mobile browser — and out of the tab order and the accessibility
-          tree, because it is the ground rather than content. Keyed by cut, so
-          a change of shape loads the other file rather than stretching this
-          one. The poster is the file the <picture> has already loaded. */}
+      {/* The film. Muted and inline — what autoplay costs on every mobile
+          browser — and out of the tab order and the accessibility tree,
+          because it is the ground rather than content. */}
       {run && (
         <video
-          key={cut}
           ref={film}
           aria-hidden
           tabIndex={-1}
           autoPlay
-          loop
           muted
           playsInline
           preload="auto"
-          src={filmSrc(cut)}
-          poster={posterSrc(cut)}
+          src={FILM}
+          poster={POSTER}
           onLoadedData={() => setReady(true)}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
           onError={() => setFailed(true)}
           style={{ objectPosition: position }}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-premium ${
-            ready ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 h-full w-full object-cover ${
+            phase === 'cut'
+              ? 'transition-none'
+              : `transition-opacity ease-premium ${phase === 'out' ? 'duration-[1200ms]' : 'duration-[1400ms]'}`
+          } ${shown ? 'opacity-100' : 'opacity-0'}`}
         />
       )}
     </div>

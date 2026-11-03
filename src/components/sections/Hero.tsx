@@ -32,7 +32,7 @@ export function Hero() {
     >
       {/* 1. Full-Bleed Background Dubai Video / Fallback Poster (Edge-to-Edge) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <HeroFilm position="50% 45%" />
+        <HeroFilm position="38% 50%" />
       </div>
 
       {/* 2. Sophisticated Directional & Vignette Overlay Scrims */}
