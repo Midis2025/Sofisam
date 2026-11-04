@@ -21,6 +21,7 @@ export default function NotFound() {
           alt=""
           decorative
           sizes="100vw"
+          priority
           focal="50% 40%"
           className="h-full w-full object-cover opacity-60"
         />

@@ -20,12 +20,16 @@
  * file carrying no more detail. The long edge is capped at 3200, which covers
  * a full-bleed frame on a 1600-wide layout at two times density; past it the
  * file grows faster than the detail anyone can see.
+ *
+ * Each ingested image then gets its AVIF siblings (scripts/avif.mjs), kept
+ * only where they are meaningfully lighter than the WebP.
  */
 
 import { readdir, readFile, writeFile, unlink } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { avifFor } from './avif.mjs';
 
 const OUT_DIR = 'public/images';
 const META = 'src/data/image-meta.json';
@@ -67,7 +71,9 @@ async function ingest(file, meta) {
   // photographs across its own srcset.
   const stale = (meta[name]?.variants ?? []).filter((w) => !widths.includes(w));
   await Promise.all(
-    stale.map((w) => unlink(path.join(OUT_DIR, `${name}-${w}.webp`)).catch(() => {})),
+    stale.flatMap((w) =>
+      ['webp', 'avif'].map((ext) => unlink(path.join(OUT_DIR, `${name}-${w}.${ext}`)).catch(() => {})),
+    ),
   );
 
   for (const w of widths) {
@@ -78,6 +84,7 @@ async function ingest(file, meta) {
   }
 
   meta[name] = { w: outW, h: outH, variants: widths, blur: await placeholder(file) };
+  await avifFor(name, meta[name]);
   return { name, from: `${width}x${height}`, to: `${outW}x${outH}`, widths, stale };
 }
 

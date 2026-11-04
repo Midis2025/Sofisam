@@ -3,6 +3,8 @@
 import { useEffect, useRef } from 'react';
 import type { MutableRefObject } from 'react';
 
+import { loadGlobeTextures } from '@/lib/globe-assets';
+
 /**
  * The globe.
  *
@@ -22,7 +24,16 @@ import type { MutableRefObject } from 'react';
  * Interaction is a turntable, not a map: drag to turn it (horizontal only on
  * touch, so a vertical swipe still scrolls the page), the buttons to zoom a
  * step or return it to Dubai, a tap on a marker to select it. The wheel is
- * left to the page.
+ * left to the page. It never turns by itself: it holds still on Dubai until
+ * it is dragged or a centre is chosen.
+ *
+ * Loading: the scene is built once per mount, from textures fetched and
+ * decoded once per page session (lib/globe-assets), which the section starts
+ * downloading before three.js itself arrives. Selecting a centre, zooming or
+ * changing theme only moves the camera or rewrites uniforms; nothing is rebuilt.
+ * `onBuilt` fires once the scene exists, `onReady` on the first frame of its
+ * opening actually drawn, so the stage can say "loading" only while it is,
+ * and keep its outline until there is a globe to hand over to.
  *
  * Cost: one sphere, one halo quad, a thin tube per arc and a quad per marker.
  * The loop stops whenever the globe is off-screen or the tab is hidden.
@@ -351,6 +362,10 @@ type Props = {
   onSelect: (key: string) => void;
   /** Called on the first drag, so the stage can retire its hint. */
   onInteract?: () => void;
+  /** The scene is built and waiting only to be seen. */
+  onBuilt?: () => void;
+  /** The first frame has been drawn and the globe is fading in. */
+  onReady?: () => void;
   onFail?: () => void;
   theme: 'light' | 'dark';
   reduce: boolean;
@@ -363,6 +378,8 @@ export function Globe({
   active,
   onSelect,
   onInteract,
+  onBuilt,
+  onReady,
   onFail,
   theme,
   reduce,
@@ -374,8 +391,8 @@ export function Globe({
   const labels = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Read by the loop on every frame, so a change never rebuilds the scene.
-  const live = useRef({ active, theme, onSelect, onInteract });
-  live.current = { active, theme, onSelect, onInteract };
+  const live = useRef({ active, theme, onSelect, onInteract, onBuilt, onReady });
+  live.current = { active, theme, onSelect, onInteract, onBuilt, onReady };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -386,6 +403,12 @@ export function Globe({
     let cleanup: (() => void) | undefined;
 
     (async () => {
+      // The textures are requested first so they download alongside
+      // three.js rather than after it. Already in hand if the section
+      // warmed them, or if the globe has been mounted before.
+      const textures = loadGlobeTextures(stage.clientWidth);
+      textures.catch(() => {});
+
       let THREE: typeof import('three');
       try {
         THREE = await import('three');
@@ -425,26 +448,21 @@ export function Globe({
       scene.add(globe);
 
       /* ---------- Sphere ---------- */
-      const hiRes = stage.clientWidth * dpr() > 1100;
-      const loader = new THREE.TextureLoader();
-      let landTex: import('three').Texture;
-      let shelfTex: import('three').Texture;
+      let landImg: HTMLImageElement;
+      let shelfImg: HTMLImageElement;
       try {
-        [landTex, shelfTex] = await Promise.all([
-          loader.loadAsync(`/images/globe-land-${hiRes ? 4096 : 2048}.webp`),
-          loader.loadAsync('/images/globe-shelf.webp'),
-        ]);
+        [landImg, shelfImg] = await textures;
       } catch {
         renderer.dispose();
         onFail?.();
         return;
       }
       if (disposed) {
-        landTex.dispose();
-        shelfTex.dispose();
         renderer.dispose();
         return;
       }
+      const landTex = new THREE.Texture(landImg);
+      const shelfTex = new THREE.Texture(shelfImg);
       for (const t of [landTex, shelfTex]) {
         t.wrapS = THREE.RepeatWrapping;
         t.generateMipmaps = false;
@@ -626,8 +644,6 @@ export function Globe({
         vLat: 0,
         zoom: 0,
         dist: 0,
-        sway: reduce ? 0 : 1,
-        tSway: reduce ? 0 : 1,
       };
       let W = 1;
       let H = 1;
@@ -674,19 +690,16 @@ export function Globe({
             const lon = Math.atan2(mid.x, mid.z) / DEG;
             turnTo(lon, lat * 0.85);
           }
-          view.tSway = 0;
         },
         reset: () => {
           turnTo(HOME.lon, HOME.lat);
           view.zoom = 0;
-          view.tSway = reduce ? 0 : 1;
         },
         zoom: (step) => {
           view.zoom = Math.min(Math.max(view.zoom + step, 0), FILLS.length - 1);
         },
         nudge: (dLon, dLat) => {
           turnTo(view.tLon + dLon, view.tLat + dLat);
-          view.tSway = 0;
         },
       };
 
@@ -723,10 +736,7 @@ export function Globe({
         lastMove = now;
         view.vLon = (-dx * k) / dt;
         view.vLat = drag.touch ? 0 : (dy * k) / dt;
-        if (drag.moved > 4) {
-          view.tSway = 0;
-          live.current.onInteract?.();
-        }
+        if (drag.moved > 4) live.current.onInteract?.();
       };
       const onUp = (e: PointerEvent) => {
         if (!drag || e.pointerId !== drag.id) return;
@@ -779,6 +789,7 @@ export function Globe({
 
       /* ---------- Loop ---------- */
       let raf = 0;
+      let announced = false;
       let last = performance.now();
       let clock = 0;
       const p = new THREE.Vector3();
@@ -812,15 +823,11 @@ export function Globe({
         const k = 1 - Math.exp(-dt * (drag ? 18 : 5));
         view.lon += (view.tLon - view.lon) * k;
         view.lat += (view.tLat - view.lat) * k;
-        view.sway += (view.tSway - view.sway) * (1 - Math.exp(-dt * 1.5));
         const tDist = distFor(view.zoom);
         view.dist += (tDist - view.dist) * (1 - Math.exp(-dt * 5));
 
-        // Before anyone touches it, the globe breathes a few degrees either
-        // side of Dubai so it reads as an object rather than a picture.
-        const lon = view.lon + Math.sin(clock * 0.16) * 6 * view.sway;
         globe.rotation.x = view.lat * DEG;
-        globe.rotation.y = -lon * DEG;
+        globe.rotation.y = -view.lon * DEG;
 
         // On a portrait stage the globe is centred in the top square, which
         // leaves the band beneath it to the controls.
@@ -861,6 +868,10 @@ export function Globe({
         }
 
         renderer.render(scene, camera);
+        if (!announced && introAt >= 0) {
+          announced = true;
+          live.current.onReady?.();
+        }
 
         // Labels follow their markers and fade as they turn to the limb.
         globe.updateMatrixWorld();
@@ -889,6 +900,7 @@ export function Globe({
         raf = requestAnimationFrame(tick);
       };
       schedule();
+      live.current.onBuilt?.();
 
       cleanup = () => {
         cancelAnimationFrame(raf);

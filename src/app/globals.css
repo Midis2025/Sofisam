@@ -654,6 +654,7 @@
   }
 
   .media > img,
+  .media > picture > img,
   .media > video {
     display: block;
     width: 100%;
@@ -673,20 +674,24 @@
     transform: scale(1.08);
   }
 
-  .media-zoom > img {
+  .media-zoom > img,
+  .media-zoom > picture > img {
     transform: scale(1.0001);
     transition: transform 1.1s var(--ease);
     will-change: transform;
   }
 
   .group:hover .media-zoom > img,
-  .group:focus-visible .media-zoom > img {
+  .group:hover .media-zoom > picture > img,
+  .group:focus-visible .media-zoom > img,
+  .group:focus-visible .media-zoom > picture > img {
     transform: scale(1.055);
   }
 
   /* Architectural photography on a ground this dark needs its
      highlights pulled back or it floats off the page. */
-  .media-graded > img {
+  .media-graded > img,
+  .media-graded > picture > img {
     filter: var(--media-grade);
   }
 
@@ -1865,8 +1870,91 @@ html.theme-switching *::after {
     0 0 10px var(--plate);
 }
 
+/* The square the globe is drawn in: the whole height of a landscape
+   stage, centred, or the top square of a portrait one — where Globe
+   places the sphere. The loading outline and the fallback still are
+   both set in it, so each sits exactly where the globe will be. */
+.globe-loading,
+.globe-fallback {
+  container-type: size;
+}
+
+.globe-square {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(100cqw, 100cqh);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+}
+
+/* The globe's outline at its opening size (77.6% of the square), in a
+   single gold hairline that breathes while the scene is prepared. */
+.globe-loading__ring {
+  position: absolute;
+  inset: 11.2%;
+  border: 1px solid var(--line-gold);
+  border-radius: 50%;
+  animation: globe-wait 2.8s ease-in-out infinite;
+}
+
+.globe-loading__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@keyframes globe-wait {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-loading__ring {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
 /* Grain exists to stop a large flat black from banding. On an ivory
    ground there is nothing to band, and the noise only reads as dust. */
 :root:not([data-theme='dark']) .grain:not(.tone-dark)::before {
   display: none;
+}
+
+/* ============================================================
+   HERO HEADLINE FALLBACK
+   ------------------------------------------------------------
+   next/font gives Newsreader one metric-matched fallback for the
+   whole site. At the masthead's light weight it still sets about
+   6.5% wider than Newsreader (measured: 0.935), enough to break the
+   headline onto a third line on a phone while the font is in
+   flight; the swap then pulled the whole masthead up by a line —
+   the page's one large layout shift on a slow connection. This
+   face is the same Times New Roman fallback scaled to the light
+   weight's width (105.48% × 0.935), with the vertical overrides
+   divided back so the line box is unchanged. Only the masthead
+   headline uses it; once Newsreader arrives it is never seen.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Newsreader Light Fallback';
+  src: local('Times New Roman');
+  size-adjust: 98.6%;
+  ascent-override: 74.54%;
+  descent-override: 26.87%;
+  line-gap-override: 0%;
+}
+
+.hero-headline {
+  font-family: Newsreader, 'Newsreader Light Fallback', Georgia, serif;
 }

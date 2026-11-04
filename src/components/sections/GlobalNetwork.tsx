@@ -1,18 +1,22 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Minus, Move, Plus, RotateCcw } from 'lucide-react';
 
 import type { GlobeHandle, GlobeHub } from '@/components/ui/Globe';
 import { useTheme } from '@/lib/theme';
+import { loadGlobeTextures } from '@/lib/globe-assets';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// Three.js and the land texture load only when the section is close to view.
-const Globe = dynamic(() => import('@/components/ui/Globe').then((m) => m.Globe), { ssr: false });
+// The globe's code, three.js and the land textures load only when the
+// section is approaching, never with the page. One shared loader, so warming
+// it early and mounting it later fetch the same chunks once.
+const loadGlobe = () => import('@/components/ui/Globe');
+const Globe = dynamic(() => loadGlobe().then((m) => m.Globe), { ssr: false });
 
 type Hub = GlobeHub & { tier: string };
 
@@ -36,13 +40,42 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
   const reduce = useReducedMotion() ?? false;
   const theme = useTheme();
   const stage = useRef<HTMLDivElement>(null);
-  // Mounted a screen ahead, so the texture is in hand by the time it is seen.
-  const near = useInView(stage, { once: true, margin: '600px 0px' });
+  // Two distances. Well ahead of the stage, only the network: the globe's
+  // code, three.js and its textures start downloading, together. Closer in,
+  // the globe mounts and builds its scene, so the GPU work is spent only on
+  // a visitor who is actually arriving at it — and by then the assets are
+  // in hand, so it is drawing by the time the stage is in view.
+  const approaching = useInView(stage, { once: true, margin: '1600px 0px' });
+  const near = useInView(stage, { once: true, margin: '700px 0px' });
+  const [built, setBuilt] = useState(false);
+  const [ready, setReady] = useState(false);
   const globe = useRef<GlobeHandle | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const [zoom, setZoom] = useState(0);
   const [touched, setTouched] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  // No WebGL at all: go straight to the still rather than downloading a
+  // renderer that cannot run. Runs on mount, before the stage can be near.
+  useEffect(() => {
+    try {
+      const c = document.createElement('canvas');
+      const gl = c.getContext('webgl2') || c.getContext('webgl');
+      if (!gl) setFailed(true);
+      // Hand the probe's context straight back rather than leaving it to
+      // count against the browser's limit until it is collected.
+      else gl.getExtension('WEBGL_lose_context')?.loseContext();
+    } catch {
+      setFailed(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!approaching || failed || !stage.current) return;
+    void loadGlobe().catch(() => {});
+    void import('three').catch(() => {});
+    loadGlobeTextures(stage.current.clientWidth).catch(() => {});
+  }, [approaching, failed]);
 
   // The globe reads this through a ref on every frame, so a fresh closure
   // per render is harmless.
@@ -186,6 +219,7 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
             aria-label="Globe centred on the SOFISAM headquarters in Dubai, with arcs to London, New York, Geneva, Riyadh, Abu Dhabi, Singapore and Hong Kong. Use the arrow keys to turn it, plus and minus to zoom, and Home to return to Dubai."
             tabIndex={0}
             onKeyDown={onKey}
+            aria-busy={!built && !failed}
             className="globe-stage order-2 relative aspect-[10/11] w-full outline-offset-[-3px] sm:aspect-[4/3] lg:order-2 lg:col-span-8 lg:aspect-auto lg:h-[clamp(34rem,44vw,50rem)]"
           >
             {near && !failed && (
@@ -194,6 +228,8 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
                 active={active}
                 onSelect={select}
                 onInteract={() => setTouched(true)}
+                onBuilt={() => setBuilt(true)}
+                onReady={() => setReady(true)}
                 onFail={() => setFailed(true)}
                 theme={theme}
                 reduce={reduce}
@@ -201,12 +237,52 @@ export function GlobalNetwork({ lead, note }: { lead: string; note: string }) {
               />
             )}
 
+            {/* Loading: the stage already holds its final size; until the
+                first frame is drawn it shows the globe's own outline, which
+                the globe then fades in over. */}
+            {!failed && (
+              <div
+                aria-hidden
+                className={`globe-loading pointer-events-none absolute inset-0 transition-opacity duration-700 ease-premium ${
+                  ready ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
+                <div className="globe-square">
+                  <span className="globe-loading__ring" />
+                  <span
+                    className={`globe-loading__label transition-opacity duration-500 ${built ? 'opacity-0' : 'opacity-100'}`}
+                  >
+                    <span className="t-label text-gold">Global Reach</span>
+                    <span className="mt-1.5 block text-[0.625rem] uppercase tracking-[0.18em] text-[var(--stone)]">
+                      Loading
+                    </span>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Without WebGL, or if the globe cannot start: the same globe as
+                a still, in the same place, and the centres in words. */}
             {failed && (
-              <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                <p className="max-w-[30ch] t-body text-[var(--sage)]">
-                  Headquartered in Dubai, with relationships across London, New York, Geneva, Riyadh, Abu
-                  Dhabi, Singapore and Hong Kong.
-                </p>
+              <div className="globe-fallback absolute inset-0">
+                <div className="globe-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/images/globe-still-${theme}.webp`}
+                    alt=""
+                    width={1200}
+                    height={1200}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </div>
+                <div className="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-[var(--plate)] via-[var(--plate)]/90 to-transparent px-5 pb-5 pt-12 text-center sm:px-8 sm:pb-8">
+                  <p className="globe-label max-w-[44ch] t-small text-[var(--sage)]">
+                    Headquartered in Dubai, with relationships across London, New York, Geneva, Riyadh, Abu
+                    Dhabi, Singapore and Hong Kong.
+                  </p>
+                </div>
               </div>
             )}
 

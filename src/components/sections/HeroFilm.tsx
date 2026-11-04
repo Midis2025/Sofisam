@@ -32,6 +32,12 @@ const DISSOLVE = 1.2;
  * server cannot know: reduced motion, data-saver, or a 2g/3g link all mean the
  * poster, since several megabytes of film on a constrained connection is not
  * a background, it is a download.
+ *
+ * And not before the page itself is in: the film is requested only once the
+ * window has loaded and the main thread is idle, so its megabytes never queue
+ * ahead of the poster, the fonts or the first photographs. The poster is the
+ * film's own first frame and the film fades in over it, so the wait is never
+ * seen.
  */
 function useWantsFilm() {
   const [wants, setWants] = useState(false);
@@ -43,7 +49,24 @@ function useWantsFilm() {
     ).connection;
     if (conn?.saveData) return;
     if (conn?.effectiveType && /(^|-)(2g|3g)$/.test(conn.effectiveType)) return;
-    setWants(true);
+
+    let idle = 0;
+    let timer = 0;
+    const start = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        idle = window.requestIdleCallback(() => setWants(true), { timeout: 1500 });
+      } else {
+        timer = window.setTimeout(() => setWants(true), 200);
+      }
+    };
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
+
+    return () => {
+      window.removeEventListener('load', start);
+      if (idle) window.cancelIdleCallback(idle);
+      if (timer) window.clearTimeout(timer);
+    };
   }, []);
 
   return wants;

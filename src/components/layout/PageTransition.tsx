@@ -18,16 +18,18 @@ export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
 
-  if (reduce) return <>{children}</>;
-
+  // The same element is rendered whether or not motion is reduced, and only
+  // its motion is switched off. The server cannot know the preference, so a
+  // different tree for reduced motion failed hydration on every page: React
+  // threw the server HTML away and rebuilt the whole page on the client.
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduce ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.55, ease: EASE }}
+        exit={reduce ? undefined : { opacity: 0, y: -10 }}
+        transition={reduce ? { duration: 0 } : { duration: 0.55, ease: EASE }}
       >
         {children}
       </motion.div>

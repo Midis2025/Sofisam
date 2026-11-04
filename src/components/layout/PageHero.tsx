@@ -72,7 +72,10 @@ export function PageHero({
   const plate = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({ target: plate, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
+  // Under reduced motion the plate holds still at its centre. The same
+  // element and style are rendered either way, so the markup matches the
+  // server's and hydration never has to throw the page away.
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-5%', '5%']);
 
   const plateH =
     size === 'tall' ? 'h-[clamp(18rem,56vh,40rem)]' : 'h-[clamp(16rem,46vh,34rem)]';
@@ -158,7 +161,7 @@ export function PageHero({
           animate={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 6px)' }}
           transition={{ duration: 1.3, ease: EASE, delay: d + 0.2 }}
         >
-          <motion.div className="absolute inset-x-0 -inset-y-[6%]" style={reduce ? undefined : { y }}>
+          <motion.div className="absolute inset-x-0 -inset-y-[6%]" style={{ y }}>
             <Picture
               name={image}
               alt={imageAlt}

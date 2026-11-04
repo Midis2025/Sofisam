@@ -78,7 +78,7 @@ export function Hero() {
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, ease: EASE, delay: 0.12 }}
-              className="mt-4 sm:mt-5 font-display text-[clamp(2.85rem,5.2vw,5.75rem)] font-light text-white leading-[0.98] sm:leading-[1.02] tracking-[-0.024em] max-w-[820px]"
+              className="hero-headline mt-4 sm:mt-5 font-display text-[clamp(2.85rem,5.2vw,5.75rem)] font-light text-white leading-[0.98] sm:leading-[1.02] tracking-[-0.024em] max-w-[820px]"
             >
               Strategic clarity<br className="hidden sm:inline" /> for a changing world.
             </motion.h1>

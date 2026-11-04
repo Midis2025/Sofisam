@@ -27,5 +27,10 @@ export function Preloader() {
 /**
  * Runs before first paint. Kept as a string so it can be inlined into the
  * document head without a hydration boundary.
+ *
+ * The curtain is no longer rendered, so the page is never marked as waiting
+ * for it: a `pending` mark held the page's scroll locked and its heroes back
+ * for up to four seconds on every first visit, behind a curtain that was not
+ * there.
  */
-export const preloadInitScript = `(function(){var d=document.documentElement;try{d.dataset.preload=sessionStorage.getItem('sofisam:intro')?'done':'pending';}catch(e){d.dataset.preload='pending';}if(d.dataset.preload==='pending'){setTimeout(function(){if(d.dataset.preload==='pending'){d.dataset.preload='done';d.classList.add('preload-timeout');}},4000);}})();`;
+export const preloadInitScript = `document.documentElement.dataset.preload='done';`;
