@@ -7,7 +7,6 @@ import { contact, copyright, site } from '@/data/site';
 import { services } from '@/data/services';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
-import { BackToTop } from './BackToTop';
 import { useEnquiryModal } from '@/context/EnquiryModalContext';
 
 const YEAR = new Date().getFullYear();
@@ -206,7 +205,6 @@ export function Footer() {
           <p>© {YEAR} {copyright}</p>
           <div className="flex items-center gap-6">
             <span>Dubai, United Arab Emirates</span>
-            <BackToTop className="text-[var(--ivory-2)] hover:text-[var(--gold)] transition-colors text-xs uppercase tracking-wider font-medium" />
           </div>
         </div>
       </div>
