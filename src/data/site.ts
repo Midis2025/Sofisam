@@ -26,6 +26,7 @@ export const contact = {
   address: {
     line1: 'DMCC Business Centre, Jewellery & Gemplex 3',
     line2: 'Jumeirah Lake Towers, Dubai 500001, UAE',
+    poBox: 'PO Box 334355',
     locality: 'Dubai',
     region: 'Dubai',
     postalCode: '500001',

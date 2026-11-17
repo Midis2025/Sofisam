@@ -167,6 +167,7 @@ export function Footer() {
               <p className="font-medium text-[var(--ivory)]">SOFISAM FZCO</p>
               <p>{contact.address.line1}</p>
               <p>{contact.address.line2}</p>
+              <p>{contact.address.poBox}</p>
             </address>
             <a
               href={mapHref}

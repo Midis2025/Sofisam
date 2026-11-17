@@ -350,6 +350,8 @@ export default function AboutPage() {
                   {contact.address.line1}
                   <br />
                   {contact.address.line2}
+                  <br />
+                  {contact.address.poBox}
                 </address>
               </div>
 

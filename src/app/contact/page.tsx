@@ -98,6 +98,8 @@ export default function ContactPage() {
                       {contact.address.line1}
                       <br />
                       {contact.address.line2}
+                      <br />
+                      {contact.address.poBox}
                     </address>
                   </div>
                 </div>
@@ -159,6 +161,7 @@ export default function ContactPage() {
                     { k: 'Complex', v: 'Jewellery & Gemplex 3' },
                     { k: 'District', v: 'Jumeirah Lake Towers (JLT)' },
                     { k: 'City & State', v: 'Dubai, UAE' },
+                    { k: 'PO Box', v: contact.address.poBox },
                     { k: 'Telephone', v: contact.phone, href: `tel:${contact.phoneHref}` },
                     { k: 'Email', v: contact.email, href: `mailto:${contact.email}` },
                   ].map((row) => (

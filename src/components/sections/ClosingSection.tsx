@@ -411,6 +411,8 @@ export function ClosingSection({ lines, body }: ClosingSectionProps = {}) {
                   {contact.address.line1}
                   <br />
                   {contact.address.line2}
+                  <br />
+                  {contact.address.poBox}
                 </address>
               </dd>
             </div>
