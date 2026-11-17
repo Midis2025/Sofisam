@@ -28,6 +28,11 @@ export interface PictureProps {
   decorative?: boolean;
 }
 
+/** The 20px placeholder of an asset, for surfaces that want a wash of it. */
+export function pictureBlur(name: string): string | undefined {
+  return meta[name]?.blur;
+}
+
 function srcFor(name: string, width: number, ext: 'webp' | 'avif' = 'webp') {
   return `/images/${name}-${width}.${ext}`;
 }
