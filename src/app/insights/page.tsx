@@ -8,6 +8,7 @@ import { ClosingSection } from '@/components/sections/ClosingSection';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { insights, featuredInsight, secondaryInsights } from '@/data/insights';
 import { insightsIntro } from '@/data/site';
+import { listingImage } from '@/data/insights-listing-images';
 
 export const metadata: Metadata = {
   title: 'Strategic Insights & Perspectives',
@@ -23,6 +24,16 @@ export const metadata: Metadata = {
 };
 
 const categories = Array.from(new Set(insights.map((i) => i.category)));
+
+/** This page's own photograph for a card, falling back to the entry's image. */
+const cardImage = (item: (typeof insights)[number]) => {
+  const own = listingImage(item.slug);
+  return own
+    ? { image: own.image, alt: own.alt, focal: own.focal }
+    : { image: item.image, alt: item.imageAlt, focal: item.focal };
+};
+
+const featuredImage = cardImage(featuredInsight);
 
 export default function InsightsPage() {
   return (
@@ -112,10 +123,11 @@ export default function InsightsPage() {
                     the editorial column's height rather than its own. */}
                 <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:min-h-[22rem] overflow-hidden bg-[var(--graphite)] order-2">
                   <Picture
-                    name={featuredInsight.image}
-                    alt={featuredInsight.imageAlt}
+                    name={featuredImage.image}
+                    alt={featuredImage.alt}
                     sizes="(min-width: 1024px) 60vw, 100vw"
-                    focal={featuredInsight.focal}
+                    focal={featuredImage.focal}
+                    priority
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
@@ -140,7 +152,7 @@ export default function InsightsPage() {
 
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
             {secondaryInsights.map((item, i) => (
-              <InsightCard key={item.slug} item={item} delay={i * 0.08} />
+              <InsightCard key={item.slug} item={item} delay={i * 0.08} media={cardImage(item)} />
             ))}
           </div>
         </div>

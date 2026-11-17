@@ -498,6 +498,44 @@
     "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABwBACdASoUAA0APrVInkmnJCKhMAgA4BaJYgCdEf/gPFDq8vpmhC/gmBS/gAD+5AWNHMYDwjb/7zjHBNGeb8LjQIYxVqKZXrK+dajILLghlC/Oe229N+WMl2s7E+98eJIEb71MuwgDSN4/da8oITstPw7rNfwga+fSGaXAAAA=",
     "avif": true
   },
+  "insights-corporate-advisory-dubai": {
+    "w": 3200,
+    "h": 2275,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAA4APrVInkmnJCKhMAgA4BaJQBOgBDuOg8Z0q4ZVi46AAP7NP9Eo8TXxUCxqGqHge/dRLMpTEkN0EflSVRfODt4tGgfZPrF0d/d8xAAnF6s9oOwDS2vCiE6qnBgPyf4U+yjwAAA="
+  },
+  "insights-family-office-structuring": {
+    "w": 3200,
+    "h": 2133,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABQBACdASoUAA0APrVInkmnJCKhMAgA4BaJZwC7Ef/gNoy99m5Cu9iUrAAAAPz99M81lIO4KwbVmkuVNeZbf5Ft1cUpXrUOwVD71XtZuEiRsDetq+4sjhWOsQWrfIz7S3CmNXYDd5EpfHQDWkwkWNCiHf3/kV/OPCe9h6Xp3H+pluVSXAKXbxGi+fdlWmH8Gck75v5q+bBiKo8Z6Hj1xlaAAAA=",
+    "avif": true
+  },
+  "insights-global-markets-2026": {
+    "w": 3200,
+    "h": 2400,
+    "variants": [
+      640,
+      1080,
+      1600,
+      2200,
+      3200
+    ],
+    "blur": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAwCdASoUAA8APrVKnkonJCKhsAgA4BaJYwCdACKUEcoFiPuYgAD+qb3GfOZ6UoUyTaviGHvoWlH2tNVSFBULeo0EEEmUkHKQR9XnBrXpM1pv/0n9kJCdIQ7kLEAA",
+    "avif": true
+  },
   "jlt-dusk": {
     "w": 3200,
     "h": 2154,
