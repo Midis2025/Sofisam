@@ -205,7 +205,7 @@ export function ProcessNarrative() {
 
         {/* Mobile / Tablet Vertical Stepper (< lg) */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:hidden">
-          {steps.map((s) => (
+          {steps.map((s, i) => (
             <div
               key={s.step}
               className="group p-6 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--plate)] shadow-[var(--shadow-pill)] sm:last:odd:col-span-2 flex flex-col justify-between"
@@ -233,7 +233,12 @@ export function ProcessNarrative() {
                 <Picture
                   name={s.image}
                   alt={s.imageAlt}
-                  sizes="(min-width: 640px) 50vw, 100vw"
+                  // The last card spans both columns when the count is odd.
+                  sizes={
+                    i === steps.length - 1 && steps.length % 2 === 1
+                      ? '100vw'
+                      : '(min-width: 640px) 50vw, 100vw'
+                  }
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
