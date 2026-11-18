@@ -37,6 +37,12 @@ interface PageHeroProps {
   children?: ReactNode;
   /** A deeper frame for the three service pages. */
   size?: 'tall' | 'standard';
+  /**
+   * Frame classes for the photograph, in place of the fixed heights above —
+   * an aspect ratio per breakpoint, for a page whose photograph should be
+   * shown in proportion rather than as a band. Off unless a page passes it.
+   */
+  frame?: string;
 }
 
 /**
@@ -65,6 +71,7 @@ export function PageHero({
   crumbs,
   children,
   size = 'standard',
+  frame,
 }: PageHeroProps) {
   const reduce = useReducedMotion();
   const d = useIntroDelay(0.55, 0.05);
@@ -78,7 +85,8 @@ export function PageHero({
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-5%', '5%']);
 
   const plateH =
-    size === 'tall' ? 'h-[clamp(18rem,56vh,40rem)]' : 'h-[clamp(16rem,46vh,34rem)]';
+    frame ??
+    (size === 'tall' ? 'h-[clamp(18rem,56vh,40rem)]' : 'h-[clamp(16rem,46vh,34rem)]');
 
   return (
     <section
