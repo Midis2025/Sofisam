@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/Button';
 import { submitPrivateEnquiry, type EnquiryPayload } from '@/lib/forms';
 
 const AREAS_OF_INTEREST = [
-  'Strategic Consulting',
-  'Advisory',
-  'Structuring',
-  'Investment / Mandate',
+  'Strategic Advisory',
+  'Investor Relations',
+  'Corporate Restructuring',
+  'GCC / International Expansion',
+  'Strategic Partnerships',
   'Other',
 ];
 
@@ -38,7 +39,7 @@ export function EnquiryModal() {
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [areaOfInterest, setAreaOfInterest] = useState('Strategic Consulting');
+  const [areaOfInterest, setAreaOfInterest] = useState('Strategic Advisory');
   const [requirement, setRequirement] = useState('');
 
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -52,8 +53,14 @@ export function EnquiryModal() {
     if (isOpen) {
       if (initialArea && AREAS_OF_INTEREST.includes(initialArea)) {
         setAreaOfInterest(initialArea);
-      } else if (initialArea === 'Corporate Advisory') {
-        setAreaOfInterest('Advisory');
+      } else if (initialArea === 'Corporate Advisory' || initialArea === 'Advisory' || initialArea === 'Strategic Consulting') {
+        setAreaOfInterest('Strategic Advisory');
+      } else if (initialArea === 'Structuring') {
+        setAreaOfInterest('Corporate Restructuring');
+      } else if (initialArea === 'Investment / Mandate') {
+        setAreaOfInterest('Strategic Advisory');
+      } else {
+        setAreaOfInterest('Strategic Advisory');
       }
       setIsSuccess(false);
       setServerError('');
@@ -156,6 +163,7 @@ export function EnquiryModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setTouched({
       fullName: true,
       email: true,

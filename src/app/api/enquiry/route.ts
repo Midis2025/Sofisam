@@ -63,10 +63,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Forward to external endpoint if configured
+    // Forward to external endpoint
+    const backendUrl =
+      process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sofisam-backend.vercel.app';
     const externalEndpoint =
-      process.env.CONTACT_ENDPOINT || process.env.NEXT_PUBLIC_CONTACT_ENDPOINT;
+      process.env.NEXT_PUBLIC_PRIVATE_ENQUIRY_ENDPOINT ||
+      process.env.CONTACT_ENDPOINT ||
+      `${backendUrl}/api/public/enquiries/private`;
 
+    let upstreamData: { success?: boolean; enquiryReference?: string; message?: string } | null = null;
     if (externalEndpoint) {
       try {
         const upstream = await fetch(externalEndpoint, {
@@ -75,13 +80,18 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             name: fullName,
             email,
+            organisation: company,
             company,
             phone,
+            area: areaOfInterest,
             areaOfInterest,
             message: requirement,
-            timestamp: new Date().toISOString(),
+            sourcePage: 'https://sofisam-seven.vercel.app/',
+            _hp: '',
           }),
         });
+
+        upstreamData = await upstream.json().catch(() => null);
 
         if (!upstream.ok) {
           console.warn('[Enquiry API] Upstream returned status:', upstream.status);

@@ -118,6 +118,7 @@ export function ClosingSection({ lines, body }: ClosingSectionProps = {}) {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (status === 'loading') return;
     setTouched({ name: true, email: true, organisation: true, area: true, message: true });
     setFormMessage('');
 

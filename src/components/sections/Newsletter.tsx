@@ -30,6 +30,7 @@ export function useNewsletter() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (state === 'loading') return;
     const value = email.trim();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {

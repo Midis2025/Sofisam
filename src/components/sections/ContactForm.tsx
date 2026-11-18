@@ -68,6 +68,7 @@ export function ContactForm() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === 'loading') return;
     setSubmitted(true);
 
     if (Object.keys(errors).length > 0) {
